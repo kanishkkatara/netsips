@@ -22,7 +22,7 @@ for i in range(len(url)):
     authors.append(article.authors)
     publish_date.append(article.publish_date)
     text.append(article.text)
-    images.append(article.images)
+    images.append(article.top_image)
     movies.append(article.movies)
     keywords.append(article.keywords)
     summary.append(article.summary)
@@ -40,8 +40,12 @@ with tag('html'):
             with tag('p',style="color:#1E90FF"):
                 text(str(summary[i]))
             with tag('p'):
+                with tag('center'):
+                    doc.stag('img', src=images[i], klass="photo")
+            with tag('p'):
                 text('Read the full article here : ',str(url[i]))
 print(doc.getvalue())
+
 '''
 t=list()
 for i in range(len(url)):
