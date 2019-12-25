@@ -1,6 +1,5 @@
 import sys
 from newspaper import Article
-
 url=list()
 url.append('https://yourstory.com/socialstory/2019/12/india-top-10-nations-climate-change-performance-index?utm_pageloadtype=scroll')
 url.append('https://www.businessinsider.in/politics/news/trump-slams-fox-news-for-interviewing-comey-and-schiff-stating-only-pro-trump-shows-do-well-on-the-channel/articleshow/72650072.cms')
@@ -13,7 +12,6 @@ images=list()
 movies=list()
 keywords=list()
 summary=list()
-
 for i in range(len(url)):
     u=url[i]
     article = Article(u)
@@ -28,6 +26,7 @@ for i in range(len(url)):
     movies.append(article.movies)
     keywords.append(article.keywords)
     summary.append(article.summary)
+
 from yattag import Doc
 doc, tag, text = Doc().tagtext()
 username='kanishk'
@@ -62,15 +61,37 @@ for i in range(len(url)):
     '''
 '''
 import smtplib
-fromaddr = 'kanishkkatara@gmail.com'
+fromaddr = 'anishasrivastava53@gmail.com'
 toaddrs  = 'sayansahay11@gmail.com'
-msg = 
+msg = doc.getvalue()
 server = smtplib.SMTP("smtp.gmail.com:587")
 server.starttls()
-server.login(username,password)
+server.login('anishasrivastava53@gmail.com','smilemiddle#1')
 server.sendmail(fromaddr, toaddrs, msg)
 server.quit()
-
-
 '''
 
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+def py_mail(SUBJECT, BODY, TO, FROM):
+    MESSAGE = MIMEMultipart('alternative')
+    MESSAGE['subject'] = SUBJECT
+    MESSAGE['To'] = TO
+    MESSAGE['From'] = FROM
+    MESSAGE.preamble = """"""
+    HTML_BODY = MIMEText(BODY, 'html')
+    MESSAGE.attach(HTML_BODY)
+    server = smtplib.SMTP('smtp.gmail.com:587') 
+    if __name__ == "__main__":
+        server.set_debuglevel(1)
+    password = 'smilemiddle#1'
+    server.starttls()
+    server.login(FROM,password)
+    server.sendmail(FROM, [TO], MESSAGE.as_string())
+    server.quit()
+if __name__ == "__main__": 
+    email_content = doc.getvalue() 
+    TO = 'kanishkkatara@gmail.com'
+    FROM ='anishasrivastava53@gmail.com' 
+    py_mail("Netsips daily update", email_content, TO, FROM)
