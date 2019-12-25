@@ -31,13 +31,13 @@ from yattag import Doc
 doc, tag, text = Doc().tagtext()
 username='kanishk'
 with tag('html'):
-    with tag('body'):
-        with tag('h1'):
-            text('NETSIPS')
+    with tag('body', style="font-family:verdana;"):
+        with tag('center'):
+            doc.stag('img', src='https://drive.google.com/uc?id=1UuFEBJAGaIthahsTfZ0SJCO6ZN56dHXL', style="width:300px;height:150px;", klass="photo")
         for i in range(len(url)):
-            with tag('h2'):
+            with tag('h2',style="color:black"):
                 text(str(title[i]))
-            with tag('p'):
+            with tag('p',style="color:#1E90FF"):
                 text(str(summary[i]))
             with tag('p'):
                 text('Read the full article here : ',str(url[i]))
@@ -92,6 +92,6 @@ def py_mail(SUBJECT, BODY, TO, FROM):
     server.quit()
 if __name__ == "__main__": 
     email_content = doc.getvalue() 
-    TO = 'kanishkkatara@gmail.com'
+    TO = 'sayansahay11@gmail.com'
     FROM ='anishasrivastava53@gmail.com' 
-    py_mail("Netsips daily update", email_content, TO, FROM)
+    py_mail("Netsips daily mail", email_content, TO, FROM)
