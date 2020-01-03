@@ -4,6 +4,8 @@ url=list()
 url.append('https://yourstory.com/socialstory/2019/12/india-top-10-nations-climate-change-performance-index?utm_pageloadtype=scroll')
 url.append('https://www.businessinsider.in/politics/news/trump-slams-fox-news-for-interviewing-comey-and-schiff-stating-only-pro-trump-shows-do-well-on-the-channel/articleshow/72650072.cms')
 url.append('https://timesofindia.indiatimes.com/india/will-tweak-citizenship-amendment-act-if-needed-says-amit-shah/articleshow/72642452.cms')
+url.append('https://pythonprogramming.net/tokenizing-words-sentences-nltk-tutorial/')
+url.append('https://youtu.be/4uY4Pz0SuaM')
 title=list()
 authors=list()
 publish_date=list()
@@ -33,47 +35,35 @@ username='kanishk'
 with tag('html'):
     with tag('body', style="font-family:verdana;"):
         with tag('center'):
-            doc.stag('img', src='https://drive.google.com/uc?id=1UuFEBJAGaIthahsTfZ0SJCO6ZN56dHXL', style="width:300px;height:150px;", klass="photo")
+            doc.stag('img', src='https://drive.google.com/uc?id=1UuFEBJAGaIthahsTfZ0SJCO6ZN56dHXL', style="width:350px;height:150px;", klass="photo")
         for i in range(len(url)):
             with tag('h2',style="color:black"):
                 text(str(title[i]))
-            with tag('p',style="color:#1E90FF"):
+            with tag('p',style="color:rgb(5, 78, 107)"):
                 text(str(summary[i]))
             with tag('p'):
                 with tag('center'):
                     doc.stag('img', src=images[i], klass="photo")
+            # if(len(movies[i])>0):
+            #     with tag('p'):
+            #         with tag('center'):
+            #             with tag("iframe", src=movies[i][0]):
+            #                 text(' ')
             with tag('p'):
                 text('Read the full article here : ',str(url[i]))
-print(doc.getvalue())
-
-'''
-t=list()
-for i in range(len(url)):
-    t.append(str(title[i])+'\n'+str(summary[i])+'\n'+'Read the full article here : '+str(url[i])+'\n')
-    print(t[i])
-'''
-'''
-for i in range(len(url)):
-    print(title[i])
-    print()
-    print(summary[i])
-    print()
-    print ('Read the full article here : '+url[i])
-    print()
-    print('-------------------------------------------------------------------------------------------------------')
-    print()
-    '''
-'''
-import smtplib
-fromaddr = 'anishasrivastava53@gmail.com'
-toaddrs  = 'sayansahay11@gmail.com'
-msg = doc.getvalue()
-server = smtplib.SMTP("smtp.gmail.com:587")
-server.starttls()
-server.login('anishasrivastava53@gmail.com','smilemiddle#1')
-server.sendmail(fromaddr, toaddrs, msg)
-server.quit()
-'''
+        with tag('center'):
+            with tag('p', style="font-size:12px"):
+                text('NETSIPS India pvt. ltd. | www.netsips.in | care.netsips@gmail.com | Technology and Business Incubator, BITS Pilani Hyderabad Campus, Shameerpet, Jawaharnagar, Hyderabad, 500078')
+                doc.stag('br')
+                text('You are recieving this mail because you are registered on Netsips.in with this email address. If you wish to opt out of these mails, ')
+                with tag('a', href=""):
+                    text('click here')
+                doc.stag('br')
+                text('Read our ')
+                with tag('a', href="http://www.netsips.in/terms-conditions.html"):
+                    text('Terms & Conditions,')
+                with tag('a', href="http://www.netsips.in/privacy-policy.html"):
+                    text(' Privacy Policy')
 
 import smtplib
 from email.mime.multipart import MIMEMultipart
