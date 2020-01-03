@@ -5,11 +5,12 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import mysql.connector
+
 mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  passwd="",
-  database="netsips"
+    host="localhost",
+    user="root",
+    passwd="",
+    database="netsips"
 )
 mycursor = mydb.cursor()
 d=dict()
@@ -19,10 +20,11 @@ mycursor.execute("SELECT * FROM user_data")
 udata = mycursor.fetchall()
 uids=list()
 for i in range(len(logs)):
-  if logs[i][0] not in d:
-    d[logs[i][0]]=list()
-    uids.append(logs[i][0])
-  d[logs[i][0]].append(logs[i][2])
+    if logs[i][0] not in d:
+        d[logs[i][0]]=list()
+        uids.append(logs[i][0])
+    d[logs[i][0]].append(logs[i][2])
+
 for i1 in uids:
     url=d[i1]
     title=list()
@@ -82,7 +84,6 @@ for i1 in uids:
                         text('Terms & Conditions,')
                     with tag('a', href="http://www.netsips.in/privacy-policy.html"):
                         text(' Privacy Policy')
-
 
     def py_mail(SUBJECT, BODY, TO, FROM):
         MESSAGE = MIMEMultipart('alternative')
