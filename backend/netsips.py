@@ -1,81 +1,5 @@
 import sys
 from newspaper import Article
-<<<<<<< HEAD
-
-url=list()
-url.append('https://yourstory.com/socialstory/2019/12/india-top-10-nations-climate-change-performance-index?utm_pageloadtype=scroll')
-url.append('https://www.businessinsider.in/politics/news/trump-slams-fox-news-for-interviewing-comey-and-schiff-stating-only-pro-trump-shows-do-well-on-the-channel/articleshow/72650072.cms')
-url.append('https://timesofindia.indiatimes.com/india/will-tweak-citizenship-amendment-act-if-needed-says-amit-shah/articleshow/72642452.cms')
-title=list()
-authors=list()
-publish_date=list()
-text=list()
-images=list()
-movies=list()
-keywords=list()
-summary=list()
-
-for i in range(len(url)):
-    u=url[i]
-    article = Article(u)
-    article.download()
-    article.parse()
-    article.nlp()
-    title.append(article.title)
-    authors.append(article.authors)
-    publish_date.append(article.publish_date)
-    text.append(article.text)
-    images.append(article.images)
-    movies.append(article.movies)
-    keywords.append(article.keywords)
-    summary.append(article.summary)
-from yattag import Doc
-doc, tag, text = Doc().tagtext()
-username='kanishk'
-with tag('html'):
-    with tag('body'):
-        with tag('h1'):
-            text('NETSIPS')
-        for i in range(len(url)):
-            with tag('h2'):
-                text(str(title[i]))
-            with tag('p'):
-                text(str(summary[i]))
-            with tag('p'):
-                text('Read the full article here : ',str(url[i]))
-print(doc.getvalue())
-'''
-t=list()
-for i in range(len(url)):
-    t.append(str(title[i])+'\n'+str(summary[i])+'\n'+'Read the full article here : '+str(url[i])+'\n')
-    print(t[i])
-'''
-'''
-for i in range(len(url)):
-    print(title[i])
-    print()
-    print(summary[i])
-    print()
-    print ('Read the full article here : '+url[i])
-    print()
-    print('-------------------------------------------------------------------------------------------------------')
-    print()
-    '''
-'''
-import smtplib
-fromaddr = 'kanishkkatara@gmail.com'
-toaddrs  = 'sayansahay11@gmail.com'
-msg = 
-server = smtplib.SMTP("smtp.gmail.com:587")
-server.starttls()
-server.login(username,password)
-server.sendmail(fromaddr, toaddrs, msg)
-server.quit()
-
-
-'''
-
-=======
 from yattag import Doc
 import smtplib
 from email.mime.multipart import MIMEMultipart
@@ -102,6 +26,10 @@ for i in range(len(logs)):
     d[logs[i][0]].append(logs[i][2])
 
 for i1 in uids:
+    sql ="SELECT mailid FROM user_data WHERE uid = %s"
+    adr = (str(i1),)
+    mycursor.execute(sql, adr)
+    mid=mycursor.fetchall()
     url=d[i1]
     title=list()
     authors=list()
@@ -177,9 +105,9 @@ for i1 in uids:
         server.login(FROM,password)
         server.sendmail(FROM, [TO], MESSAGE.as_string())
         server.quit()
-    if __name__ == "__main__": 
-        email_content = doc.getvalue() 
-        TO = udata[i1-1][2]
-        FROM ='anishasrivastava53@gmail.com' 
-        py_mail("Netsips daily mail", email_content, TO, FROM)
->>>>>>> eb5d83ec8b597fb33bce206d74f22dce80038962
+    if udata[i1-1][3]=="Active":
+        if __name__ == "__main__": 
+            email_content = doc.getvalue() 
+            TO = str(mid[0][0])
+            FROM ='anishasrivastava53@gmail.com' 
+            py_mail("Netsips daily mail", email_content, TO, FROM)
