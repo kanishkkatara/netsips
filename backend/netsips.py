@@ -63,7 +63,7 @@ for i1 in uids:
             for i in range(len(url)):
                 with tag('h2',style="color:black"):
                     text(str(title[i]))
-                with tag('p',style="color:rgb(5, 78, 107)"):
+                with tag('p',style="color:rgb(5, 78, 107);text-align:justify;"):
                     text(str(summary[i]))
                 with tag('p'):
                     with tag('center'):
@@ -74,13 +74,14 @@ for i1 in uids:
                             with tag("iframe", src=movies[i][0]):
                                 text(' ')
                 with tag('p'):
-                    text('Read the full article here : ',str(url[i]))
+                    with tag('center'):
+                        text('Read the full article here : ',str(url[i]))
             with tag('center'):
                 with tag('p', style="font-size:12px"):
                     text('NETSIPS India pvt. ltd. | www.netsips.in | care.netsips@gmail.com | Technology and Business Incubator, BITS Pilani Hyderabad Campus, Shameerpet, Jawaharnagar, Hyderabad, 500078')
                     doc.stag('br')
                     text('You are recieving this mail because you are registered on Netsips.in with this email address. If you wish to opt out of these mails, ')
-                    with tag('a', href=""):
+                    with tag('a', href="http://www.netsips.in/unsubscribe.php"):
                         text('click here')
                     doc.stag('br')
                     text('Read our ')
