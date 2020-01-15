@@ -7,10 +7,10 @@ from email.mime.text import MIMEText
 import mysql.connector
 
 mydb = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    passwd="",
-    database="netsips"
+    host="sql12.freesqldatabase.com",
+    user="sql12318588",
+    passwd="MnYYt3EznT",
+    database="sql12318588"
 )
 mycursor = mydb.cursor()
 d=dict()
@@ -20,10 +20,10 @@ mycursor.execute("SELECT * FROM history")
 history = mycursor.fetchall()
 mails=list()
 for i in range(len(logs)):
-    if logs[i][1] not in d:
-        d[logs[i][1]]=list()
-        mails.append(logs[i][1])
-    d[logs[i][1]].append(logs[i][3])
+    if logs[i][2] not in d:
+        d[logs[i][2]]=list()
+        mails.append(logs[i][2])
+    d[logs[i][2]].append(logs[i][3])
 
 for i1 in mails:
     url=d[i1]
@@ -62,7 +62,7 @@ for i1 in mails:
         with tag('html'):
             with tag('body', style="font-family:verdana;"):
                 with tag('center'):
-                    doc.stag('img', src='https://drive.google.com/uc?id=1AOGHoiA3uwY_yVBpXQEVtoH9k1QC9aUH', style="width:350px;height:150px;", klass="photo")
+                    doc.stag('img', src='https://drive.google.com/uc?id=1UuFEBJAGaIthahsTfZ0SJCO6ZN56dHXL', style="width:350px;height:150px;", klass="photo")
                 for i in range(len(url)):
                     with tag('h2',style="color:black"):
                         text(str(title[i]))
