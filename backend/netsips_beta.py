@@ -25,7 +25,8 @@ for i in range(len(logs)):
         mails.append(logs[i][2])
     d[logs[i][2]].append(logs[i][3])
 for i1 in mails:
-    url=d[i1]
+    allurls=d[i1]
+    url=list()
     title=list()
     authors=list()
     publish_date=list()
@@ -34,13 +35,13 @@ for i1 in mails:
     movies=list()
     keywords=list()
     summary=list()
-    for i in range(len(url)):
+    for i in range(len(allurls)):
         try:
-            u=url[i]
-            article = Article(u)
+            article = Article(allurls[i])
             article.download()
             article.parse()
             article.nlp()
+            url.append(allurls[i])
             title.append(article.title)
             authors.append(article.authors)
             publish_date.append(article.publish_date)
