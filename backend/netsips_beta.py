@@ -91,7 +91,7 @@ for i1 in mails:
             server = smtplib.SMTP('smtp.gmail.com:587') 
             if __name__ == "__main__":
                 server.set_debuglevel(1)
-            password = 'smilemiddle#1'
+            password = 'netsips@01'
             server.starttls()
             server.login(FROM,password)
             server.sendmail(FROM, [TO], MESSAGE.as_string())
@@ -99,5 +99,5 @@ for i1 in mails:
         if __name__ == "__main__": 
             email_content = html
             TO = str(i1)
-            FROM ='anishasrivastava53@gmail.com' 
+            FROM ='care.netsips@gmail.com' 
             py_mail("Netsips weekly newsletter", email_content, TO, FROM)
