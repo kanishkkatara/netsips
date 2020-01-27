@@ -1,10 +1,19 @@
 import sys
 from newspaper import Article
+from gensim.summarization.summarizer import summarize
 from yattag import Doc
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import mysql.connector
+
+def sumary(text):
+    sum_list=summarize(text, word_count=100, split=True)
+    sum=''
+    for i in sum_list:
+        if(len(i.split())>4):
+            sum=sum+'‣ '+str(i)+'<br>'
+    return sum
 
 mydb = mysql.connector.connect(
     host="sql12.freesqldatabase.com",
@@ -26,6 +35,7 @@ for i in range(len(logs)):
     d[logs[i][2]].append(logs[i][3])
 for i1 in mails:
     allurls=d[i1]
+    allurls = list(dict.fromkeys(allurls))
     url=list()
     title=list()
     authors=list()
@@ -37,7 +47,7 @@ for i1 in mails:
     summary=list()
     for i in range(len(allurls)):
         try:
-            article = Article(allurls[i])
+            article = Article(str(allurls[i]))
             article.download()
             article.parse()
             article.nlp()
@@ -48,13 +58,13 @@ for i1 in mails:
             text.append(article.text)
             images.append(article.top_image)
             movies.append(article.movies)
-            keywords.append(article.keywords)
-            summary.append(article.summary)
-            sql1="INSERT INTO history (id, timestamp, email, url) SELECT id, timestamp, email, url FROM logs WHERE url='"+str(u)+"'"
-            mycursor.execute(sql1)
-            sql1 = "DELETE FROM logs WHERE url='"+str(u)+"'"
-            mycursor.execute(sql1)
-            mydb.commit()
+            # keywords.append(article.keywords)
+            summary.append(sumary(article.text))
+            # sql1="INSERT INTO history (id, timestamp, email, url) SELECT id, timestamp, email, url FROM logs WHERE url='"+str(allurls[i])+"'"
+            # mycursor.execute(sql1)
+            # sql1 = "DELETE FROM logs WHERE url='"+str(allurls[i])+"'"
+            # mycursor.execute(sql1)
+            # mydb.commit()
         except:
             continue
     if (len(title)>0):
@@ -89,4 +99,4 @@ for i1 in mails:
             email_content = html
             TO = str(i1)
             FROM ='anishasrivastava53@gmail.com' 
-            py_mail("Netsips daily mail", email_content, TO, FROM)
+            py_mail("Netsips weekly newsletter", email_content, TO, FROM)
