@@ -61,11 +61,11 @@ for i1 in mails:
             movies.append(article.movies)
             # keywords.append(article.keywords)
             summary.append(sumary(article.text))
-            # sql1="INSERT INTO history (id, timestamp, email, url) SELECT id, timestamp, email, url FROM logs WHERE url='"+str(allurls[i])+"'"
-            # mycursor.execute(sql1)
-            # sql1 = "DELETE FROM logs WHERE url='"+str(allurls[i])+"'"
-            # mycursor.execute(sql1)
-            # mydb.commit()
+            sql1="INSERT INTO history (id, timestamp, email, url) SELECT id, timestamp, email, url FROM logs WHERE url='"+str(allurls[i])+"'"
+            mycursor.execute(sql1)
+            sql1 = "DELETE FROM logs WHERE url='"+str(allurls[i])+"'"
+            mycursor.execute(sql1)
+            mydb.commit()
         except:
             continue
     if (len(title)>0):
