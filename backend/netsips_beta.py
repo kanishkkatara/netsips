@@ -29,10 +29,11 @@ mycursor.execute("SELECT * FROM history")
 history = mycursor.fetchall()
 mails=list()
 for i in range(len(logs)):
-    if logs[i][2] not in d:
-        d[logs[i][2]]=list()
-        mails.append(logs[i][2])
-    d[logs[i][2]].append(logs[i][3])
+    if len(logs[i][2])>0:
+        if logs[i][2] not in d:
+            d[logs[i][2]]=list()
+            mails.append(logs[i][2])
+        d[logs[i][2]].append(logs[i][3])
 for i1 in mails:
     allurls=d[i1]
     allurls = list(dict.fromkeys(allurls))
@@ -60,11 +61,11 @@ for i1 in mails:
             movies.append(article.movies)
             # keywords.append(article.keywords)
             summary.append(sumary(article.text))
-            sql1="INSERT INTO history (id, timestamp, email, url) SELECT id, timestamp, email, url FROM logs WHERE url='"+str(allurls[i])+"'"
-            mycursor.execute(sql1)
-            sql1 = "DELETE FROM logs WHERE url='"+str(allurls[i])+"'"
-            mycursor.execute(sql1)
-            mydb.commit()
+            # sql1="INSERT INTO history (id, timestamp, email, url) SELECT id, timestamp, email, url FROM logs WHERE url='"+str(allurls[i])+"'"
+            # mycursor.execute(sql1)
+            # sql1 = "DELETE FROM logs WHERE url='"+str(allurls[i])+"'"
+            # mycursor.execute(sql1)
+            # mydb.commit()
         except:
             continue
     if (len(title)>0):
