@@ -17,16 +17,16 @@ def sumary(text):
     return sum
 
 mydb = mysql.connector.connect(
-    host="db4free.net",
+    host="sql12.freesqldatabase.com",
     user="sql12318588",
-    passwd="netsips@01",
-    database="netsips"
+    passwd="MnYYt3EznT",
+    database="sql12318588"
 )
 mycursor = mydb.cursor()
 d=dict()
 mycursor.execute("SELECT * FROM logs")
 logs = mycursor.fetchall()
-mycursor.execute("SELECT * FROM users")
+mycursor.execute("SELECT * FROM user")
 users = mycursor.fetchall()
 mycursor.execute("SELECT * FROM sent")
 sent = mycursor.fetchall()
@@ -36,14 +36,17 @@ today=datetime.datetime.today().weekday()
 ulist=list()
 for i in users:
     days=i[3].split()
-    if today in days:
+    if str(today) in days:
         ulist.append(i[0])
 mails=list()
 for i in range(len(logs)):
     if len(logs[i][2])>0:
-        if logs[i][2] not in d and logs[i][1] in ulist:
-            d[logs[i][2]]=list()
-            mails.append(logs[i][2])
+        if logs[i][1] in ulist:
+            if logs[i][2] not in d:
+                d[logs[i][2]]=list()
+                mails.append(logs[i][2])
+        else:
+            continue
         d[logs[i][2]].append(logs[i][3])
 for i1 in mails:
     allurls=d[i1]
@@ -65,11 +68,11 @@ for i1 in mails:
             # article.nlp()
             url.append(allurls[i])
             title.append(article.title)
-            authors.append(article.authors)
-            publish_date.append(article.publish_date)
+            # authors.append(article.authors)
+            # publish_date.append(article.publish_date)
             text.append(article.text)
             images.append(article.top_image)
-            movies.append(article.movies)
+            # movies.append(article.movies)
             # keywords.append(article.keywords)
             summary.append(sumary(article.text))
             sql1="INSERT INTO sent (uid, email, url, timestamp) SELECT uid, email, url, timestamp FROM logs WHERE url='"+str(allurls[i])+"'"
