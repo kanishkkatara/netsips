@@ -17,21 +17,22 @@ def sumary(text):
     return sum
 
 mydb = mysql.connector.connect(
-    host="sql12.freesqldatabase.com",
-    user="sql12318588",
-    passwd="MnYYt3EznT",
-    database="sql12318588"
+    host="remotemysql.com",
+    user="iGnnLa8zV6",
+    passwd="Pn2j3CEhRX",
+    database="iGnnLa8zV6"
 )
+print('connected')
 mycursor = mydb.cursor()
 d=dict()
 mycursor.execute("SELECT * FROM logs")
 logs = mycursor.fetchall()
-mycursor.execute("SELECT * FROM user")
-users = mycursor.fetchall()
 mycursor.execute("SELECT * FROM sent")
 sent = mycursor.fetchall()
 mycursor.execute("SELECT * FROM unsent")
 unsent = mycursor.fetchall()
+mycursor.execute("SELECT * FROM user")
+users = mycursor.fetchall()
 today=datetime.datetime.today().weekday()
 ulist=list()
 for i in users:
