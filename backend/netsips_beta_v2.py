@@ -124,5 +124,5 @@ for i1 in mails:
             email_content = html
             TO = str(i1)
             FROM ='care.netsips@gmail.com' 
-            py_mail("Netsips weekly newsletter", email_content, TO, FROM)
+            py_mail("Netsips", email_content, TO, FROM)
 print('done')
