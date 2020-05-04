@@ -1,7 +1,6 @@
 import sys
 import datetime
 from newspaper import Article
-from gensim.summarization.summarizer import summarize
 import mysql.connector
 import netsips_pdf as npdf
 import netsips_mail as nmail
@@ -34,7 +33,9 @@ mails=list()
 for i in range(len(logs)):
     if len(logs[i][2])>0:
         a=Article(logs[i][3])
-        if a.is_valid_url() or 'www.youtube.com' in logs[i][3]:
+        a.download()
+        a.parse()
+        if a.is_valid_body() or 'www.youtube.com' in logs[i][3]:
             if logs[i][1] in ulist:
                 if logs[i][2] not in d:
                     d[logs[i][2]]=list()
