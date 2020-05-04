@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Netsips</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+<link href="https://fonts.googleapis.com/css?family=Courgette&display=swap" rel="stylesheet"/>
+
+    <style>
+    
+      html,
+      body {
+        font-family: "Open Sans", sans-serif;
+        font-size: 14px;
+        margin: 0;
+        min-height: 180px;
+        padding: 0;
+        width: 250px;
+	color: #4c4e4d;
+      }
+      h1 {
+font-family: 'Courgette', cursive;
+
+        font-size: 22px;
+        font-weight: 400;
+        margin: 0;
+        color: #FFF000;
+      }
+      
+      img {
+        width: 30px;
+      }
+      .modal-header {
+        align-items: center;
+        border-bottom: 0.5px solid #dadada;
+	background: #313131;
+  
+  
+      }
+      .modal-content {
+       
+        text-align:center;
+	color: #4c4e4d;
+  
+      }
+      .modal-icons {
+        border-top: 0.5px solid #dadada;
+        height: 50px;
+        width: 100%;
+      }
+      .logo {
+        padding: 12px;
+        text-align: left;
+        font-weight:bold;
+        
+      }
+  
+      #btncontainer{
+        text-align: center;
+      }
+      #save{
+        font-family: "Open Sans", sans-serif;
+        border-radius: 5px;
+        width: 224px;
+        height:40px;
+        border:none;
+        margin-bottom:10px;
+        background: white;
+        transition: 0.3s;
+      }
+      #addbookmark{
+        text-align: center;
+      }
+      #email{
+         width: 150px;
+         
+          border-radius: 2px;
+         border:1px solid #cccccc;
+       
+      }
+      #url{
+         width: 150px;
+        
+         border-radius: 2px;
+         border:1px solid #cccccc;
+         
+      }
+      p{
+        padding: 0px 15px 15px 15px;
+        text-align:left;
+        font-size:14px;
+        font-weight:light;
+      }
+      img{
+        height:15px;
+        width:15px;
+        margin:4px 5px -2px 4px;
+        opacity:90%;
+      }
+      h3{
+        padding-left:15px;
+        margin-bottom:-5px;
+      }
+      #save:hover{
+
+        background: #313131;
+        color:#FFF000;
+      }
+      h3{
+        color: rgb(0,0,0,0.8);
+      }
+      #main-logo{
+         width:90px;
+         height:30px;
+         margin: 0px 0px -12px 0px;
+      }
+      #settings-icon{
+          position: absolute;
+     right: 0;
+     top: 0;
+   
+      }
+      #settings-icon{
+        cursor: pointer;
+      }
+    </style>
+    
+   
+</head>
+<body>
+    <div class="modal-header">
+      <h1 class="logo">
+      <center><span><img id="main-logo"src="nslg.png"></span></center>
+      </h1>
+       <span><img id="settings-icon"src="menu_icon.png"></span>
+    </div>
+    <!--
+    <span><button id="play">Play</button></span>
+    <span><button id="pause">Pause</button></span>-->
+   
+    <div id="modal-content">
+    
+    </div>
+    <form id="addbookmark">  
+            <input  id="email" name="email" value="" placeholder="Enter your email" type="hidden"/>    
+              <input  id="uid" name="uid" value="" placeholder="" type="hidden" style="display:none"/>                  
+            <input type="hidden" id="url" name="url" value="" readonly style="display:none"/>
+            <p id="word_count"></p>
+            <p id="est_time"></p>
+            <input id="save" type="submit" value="Read later on Netsips" />
+    </form>
+  
+    <script src="popup_main.js"></script>
+
+</body>
+</html>

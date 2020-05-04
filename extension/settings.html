@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+ <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+<link href="https://fonts.googleapis.com/css?family=Courgette&display=swap" rel="stylesheet"/>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+* {box-sizing: border-box}
+
+
+/* Style the tab */
+.tab {
+  float: left;
+  
+  width: 20%;
+  height: 1000px;
+
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  display: block;
+  background-color: inherit;
+  color: black;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current "tab button" class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  float: left;
+   background-color: #fff;
+ border-left: 1px solid #f2f2f2;
+  height: 100%;
+  width: 80%;
+ 
+}
+/*My CSS*/
+
+
+#Netsips{
+  text-align: left;
+font-size:60px;
+  font-weight: lighter;
+ 
+  color:#4c4e4d;
+  margin-bottom: 30px;
+  height:100px;
+  -webkit-user-select: none;      
+-moz-user-select: none; 
+-ms-user-select: none; 
+user-select: none; 
+
+}
+#Netsips div{
+  margin-left: 30px;
+  padding-bottom:20px;
+ 
+}
+
+
+#main-heading{
+  text-align: left;
+  font-size:60px;
+  font-weight: lighter;
+  background-color: yellow;
+  color:#4c4e4d;
+  margin-bottom: 30px;
+  height:100px;
+ 
+}
+#main-heading div{
+  margin-left: 30px;
+  padding-bottom:20px;
+}
+#submit-settings{
+  margin-left:30px;
+  font-size: 35px;
+  font-weight: 100;
+}
+#days-menu{
+  font-size: 20px;
+  margin-left: 10px;
+}
+ .radio-button { 
+            display: block; 
+            
+            cursor: pointer; 
+   
+        } 
+input[type=radio] { 
+            visibility: hidden; 
+        } 
+input[type=checkbox] { 
+            visibility: hidden; 
+        } 
+.radio-mark { 
+            position: absolute; 
+            margin-top: 17px;
+            margin-left:-20px;
+
+            height: 25px; 
+            width: 25px; 
+          background-color: #ddd; 
+        } 
+.label-text{
+  padding: 20px;
+}
+.radio-button:hover input ~ .radio-mark {
+  background-color: #bbb;
+}
+.radio-button input:checked ~ .radio-mark {
+  background-color: yellow;
+}
+.radio-mark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.radio-button input:checked ~ .radio-mark:after {
+  display: block;
+}
+.radio-button .radio-mark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid #4c4e4d;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+#question{
+  margin-left:30px;
+  font-size: 40px;
+  font-weight: 100;
+}
+#submit-button{
+        text-align:center;
+        border-radius: 5px;
+        width: 200px;
+        height:38px;
+        margin-top: 20px;
+        background: white;
+        transition: 0.3s;
+        font-size: 20px;
+        font-weight: 100;
+       
+      
+}
+ #submit-button:hover{
+           -webkit-box-shadow: 0px 3px 5px 0px rgba(153,153,153,1);
+-moz-box-shadow: 0px 3px 5px 0px rgba(153,153,153,1);
+box-shadow: 0px 3px 5px 0px rgba(153,153,153,1);
+  cursor: pointer;
+      }
+
+
+/* Float four columns side by side */
+.column {
+  float: left;
+  width: 20%;
+  padding: 0 ;
+  margin-right:20px
+  
+
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {margin: 0 0 0 0;
+
+
+
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+    
+  }
+}
+
+/* Style the cards */
+.card {
+  font-size: 14.5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+  padding: 16px;
+  text-align: center;
+  background-color: #f1f1f1;
+  margin-top:30px;
+  width: 200px;
+  height:180px; /*160px*/
+  overflow:hidden;
+  position:relative;
+  border-radius: 8%;
+  
+ 
+}
+
+.card p{
+  font-weight:10px;
+   position: absolute;
+  opacity:80%;
+  left: 130px;
+  top: 130px;
+}
+
+#searchBar {
+ 
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 20px;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  margin-left:30px;
+  width:60%;
+}
+#Tag_search_button{
+   margin-left:30px;
+     transition: 0.5s;
+  border: none;
+   color:#4c4e4d;
+  padding: 8px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+   font-weight: lighter;
+
+}
+#Tag_search_button:hover{
+    background-color: #fff000;
+}
+#Tag_search_button:focus{
+  outline:none;
+}
+.filter_tags{
+  margin: 15px 10px 0px 15px;
+   
+   border-radius: 20%;
+   font-size:12px;
+   padding:5px;
+   cursor: default;
+   text-align:center;
+   
+}
+#Paris .row{
+ margin-left:30px;
+}
+a { color: inherit; text-decoration:none } 
+input:focus {
+    outline:none;
+}
+.topcorner{
+   position:absolute;
+   top:5px;
+   right:3.9px;
+   border-radius: 50%;
+   width:18px;
+   height:18px;
+   text-align:center;
+
+       }
+.topcorner:hover{
+ background: rgba(224, 93, 81, 0.5)
+  }  
+.edit:hover{
+ opacity:70%
+  }
+ .edit{
+     position:absolute;
+   top:153px;
+   right:7px;
+   border-radius: 25%;
+   width:18px;
+   height:18px;
+   text-align:center;
+   opacity:35%;
+   margin-top: 5px;
+
+ }
+
+  .saved_article_titles{
+    margin-top:22px;
+    margin-right:10px
+  }
+.card_date .card_logo{
+  display:inline-block
+}
+.card_logo{
+  margin-left:-115px
+}
+.card_date{
+  margin-left:-6.5px
+}
+#news-content{
+  padding-bottom:50px;
+
+}
+dialog{
+  margin-left:700px;
+ 
+}
+
+
+.myModal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  width: 30%;
+  height:180px;
+ 
+}
+
+/* The Close Button */
+#close_modal {
+  color: #aaaaaa;
+  float: right;
+  font-size: 22px;
+  margin: -20px -10px 0px -10px ;
+  top:0;
+  right:0;
+ 
+}
+
+#close_modal:hover,
+#close_modal:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+.filter_tags :focus{
+  background-color:yellow
+}
+
+#tag_input{
+padding: 6px 15px 6px 6px;
+  border: 1px solid #ddd;
+  width: 350px;
+  margin-top:10px
+}
+
+#make_changes_input{
+   margin-left:100px;
+     transition: 0.5s;
+  border: none;
+   color:#4c4e4d;
+  padding: 8px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+   font-weight: lighter;
+}
+
+#make_changes_input:hover{
+    background-color: #fff000;
+}
+#make_changes_input:focus{
+  outline:none;
+}
+
+/*SWITCH CSS*/
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #4c4e4d;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #4c4e4d;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+#dark_mode_switch{
+   margin-left:30px;
+}
+/*My CSS ends*/
+
+</style>
+</head>
+<body id="settings-body">
+
+<div class="tab" >
+<div id="Netsips"> <div> netsips</div></div>
+<button class="tablinks" value = "Paris" id="saved-btn">Saved</button>
+  <button class="tablinks" value="London">Settings</button>
+  <button class="tablinks" id="SignOut">Sign out</button> 
+</div>
+
+<div  class="tabcontent" style="display: block;">
+
+ <div  id="Paris">
+ <center id="main-heading">
+ <div> saved </div>
+   </center>
+
+<input type="text" id="searchBar" placeholder="Search for boomarks..." title="">
+<p><button id="Tag_search_button">Filter by tags</button><span id="span_container" style="display:none"></span></p>
+
+<div class="row" id="news-content">
+
+  <div class="myModal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span id="close_modal">&times;</span>
+    
+    <label style="display:none">Title:</label><br>
+  <input type="text" id="title_input" style="display:none"><br>
+  <label style="font-size:16px; font-weight:4.5px;">Add tags</label><br>
+  <input type="text" id="tag_input" placeholder="tech, education, science"><br><br>
+   <input type="submit" id="make_changes_input" value="save changes"><br><br>
+
+
+
+
+  </div>
+  
+</div>
+
+ 
+
+
+  </div>
+  </div> 
+
+
+
+
+
+
+
+<div id="London" style="display:none;"> 
+<center id="main-heading" >
+ <div > settings</div>
+   </center>
+   <div id="question">When do you want your newsletter to be delivered?</div>
+   <form id="submit-settings">
+
+  <label class="radio-button" data-toggle="tooltip" data-placement="top" title="Get your newsletter every morning"> 
+  <input type="radio" name="option" value="0 1 2 3 4 5 6" id="daily"  required> 
+  <span class="radio-mark"></span>  <span class="label-text">daily</span>
+  </label>
+
+  
+  <label class="radio-button" data-toggle="tooltip" data-placement="top" title="Get your newsletter every Sunday morning">
+  <input type="radio" name="option" value="6" id="weekly">
+  <span class="radio-mark"></span>
+  <span class="label-text"> weekly </span>
+  </label>
+
+ <label  class="radio-button" > 
+ <input type="radio" name="option" value="cus" id="custom">
+ <span class="radio-mark"></span><span class="label-text"> 
+ choose my own days </span>
+ </label>
+
+  <p id="days-menu" style="display:none">
+
+  <label class="radio-button" > 
+  <input type="checkbox" name="dow" value="0"> 
+  <span class="radio-mark"><span style="margin-left:40px; position:absolute; top:-3px;">Monday</span></span>
+  </label>
+ 
+  <label class="radio-button"> 
+  <input type="checkbox" name="dow" value="1"> 
+  <span class="radio-mark"><span style="margin-left:40px; position:absolute; top:-3px;">Tuesday</span></span>
+  </label>
+  
+    <label class="radio-button"> 
+  <input type="checkbox" name="dow" value="2"> 
+  <span class="radio-mark"><span style="margin-left:40px; position:absolute; top:-3px;">Wednesday</span></span>
+  </label>
+
+  
+    <label class="radio-button"> 
+  <input type="checkbox" name="dow" value="3"> 
+  <span class="radio-mark"><span style="margin-left:40px; position:absolute; top:-3px;">Thursday</span></span>
+  </label>
+
+  <label class="radio-button"> 
+  <input type="checkbox" name="dow" value="4"> 
+  <span class="radio-mark"><span style="margin-left:40px; position:absolute; top:-3px;">Friday</span></span>
+  </label>
+
+
+   <label class="radio-button"> 
+  <input type="checkbox" name="dow" value="5"> 
+  <span class="radio-mark"><span style="margin-left:40px; position:absolute; top:-3px;">Saturday</span></span>
+  </label>
+
+
+    <label class="radio-button"> 
+  <input type="checkbox" name="dow" value="6"> 
+  <span class="radio-mark"><span style="margin-left:40px; position:absolute; top:-3px;">Sunday</span></span>
+  </label>
+  </p>
+  
+  <input type="submit" value="Submit" id="submit-button">
+</form>
+
+
+
+
+<div style="display:none">
+
+<br>
+<br>
+<br>
+<div id="dark_mode_switch">
+   <label class="switch">
+  <input type="checkbox" id="dark_mode_checkbox">
+  <span class="slider round"></span>
+</label>Dark Mode
+<div>
+
+
+</div>
+
+
+
+
+
+  </div>
+ 
+  
+</div>
+   <script src="firebase-app.js"></script>
+<script src="firebase-auth.js"></script>
+   <script src="settings.js"></script>
+</body>
+</html> 
