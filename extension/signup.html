@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Netsips | Sign up</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="icon_128.png"/>
+<!--===============================================================================================-->
+	
+
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+<style>
+
+
+
+
+
+
+* {
+	margin: 0px; 
+	padding: 0px; 
+	box-sizing: border-box;
+}
+
+body, html {
+	height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  
+}
+
+/*---------------------------------------------*/
+a {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	line-height: 1.7;
+	
+	margin: 0px;
+	transition: all 0.4s;
+	-webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+}
+
+a:focus {
+  outline: none !important;
+  text-emphasis: none;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #666666;
+  cursor: default;
+  
+}
+
+/*---------------------------------------------*/
+h1,h2,h3,h4,h5,h6 {
+	margin: 0px;
+}
+
+/*---------------------------------------------*/
+button {
+	outline: none !important;
+	border: none;
+	background: transparent;
+}
+
+iframe {
+	border: none !important;
+}
+
+
+/*//////////////////////////////////////////////////////////////////
+[ Utility ]*/
+
+.bo1 {border-bottom: 1px solid #999999;}
+
+/*//////////////////////////////////////////////////////////////////
+[ login ]*/
+
+.limiter {
+  width: 100%;
+  margin: 0 auto;
+  -webkit-box-shadow: 0px 10px 16px -5px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 10px 16px -5px rgba(0,0,0,0.75);
+  box-shadow: 0px 10px 16px -5px rgba(0,0,0,0.75);
+}
+
+.container-login100 {
+  width: 100%;  
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+ 
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;;
+}
+
+
+.wrap-login100 {
+  width: 680px;
+  background: #E8D816;
+  border-radius: 10px;
+  position: relative;
+  -webkit-box-shadow: 0px 10px 16px -10px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 10px 16px -10px rgba(0,0,0,0.75);
+box-shadow: 0px 10px 16px -10px rgba(0,0,0,0.75);
+}
+
+
+/*==================================================================
+[ Form ]*/
+
+.login100-form {
+  width: 100%;
+  text-align: center;
+}
+.netsips-logo{
+  margin-left:110px;
+  display: inline;
+}
+.login100-form-title {
+  margin-top: 20px;
+  width: 100%;
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  color: #202020;
+  font-weight: 2px;
+  text-align: center;
+}
+
+/*------------------------------------------------------------------
+[ Button sign in with ]*/
+
+
+#btn-google {
+ 
+  line-height: 1.2;
+  text-align: center;
+  align-items: center;
+ 
+  width: calc((100% - 20px) / 2);
+  height: 70px;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 1px 5px 0px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 1px 5px 0px rgba(0, 0, 0, 0.2);
+  -o-box-shadow: 0 1px 5px 0px rgba(0, 0, 0, 0.2);
+  -ms-box-shadow: 0 1px 5px 0px rgba(0, 0, 0, 0.2);
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  margin-left:115px;
+  z-index: 1;
+}
+
+#btn-google::before,
+
+
+#btn-google {
+  color: #555555;
+  background-color: whitesmoke;
+}
+
+#btn-google img {
+  width: 30px;
+  margin-top: 2px;
+  margin-left:-10px
+  
+}
+
+
+#btn-google:hover:before {
+  opacity: 1;
+}
+
+#btn-google:hover {
+  -webkit-box-shadow: 0px 10px 16px -41px rgba(212,212,212,1);
+-moz-box-shadow: 0px 10px 16px -41px rgba(212,212,212,1);
+box-shadow: 0px 10px 16px -41px rgba(212,212,212,1);
+ } 
+
+.p-l-110 {padding-left: 110px;}
+.p-r-110 {padding-right: 110px;}
+.p-t-62 {padding-top: 62px;}
+.p-b-33 {padding-bottom: 33px;}
+
+.flex-sb {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	
+}
+.flex-w {
+
+	-webkit-flex-wrap: wrap;
+	-moz-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	-o-flex-wrap: wrap;
+	flex-wrap: wrap;
+}
+.p-b-53 {padding-bottom: 20px;}
+#goog{
+    margin-top:-20px;
+    font-size:25px
+}
+#signin{
+    margin-left:130px;
+    width:200px
+}
+</style>
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100" style=" background: #202020;">
+	
+			<div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
+
+				<form class="login100-form flex-sb flex-w">
+				  	<img src="logo2.png" class="netsips-logo"> 
+					<span class="login100-form-title p-b-53">
+					
+					Curate your web
+					</span>
+              
+				<center>
+			<a id="firebase_signin">
+						<img src="signin.png" alt="GOOGLE" id="signin"></a>
+				</center>
+			
+				
+									</form>
+			</div>
+		</div>
+	</div>
+	
+
+
+	
+	 <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+
+  <script src="firebase-app.js"></script>
+<script src="firebase-auth.js"></script>
+ 
+
+	<script src="signup.js"></script>
+</body>
+</html>

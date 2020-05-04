@@ -1,8 +1,5 @@
 document.getElementById("ext_link").addEventListener('click', function(){
-    chrome.tabs.create({
-        url: "http://netsips.in/signup.html",
-        active: false
-    });
+  window.open('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/signup.html', '_blank');
   })
 
  // chrome.browserAction.setPopup({popup: "logged_in.html"});
@@ -30,8 +27,8 @@ document.getElementById("ext_link").addEventListener('click', function(){
 
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-        chrome.browserAction.setPopup({popup: "popup.html"});
+      chrome.browserAction.setPopup({popup: "popup_main.html"});
     } else {
-        chrome.browserAction.setPopup({popup: "popup_main.html"});
+        chrome.browserAction.setPopup({popup: "popup.html"});
     }
 });
