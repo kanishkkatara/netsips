@@ -34,16 +34,25 @@ for i in range(len(logs)):
     if len(logs[i][2])>0:
         a=Article(logs[i][3])
         a.download()
-        a.parse()
-        if a.is_valid_body() or 'www.youtube.com' in logs[i][3]:
-            if logs[i][1] in ulist:
-                if logs[i][2] not in d:
-                    d[logs[i][2]]=list()
-                    mails.append(logs[i][2])
+        try:
+            a.parse()
+            if a.is_valid_body() or 'www.youtube.com' in logs[i][3]:
+                if logs[i][1] in ulist:
+                    if logs[i][2] not in d:
+                        d[logs[i][2]]=list()
+                        mails.append(logs[i][2])
+                else:
+                    continue
+                d[logs[i][2]].append(logs[i][3])
             else:
-                continue
-            d[logs[i][2]].append(logs[i][3])
-        else:
+                if logs[i][1] in ulist:
+                    sql1="INSERT INTO unsent (uid, email, url, timestamp) SELECT uid, email, url, timestamp FROM logs WHERE url='"+str(logs[i][3])+"'"
+                    mycursor.execute(sql1)
+                    sql1 = "DELETE FROM logs WHERE url='"+str(logs[i][3])+"'"
+                    mycursor.execute(sql1)
+                else:
+                    continue
+        except:
             if logs[i][1] in ulist:
                 sql1="INSERT INTO unsent (uid, email, url, timestamp) SELECT uid, email, url, timestamp FROM logs WHERE url='"+str(logs[i][3])+"'"
                 mycursor.execute(sql1)
@@ -51,6 +60,7 @@ for i in range(len(logs)):
                 mycursor.execute(sql1)
             else:
                 continue
+
 for i1 in mails:
     allurls=d[i1]
     allurls = list(dict.fromkeys(allurls))
