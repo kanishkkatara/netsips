@@ -25,10 +25,10 @@ document.getElementById("ext_link").addEventListener('click', function(){
 //     }
 //   });
 
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      chrome.browserAction.setPopup({popup: "popup_main.html"});
-    } else {
-        chrome.browserAction.setPopup({popup: "popup.html"});
-    }
-});
+//   firebase.auth().onAuthStateChanged((user) => {
+//     if (user) {
+//       chrome.browserAction.setPopup({popup: "popup_main.html"});
+//     } else {
+//         chrome.browserAction.setPopup({popup: "popup.html"});
+//     }
+// });

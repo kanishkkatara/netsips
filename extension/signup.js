@@ -13,18 +13,24 @@ var firebaseConfig = {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   var provider = new firebase.auth.GoogleAuthProvider();
-//firebase.auth().signInWithCredential(credential);
+  var db = firebase.database();
 document.getElementById("firebase_signin").addEventListener('click', function(){
     firebase.auth().signInWithPopup(provider).then(function(result) {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-     //   var token = result.credential.accessToken;
-      //  console.log(token)
-        // The signed-in user info.
-     
-      //  console.log(user)
-     // alert("Welcome to Netsips!");
+    
     document.getElementsByClassName("login100-form-title")[0].innerText = "You are signed in!"
-      
+    var email =  result.user.email
+    var value = result.user.uid
+ var rtd  = db.ref();
+ rtd.child(value).set({'email':  email, 'days':"6"}).then().catch();
+chrome.browserAction.setPopup({popup: "popup_main.html"});
+    
+    chrome.storage.local.set({key: value}, function() {
+      //  console.log('Value is set to ' + value);
+      });
+    
+      chrome.storage.local.get(['key'], function(result) {
+     //   console.log('Value currently is ' + result.key);
+      });
         // ...
       }).catch(function(error) {
         // Handle Errors here.

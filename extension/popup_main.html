@@ -131,9 +131,22 @@ font-family: 'Courgette', cursive;
       #settings-icon{
         cursor: pointer;
       }
+      #popup_tags{
+       
+        width:85%;
+        padding:3px 3px 3px 4px;
+        border-radius: 2px;
+        border-top:none;
+        border-left:none;
+        border-right:none;
+        border-bottom: 1px solid #cccccc
+      }
+       #popup_tags:focus{
+       outline:none
+      }
     </style>
     
-   
+  
 </head>
 <body>
     <div class="modal-header">
@@ -153,11 +166,15 @@ font-family: 'Courgette', cursive;
             <input  id="email" name="email" value="" placeholder="Enter your email" type="hidden"/>    
               <input  id="uid" name="uid" value="" placeholder="" type="hidden" style="display:none"/>                  
             <input type="hidden" id="url" name="url" value="" readonly style="display:none"/>
-            <p id="word_count"></p>
-            <p id="est_time"></p>
-            <input id="save" type="submit" value="Read later on Netsips" />
+     
+              <input type="text" id="popup_tags" placeholder="Add tags (separate using commas)"/>
+              <p >
+          Number of words: <span id="word_count"></span>
+            <span id="est_time" style="display:none"></span></p>
+            <input id="save" type="submit" value="Save to Netsips" />
     </form>
-  
+      <script src="firebase-app.js"></script>
+    <script src="firebase-firestore.js"></script>
     <script src="popup_main.js"></script>
 
 </body>

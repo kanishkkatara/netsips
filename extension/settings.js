@@ -1,12 +1,3 @@
-// var email = otherWindows.user_email;
-// var postUrl1 = 'http://netsips.in/boi.php';
-//     var xhr1 = new XMLHttpRequest();
-//     xhr1.open('POST', postUrl1, true);
-//     xhr1.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-//     var params = '&email=' + encodeURIComponent(email) 
-//     xhr.send(params);
-
-
 
 // var dark_mode = document.getElementById("dark_mode_checkbox")
 // if(dark_mode.checked==true){
@@ -44,13 +35,17 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+// var db = firebase.firestore();
 document.getElementById("SignOut").addEventListener('click', function(){
-
+  this.innerText = "Signing out..."
   firebase.auth().signOut().then(function() {
     chrome.browserAction.setPopup({popup: "popup.html"});
-   window.close('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/settings.html')
+    setTimeout(function(){ 
+      window.close('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/settings.html') 
+    }, 1000);
+   
   }).catch(function(error) {
-    console.log("An error happened.")
+    console.log("An error happened."+error)
   });
  
 })
@@ -136,24 +131,14 @@ document.getElementById('submit-settings').addEventListener('submit',function(){
         }
     }
 
-   try{ 
-  
-    var postUrl = 'http://netsips.in/settings.php';
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', postUrl, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    var params = 'user_id=' + encodeURIComponent(uid) +
-                 '&option=' + encodeURIComponent(options) +
-                 '&email=' + encodeURIComponent(email) 
-   
-    params = params.replace(/%20/g, '+');
-
-
-    xhr.send(params);}catch(err){
-      console.log(err)
-    }
+   var db_rtd = firebase.database();
+   var rtd  = db_rtd.ref();
 
    
+
+ chrome.storage.local.get(['key'], function(result) {
+     rtd.child(result.key).update({'days': options })
+   });
 
     alert("Your settings have been saved!")
    
@@ -250,22 +235,41 @@ const addTags =()=>{
  chrome.storage.local.get({list:[]},function(items){
    update_the_tags(items, req_title, tag_value)
  } )
- window.location.reload()
+// window.location.reload()
 }
 
 const update_the_tags = (items, req_title, tag_value)=>{
+    var n
+    var submit_btn
+    submit_btn = document.getElementById("make_changes_input")
+    submit_btn.value = " Saving..." 
+    var db = firebase.firestore();
     for(var i=0;i<items.list.length;i++){
       if(JSON.stringify(req_title) == JSON.stringify(items.list[i].Title)){ //check title instead of entire object
-        items.list[i].Tags = tag_value  //clear the repeated tags at this stage. Please.
-      //  console.log(items.list[i].Title,items.list[i].Tags)
-      }
-      
-    }    
+        items.list[i].Tags = tag_value
+        n = items.list[i].DocId
+      }      
+    }  
+  //  console.log(n)  
+    chrome.storage.local.get(['key'], function(result) {
+      //console.log(tag_value)
+      // var db = firebase.firestore();
+      db.collection(result.key).doc(n).update({
+        tags: tag_value
+       }).then(function() {
+        submit_btn.value = "Saved!"
+        window.location.reload()
+       }).catch(function(error){
+         console.error("Error updating document: ", error);
+       });
+      });
+    
+    
     chrome.storage.local.set(items, function(){
-      console.log()
-    })
+     console.log()
 
-  
+    })
+   //  window.location.reload()
 }
 
 
@@ -273,7 +277,7 @@ function removeModal(){
   this.parentElement.parentElement.style.display = "none"
 } 
 
-////TAG Generator///
+////TAG Generator for filtering///
 
 
 document.getElementById('Tag_search_button').addEventListener('click', renderTags)
@@ -404,16 +408,32 @@ function hellocard(){
 }
   
 function delete_this_card(x){
-
+  var n
   chrome.storage.local.get({list: []}, function(items) {
-
-
-  for(var i=0;i<items.list.length;i++){
-
+ for(var i=0;i<items.list.length;i++){
+  
   if(JSON.stringify(x) == JSON.stringify(items.list[i].Title)){ //check title instead of entire object
+    n = items.list[i].DocId
     items.list.splice(i, 1)
+    
   }
 }
+
+chrome.storage.local.get(['key'], function(result) {
+   var db = firebase.firestore();
+  db.collection(result.key).doc(n).update({
+    status: "Deleted"
+   }).then(function() {
+   }).catch(function(error){
+     console.error("Error updating document: ", error);
+   });
+  });
+  
+
+
+
+
+
 
       chrome.storage.local.set(items, function() {
         console.log()

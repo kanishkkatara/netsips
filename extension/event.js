@@ -10,33 +10,33 @@ function getPageDetails(callback) {
 };
 
 //Chrome Identity API
-var user_email
-var user_id
-chrome.identity.getProfileUserInfo(function (userinfo){
-    user_email  = userinfo.email
-    user_id = userinfo.id
-  })
-var auth
-  chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
-   auth = token
-  // console.log(auth)
-  });
+// var user_email
+// var user_id
+// chrome.identity.getProfileUserInfo(function (userinfo){
+//     user_email  = userinfo.email
+//     user_id = userinfo.id
+//   })
+// var auth
+//   chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
+//    auth = token
+//   // console.log(auth)
+//   });
 
-chrome.runtime.onInstalled.addListener(function(details){
-    if(details.reason == "install"){
+// chrome.runtime.onInstalled.addListener(function(details){
+//     if(details.reason == "install"){
        
-        var postUrl = 'http://netsips.in/settings.php';
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', postUrl, true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        var params = 'user_id=' + encodeURIComponent(user_id) +
-                     '&option=' + '6' +
-                     '&email=' + encodeURIComponent(user_email) 
+//         var postUrl = 'http://netsips.in/settings.php';
+//         var xhr = new XMLHttpRequest();
+//         xhr.open('POST', postUrl, true);
+//         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+//         var params = 'user_id=' + encodeURIComponent(user_id) +
+//                      '&option=' + '6' +
+//                      '&email=' + encodeURIComponent(user_email) 
        
-        params = params.replace(/%20/g, '+');
-        xhr.send(params);
-    }
-});
+//         params = params.replace(/%20/g, '+');
+//         xhr.send(params);
+//     }
+// });
 
   
 

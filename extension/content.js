@@ -29,7 +29,7 @@ for(var i=0;i<p.length;i++){
 //         chrome.storage.local.set({ "total_time_saved": total_time_saved });
     
 //         })
-
+var img = document.getElementsByTagName("img")[0];
 
 // Send a message containing the page details back to the event page
 chrome.runtime.sendMessage({
@@ -37,7 +37,8 @@ chrome.runtime.sendMessage({
      'url': window.location.href,
      'word_count': count,
      'estimated_time': Math.ceil(time),
-     'content': content
+     'content': content,
+     'img_url': img.src
     // 'total_time_saved': total_time_saved
      
  });
