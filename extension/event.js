@@ -9,6 +9,36 @@ function getPageDetails(callback) {
     });
 };
 
+
+  chrome.storage.local.get(['isSigned'], function(result) {
+
+      if (result.isSigned) {
+        chrome.browserAction.setPopup({popup: "popup_main.html"});
+      } else {
+          chrome.browserAction.setPopup({popup: "popup.html"});
+      }
+
+
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Chrome Identity API
 // var user_email
 // var user_id

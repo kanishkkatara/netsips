@@ -25,7 +25,6 @@ var db = firebase.firestore();
 
 var image 
 function onPageDetailsReceived(pageDetails) {
-  //  console.log(pageDetails.title)
   if(pageDetails.word_count>1000){
     document.getElementById('word_count').style.color = "red"
   }
@@ -71,17 +70,7 @@ var year = d.getUTCFullYear();
       short_web_title = website_title
     }
     var tags = document.getElementById("popup_tags").value
-    var web_details
- //   var web_details = {URL:url.value, Title:short_web_title, Date:dateStr,Icon:fav_icon, Tags:tags, Complete_Title:website_title, DocId: doc_id };
-     
-  // chrome.storage.local.get({ 
-  //   list:[] 
-  // },
-  // function(data) {
-  
-  //  update(data.list, web_details); 
-  // }
-  // );  
+    var web_details  
    event.preventDefault();
 
 

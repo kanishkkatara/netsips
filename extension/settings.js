@@ -40,6 +40,8 @@ document.getElementById("SignOut").addEventListener('click', function(){
   this.innerText = "Signing out..."
   firebase.auth().signOut().then(function() {
     chrome.browserAction.setPopup({popup: "popup.html"});
+    chrome.storage.local.set({isSigned: false}, function() {
+    });
     setTimeout(function(){ 
       window.close('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/settings.html') 
     }, 1000);
@@ -213,16 +215,9 @@ function tags(){
 var modal = document.getElementsByClassName("myModal")[0];
 
 modal.childNodes[3].childNodes[6].value = card_title //input title value
-//console.log(card_title)
-modal.childNodes[3].childNodes[12].value = card_tags
-//console.log(card_tags)
-///////////
-//document.getElementById('title_input').value = card_title
-//document.getElementById('tag_input').value = card_tags
-///////////
+modal.childNodes[3].childNodes[12].value = card_tags //input tag value
 modal.style.display = "block";
 var cross = document.getElementsByClassName("myModal")[0].childNodes[3].childNodes[1]
-//var cross = document.getElementById("close_modal")
 cross.addEventListener("click",removeModal)
 
 document.getElementById("make_changes_input").addEventListener('click', addTags)
@@ -373,7 +368,7 @@ function filter_tag_collector(){
 }
 
 
-let checker = (arr, target) => target.every(v => arr.includes(v));
+let checker = (arr, target) => target.every(v => arr.includes(v)); //DO NOT REMOVE THIS
 
 
 
@@ -430,12 +425,6 @@ chrome.storage.local.get(['key'], function(result) {
      console.error("Error updating document: ", error);
    });
   });
-  
-
-
-
-
-
 
       chrome.storage.local.set(items, function() {
         console.log()

@@ -10,15 +10,11 @@ var firebaseConfig = {
     appId: "1:617103322863:web:4fbe39c3ad6acf34f3f51a",
     measurementId: "G-E4SH3K42ZY"
   };
+
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   var provider = new firebase.auth.GoogleAuthProvider();
- //var db = firebase.database();
   var db_store = firebase.firestore()
-//  var db = firebase.database();
-
-
-//   var rtd  = db.ref();
 
 function title_trimmer(website_title){
     if(website_title.length>=60){
@@ -51,6 +47,11 @@ document.getElementById("firebase_signin").addEventListener('click', function(){
 
     firebase.auth().signInWithPopup(provider).then(function(result) {
     document.getElementsByClassName("login100-form-title")[0].innerText = "You are signed in!"
+    chrome.storage.local.set({isSigned: true}, function() {
+    });
+    chrome.browserAction.setPopup({popup: "popup_main.html"});
+    // chrome.storage.local.get(['isSigned'], function(result) {
+    // });
     var email =  result.user.email
     var value = result.user.uid
     var markers = [];
@@ -89,6 +90,7 @@ document.getElementById("firebase_signin").addEventListener('click', function(){
 
 });
 
+// RTD Initialize
 var db = firebase.database();
 var rtd  = db.ref();
 
@@ -98,28 +100,15 @@ rtd.once("value")
     if(!hasName){
         rtd.child(value).set({'email':  email, 'days':"6"}).then().catch();
     }
-    
-    
-    // true
-   // var hasAge = snapshot.hasChild("age"); // false
-   console.log(hasName)
   });
 
 
-
-
- // settings reset on sign in wala dekh le
- //rtd.child(value).set({'email':  email, 'days':"6"}).then().catch();
-
-
-chrome.browserAction.setPopup({popup: "popup_main.html"});
+// chrome.browserAction.setPopup({popup: "popup_main.html"});
     
     chrome.storage.local.set({key: value}, function() {
-      //  console.log('Value is set to ' + value);
       });
     
       chrome.storage.local.get(['key'], function(result) {
-     //   console.log('Value currently is ' + result.key);
       });
         // ...
       }).catch(function(error) {
