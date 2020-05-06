@@ -13,15 +13,105 @@ var firebaseConfig = {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   var provider = new firebase.auth.GoogleAuthProvider();
-  var db = firebase.database();
+ //var db = firebase.database();
+  var db_store = firebase.firestore()
+//  var db = firebase.database();
+
+
+//   var rtd  = db.ref();
+
+function title_trimmer(website_title){
+    if(website_title.length>=60){
+    website_title = website_title.substring(0, 60) + '...'
+    }else{
+    website_title = website_title
+    }
+    return website_title
+}
+
+function date_processing(){
+        var d = new Date(); 
+        var dateStr    
+    var date = d.getUTCDate();
+    var month = d.getUTCMonth() + 1; 
+    var year = d.getUTCFullYear();
+        if(date.length==1){
+             dateStr = "0" + date + "/" + month + "/" ; //
+        }else{
+             dateStr = date + "/" + month + "/" + year;
+        }
+     return dateStr   
+}
+
+var favicon = "https://s2.googleusercontent.com/s2/favicons?domain_url="
+var web_details  
+
 document.getElementById("firebase_signin").addEventListener('click', function(){
+
+
     firebase.auth().signInWithPopup(provider).then(function(result) {
-    
     document.getElementsByClassName("login100-form-title")[0].innerText = "You are signed in!"
     var email =  result.user.email
     var value = result.user.uid
- var rtd  = db.ref();
- rtd.child(value).set({'email':  email, 'days':"6"}).then().catch();
+    var markers = [];
+    db_store.collection(value).get().then(querySnapshot => {
+    querySnapshot.docs.forEach(doc => {
+    if(doc.data().status!="Deleted"){
+        var url = doc.data().articleURL
+        var short_web_title = title_trimmer(doc.data().title)
+        var dateStr = date_processing()
+        var fav_icon = favicon+url 
+        var tags = doc.data().tags
+        var website_title = doc.data().title
+        var doc_id = doc.id
+        web_details = {URL:url, Title:short_web_title, Date:dateStr,Icon:fav_icon, Tags:tags, Complete_Title:website_title, DocId: doc_id };
+        markers.push(web_details);   
+    }     
+  });
+
+  if(markers.length!=0 && markers.length!=undefined)
+  {  
+      chrome.storage.local.set({ 
+                list:markers              
+            }, function(items){
+           
+            });
+  
+  }else{
+     
+      chrome.storage.local.set({ 
+          list:[]
+      });
+  }
+  
+
+
+
+});
+
+var db = firebase.database();
+var rtd  = db.ref();
+
+rtd.once("value")
+  .then(function(snapshot) {
+    var hasName = snapshot.hasChild(value); 
+    if(!hasName){
+        rtd.child(value).set({'email':  email, 'days':"6"}).then().catch();
+    }
+    
+    
+    // true
+   // var hasAge = snapshot.hasChild("age"); // false
+   console.log(hasName)
+  });
+
+
+
+
+ // settings reset on sign in wala dekh le
+ //rtd.child(value).set({'email':  email, 'days':"6"}).then().catch();
+
+
 chrome.browserAction.setPopup({popup: "popup_main.html"});
     
     chrome.storage.local.set({key: value}, function() {
@@ -43,5 +133,7 @@ chrome.browserAction.setPopup({popup: "popup_main.html"});
         // ...
         console.log(errorCode, errorMessage,email, credential)
       });
-})
+}
+
+)
 

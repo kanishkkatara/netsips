@@ -151,7 +151,18 @@ document.getElementById('submit-settings').addEventListener('submit',function(){
 
 
 /////SAVED MENU////
+// function title_trimmer(website_title){
+// if(website_title.length>=60){
+//   website_title = website_title.substring(0, 60) + '...'
+// }else{
+//   website_title = website_title
+// }
+// return website_title
+// }
 
+
+// var favicon = "https://s2.googleusercontent.com/s2/favicons?domain_url="
+// sab kuch db se sync karna hai
 
 
 ///////CARD RENDERING/////  
@@ -163,12 +174,12 @@ document.getElementById('submit-settings').addEventListener('submit',function(){
     list:[] 
   },
   function(data) {
-  
+   console.log(data.list)
    for(var i=data.list.length-1;i>=0;i--){
      var title = data.list[i]["Title"]
      var link = data.list[i]["URL"]
-     var time = data.list[i]["Date"]
-     var icon = data.list[i]["Icon"]
+     var time = data.list[i]["Date"]     //Timestamp milega process karna padega phir
+     var icon = data.list[i]["Icon"]  //use api here itself
      var link_tag_name = data.list[i]["Tags"]
   //    if(title.length>=60){
   //     title = title.substring(0, 60) + '...'
@@ -184,8 +195,6 @@ document.getElementById('submit-settings').addEventListener('submit',function(){
     document.getElementsByClassName('edit')[j].addEventListener('click', tags)
   }
    
-
-
 
   } 
 
@@ -385,13 +394,6 @@ function real_tag_filter(list){
     }
   }
 }
-
-
-
-
-
-
-
 
 //////////////////////
 
