@@ -7,7 +7,7 @@ chrome.tabs.getSelected(null,function(tab) {
     
   });
 
-
+//Firebase
 var firebaseConfig = {
   apiKey: "AIzaSyBDaQL21llq2-5ftbSh0WvC243M6p_ZsgY",
   authDomain: "netsips-1586535958950.firebaseapp.com",
@@ -23,6 +23,8 @@ firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 
 
+
+//Delivery from content.js
 var image 
 function onPageDetailsReceived(pageDetails) {
   if(pageDetails.word_count>1000){
@@ -35,11 +37,16 @@ function onPageDetailsReceived(pageDetails) {
     }else{
       document.getElementById('est_time').innerText = "(around "+ pageDetails.estimated_time+" minutes)";
     }
-  image = pageDetails.img_url
+ // image = pageDetails.img_url
+  if(pageDetails.img_url!=undefined){
+    image = pageDetails.img_url
+  }else{
+    image = ""
+  }
 }
 
 
-
+//This method is holding this entire app together
 function update(array, webdata)
  {
   array.push(webdata);
@@ -51,7 +58,7 @@ function update(array, webdata)
 function addBookmark() {
 var d = new Date();     
 var date = d.getUTCDate();
-var month = d.getUTCMonth() + 1; // Since getUTCMonth() returns month from 0-11 not 1-12
+var month = d.getUTCMonth() + 1; 
 var year = d.getUTCFullYear();
      if(date.length==1){
         var dateStr = "0" + date + "/" + month + "/" ; //
@@ -73,66 +80,8 @@ var year = d.getUTCFullYear();
     var web_details  
    event.preventDefault();
 
-
-//     // The URL to POST our data to
-//     var postUrl = 'http://netsips.in/script.php';
-//     // Set up an asynchronous AJAX POST request
-//     var xhr = new XMLHttpRequest();
-//     xhr.open('POST', postUrl, true);
-
-//     // Prepare the data to be POSTed by URLEncoding each field's contents
-
-
-//      /********DO NOT REMOVE THIS CODE AT ANY COST********/
-
-
-//     // chrome.storage.local.set({ "email_": '' });
-//     // var email = document.getElementById('email');
-//     // chrome.storage.local.set({ "email_": document.getElementById('email').value });
-     
-    
-//     /* ******************************************************** */
-//     // var url = document.getElementById('url');
-//     // var uid = document.getElementById("uid");
-// //    console.log(url)
-
-//     var params = 'email=' + encodeURIComponent(email.value) +
-//                  '&url=' + encodeURIComponent(url.value) +
-//                  '&uid=' + encodeURIComponent(uid.value)
-//    // console.log(params)      
-              
-
-//     // Replace any instances of the URLEncoded space char with +
-//     params = params.replace(/%20/g, '+');
-
-//     // Set correct header for form data
-//     var formContentType = 'application/x-www-form-urlencoded';
-//     xhr.setRequestHeader('Content-type', formContentType);
-
-//     // Handle request state change events
-//     xhr.onreadystatechange = function() {
-//         // If the request completed
-//         if (xhr.readyState == 4) {
-//             statusDisplay.innerHTML = '';
-//             if (xhr.status == 200) {
-//                 // If it was a success, close the popup after a short delay
-//                 statusDisplay.value = 'Saved!';
-//                 window.setTimeout(window.close, 1000);
-                
-//        // chrome.browserAction.setIcon({path:"gt.png"});
-//             } else {
-//                 // Show what went wrong
-//                 statusDisplay.value = 'Error saving' + xhr.statusText;
-//             }
-//         }
-//     };
-
-//     // Send the request and set status
-//     xhr.send(params);
-//     statusDisplay.value = 'Saving...';
-
-
 var statusDisplay = document.getElementById('save');
+statusDisplay.value = "Saving..."
 chrome.storage.local.get(['key'], function(result) {
   db.collection(result.key).add({      //.doc().set({  //website_title
     status: "none",
@@ -142,6 +91,7 @@ chrome.storage.local.get(['key'], function(result) {
     dateAdded: firebase.firestore.Timestamp.now(), //timestamp
     articleURL: url.value //url
   }).then(function(docRef) {
+   // statusDisplay.value = "Saving..."
     doc_id = docRef.id
     web_details = {URL:url.value, Title:short_web_title, Date:dateStr,Icon:fav_icon, Tags:tags, Complete_Title:website_title, DocId: doc_id };
    chrome.storage.local.get({ 
@@ -159,7 +109,8 @@ chrome.storage.local.get(['key'], function(result) {
     
   })
   .catch(function(error) {
-    console.error("Error writing document: ", error);
+    statusDisplay.value = "Error"
+    //console.error("Error writing document: ", error);
   });
 });
  
@@ -175,24 +126,6 @@ window.addEventListener('load', function(evt) {
     
    
     chrome.runtime.getBackgroundPage(function(eventPage) {
-        
-        // Call the getPageInfo function in the event page, passing in
-        // our onPageDetailsReceived function as the callback. This
-        // injects content.js into the current tab's HTML
-
-     /********DO NOT REMOVE THIS CODE AT ANY COST********/
-
-
-            // chrome.storage.local.get('email_', function(data){
-            //     let email = data.email_;
-            //     if(!email){
-            //         email = "";
-            //     }
-            //     document.getElementById("email").value =  email;
-            //     })
-     
-     
-     /* ******************************************************** */
         eventPage.getPageDetails(onPageDetailsReceived);
     });
 });
@@ -207,8 +140,6 @@ window.addEventListener('load', function(evt) {
 })();
 
 //Settings page open on click
-
-
 document.getElementById('settings-icon').addEventListener('click', function(){
     window.open('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/settings.html', '_blank');
 })

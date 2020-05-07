@@ -1,8 +1,18 @@
 
-// var dark_mode = document.getElementById("dark_mode_checkbox")
-// if(dark_mode.checked==true){
-//   document.getElementsByTagName("body")[0].style.backgroundColor = "black"
-// }
+//  chrome.storage.local.get(['profile_pic'], function(result) {
+// });
+
+//Profile picture//
+var p = document.getElementsByClassName('profile-picture')
+var photo_link
+ chrome.storage.local.get(['profile_pic'], function(result) {
+   photo_link =  result.profile_pic
+   for(var i=0;i<p.length;i++){
+    console.log(p[i])
+    p[i].src = photo_link 
+  }
+});
+
 
 
 //SIDEMENU//
@@ -153,18 +163,6 @@ document.getElementById('submit-settings').addEventListener('submit',function(){
 
 
 /////SAVED MENU////
-// function title_trimmer(website_title){
-// if(website_title.length>=60){
-//   website_title = website_title.substring(0, 60) + '...'
-// }else{
-//   website_title = website_title
-// }
-// return website_title
-// }
-
-
-// var favicon = "https://s2.googleusercontent.com/s2/favicons?domain_url="
-// sab kuch db se sync karna hai
 
 
 ///////CARD RENDERING/////  
@@ -176,7 +174,7 @@ document.getElementById('submit-settings').addEventListener('submit',function(){
     list:[] 
   },
   function(data) {
-   console.log(data.list)
+ //  console.log(data.list)
    for(var i=data.list.length-1;i>=0;i--){
      var title = data.list[i]["Title"]
      var link = data.list[i]["URL"]

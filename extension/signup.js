@@ -1,5 +1,3 @@
-
-
 var firebaseConfig = {
     apiKey: "AIzaSyBDaQL21llq2-5ftbSh0WvC243M6p_ZsgY",
     authDomain: "netsips-1586535958950.firebaseapp.com",
@@ -46,14 +44,15 @@ document.getElementById("firebase_signin").addEventListener('click', function(){
 
 
     firebase.auth().signInWithPopup(provider).then(function(result) {
+    document.getElementById("firebase_signin").style.display = "none"    
+  //  console.log(result)
     document.getElementsByClassName("login100-form-title")[0].innerText = "You are signed in!"
     chrome.storage.local.set({isSigned: true}, function() {
     });
     chrome.browserAction.setPopup({popup: "popup_main.html"});
-    // chrome.storage.local.get(['isSigned'], function(result) {
-    // });
     var email =  result.user.email
     var value = result.user.uid
+    var profile_picture = result.user.photoURL
     var markers = [];
     db_store.collection(value).get().then(querySnapshot => {
     querySnapshot.docs.forEach(doc => {
@@ -101,9 +100,21 @@ rtd.once("value")
         rtd.child(value).set({'email':  email, 'days':"6"}).then().catch();
     }
   });
+ // profile_picture
+
+ //console.log(profile_picture)
+ chrome.storage.local.set({profile_pic: profile_picture}, function() {
+});
+
+// chrome.storage.local.get(['profile_pic'], function(result) {
+//   console.log(result.profile_pic)
+// });
 
 
-// chrome.browserAction.setPopup({popup: "popup_main.html"});
+
+
+
+// saving uid of user
     
     chrome.storage.local.set({key: value}, function() {
       });
@@ -120,7 +131,7 @@ rtd.once("value")
         // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
         // ...
-        console.log(errorCode, errorMessage,email, credential)
+        //console.log(errorCode, errorMessage,email, credential)
       });
 }
 
