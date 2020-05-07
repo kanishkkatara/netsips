@@ -5,8 +5,7 @@
     "description": "Curate your web",
     "version": "1.3",
     "background": {
-        "scripts": ["firebase-app.js",
-            "firebase-firestore.js","event.js"]
+        "scripts": ["event.js"]
     },
     "browser_action": {
       

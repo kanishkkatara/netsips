@@ -137,6 +137,7 @@ window.addEventListener('load', function(evt) {
 //Settings page open on click
 document.getElementById('settings-icon').addEventListener('click', function(){
     window.open('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/settings.html', '_blank');
+    
 })
 
 

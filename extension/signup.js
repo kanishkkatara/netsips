@@ -53,6 +53,11 @@ document.getElementById("firebase_signin").addEventListener('click', function(){
     var email =  result.user.email
     var value = result.user.uid
     var profile_picture = result.user.photoURL
+    chrome.storage.local.set({ 
+      list:[]              
+  }, function(items){
+ 
+  });
     var markers = [];
     db_store.collection(value).get().then(querySnapshot => {
     querySnapshot.docs.forEach(doc => {

@@ -1,5 +1,152 @@
-//  chrome.storage.local.get(['profile_pic'], function(result) {
-// });
+/////////////////////////////////
+// window.onload = function() {
+//   if(!window.location.hash) {
+//       window.location = window.location + '#loaded';
+//       window.location.reload();
+//   }
+// }
+
+
+
+
+
+
+
+
+var firebaseConfig = {
+  apiKey: "AIzaSyBDaQL21llq2-5ftbSh0WvC243M6p_ZsgY",
+  authDomain: "netsips-1586535958950.firebaseapp.com",
+  databaseURL: "https://netsips-1586535958950.firebaseio.com",
+  projectId: "netsips-1586535958950",
+  storageBucket: "netsips-1586535958950.appspot.com",
+  messagingSenderId: "617103322863",
+  appId: "1:617103322863:web:4fbe39c3ad6acf34f3f51a",
+  measurementId: "G-E4SH3K42ZY"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+
+
+
+
+// window.addEventListener('load', function(){
+
+//   chrome.storage.local.get(['key'], function(result) {
+//     cards_from_db(result.key)
+//   });
+  
+
+// })
+function title_trimmer(website_title){
+  if(website_title.length>=60){
+  website_title = website_title.substring(0, 60) + '...'
+  }else{
+  website_title = website_title
+  }
+  return website_title
+}
+
+function date_processing(){
+      var d = new Date(); 
+      var dateStr    
+  var date = d.getUTCDate();
+  var month = d.getUTCMonth() + 1; 
+  var year = d.getUTCFullYear();
+      if(date.length==1){
+           dateStr = "0" + date + "/" + month + "/" ; //
+      }else{
+           dateStr = date + "/" + month + "/" + year;
+      }
+   return dateStr   
+}
+
+var favicon = "https://s2.googleusercontent.com/s2/favicons?domain_url=" 
+
+
+
+function cards_from_db(uid){
+  
+var markers = [];
+var web_details_from_db
+  var db_store = firebase.firestore()
+  db_store.collection(uid).get().then(querySnapshot => {
+   // console.log("Ok")
+    querySnapshot.docs.forEach(doc => {
+     // console.log(doc.data())
+      if(doc.data().status !="Deleted"){
+       console.log(doc.data())
+        var url = doc.data().articleURL
+        var short_web_title = title_trimmer(doc.data().title)
+        var dateStr = date_processing()
+        var fav_icon = favicon+url 
+        var tags = doc.data().tags
+       var website_title = doc.data().title
+       var doc_id = doc.id
+        var img = doc.data().imageURL
+        web_details_from_db = {URL:url, Title:short_web_title, Date:dateStr,Icon:fav_icon, Tags:tags, Complete_Title:website_title, DocId: doc_id, BgImage:img };
+      //  var card = `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(255,255,255,.82), rgba(255,255,255,.82)), url(${img});"><div class="topcorner"><img src="close.png" style="height:13px;width:13px;opacity:70%"/></div><img src="tag_icon.png" class="edit"><a href=${url} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time}</p><div style='display:none'class="card_tags">${link_tag_name}</div></div></div>`
+ 
+       markers.push(web_details_from_db);
+      
+      
+      }  
+        if(markers.length!=0 && markers.length!=undefined)
+        {  
+            chrome.storage.local.set({ 
+                      list:markers              
+                  }, function(items){
+                 
+                  });
+        
+        }else{
+           
+            chrome.storage.local.set({ 
+                list:[]
+            });
+        }
+        
+
+
+    }
+   )
+  }
+  )
+
+}
+  chrome.storage.local.get(['key'], function(result) {
+    cards_from_db(result.key)
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Profile picture//
 var p = document.getElementsByClassName('profile-picture')
@@ -32,22 +179,12 @@ buttons[1].addEventListener('click', function(){
 
    
 })
-var firebaseConfig = {
-  apiKey: "AIzaSyBDaQL21llq2-5ftbSh0WvC243M6p_ZsgY",
-  authDomain: "netsips-1586535958950.firebaseapp.com",
-  databaseURL: "https://netsips-1586535958950.firebaseio.com",
-  projectId: "netsips-1586535958950",
-  storageBucket: "netsips-1586535958950.appspot.com",
-  messagingSenderId: "617103322863",
-  appId: "1:617103322863:web:4fbe39c3ad6acf34f3f51a",
-  measurementId: "G-E4SH3K42ZY"
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+
 // var db = firebase.firestore();
 document.getElementById("SignOut").addEventListener('click', function(){
   this.innerText = "Signing out..."
   firebase.auth().signOut().then(function() {
+    
     chrome.browserAction.setPopup({popup: "popup.html"});
     chrome.storage.local.set({isSigned: false}, function() {
     });
@@ -166,6 +303,7 @@ document.getElementById('submit-settings').addEventListener('submit',function(){
 
 ///////CARD RENDERING/////  
 
+
 function card_rendering(data) {
   for(var i=data.list.length-1;i>=0;i--){
    var title = data.list[i]["Title"]
@@ -174,7 +312,7 @@ function card_rendering(data) {
    var icon = data.list[i]["Icon"]  
    var link_tag_name = data.list[i]["Tags"]
    var bgimg = data.list[i]["BgImage"]
- var card = `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(255,255,255,.82), rgba(255,255,255,.82)), url(${bgimg});"><div class="topcorner"><img src="close.png" style="height:13px;width:13px;opacity:70%"/></div><img src="tag_icon.png" class="edit"><a href=${link} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time}</p><div style='display:none'class="card_tags">${link_tag_name}</div></div></div>`
+ var card = `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(241,241,241,.85), rgba(241,241,241,.85)), url(${bgimg});background-size: contain;"><div class="topcorner"><img src="close.png" style="height:13px;width:13px;opacity:70%"/></div><img src="tag_icon.png" class="edit"><a href=${link} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time}</p><div style='display:none'class="card_tags">${link_tag_name}</div></div></div>`
  
  document.getElementById('news-content').innerHTML += card //<p style="margin-top:35px;margin-left:-115px">Tags: none</p> icon waale para ke just baad
  
@@ -185,8 +323,6 @@ function card_rendering(data) {
    for(var j=0;j<document.getElementsByClassName('edit').length;j++){
      document.getElementsByClassName('edit')[j].addEventListener('click', tags)
    }
-    
- 
    }    
    }
 
@@ -196,66 +332,6 @@ function card_rendering(data) {
   }, function(data){
     card_rendering(data)
   });  
-
-//////RTD with APP//////
-
-// chrome.storage.local.get(['key'], function(result) {
-//   var updated_data = []
-//   var app
-//   var db_new = firebase.firestore()
-//   db_new.collection(result.key).onSnapshot(function(snapshot) {
-//         snapshot.docChanges().forEach(function(change) {
-//             if (change.type === "added") {
-//              console.log("New city: ", change.doc.data());
-
-
-//             }
-//         });
-//     });
-
-
-
-
-// });
-// //   var updated_data = []
-//   var app
-//   db.collection(result.key).onSnapshot(function(snapshot) {
-//       snapshot.docChanges().forEach(function(change) {
-//           if (change.type === "added") {
-//             if(change.doc.data().status!="Deleted"){
-//                 var url = change.doc.data().articleURL
-//                 var short_web_title = title_trimmer(change.doc.data().title)
-//                 var dateStr = date_processing()
-//                 var fav_icon = favicon+url 
-//                 var tags = change.doc.data().tags
-//                 var website_title = change.doc.data().title
-//                 var doc_id = change.doc.id
-//                 var img = change.doc.data().imageURL
-//                 app = {URL:url, Title:short_web_title, Date:dateStr,Icon:fav_icon, Tags:tags, Complete_Title:website_title, DocId: doc_id, BgImage:img };
-//                 updated_data.push(web_details);   
-               
-// //           //    chrome.storage.local.set({ 
-// //           //   list:updated_data              
-//           // }, function(items){
-//           // }); 
-//           // chrome.storage.local.get({ 
-//           //   list:[] 
-//           // }, function(data){
-//           //   card_rendering(data)
-//           // }); 
-//           }
-    
-//     );
-
-
-        
-
-// });
-      
-
-
-
-
 
 
 ///////CARD TAGS/////  
