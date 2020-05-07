@@ -45,7 +45,7 @@ document.getElementById("firebase_signin").addEventListener('click', function(){
 
     firebase.auth().signInWithPopup(provider).then(function(result) {
     document.getElementById("firebase_signin").style.display = "none"    
-  //  console.log(result)
+  
     document.getElementsByClassName("login100-form-title")[0].innerText = "You are signed in!"
     chrome.storage.local.set({isSigned: true}, function() {
     });
@@ -64,7 +64,8 @@ document.getElementById("firebase_signin").addEventListener('click', function(){
         var tags = doc.data().tags
         var website_title = doc.data().title
         var doc_id = doc.id
-        web_details = {URL:url, Title:short_web_title, Date:dateStr,Icon:fav_icon, Tags:tags, Complete_Title:website_title, DocId: doc_id };
+        var img = doc.data().imageURL
+        web_details = {URL:url, Title:short_web_title, Date:dateStr,Icon:fav_icon, Tags:tags, Complete_Title:website_title, DocId: doc_id, BgImage:img };
         markers.push(web_details);   
     }     
   });
@@ -100,15 +101,10 @@ rtd.once("value")
         rtd.child(value).set({'email':  email, 'days':"6"}).then().catch();
     }
   });
- // profile_picture
 
- //console.log(profile_picture)
  chrome.storage.local.set({profile_pic: profile_picture}, function() {
 });
 
-// chrome.storage.local.get(['profile_pic'], function(result) {
-//   console.log(result.profile_pic)
-// });
 
 
 

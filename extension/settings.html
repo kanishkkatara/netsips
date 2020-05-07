@@ -21,7 +21,7 @@
 }
 @font-face {
  font-family: 'Manrove-cards';
- font-weight:430px;
+ font-weight:100rem;
  src: url('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/Manrope-VariableFont_wght.ttf'); 
 }
 
@@ -274,7 +274,7 @@ box-shadow: 0px 3px 5px 0px rgba(153,153,153,1);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
   padding: 16px;
   text-align: center;
-  background-color: #f1f1f1;
+ /* background-color: #f1f1f1;*/
   margin-top:30px;
   width: 200px;
   height:180px; /*160px*/
@@ -325,7 +325,7 @@ box-shadow: 0px 3px 5px 0px rgba(153,153,153,1);
   outline:none;
 }
 .filter_tags{
-  margin: 15px 10px 0px 15px;
+  margin: 15px 10px 10px 15px;
    
    border-radius: 20%;
    font-size:12px;
@@ -345,18 +345,19 @@ input:focus {
    position:absolute;
    top:3px;
    right:3.9px;
-   border-radius: 50%;
+   border-radius: 20%;
    width:18px;
-
+  
    text-align:center;
   
 
        }
 .topcorner:hover{
+
  background: rgba(224, 93, 81, 0.5)
   }  
 .edit:hover{
- opacity:70%
+ opacity:100%
   }
  .edit{
      position:absolute;
@@ -366,14 +367,15 @@ input:focus {
    width:18px;
    height:18px;
    text-align:center;
-   opacity:35%;
+   opacity:70%;
    margin-top: 5px;
 
  }
 
   .saved_article_titles{
     margin-top:22px;
-    margin-right:10px
+    margin-right:10px;
+    opacity:1
   }
 .card_date .card_logo{
   display:inline-block
@@ -382,7 +384,8 @@ input:focus {
   margin-left:-115px
 }
 .card_date{
-  margin-left:-6.5px
+  margin-left:-6.5px;
+ font-family: 'Manrove-cards';
 }
 #news-content{
   padding-bottom:50px;
@@ -534,7 +537,10 @@ input:checked + .slider:before {
 }
 
 #span_container{
+
   font-family: 'Raleway';
+
+   
   
 }
 .profile-picture{
@@ -565,7 +571,8 @@ input:checked + .slider:before {
    </center>
 
 <input type="text" id="searchBar" placeholder="Search for bookmarks..." title="">
-<p><button id="Tag_search_button" style="display:none">Filter by tags</button><span id="span_container" style="margin-left:15px;"></span></p>
+<p style="overflow-wrap: anywhere;line-height: 3;margin-left:30px;margin-right:20px"><button id="Tag_search_button" style="display:none">Filter by tags</button><span id="span_container" style="margin-left:-15px;"></span>
+</p>
 
 <div class="row" id="news-content">
  

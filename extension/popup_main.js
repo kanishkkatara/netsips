@@ -25,7 +25,7 @@ var db = firebase.firestore();
 
 
 //Delivery from content.js
-var image 
+var image
 function onPageDetailsReceived(pageDetails) {
   if(pageDetails.word_count>1000){
     document.getElementById('word_count').style.color = "red"
@@ -37,12 +37,7 @@ function onPageDetailsReceived(pageDetails) {
     }else{
       document.getElementById('est_time').innerText = "(around "+ pageDetails.estimated_time+" minutes)";
     }
- // image = pageDetails.img_url
-  if(pageDetails.img_url!=undefined){
-    image = pageDetails.img_url
-  }else{
-    image = ""
-  }
+image = pageDetails.img_url
 }
 
 
@@ -93,7 +88,7 @@ chrome.storage.local.get(['key'], function(result) {
   }).then(function(docRef) {
    // statusDisplay.value = "Saving..."
     doc_id = docRef.id
-    web_details = {URL:url.value, Title:short_web_title, Date:dateStr,Icon:fav_icon, Tags:tags, Complete_Title:website_title, DocId: doc_id };
+    web_details = {URL:url.value, Title:short_web_title, Date:dateStr,Icon:fav_icon, Tags:tags, Complete_Title:website_title, DocId: doc_id, BgImage:image };
    chrome.storage.local.get({ 
     list:[] 
   },

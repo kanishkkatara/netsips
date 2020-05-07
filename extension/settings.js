@@ -1,4 +1,3 @@
-
 //  chrome.storage.local.get(['profile_pic'], function(result) {
 // });
 
@@ -8,7 +7,7 @@ var photo_link
  chrome.storage.local.get(['profile_pic'], function(result) {
    photo_link =  result.profile_pic
    for(var i=0;i<p.length;i++){
-    console.log(p[i])
+  //  console.log(p[i])
     p[i].src = photo_link 
   }
 });
@@ -167,40 +166,97 @@ document.getElementById('submit-settings').addEventListener('submit',function(){
 
 ///////CARD RENDERING/////  
 
-
+function card_rendering(data) {
+  for(var i=data.list.length-1;i>=0;i--){
+   var title = data.list[i]["Title"]
+   var link = data.list[i]["URL"]
+   var time = data.list[i]["Date"]     //
+   var icon = data.list[i]["Icon"]  
+   var link_tag_name = data.list[i]["Tags"]
+   var bgimg = data.list[i]["BgImage"]
+ var card = `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(255,255,255,.82), rgba(255,255,255,.82)), url(${bgimg});"><div class="topcorner"><img src="close.png" style="height:13px;width:13px;opacity:70%"/></div><img src="tag_icon.png" class="edit"><a href=${link} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time}</p><div style='display:none'class="card_tags">${link_tag_name}</div></div></div>`
+ 
+ document.getElementById('news-content').innerHTML += card //<p style="margin-top:35px;margin-left:-115px">Tags: none</p> icon waale para ke just baad
+ 
+   for(var j=0;j<document.getElementsByClassName('topcorner').length;j++){
+     document.getElementsByClassName('topcorner')[j].addEventListener('click', hellocard)
+   }
+   
+   for(var j=0;j<document.getElementsByClassName('edit').length;j++){
+     document.getElementsByClassName('edit')[j].addEventListener('click', tags)
+   }
+    
+ 
+   }    
+   }
 
 
   chrome.storage.local.get({ 
     list:[] 
-  },
-  function(data) {
- //  console.log(data.list)
-   for(var i=data.list.length-1;i>=0;i--){
-     var title = data.list[i]["Title"]
-     var link = data.list[i]["URL"]
-     var time = data.list[i]["Date"]     //Timestamp milega process karna padega phir
-     var icon = data.list[i]["Icon"]  //use api here itself
-     var link_tag_name = data.list[i]["Tags"]
-  //    if(title.length>=60){
-  //     title = title.substring(0, 60) + '...'
-  // }
-  var card = `<div class='column'> <div></div><div class='card'><div class="topcorner"><img src="close.png" style="height:13px;width:13px;opacity:50%"/></div><img src="tag_icon.png" class="edit"><a href=${link} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time}</p><div style='display:none'class="card_tags">${link_tag_name}</div></div></div>`
-  document.getElementById('news-content').innerHTML += card //<p style="margin-top:35px;margin-left:-115px">Tags: none</p> icon waale para ke just baad
+  }, function(data){
+    card_rendering(data)
+  });  
 
-  for(var j=0;j<document.getElementsByClassName('topcorner').length;j++){
-    document.getElementsByClassName('topcorner')[j].addEventListener('click', hellocard)
-  }
-  
-  for(var j=0;j<document.getElementsByClassName('edit').length;j++){
-    document.getElementsByClassName('edit')[j].addEventListener('click', tags)
-  }
-   
+//////RTD with APP//////
 
-  } 
+// chrome.storage.local.get(['key'], function(result) {
+//   var updated_data = []
+//   var app
+//   var db_new = firebase.firestore()
+//   db_new.collection(result.key).onSnapshot(function(snapshot) {
+//         snapshot.docChanges().forEach(function(change) {
+//             if (change.type === "added") {
+//              console.log("New city: ", change.doc.data());
 
-  
-  }
-  );  
+
+//             }
+//         });
+//     });
+
+
+
+
+// });
+// //   var updated_data = []
+//   var app
+//   db.collection(result.key).onSnapshot(function(snapshot) {
+//       snapshot.docChanges().forEach(function(change) {
+//           if (change.type === "added") {
+//             if(change.doc.data().status!="Deleted"){
+//                 var url = change.doc.data().articleURL
+//                 var short_web_title = title_trimmer(change.doc.data().title)
+//                 var dateStr = date_processing()
+//                 var fav_icon = favicon+url 
+//                 var tags = change.doc.data().tags
+//                 var website_title = change.doc.data().title
+//                 var doc_id = change.doc.id
+//                 var img = change.doc.data().imageURL
+//                 app = {URL:url, Title:short_web_title, Date:dateStr,Icon:fav_icon, Tags:tags, Complete_Title:website_title, DocId: doc_id, BgImage:img };
+//                 updated_data.push(web_details);   
+               
+// //           //    chrome.storage.local.set({ 
+// //           //   list:updated_data              
+//           // }, function(items){
+//           // }); 
+//           // chrome.storage.local.get({ 
+//           //   list:[] 
+//           // }, function(data){
+//           //   card_rendering(data)
+//           // }); 
+//           }
+    
+//     );
+
+
+        
+
+// });
+      
+
+
+
+
+
 
 ///////CARD TAGS/////  
 
