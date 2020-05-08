@@ -15,11 +15,15 @@
 <link href="https://fonts.googleapis.com/css?family=Courgette&display=swap" rel="stylesheet"/>
 
     <style>
-    
+        @font-face {
+ font-family: 'Manrove-cards';
+ font-weight:200rem;
+ src: url('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/Manrope-VariableFont_wght.ttf'); 
+}
       html,
       body {
-        font-family: "Open Sans", sans-serif;
-        font-size: 14px;
+      font-family: 'Manrove-cards';
+      
         margin: 0;
         min-height: 180px;
         padding: 0;
@@ -46,7 +50,7 @@ font-family: 'Courgette', cursive;
   
       }
       .modal-content {
-       
+      
         text-align:center;
 	color: #4c4e4d;
   
@@ -67,7 +71,7 @@ font-family: 'Courgette', cursive;
         text-align: center;
       }
       #save{
-        font-family: "Open Sans", sans-serif;
+       font-family: 'Manrove-cards';
         border-radius: 5px;
         width: 224px;
         height:40px;
@@ -75,7 +79,14 @@ font-family: 'Courgette', cursive;
         margin-bottom:10px;
         background: white;
         transition: 0.3s;
+        font-size:16px
+       
       }
+
+     input{
+       font-size:15px
+     }
+
       #addbookmark{
         text-align: center;
       }
@@ -94,9 +105,9 @@ font-family: 'Courgette', cursive;
          
       }
       p{
-        padding: 0px 15px 15px 15px;
+        padding: 0px 15px 0px 15px;
         text-align:left;
-        font-size:14px;
+        font-size:16.5px;
         font-weight:light;
       }
       img{
@@ -110,16 +121,17 @@ font-family: 'Courgette', cursive;
         margin-bottom:-5px;
       }
       #save:hover{
-
+       border:none;
         background: #313131;
         color:#FFF000;
+     
       }
       h3{
         color: rgb(0,0,0,0.8);
       }
       #main-logo{
-         width:90px;
-         height:30px;
+         width:105px;
+         height:35px;
          margin: 0px 0px -12px 0px;
       }
       #settings-icon{
@@ -156,9 +168,6 @@ font-family: 'Courgette', cursive;
       </h1>
        <span><img id="settings-icon"src="menu_icon.png"></span>
     </div>
-    <!--
-    <span><button id="play">Play</button></span>
-    <span><button id="pause">Pause</button></span>-->
    
     <div id="modal-content">
     
@@ -168,7 +177,7 @@ font-family: 'Courgette', cursive;
               <input  id="uid" name="uid" value="" placeholder="" type="hidden" style="display:none"/>                  
             <input type="hidden" id="url" name="url" value="" readonly style="display:none"/>
      
-              <input type="text" id="popup_tags" placeholder="Add tags (separate using commas)"/>
+              <input type="text" id="popup_tags" placeholder="Add tags..."/>
               <p >
           Number of words: <span id="word_count"></span>
             <span id="est_time" style="display:none"></span></p>

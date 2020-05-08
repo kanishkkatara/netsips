@@ -15,10 +15,14 @@
 <link href="https://fonts.googleapis.com/css?family=Courgette&display=swap" rel="stylesheet"/>
 
     <style>
-    
+    @font-face {
+ font-family: 'Manrove-cards';
+ font-weight:200rem;
+ src: url('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/Manrope-VariableFont_wght.ttf'); 
+}
       html,
       body {
-        font-family: "Open Sans", sans-serif;
+      font-family: 'Manrove-cards';
         font-size: 14px;
         margin: 0;
         min-height: 180px;
@@ -67,7 +71,6 @@ font-family: 'Courgette', cursive;
         text-align: center;
       }
       #ext_link{
-        font-family: "Open Sans", sans-serif;
         border-radius: 5px;
         width: 224px;
         height:40px;
@@ -75,7 +78,8 @@ font-family: 'Courgette', cursive;
         margin-bottom:10px;
         background: white;
         transition: 0.3s;
-        font-size: 13px
+        font-size: 16px;
+        border: solid 1px #202020
       }
       #addbookmark{
         text-align: center;
@@ -95,9 +99,11 @@ font-family: 'Courgette', cursive;
          
       }
       p{
-        padding: 0px 15px 15px 15px;
+        margin-left:10px;
+        margin-right:10px;
+        padding: 0px;
         text-align:left;
-        font-size:14px;
+        font-size:15px;
         line-spacing:1;
 
       }
@@ -133,6 +139,10 @@ font-family: 'Courgette', cursive;
       #settings-icon{
         cursor: pointer;
       }
+      .tick{
+        color:#3CB371;
+        margin-right:1px;
+      }
     </style>
     
    
@@ -144,11 +154,14 @@ font-family: 'Courgette', cursive;
       </h1>
      
     </div>
-   <center id="modal-content-2"> <div >
-   <p> Save bookmarks using Netsips</p>
-   <p> Manage them in your dashboard </p>
-   <p> Get personalised newsletter </p>
-    </div></center>
+   <center id="modal-content-2"> 
+   <p><span class="tick">&#10003</span>Save bookmarks using Netsips</p>
+   <p><span class="tick">&#10003</span>Manage them in your dashboard</p>
+   <p><span class="tick">&#10003</span>Get personalised newsletters</p>
+   <p><span class="tick">&#10003</span>Sync with Netsips app</p>
+ 
+
+    </center>
 <center> <button id="ext_link">Sign in to Netsips</button></center>
   
     <script src="popup.js"></script>

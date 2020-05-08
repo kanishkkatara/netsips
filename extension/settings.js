@@ -50,16 +50,17 @@ function update(array, webdata)
 var favicon = "https://s2.googleusercontent.com/s2/favicons?domain_url=" 
 
 /////
+// chrome.storage.local.get(['key'], function(result){
 // var markers = [];
-// function cards_from_db2(uid){
-  
-//   // var markers = [];
+// var uid= result.key
+// // function cards_from_db2(uid){
+//  //var uid = "rzWqqw3stQdrO84QGiJn5oEyeZ02" 
+//   var markers = [];
 //   var web_details_from_db
 //     var db_store = firebase.firestore()
 //     db_store.collection(uid).onSnapshot(function(snapshot) {snapshot.docChanges().forEach(function(change){
-//       if (change.type === "added") {
-//         if(change.doc.data().status!=102){
-//          // console.log(change.doc.data());
+//       if ((change.type === "added" || change.type==="modified")) {
+//          // console.log(change.doc.data().status)
 //           var url = change.doc.data().articleURL
 //           var short_web_title = title_trimmer(change.doc.data().title)
 //           var dateStr = date_processing()
@@ -68,38 +69,37 @@ var favicon = "https://s2.googleusercontent.com/s2/favicons?domain_url="
 //           var website_title = change.doc.data().title
 //           var doc_id = change.doc.id
 //           var img = change.doc.data().imageUrl
+//           var status = change.doc.data().status
+//         //  console.log(change.doc.data().status)//&& change.doc.data().status!=102
 //           web_details_from_db = {URL:url, Title:short_web_title, Date:dateStr,Icon:fav_icon, Tags:tags, Complete_Title:website_title, DocId: doc_id, BgImage:img };
-//           markers.push(web_details_from_db);
-//         }
-      
-     //var markers = markers
-     //console.log(markers)
-          //   if(markers.length!=0 && markers.length!=undefined)
-          // { // console.log("ok")
-          //     chrome.storage.local.set({ 
-          //               list:markers              
-          //           }, function(items){
-          //              // card_rendering(data)
-          //          console.log(items)
-          //        //  card_rendering(items)
-          //           });
-          
-          // }else{
-             
-          //     chrome.storage.local.set({ 
-          //         list:[]
-          //     });
-          // }
+//           if(status!=102){
+//             markers.push(web_details_from_db);
+//           }
+//           // markers.push(web_details_from_db);
+//         }})
+//       console.log(markers)
+//       if(markers.length!=0 && markers.length!=undefined){  
+//         chrome.storage.local.set({ 
+//           list:markers              
+//       }, function(){
+//         chrome.storage.local.get({ 
+//           list:[] 
+//         }, function(data){
+//           console.log(data.list)
+//          card_rendering(data)
+//         }); 
+//       });
+//       }
+//       else{
+//         document.getElementById('news-content').innerHTML = ''
+//         console.log("f")
+//       }
+//       markers = []  
+//     //  }})
+//     })
+   
 //   })
-// })    
-  
-//   } 
-
-  // chrome.storage.local.get(['key'], function(result) {
-  //   cards_from_db2(result.key)
-  // });
-
-
+ 
 /////OLD CODE/////////////
 
 function cards_from_db(uid){
@@ -107,7 +107,7 @@ function cards_from_db(uid){
 var markers = [];
 var web_details_from_db
   var db_store = firebase.firestore()
-  db_store.collection(uid).get().then(querySnapshot => {
+  db_store.collection(uid).orderBy('dateAdded',"asc").get().then(querySnapshot => {
    // console.log("Ok")
     querySnapshot.docs.forEach(doc => {
      // console.log(doc.data())
@@ -131,7 +131,7 @@ var web_details_from_db
         if(markers.length!=0 && markers.length!=undefined)
         {  
             chrome.storage.local.set({ 
-                      list:markers              
+                      list:markers            
                   }, function(items){
                   });
         
@@ -154,11 +154,10 @@ var web_details_from_db
 
 /////OLD CODE/////////////
 
-///YEH DHYAN RAKHNA BHAI////
   chrome.storage.local.get(['key'], function(result) {
     cards_from_db(result.key)
   });
-///PLEASE///////
+
 
 //Profile picture//
 var p = document.getElementsByClassName('profile-picture')
@@ -317,7 +316,8 @@ document.getElementById('submit-settings').addEventListener('submit',function(){
 
 
 function card_rendering(data) {
-  for(var i=data.list.length-1;i>=0;i--){
+ // document.getElementById('news-content').innerHTML = ''
+ for(var i=data.list.length-1;i>=0;i--){    // for(var i=data.list.length-1;i>=0;i--){
    var title = data.list[i]["Title"]
    var link = data.list[i]["URL"]
    var time = data.list[i]["Date"]     //
@@ -325,7 +325,7 @@ function card_rendering(data) {
    var link_tag_name = data.list[i]["Tags"]
    var bgimg = data.list[i]["BgImage"]
    var key = data.list[i]["DocId"]
- var card = `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(241,241,241,0.92), rgba(241,241,241,0.92)), url(${bgimg});background-size: contain;"><div class="topcorner"><img src="close.png" style="height:13px;width:13px;opacity:70%"/></div><img src="tag_icon.png" class="edit"><a href=${link} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time}</p><div style='display:none'class="card_tags">${link_tag_name}</div><div class="key" style="display:none">${key}</div></div></div>`
+ var card = `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(241,241,241,0.89), rgba(241,241,241,0.85)), url(${bgimg});background-size: contain;"><div class="topcorner"><img src="close.png" style="height:13px;width:13px;opacity:70%"/></div><img src="tag_icon.png" class="edit"><a href=${link} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time}</p><div style='display:none'class="card_tags">${link_tag_name}</div><div class="key" style="display:none">${key}</div></div></div>`
  document.getElementById('news-content').innerHTML += card //<p style="margin-top:35px;margin-left:-115px">Tags: none</p> icon waale para ke just baad
  
    for(var j=0;j<document.getElementsByClassName('topcorner').length;j++){
@@ -338,7 +338,7 @@ function card_rendering(data) {
    }    
    }
 
-
+/////BROOOOOO?????
   chrome.storage.local.get({ 
     list:[] 
   }, function(data){
@@ -402,12 +402,15 @@ const update_the_tags = (items, req_title, tag_value)=>{ //req_title is actually
       // var db = firebase.firestore();
       db.collection(result.key).doc(n).update({
         tags: tag_value
-       }).then(function() {
+       })
+       .then(function() {
         submit_btn.value = "Saved!"
         window.location.reload()
-       }).catch(function(error){
+       })
+       .catch(function(error){
          console.error("Error updating document: ", error);
        });
+
       });
     
     

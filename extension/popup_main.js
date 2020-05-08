@@ -3,7 +3,7 @@ chrome.tabs.getSelected(null,function(tab) {
     var title = tab.title; 
     var url = tab.url;
     var favicon = "https://s2.googleusercontent.com/s2/favicons?domain_url="+url 
-    document.getElementById("modal-content").innerHTML = "<p id='website-title'>" + `<span ><img style="height:15px; width:15px; margin-left:-0.5px" src=${favicon}/></span>`+title+"</p>";
+    document.getElementById("modal-content").innerHTML = "<p id='website-title'>" + `<span ><img style="height:16px; width:16px; margin-left:-0.5px" src=${favicon}/></span>`+title+"</p>";
     
   });
 
@@ -26,11 +26,13 @@ var db = firebase.firestore();
 
 //Delivery from content.js
 var image
+var website_url
 function onPageDetailsReceived(pageDetails) {
   if(pageDetails.word_count>1000){
     document.getElementById('word_count').style.color = "red"
   }
-    document.getElementById('url').value = pageDetails.url;
+ //   document.getElementById('url').value = pageDetails.url;
+ website_url = pageDetails.url;
     document.getElementById('word_count').innerText =  " "+ pageDetails.word_count;
     if(pageDetails.estimated_time==1){
       document.getElementById('est_time').innerText = "(around "+ pageDetails.estimated_time+" minute)";
@@ -60,8 +62,8 @@ var year = d.getFullYear();
      }else{
         var dateStr = date + "/" + month + "/" + year;
      }
-   var url = document.getElementById('url');
-  var fav_icon = "https://s2.googleusercontent.com/s2/favicons?domain_url="+ url.value
+  // var url = document.getElementById('url');
+  var fav_icon = "https://s2.googleusercontent.com/s2/favicons?domain_url="+ website_url
     var uid = document.getElementById("uid");
     var website_title =  document.getElementById('website-title').innerText;
     var short_web_title
@@ -87,7 +89,7 @@ chrome.storage.local.get(['key'], function(result) {
     title: website_title,
     imageUrl:image, //img
     dateAdded: firebase.firestore.Timestamp.now(), //timestamp
-    articleURL: url.value //url
+    articleURL: website_url //url
   }).then(function(docRef) {
     doc_id = docRef.id
     web_details = {URL:url.value, Title:short_web_title, Date:dateStr,Icon:fav_icon, Tags:tags, Complete_Title:website_title, DocId: doc_id, BgImage:image };

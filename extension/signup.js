@@ -46,7 +46,7 @@ document.getElementById("firebase_signin").addEventListener('click', function(){
     firebase.auth().signInWithPopup(provider).then(function(result) {
     document.getElementById("firebase_signin").style.display = "none"    
   
-    document.getElementsByClassName("login100-form-title")[0].innerText = "You are signed in! (check the popup)"
+    document.getElementsByClassName("login100-form-title")[0].innerText = "You are signed in!"
     chrome.storage.local.set({isSigned: true}, function() {
     });
     chrome.browserAction.setPopup({popup: "popup_main.html"});
@@ -59,7 +59,7 @@ document.getElementById("firebase_signin").addEventListener('click', function(){
  
   });
     var markers = [];
-    db_store.collection(value).get().then(querySnapshot => {
+    db_store.collection(value).orderBy('dateAdded',"asc").get().then(querySnapshot => {
     querySnapshot.docs.forEach(doc => {
     if(doc.data().status!=102){ //"Deleted"
         var url = doc.data().articleURL
