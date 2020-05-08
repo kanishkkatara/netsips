@@ -26,9 +26,9 @@ function title_trimmer(website_title){
 function date_processing(){
         var d = new Date(); 
         var dateStr    
-    var date = d.getUTCDate();
-    var month = d.getUTCMonth() + 1; 
-    var year = d.getUTCFullYear();
+    var date = d.getDate();
+    var month = d.getMonth() + 1; 
+    var year = d.getFullYear();
         if(date.length==1){
              dateStr = "0" + date + "/" + month + "/" ; //
         }else{
@@ -46,7 +46,7 @@ document.getElementById("firebase_signin").addEventListener('click', function(){
     firebase.auth().signInWithPopup(provider).then(function(result) {
     document.getElementById("firebase_signin").style.display = "none"    
   
-    document.getElementsByClassName("login100-form-title")[0].innerText = "You are signed in!"
+    document.getElementsByClassName("login100-form-title")[0].innerText = "You are signed in! (check the popup)"
     chrome.storage.local.set({isSigned: true}, function() {
     });
     chrome.browserAction.setPopup({popup: "popup_main.html"});
@@ -61,7 +61,7 @@ document.getElementById("firebase_signin").addEventListener('click', function(){
     var markers = [];
     db_store.collection(value).get().then(querySnapshot => {
     querySnapshot.docs.forEach(doc => {
-    if(doc.data().status!="Deleted"){
+    if(doc.data().status!=102){ //"Deleted"
         var url = doc.data().articleURL
         var short_web_title = title_trimmer(doc.data().title)
         var dateStr = date_processing()
@@ -69,7 +69,7 @@ document.getElementById("firebase_signin").addEventListener('click', function(){
         var tags = doc.data().tags
         var website_title = doc.data().title
         var doc_id = doc.id
-        var img = doc.data().imageURL
+        var img = doc.data().imageUrl
         web_details = {URL:url, Title:short_web_title, Date:dateStr,Icon:fav_icon, Tags:tags, Complete_Title:website_title, DocId: doc_id, BgImage:img };
         markers.push(web_details);   
     }     

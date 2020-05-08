@@ -1,18 +1,4 @@
 /////////////////////////////////
-// window.onload = function() {
-//   if(!window.location.hash) {
-//       window.location = window.location + '#loaded';
-//       window.location.reload();
-//   }
-// }
-
-
-
-
-
-
-
-
 var firebaseConfig = {
   apiKey: "AIzaSyBDaQL21llq2-5ftbSh0WvC243M6p_ZsgY",
   authDomain: "netsips-1586535958950.firebaseapp.com",
@@ -26,18 +12,6 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-
-
-
-
-// window.addEventListener('load', function(){
-
-//   chrome.storage.local.get(['key'], function(result) {
-//     cards_from_db(result.key)
-//   });
-  
-
-// })
 function title_trimmer(website_title){
   if(website_title.length>=60){
   website_title = website_title.substring(0, 60) + '...'
@@ -50,20 +24,83 @@ function title_trimmer(website_title){
 function date_processing(){
       var d = new Date(); 
       var dateStr    
-  var date = d.getUTCDate();
-  var month = d.getUTCMonth() + 1; 
-  var year = d.getUTCFullYear();
+  var date = d.getDate();
+  var month = d.getMonth() + 1; 
+  var year = d.getFullYear();
       if(date.length==1){
-           dateStr = "0" + date + "/" + month + "/" ; //
+           dateStr = "0" + date + "/" + month + "/" ; 
       }else{
            dateStr = date + "/" + month + "/" + year;
       }
    return dateStr   
 }
 
+function update(array, webdata)
+ {
+  array.push(webdata);
+  chrome.storage.local.set({ 
+      list:array
+  });
+  }
+
+
+
+
+
 var favicon = "https://s2.googleusercontent.com/s2/favicons?domain_url=" 
 
+/////
+// var markers = [];
+// function cards_from_db2(uid){
+  
+//   // var markers = [];
+//   var web_details_from_db
+//     var db_store = firebase.firestore()
+//     db_store.collection(uid).onSnapshot(function(snapshot) {snapshot.docChanges().forEach(function(change){
+//       if (change.type === "added") {
+//         if(change.doc.data().status!=102){
+//          // console.log(change.doc.data());
+//           var url = change.doc.data().articleURL
+//           var short_web_title = title_trimmer(change.doc.data().title)
+//           var dateStr = date_processing()
+//           var fav_icon = favicon+url
+//           var tags = change.doc.data().tags
+//           var website_title = change.doc.data().title
+//           var doc_id = change.doc.id
+//           var img = change.doc.data().imageUrl
+//           web_details_from_db = {URL:url, Title:short_web_title, Date:dateStr,Icon:fav_icon, Tags:tags, Complete_Title:website_title, DocId: doc_id, BgImage:img };
+//           markers.push(web_details_from_db);
+//         }
+      
+     //var markers = markers
+     //console.log(markers)
+          //   if(markers.length!=0 && markers.length!=undefined)
+          // { // console.log("ok")
+          //     chrome.storage.local.set({ 
+          //               list:markers              
+          //           }, function(items){
+          //              // card_rendering(data)
+          //          console.log(items)
+          //        //  card_rendering(items)
+          //           });
+          
+          // }else{
+             
+          //     chrome.storage.local.set({ 
+          //         list:[]
+          //     });
+          // }
+//   })
+// })    
+  
+//   } 
 
+  // chrome.storage.local.get(['key'], function(result) {
+  //   cards_from_db2(result.key)
+  // });
+
+
+/////OLD CODE/////////////
 
 function cards_from_db(uid){
   
@@ -74,8 +111,8 @@ var web_details_from_db
    // console.log("Ok")
     querySnapshot.docs.forEach(doc => {
      // console.log(doc.data())
-      if(doc.data().status !="Deleted"){
-       console.log(doc.data())
+      if(doc.data().status!=102){ //deleted
+       //console.log(doc.data())
         var url = doc.data().articleURL
         var short_web_title = title_trimmer(doc.data().title)
         var dateStr = date_processing()
@@ -83,7 +120,7 @@ var web_details_from_db
         var tags = doc.data().tags
        var website_title = doc.data().title
        var doc_id = doc.id
-        var img = doc.data().imageURL
+        var img = doc.data().imageUrl
         web_details_from_db = {URL:url, Title:short_web_title, Date:dateStr,Icon:fav_icon, Tags:tags, Complete_Title:website_title, DocId: doc_id, BgImage:img };
       //  var card = `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(255,255,255,.82), rgba(255,255,255,.82)), url(${img});"><div class="topcorner"><img src="close.png" style="height:13px;width:13px;opacity:70%"/></div><img src="tag_icon.png" class="edit"><a href=${url} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time}</p><div style='display:none'class="card_tags">${link_tag_name}</div></div></div>`
  
@@ -96,7 +133,6 @@ var web_details_from_db
             chrome.storage.local.set({ 
                       list:markers              
                   }, function(items){
-                 
                   });
         
         }else{
@@ -114,39 +150,15 @@ var web_details_from_db
   )
 
 }
+
+
+/////OLD CODE/////////////
+
+///YEH DHYAN RAKHNA BHAI////
   chrome.storage.local.get(['key'], function(result) {
     cards_from_db(result.key)
   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+///PLEASE///////
 
 //Profile picture//
 var p = document.getElementsByClassName('profile-picture')
@@ -312,8 +324,8 @@ function card_rendering(data) {
    var icon = data.list[i]["Icon"]  
    var link_tag_name = data.list[i]["Tags"]
    var bgimg = data.list[i]["BgImage"]
- var card = `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(241,241,241,.85), rgba(241,241,241,.85)), url(${bgimg});background-size: contain;"><div class="topcorner"><img src="close.png" style="height:13px;width:13px;opacity:70%"/></div><img src="tag_icon.png" class="edit"><a href=${link} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time}</p><div style='display:none'class="card_tags">${link_tag_name}</div></div></div>`
- 
+   var key = data.list[i]["DocId"]
+ var card = `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(241,241,241,0.92), rgba(241,241,241,0.92)), url(${bgimg});background-size: contain;"><div class="topcorner"><img src="close.png" style="height:13px;width:13px;opacity:70%"/></div><img src="tag_icon.png" class="edit"><a href=${link} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time}</p><div style='display:none'class="card_tags">${link_tag_name}</div><div class="key" style="display:none">${key}</div></div></div>`
  document.getElementById('news-content').innerHTML += card //<p style="margin-top:35px;margin-left:-115px">Tags: none</p> icon waale para ke just baad
  
    for(var j=0;j<document.getElementsByClassName('topcorner').length;j++){
@@ -338,13 +350,13 @@ function card_rendering(data) {
 
 function tags(){
 
-
+ // console.log(this.parentElement.childNodes)
   var card_tags = this.parentElement.childNodes[5].innerText
-  var card_title = this.parentElement.childNodes[2].innerText
-
+ // var card_title = this.parentElement.childNodes[2].innerText //key
+ var card_key = this.parentElement.childNodes[6].innerText
 var modal = document.getElementsByClassName("myModal")[0];
 
-modal.childNodes[3].childNodes[6].value = card_title //input title value
+modal.childNodes[3].childNodes[6].value = card_key //input title value //card_title
 modal.childNodes[3].childNodes[12].value = card_tags //input tag value
 modal.style.display = "block";
 var cross = document.getElementsByClassName("myModal")[0].childNodes[3].childNodes[1]
@@ -361,7 +373,7 @@ const addTags =()=>{
   let tag_value = document.getElementById('tag_input').value //Tag of card
  let cards = document.getElementsByClassName('card')
   for(let i=0;i<cards.length;i++){
-    if(cards[i].childNodes[2].innerText == req_title ){
+    if(cards[i].childNodes[6].innerText == req_title ){ //cards[i].childNodes[2].innerText
  cards[i].childNodes[5].innerText = tag_value
     }
   }
@@ -372,14 +384,14 @@ const addTags =()=>{
 // window.location.reload()
 }
 
-const update_the_tags = (items, req_title, tag_value)=>{
+const update_the_tags = (items, req_title, tag_value)=>{ //req_title is actually req_id
     var n
     var submit_btn
     submit_btn = document.getElementById("make_changes_input")
     submit_btn.value = " Saving..." 
     var db = firebase.firestore();
     for(var i=0;i<items.list.length;i++){
-      if(JSON.stringify(req_title) == JSON.stringify(items.list[i].Title)){ //check title instead of entire object
+      if(JSON.stringify(req_title) == JSON.stringify(items.list[i].DocId)){ //check title instead of entire object
         items.list[i].Tags = tag_value
         n = items.list[i].DocId
       }      
@@ -526,11 +538,10 @@ function real_tag_filter(list){
 
 function hellocard(){
 
- var website_title= this.parentElement.childNodes[2].innerText //Title
-
- delete_this_card(website_title)
+//  var website_title= this.parentElement.childNodes[2].innerText //Title
+var website_key= this.parentElement.childNodes[6].innerText
+ delete_this_card(website_key)
   this.parentElement.parentElement.style.display = 'none'
-
 
 }
   
@@ -539,7 +550,7 @@ function delete_this_card(x){
   chrome.storage.local.get({list: []}, function(items) {
  for(var i=0;i<items.list.length;i++){
   
-  if(JSON.stringify(x) == JSON.stringify(items.list[i].Title)){ //check title instead of entire object
+  if(JSON.stringify(x) == JSON.stringify(items.list[i].DocId)){ //check title instead of entire object //[i].Title
     n = items.list[i].DocId
     items.list.splice(i, 1)
     
@@ -549,7 +560,7 @@ function delete_this_card(x){
 chrome.storage.local.get(['key'], function(result) {
    var db = firebase.firestore();
   db.collection(result.key).doc(n).update({
-    status: "Deleted"
+    status: 102  //Deleted
    }).then(function() {
    }).catch(function(error){
      console.error("Error updating document: ", error);

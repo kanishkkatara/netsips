@@ -51,10 +51,10 @@ function update(array, webdata)
   }
 
 function addBookmark() {
-var d = new Date();     
-var date = d.getUTCDate();
-var month = d.getUTCMonth() + 1; 
-var year = d.getUTCFullYear();
+var d = new Date();    
+var date = d.getDate();
+var month = d.getMonth() + 1; 
+var year = d.getFullYear();
      if(date.length==1){
         var dateStr = "0" + date + "/" + month + "/" ; //
      }else{
@@ -75,18 +75,20 @@ var year = d.getUTCFullYear();
     var web_details  
    event.preventDefault();
 
+
+
+// 100- in current session, 101- newsletter sent, 102- deleted   
 var statusDisplay = document.getElementById('save');
 statusDisplay.value = "Saving..."
 chrome.storage.local.get(['key'], function(result) {
   db.collection(result.key).add({      //.doc().set({  //website_title
-    status: "none",
+    status: 100,  //none
     tags: tags,
     title: website_title,
-    imageURL:image, //img
+    imageUrl:image, //img
     dateAdded: firebase.firestore.Timestamp.now(), //timestamp
     articleURL: url.value //url
   }).then(function(docRef) {
-   // statusDisplay.value = "Saving..."
     doc_id = docRef.id
     web_details = {URL:url.value, Title:short_web_title, Date:dateStr,Icon:fav_icon, Tags:tags, Complete_Title:website_title, DocId: doc_id, BgImage:image };
    chrome.storage.local.get({ 
@@ -137,7 +139,7 @@ window.addEventListener('load', function(evt) {
 //Settings page open on click
 document.getElementById('settings-icon').addEventListener('click', function(){
     window.open('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/settings.html', '_blank');
-    
+
 })
 
 
