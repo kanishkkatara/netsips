@@ -3,9 +3,9 @@
     "manifest_version": 2,
     "name": "Netsips",
     "description": "Curate your web",
-    "version": "1.3",
+    "version": "1.3.2",
     "background": {
-        "scripts": ["event.js","firebase-app.js","firebase-auth.js"]
+        "scripts": ["event.js","firebase/firebase-app.js","firebase/firebase-auth.js"]
     },
     "browser_action": {
       
@@ -18,9 +18,7 @@
         "https://*/*",
         "storage",
         "<all_urls>",
-        "identity",
         "activeTab",
-        "identity.email",
         "http://*.google.com/"
     ],
     "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgwFLea1WstLWDhiTjpsBNUlRqgcrMJLMAreCR7edZONONRbkNbZO5r99lUDUvQCHKTl9Yeip1FhUoep4CohWCfVBh5Ch2p5cLsCY+wKY20af8Y2xHVw8x6YF4GGiNzFihMIa2NRom8ZUDXZosXh94K5xqgXg43z89RoEodHa35uPzoz6AHTab15534Ig6jZMQFLUObJQA4F2VwXKG0QZSaCrhlpZY8MUqZyUWM4qXuON+vmGr3vaumAk1sINh70+1LO1wGJ1VRJn7LLznlJfk/UDo4bYyRo5lYXye6vie5LwrQV9KGZRp9U8HNOuhM14CDhzt60T9EekI4OIlXWrawIDAQAB",
@@ -31,7 +29,7 @@
         
       },
     "icons": {
-        "128": "icon_128.png"
+        "128": "images/icon_128.png"
       },
     "web_accessible_resources": [
         "settings.html",

@@ -92,15 +92,6 @@ chrome.storage.local.get(['key'], function(result) {
     articleURL: website_url //url
   }).then(function(docRef) {
     doc_id = docRef.id
-    web_details = {URL:url.value, Title:short_web_title, Date:dateStr,Icon:fav_icon, Tags:tags, Complete_Title:website_title, DocId: doc_id, BgImage:image };
-   chrome.storage.local.get({ 
-    list:[] 
-  },
-  function(data) {
-   update(data.list, web_details); 
-  }
-  );  
-
     statusDisplay.value = "Saved!"
     setTimeout(function(){ 
       window.close(); 
@@ -109,7 +100,6 @@ chrome.storage.local.get(['key'], function(result) {
   })
   .catch(function(error) {
     statusDisplay.value = "Error"
-    //console.error("Error writing document: ", error);
   });
 });
  
@@ -130,7 +120,8 @@ window.addEventListener('load', function(evt) {
 });
 
 
-(function () {
+(
+  function () {
     var otherWindows = chrome.extension.getBackgroundPage();
     document.getElementById("email").value = otherWindows.user_email;
     document.getElementById("uid").value = otherWindows.user_id;

@@ -1,4 +1,4 @@
-// Counting number of words and estimated reading time
+
 var p = document.getElementsByTagName('p');
 var h1 = document.getElementsByTagName('h1');
 var count_p = 0;
@@ -21,11 +21,6 @@ for(var i=0;i<p.length;i++){
 
 
 
-
-
-//var img = document.getElementsByTagName("img")[0];
-
-
 function getMeta(metaName) {
     const metas = document.getElementsByTagName('meta');
   
@@ -36,11 +31,6 @@ function getMeta(metaName) {
     }
     return '';
   }
-
-
-//getMeta("og:image")
-
-
 
 
 // Send a message containing the page details back to the event page

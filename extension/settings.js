@@ -1,4 +1,4 @@
-/////////////////////////////////
+
 var firebaseConfig = {
   apiKey: "AIzaSyBDaQL21llq2-5ftbSh0WvC243M6p_ZsgY",
   authDomain: "netsips-1586535958950.firebaseapp.com",
@@ -21,9 +21,9 @@ function title_trimmer(website_title){
   return website_title
 }
 
-function date_processing(){
-      var d = new Date(); 
-      var dateStr    
+function date_processing(d){
+      //var d = new Date(); 
+  var dateStr    
   var date = d.getDate();
   var month = d.getMonth() + 1; 
   var year = d.getFullYear();
@@ -43,121 +43,124 @@ function update(array, webdata)
   });
   }
 
-
-
-
-
 var favicon = "https://s2.googleusercontent.com/s2/favicons?domain_url=" 
 
-/////
-// chrome.storage.local.get(['key'], function(result){
-// var markers = [];
-// var uid= result.key
-// // function cards_from_db2(uid){
-//  //var uid = "rzWqqw3stQdrO84QGiJn5oEyeZ02" 
-//   var markers = [];
-//   var web_details_from_db
-//     var db_store = firebase.firestore()
-//     db_store.collection(uid).onSnapshot(function(snapshot) {snapshot.docChanges().forEach(function(change){
-//       if ((change.type === "added" || change.type==="modified")) {
-//          // console.log(change.doc.data().status)
-//           var url = change.doc.data().articleURL
-//           var short_web_title = title_trimmer(change.doc.data().title)
-//           var dateStr = date_processing()
-//           var fav_icon = favicon+url
-//           var tags = change.doc.data().tags
-//           var website_title = change.doc.data().title
-//           var doc_id = change.doc.id
-//           var img = change.doc.data().imageUrl
-//           var status = change.doc.data().status
-//         //  console.log(change.doc.data().status)//&& change.doc.data().status!=102
-//           web_details_from_db = {URL:url, Title:short_web_title, Date:dateStr,Icon:fav_icon, Tags:tags, Complete_Title:website_title, DocId: doc_id, BgImage:img };
-//           if(status!=102){
-//             markers.push(web_details_from_db);
-//           }
-//           // markers.push(web_details_from_db);
-//         }})
-//       console.log(markers)
-//       if(markers.length!=0 && markers.length!=undefined){  
-//         chrome.storage.local.set({ 
-//           list:markers              
-//       }, function(){
-//         chrome.storage.local.get({ 
-//           list:[] 
-//         }, function(data){
-//           console.log(data.list)
-//          card_rendering(data)
-//         }); 
-//       });
-//       }
-//       else{
-//         document.getElementById('news-content').innerHTML = ''
-//         console.log("f")
-//       }
-//       markers = []  
-//     //  }})
-//     })
-   
-//   })
- 
-/////OLD CODE/////////////
 
-function cards_from_db(uid){
-  
-var markers = [];
-var web_details_from_db
-  var db_store = firebase.firestore()
-  db_store.collection(uid).orderBy('dateAdded',"asc").get().then(querySnapshot => {
-   // console.log("Ok")
-    querySnapshot.docs.forEach(doc => {
-     // console.log(doc.data())
-      if(doc.data().status!=102){ //deleted
-       //console.log(doc.data())
-        var url = doc.data().articleURL
-        var short_web_title = title_trimmer(doc.data().title)
-        var dateStr = date_processing()
-        var fav_icon = favicon+url 
-        var tags = doc.data().tags
-       var website_title = doc.data().title
-       var doc_id = doc.id
-        var img = doc.data().imageUrl
-        web_details_from_db = {URL:url, Title:short_web_title, Date:dateStr,Icon:fav_icon, Tags:tags, Complete_Title:website_title, DocId: doc_id, BgImage:img };
-      //  var card = `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(255,255,255,.82), rgba(255,255,255,.82)), url(${img});"><div class="topcorner"><img src="close.png" style="height:13px;width:13px;opacity:70%"/></div><img src="tag_icon.png" class="edit"><a href=${url} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time}</p><div style='display:none'class="card_tags">${link_tag_name}</div></div></div>`
- 
-       markers.push(web_details_from_db);
-      
-      
-      }  
-        if(markers.length!=0 && markers.length!=undefined)
-        {  
-            chrome.storage.local.set({ 
-                      list:markers            
-                  }, function(items){
-                  });
-        
-        }else{
-           
-            chrome.storage.local.set({ 
-                list:[]
-            });
-        }
-        
+function tag_trimmer(a){return a.trim()}
 
-
-    }
-   )
-  }
-  )
-
+function onlyUnique(value, index, self) { 
+  return self.indexOf(value) === index;
 }
 
 
-/////OLD CODE/////////////
 
-  chrome.storage.local.get(['key'], function(result) {
-    cards_from_db(result.key)
-  });
 
+chrome.storage.local.get(['key'], function(result){
+    let uid= result.key 
+    let db_store = firebase.firestore()
+    db_store.collection(uid).onSnapshot(function(snapshot) {
+     document.getElementById('news-content').innerHTML = ''
+         db_store.collection(uid).orderBy('dateAdded',"desc").get().then(querySnapshot => {
+          let  markers =[]
+          querySnapshot.docs.forEach(doc => {            
+          if(doc.data().status!=102){ 
+        let url = doc.data().articleURL
+        let title = title_trimmer(doc.data().title)
+        let time = date_processing(doc.data().dateAdded.toDate())
+        let icon = favicon+url 
+        let link_tag_name = doc.data().tags
+        let key = doc.id
+        let img = doc.data().imageUrl
+       document.getElementById('news-content').innerHTML += `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(255,255,255,.82), rgba(255,255,255,.82)), url(${img});background-size: contain;"><div class="topcorner"><img src="images/close.png" style="height:13px;width:13px;opacity:70%"/></div><img src="images/tag_icon.png" class="edit"><a href=${url} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time}</p><div style='display:none'class="card_tags">${link_tag_name}</div><div class="key" style="display:none">${key}</div></div></div>`       
+       markers.push(link_tag_name)
+      }
+     if(!document.getElementsByClassName('topcorner').length){
+      document.getElementById('news-content').innerHTML = "<center style='margin:40px 40px 40px 0px;font-size:30px;color:#202020'>There are no bookmarks</center>"
+     }
+   for(var j=0;j<document.getElementsByClassName('topcorner').length;j++){
+    
+     let key
+     key = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[6].innerText
+     document.getElementsByClassName('topcorner')[j].onclick = function(){hellocard1(key, uid)}
+   }
+   
+   for(var j=0;j<document.getElementsByClassName('edit').length;j++){
+    let key
+    let card_tags
+    key = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[6].innerText
+    card_tags = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[5].innerText
+    document.getElementsByClassName('edit')[j].onclick =  function(){tags1(key, uid, card_tags)}}
+ })
+  
+  tag_render(markers.filter(onlyUnique).map(s=>s.split(',')).join().toLowerCase().split(',').map(tag_trimmer).filter(onlyUnique))
+  var filter_tags = document.getElementsByClassName("filter_tags")
+  for(var i=0;i<filter_tags.length;i++){
+    filter_tags[i].addEventListener('click', activeTag)
+  }
+          
+          
+          
+          })  
+    }
+    )
+   
+  })
+const hellocard1=(key, uid)=>{
+ console.log(key, uid)
+  
+  let db = firebase.firestore();
+  db.collection(uid).doc(key).update({
+    status: 102  
+   }).then(function() {
+   }).catch(function(error){
+     console.error("Error updating document: ", error);
+   });
+  
+ }
+
+const tags1 = (key, uid,card_tags)=>{
+ let modal = document.getElementsByClassName("myModal")[0];
+ modal.childNodes[3].childNodes[6].value = key //input title value //card_title
+ modal.childNodes[3].childNodes[12].value = card_tags //input tag value
+ modal.style.display = "block";
+ let cross = document.getElementsByClassName("myModal")[0].childNodes[3].childNodes[1]
+ cross.addEventListener("click",removeModal1)
+ document.getElementById("make_changes_input").onclick = function(){addTags1(uid, key)}
+}
+
+function removeModal1(){
+  this.parentElement.parentElement.style.display = "none"
+} 
+
+const tag_render = (tags)=>{
+
+  document.getElementById("span_container").innerHTML = ''
+      tags.forEach(tag=>{
+        if(tag!=''){
+        document.getElementById("span_container").innerHTML += `<span class="filter_tags" style="background-color: #f1f1f1;">${tag}</span>`
+        }  
+      })
+}
+
+
+
+const addTags1 =(uid, key)=>{
+  let db = firebase.firestore();
+  submit_btn = document.getElementById("make_changes_input")
+  submit_btn.value = " Saving..." 
+  let modal = document.getElementsByClassName("myModal")[0];
+  let new_tags = document.getElementById('tag_input').value 
+  db.collection(uid).doc(key).update({
+    tags: new_tags
+   })
+   .then(function() {
+    submit_btn.value = "Saved!"
+    modal.style.display = "none";
+   })
+   .catch(function(error){
+     console.error("Error updating document: ", error);
+   });  
+}
 
 //Profile picture//
 var p = document.getElementsByClassName('profile-picture')
@@ -170,8 +173,6 @@ var photo_link
   }
 });
 
-
-
 //SIDEMENU//
 
 var buttons
@@ -183,12 +184,10 @@ buttons[0].addEventListener('click', function(){
 })
 
 
-
 buttons[1].addEventListener('click', function(){
     document.getElementById("London").style.display = "block"
   document.getElementById("Paris").style.display = "none"
-
-   
+ 
 })
 
 // var db = firebase.firestore();
@@ -307,188 +306,6 @@ document.getElementById('submit-settings').addEventListener('submit',function(){
 
 
 
-
-
-/////SAVED MENU////
-
-
-///////CARD RENDERING/////  
-
-
-function card_rendering(data) {
- // document.getElementById('news-content').innerHTML = ''
- for(var i=data.list.length-1;i>=0;i--){    // for(var i=data.list.length-1;i>=0;i--){
-   var title = data.list[i]["Title"]
-   var link = data.list[i]["URL"]
-   var time = data.list[i]["Date"]     //
-   var icon = data.list[i]["Icon"]  
-   var link_tag_name = data.list[i]["Tags"]
-   var bgimg = data.list[i]["BgImage"]
-   var key = data.list[i]["DocId"]
- var card = `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(241,241,241,0.89), rgba(241,241,241,0.85)), url(${bgimg});background-size: contain;"><div class="topcorner"><img src="close.png" style="height:13px;width:13px;opacity:70%"/></div><img src="tag_icon.png" class="edit"><a href=${link} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time}</p><div style='display:none'class="card_tags">${link_tag_name}</div><div class="key" style="display:none">${key}</div></div></div>`
- document.getElementById('news-content').innerHTML += card //<p style="margin-top:35px;margin-left:-115px">Tags: none</p> icon waale para ke just baad
- 
-   for(var j=0;j<document.getElementsByClassName('topcorner').length;j++){
-     document.getElementsByClassName('topcorner')[j].addEventListener('click', hellocard)
-   }
-   
-   for(var j=0;j<document.getElementsByClassName('edit').length;j++){
-     document.getElementsByClassName('edit')[j].addEventListener('click', tags)
-   }
-   }    
-   }
-
-/////BROOOOOO?????
-  chrome.storage.local.get({ 
-    list:[] 
-  }, function(data){
-    card_rendering(data)
-  });  
-
-
-///////CARD TAGS/////  
-
-function tags(){
-
- // console.log(this.parentElement.childNodes)
-  var card_tags = this.parentElement.childNodes[5].innerText
- // var card_title = this.parentElement.childNodes[2].innerText //key
- var card_key = this.parentElement.childNodes[6].innerText
-var modal = document.getElementsByClassName("myModal")[0];
-
-modal.childNodes[3].childNodes[6].value = card_key //input title value //card_title
-modal.childNodes[3].childNodes[12].value = card_tags //input tag value
-modal.style.display = "block";
-var cross = document.getElementsByClassName("myModal")[0].childNodes[3].childNodes[1]
-cross.addEventListener("click",removeModal)
-
-document.getElementById("make_changes_input").addEventListener('click', addTags)
-
-}
-
-const addTags =()=>{
-  //console.log(document.getElementById('title_input').value)
-  let req_title = document.getElementById('title_input').value //Title of card
- // console.log(document.getElementById('tag_input').value)
-  let tag_value = document.getElementById('tag_input').value //Tag of card
- let cards = document.getElementsByClassName('card')
-  for(let i=0;i<cards.length;i++){
-    if(cards[i].childNodes[6].innerText == req_title ){ //cards[i].childNodes[2].innerText
- cards[i].childNodes[5].innerText = tag_value
-    }
-  }
-
- chrome.storage.local.get({list:[]},function(items){
-   update_the_tags(items, req_title, tag_value)
- } )
-// window.location.reload()
-}
-
-const update_the_tags = (items, req_title, tag_value)=>{ //req_title is actually req_id
-    var n
-    var submit_btn
-    submit_btn = document.getElementById("make_changes_input")
-    submit_btn.value = " Saving..." 
-    var db = firebase.firestore();
-    for(var i=0;i<items.list.length;i++){
-      if(JSON.stringify(req_title) == JSON.stringify(items.list[i].DocId)){ //check title instead of entire object
-        items.list[i].Tags = tag_value
-        n = items.list[i].DocId
-      }      
-    }  
-  //  console.log(n)  
-    chrome.storage.local.get(['key'], function(result) {
-      //console.log(tag_value)
-      // var db = firebase.firestore();
-      db.collection(result.key).doc(n).update({
-        tags: tag_value
-       })
-       .then(function() {
-        submit_btn.value = "Saved!"
-        window.location.reload()
-       })
-       .catch(function(error){
-         console.error("Error updating document: ", error);
-       });
-
-      });
-    
-    
-    chrome.storage.local.set(items, function(){
-     console.log()
-
-    })
-   //  window.location.reload()
-}
-
-
-function removeModal(){
-  this.parentElement.parentElement.style.display = "none"
-} 
-
-////TAG Generator for filtering///
-
-
-document.getElementById('Tag_search_button').addEventListener('click', renderTags)
-
-function renderTags(){
-var x =  document.getElementById("span_container")
-if (x.style.display == "none") {
-  x.style.display = "";
-} else {
-  x.style.display = "none";
-}
- 
-}
-
-   chrome.storage.local.get({list:[]},function(items){
-    var container =  document.getElementById("span_container")
-    var tag_array = []
-   for(var i=0;i<items.list.length;i++){
-     tag_array.push(items.list[i].Tags.toLowerCase())
-   }
-    var mainTagList_beta 
-     mainTagList_beta = removeDuplicates(tag_array)
-     var real_array = []
-
-     for(var k=0; k<mainTagList_beta.length;k++){
-       if(mainTagList_beta[k].indexOf(',')>-1){
-         var temp = mainTagList_beta[k].split(',')
-         for(var l=0;l<temp.length;l++){
-           real_array.push(temp[l].trim())
-         }
-       }else{
-        real_array.push(mainTagList_beta[k])
-       }
-     }
-     var mainTagList = removeDuplicates(real_array)
-    for(var i=0;i<mainTagList.length;i++){
-          if(JSON.stringify(mainTagList[i])!=JSON.stringify("none") && JSON.stringify(mainTagList[i])!=JSON.stringify("")){
-      
-            var span = `<span class="filter_tags" style="background-color: #f1f1f1;">${mainTagList[i].toLowerCase()}</span>`
-            container.innerHTML += span
-          }  
-}
-var tags_2 = document.getElementsByClassName("filter_tags")
-for(var i=0;i<tags_2.length;i++){
-    tags_2[i].addEventListener('click', activeTag)
-}
-
-   
-}   
-  )
-
-
- function removeDuplicates(data){
-
-   return data.filter((value, index)=> data.indexOf(value)===index)
-   
- }
-
-// ////////////////
-
-// ////// TAG FILTER /////
-
 function activeTag(){
   if(this.style.backgroundColor == "rgb(241, 241, 241)"){
     this.style.backgroundColor = "rgb(255, 255, 0)" // the rgb value string is sensitive to spaces
@@ -533,48 +350,6 @@ function real_tag_filter(list){
       cards[i].style.display="none"
     }
   }
-}
-
-//////////////////////
-
-///////CARD CLOSING BUTTON/////  
-
-function hellocard(){
-
-//  var website_title= this.parentElement.childNodes[2].innerText //Title
-var website_key= this.parentElement.childNodes[6].innerText
- delete_this_card(website_key)
-  this.parentElement.parentElement.style.display = 'none'
-
-}
-  
-function delete_this_card(x){
-  var n
-  chrome.storage.local.get({list: []}, function(items) {
- for(var i=0;i<items.list.length;i++){
-  
-  if(JSON.stringify(x) == JSON.stringify(items.list[i].DocId)){ //check title instead of entire object //[i].Title
-    n = items.list[i].DocId
-    items.list.splice(i, 1)
-    
-  }
-}
-
-chrome.storage.local.get(['key'], function(result) {
-   var db = firebase.firestore();
-  db.collection(result.key).doc(n).update({
-    status: 102  //Deleted
-   }).then(function() {
-   }).catch(function(error){
-     console.error("Error updating document: ", error);
-   });
-  });
-
-      chrome.storage.local.set(items, function() {
-        console.log()
-      });
-    });
-    
 }
 
 

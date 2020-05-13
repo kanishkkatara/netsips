@@ -2,45 +2,37 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
- <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-      rel="stylesheet"
-      crossorigin="anonymous"
-    />
-<link href="https://fonts.googleapis.com/css?family=Courgette&display=swap" rel="stylesheet"/>
+<link rel="icon" type="image/png" href="images/icon_128.png"/>
+	<title>Netsips | Dashboard</title>
+
 <style>
 @font-face {
  font-family: 'Raleway';
 
- src: url('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/Raleway-Regular.ttf'); 
+ src: url('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/fonts/Raleway-Regular.ttf'); 
 }
 @font-face {
  font-family: 'Manrove-cards';
  font-weight:100rem;
- src: url('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/Manrope-VariableFont_wght.ttf'); 
+ src: url('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/fonts/Manrope-VariableFont_wght.ttf'); 
 }
 
 @font-face {
  font-family: 'Manrove-tabs';
  font-weight:350px;
- src: url('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/Manrope-VariableFont_wght.ttf'); 
+ src: url('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/fonts/Manrope-VariableFont_wght.ttf'); 
 }
 
 @font-face {
  font-family: 'Manrove-label';
  font-weight:200px;
- src: url('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/Manrope-VariableFont_wght.ttf'); 
+ src: url('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/fonts/Manrope-VariableFont_wght.ttf'); 
 }
 
 @font-face {
  font-family: 'Manrove-tags';
  font-weight:200px;
- src: url('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/Manrope-VariableFont_wght.ttf'); 
+ src: url('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/fonts/Manrope-VariableFont_wght.ttf'); 
 }
 
 
@@ -557,7 +549,7 @@ input:checked + .slider:before {
 <body id="settings-body">
 
 <div class="tab" >
-<div id="Netsips-logo-container"> <a href="http://netsips.in" target="blank_"><img src="logo2.png" id="Netsips-img"></a> </div>
+<div id="Netsips-logo-container"> <a href="http://netsips.in" target="blank_"><img src="images/logo2.png" id="Netsips-img"></a> </div>
 <button class="tablinks" value = "Paris" id="saved-btn">Saved</button>
   <button class="tablinks" value="London">Settings</button>
   <button class="tablinks" id="SignOut">Sign out</button> 
@@ -574,7 +566,7 @@ input:checked + .slider:before {
 <p style="word-break: break-all;line-height:3;margin-left:30px;margin-right:85px"><button id="Tag_search_button" style="display:none">Filter by tags</button><span id="span_container" style="margin-left:-15px;"></span>
 </p>
 
-<div class="row" id="news-content">
+<div class="row" id="news-content"><center style="margin:40px 40px 40px 0px;font-family: 'Manrove-tabs';font-size:20px;color:#202020"><img src='images/load.gif'></center></div>
  
   <div class="myModal">
 
@@ -593,7 +585,7 @@ input:checked + .slider:before {
 
   </div>
   
-</div>
+
 
  
 
@@ -692,10 +684,10 @@ input:checked + .slider:before {
   </div> 
   
 </div>
-   <script src="firebase-app.js"></script>
-<script src="firebase-auth.js"></script>
-<script src="firebase-firestore.js"></script>
-<script src="firebase-database.js"></script>
+   <script src="firebase/firebase-app.js"></script>
+<script src="firebase/firebase-auth.js"></script>
+<script src="firebase/firebase-firestore.js"></script>
+<script src="firebase/firebase-database.js"></script>
    <script src="settings.js"></script>
 </body>
 </html> 

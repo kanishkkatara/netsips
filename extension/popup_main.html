@@ -2,23 +2,12 @@
 <html>
 <head>
    <title>Netsips</title>
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-      rel="stylesheet"
-      crossorigin="anonymous"
-    />
-<link href="https://fonts.googleapis.com/css?family=Courgette&display=swap" rel="stylesheet"/>
 
     <style>
         @font-face {
  font-family: 'Manrove-cards';
  font-weight:200rem;
- src: url('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/Manrope-VariableFont_wght.ttf'); 
+ src: url('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/fonts/Manrope-VariableFont_wght.ttf'); 
 }
       html,
       body {
@@ -164,9 +153,9 @@ font-family: 'Courgette', cursive;
 <body>
     <div class="modal-header">
       <h1 class="logo">
-      <center><span><img id="main-logo"src="nslg.png"></span></center>
+      <center><span><img id="main-logo"src="images/nslg.png"></span></center>
       </h1>
-       <span><img id="settings-icon"src="menu_icon.png"></span>
+       <span><img id="settings-icon"src="images/menu_icon.png"></span>
     </div>
    
     <div id="modal-content">
@@ -183,8 +172,8 @@ font-family: 'Courgette', cursive;
             <span id="est_time" style="display:none"></span></p>
             <input id="save" type="submit" value="Save to Netsips" />
     </form>
-      <script src="firebase-app.js"></script>
-    <script src="firebase-firestore.js"></script>
+      <script src="firebase/firebase-app.js"></script>
+    <script src="firebase/firebase-firestore.js"></script>
     <script src="popup_main.js"></script>
 
 </body>
