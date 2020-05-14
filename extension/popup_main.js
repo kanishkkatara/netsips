@@ -38,7 +38,7 @@ chrome.storage.local.get(['key'], function(result){
           recent_title = doc.data().title
          }
          fav = icon_link + doc.data().articleURL
-         recent.innerHTML += `<tr><td style='border-bottom: 1px solid #dddddd;'><img style="height:15px; width:15px; margin-left:15px" src=${fav}/></td><td class='recent' style='border-bottom: 1px solid #dddddd;'><a href=${doc.data().articleURL}>${recent_title}</a></td></tr>`
+         recent.innerHTML += `<tr><td style='border-bottom: 1px solid #dddddd;padding-top:-1000px; margin: 0;'><img style="height:15px; width:15px;" src=${fav}/></td><td class='recent' style='border-bottom: 1px solid #dddddd;'><a href=${doc.data().articleURL}>${recent_title}</a></td></tr>`
          i++
        }
      
