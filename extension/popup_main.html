@@ -125,8 +125,9 @@ font-family: 'Courgette', cursive;
       }
       #settings-icon{
           position: absolute;
-     right: 2px;
+     right: 5px;
      top: 15px;
+     
 
    
       }
@@ -146,6 +147,38 @@ font-family: 'Courgette', cursive;
        #popup_tags:focus{
        outline:none
       }
+      .recent{
+        margin:20px;
+     padding: 8px 15px 8px 0px;
+        text-align:left;
+        font-size:15px;
+        text-decoration:none;
+        font-family: Helvetica, sans-serif;
+        font-weight:lighter;
+        
+        
+      }
+      .recent a{
+        color:#202020;
+         text-decoration:none;
+         transition:0.2s;
+      }
+      .recent :hover{
+        color:#3498DB 
+      }
+      #recent-container{
+        margin-top:0px;
+        display: inline-block;
+        margin-bottom:10px;
+        display:block
+      }
+      #recent-heading{
+
+      }
+     
+      tr:nth-child(even) {
+  background-color: #dddddd;
+}
     </style>
     
   
@@ -155,7 +188,7 @@ font-family: 'Courgette', cursive;
       <h1 class="logo">
       <center><span><img id="main-logo"src="images/nslg.png"></span></center>
       </h1>
-       <span><img id="settings-icon"src="images/menu_icon.png"></span>
+       <span><img id="settings-icon"src="images/menu_icon.svg"></span>
     </div>
    
     <div id="modal-content">
@@ -170,8 +203,15 @@ font-family: 'Courgette', cursive;
               <p >
           Number of words: <span id="word_count"></span>
             <span id="est_time" style="display:none"></span></p>
+      <!--      <p id='recent-container'>Recents:
+            </p>-->
             <input id="save" type="submit" value="Save to Netsips" />
-    </form>
+            
+    </form><div style='border-top: 0.5px solid #202020; margin:0 15px 0 15px; padding-top:10px'>
+<span style='padding: 0px 0px 15px 15px;text-align:left;
+        font-size:15px;
+        font-weight:light;'>Recents</span><span id='drop-menu'><img src='images/arrow-up.svg' style='opacity:0.7; cursor:pointer;transition: opacity 1s ease-in-out;'></span>
+        <table id='recent-container' style=' border-collapse: collapse;margin-top:10px;'></table></div>
       <script src="firebase/firebase-app.js"></script>
     <script src="firebase/firebase-firestore.js"></script>
     <script src="popup_main.js"></script>

@@ -7,6 +7,8 @@ chrome.tabs.getSelected(null,function(tab) {
     
   });
 
+
+var recent = document.getElementById('recent-container') 
 //Firebase
 var firebaseConfig = {
   apiKey: "AIzaSyBDaQL21llq2-5ftbSh0WvC243M6p_ZsgY",
@@ -21,7 +23,70 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
+ 
+chrome.storage.local.get(['key'], function(result){
+  let i = 0
+  var icon_link = "https://s2.googleusercontent.com/s2/favicons?domain_url="
+  db.collection(result.key).orderBy('dateAdded',"desc").get().then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+       if(doc.data().status!=102 && i<3){
+         let recent_title
+         let fav
+         if(doc.data().title.length>60){
+              recent_title = doc.data().title.substring(0,70)+'...'
+         }else{
+          recent_title = doc.data().title
+         }
+         fav = icon_link + doc.data().articleURL
+         recent.innerHTML += `<tr><td style='border-bottom: 1px solid #dddddd;'><img style="height:15px; width:15px; margin-left:15px" src=${fav}/></td><td class='recent' style='border-bottom: 1px solid #dddddd;'><a href=${doc.data().articleURL}>${recent_title}</a></td></tr>`
+         i++
+       }
+     
+    });
+    for(let x=0;x<3;x++){
+    let link = document.getElementsByClassName('recent')[x].childNodes[0].href
+    document.getElementsByClassName('recent')[x].onclick = function(){linkopener(link)}
+    } 
 
+});
+})
+
+for(let x=0;x<document.getElementsByClassName('recent');x++){
+  console.log( document.getElementsByClassName[x])
+  document.getElementsByClassName[x].addEventListener('click', linkopener)
+}
+
+const linkopener = (link)=>{
+  window.open(link, '_blank');
+}
+
+document.getElementById('drop-menu').addEventListener('click', checkdropy)
+
+
+function checkdropy(){  
+  if(document.getElementById('recent-container').style.display =='block'){
+    document.getElementById('recent-container').style.display ='none'
+    this.childNodes[0].src = 'images/arrow-down.svg'
+  }
+    else{
+      document.getElementById('recent-container').style.display ='block'
+      this.childNodes[0].src = 'images/arrow-up.svg'
+    }
+}
+
+window.addEventListener('load', function(){
+  let drop_down = document.getElementById('drop-menu')
+  // console.log(drop_down)
+  chrome.storage.local.get(['recentisOpen'], function(result) {
+  if(result.recentIsOpen){
+    document.getElementById('recent-container').style.display ='block'
+    drop_down.childNodes[0].src = 'images/arrow-up.svg'
+  }else{
+    document.getElementById('recent-container').style.display ='none'
+    drop_down.childNodes[0].src = 'images/arrow-down.svg'
+  }})
+  
+})
 
 
 //Delivery from content.js

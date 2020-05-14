@@ -53,8 +53,6 @@ function onlyUnique(value, index, self) {
 }
 
 
-
-
 chrome.storage.local.get(['key'], function(result){
     let uid= result.key 
     let db_store = firebase.firestore()
@@ -74,9 +72,9 @@ chrome.storage.local.get(['key'], function(result){
        document.getElementById('news-content').innerHTML += `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(255,255,255,.82), rgba(255,255,255,.82)), url(${img});background-size: contain;"><div class="topcorner"><img src="images/close.png" style="height:13px;width:13px;opacity:70%"/></div><img src="images/tag_icon.png" class="edit"><a href=${url} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time}</p><div style='display:none'class="card_tags">${link_tag_name}</div><div class="key" style="display:none">${key}</div></div></div>`       
        markers.push(link_tag_name)
       }
-     if(!document.getElementsByClassName('topcorner').length){
-      document.getElementById('news-content').innerHTML = "<center style='margin:40px 40px 40px 0px;font-size:30px;color:#202020'>There are no bookmarks</center>"
-     }
+    //  if(document.getElementsByClassName('topcorner').length==0 || document.getElementsByClassName('topcorner').length==undefined ){
+    //   document.getElementById('news-content').innerHTML = "<center style='margin:40px 40px 40px 0px;font-size:30px;color:#202020'>There are no bookmarks</center>"
+    //  }
    for(var j=0;j<document.getElementsByClassName('topcorner').length;j++){
     
      let key
@@ -90,21 +88,27 @@ chrome.storage.local.get(['key'], function(result){
     key = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[6].innerText
     card_tags = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[5].innerText
     document.getElementsByClassName('edit')[j].onclick =  function(){tags1(key, uid, card_tags)}}
- })
+
+
+    // if(document.getElementsByClassName('topcorner').length==0 || document.getElementsByClassName('topcorner').length==undefined ){
+    //   document.getElementById('news-content').innerHTML = "<center style='margin:40px 40px 40px 0px;font-size:30px;color:#202020'>There are no bookmarks</center>"
+    //  }
+     
+ }
+ 
+ )
   
   tag_render(markers.filter(onlyUnique).map(s=>s.split(',')).join().toLowerCase().split(',').map(tag_trimmer).filter(onlyUnique))
   var filter_tags = document.getElementsByClassName("filter_tags")
   for(var i=0;i<filter_tags.length;i++){
     filter_tags[i].addEventListener('click', activeTag)
-  }
-          
-          
-          
+  }                            
           })  
     }
     )
    
   })
+  
 const hellocard1=(key, uid)=>{
  console.log(key, uid)
   
@@ -141,7 +145,6 @@ const tag_render = (tags)=>{
         }  
       })
 }
-
 
 
 const addTags1 =(uid, key)=>{

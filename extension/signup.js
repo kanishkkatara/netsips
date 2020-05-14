@@ -115,6 +115,15 @@ rtd.once("value")
 
 
 
+// chrome.storage.local.set({recentisOpen: true}, function() {
+
+// });
+
+// chrome.storage.local.get(['key'], function(result) {
+//   console.log('Value currently is ' + result.key);
+// })
+
+
 
 
 // saving uid of user
