@@ -54,48 +54,7 @@ document.getElementById("firebase_signin").addEventListener('click', function(){
     var value = result.user.uid
     var profile_picture = result.user.photoURL
 
-    
-//     chrome.storage.local.set({ 
-//       list:[]              
-//   }, function(items){
- 
-//   });
-//     var markers = [];
-//     db_store.collection(value).orderBy('dateAdded',"asc").get().then(querySnapshot => {
-//     querySnapshot.docs.forEach(doc => {
-//     if(doc.data().status!=102){ //"Deleted"
-//         var url = doc.data().articleURL
-//         var short_web_title = title_trimmer(doc.data().title)
-//         var dateStr = date_processing()
-//         var fav_icon = favicon+url 
-//         var tags = doc.data().tags
-//         var website_title = doc.data().title
-//         var doc_id = doc.id
-//         var img = doc.data().imageUrl
-//         web_details = {URL:url, Title:short_web_title, Date:dateStr,Icon:fav_icon, Tags:tags, Complete_Title:website_title, DocId: doc_id, BgImage:img };
-//         markers.push(web_details);   
-//     }     
-//   });
-
-//   // if(markers.length!=0 && markers.length!=undefined)
-//   // {  
-//   //     chrome.storage.local.set({ 
-//   //               list:markers              
-//   //           }, function(items){
-           
-//   //           });
-  
-//   // }else{
-     
-//   //     chrome.storage.local.set({ 
-//   //         list:[]
-//   //     });
-//   // }
-  
-
-
-
-// });
+    chrome.storage.local.set({isDark: false})
 
 // RTD Initialize
 var db = firebase.database();
@@ -111,20 +70,6 @@ rtd.once("value")
 
  chrome.storage.local.set({profile_pic: profile_picture}, function() {
 });
-
-
-
-
-// chrome.storage.local.set({recentisOpen: true}, function() {
-
-// });
-
-// chrome.storage.local.get(['key'], function(result) {
-//   console.log('Value currently is ' + result.key);
-// })
-
-
-
 
 // saving uid of user
     

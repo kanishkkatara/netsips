@@ -46,15 +46,3 @@ chrome.runtime.sendMessage({
  });
  
  
-    // chrome.storage.local.set({ "email_": '' });
-    // var email = document.getElementById('email');
-    // chrome.storage.local.set({ "email_": document.getElementById('email').value });
-
-    
-            // chrome.storage.local.get('email_', function(data){
-            //     let email = data.email_;
-            //     if(!email){
-            //         email = "";
-            //     }
-            //     document.getElementById("email").value =  email;
-            //     })

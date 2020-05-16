@@ -1,3 +1,19 @@
+document.addEventListener('DOMContentLoaded',()=>{
+  chrome.storage.local.get(['isDark'], function(result) {
+    if(result.isDark){
+      document.getElementById('dark_mode_checkbox').checked = true
+      
+      make_dark()
+    }else{
+      document.getElementById('dark_mode_checkbox').checked = false
+      make_light()
+    }
+    
+  });
+  
+})
+
+
 
 var firebaseConfig = {
   apiKey: "AIzaSyBDaQL21llq2-5ftbSh0WvC243M6p_ZsgY",
@@ -55,6 +71,7 @@ function onlyUnique(value, index, self) {
 
 chrome.storage.local.get(['key'], function(result){
     let uid= result.key 
+    // let dark = document.getElementById('dark_mode_checkbox')
     let db_store = firebase.firestore()
     db_store.collection(uid).onSnapshot(function(snapshot) {
      document.getElementById('news-content').innerHTML = ''
@@ -69,12 +86,9 @@ chrome.storage.local.get(['key'], function(result){
         let link_tag_name = doc.data().tags
         let key = doc.id
         let img = doc.data().imageUrl
-       document.getElementById('news-content').innerHTML += `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(255,255,255,.82), rgba(255,255,255,.82)), url(${img});background-size: contain;"><div class="topcorner"><img src="images/close.png" style="height:13px;width:13px;opacity:70%"/></div><img src="images/tag_icon.png" class="edit"><a href=${url} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time}</p><div style='display:none'class="card_tags">${link_tag_name}</div><div class="key" style="display:none">${key}</div></div></div>`       
-       markers.push(link_tag_name)
+          document.getElementById('news-content').innerHTML += `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(240,240,240,.80), rgba(240,240,240,.80)), url(${img});background-size: contain;"><div class="topcorner"><img src="images/close.png" style="height:13px;width:13px;opacity:70%"/></div><img src="images/tag_icon.png" class="edit"><a href=${url} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time} </p><div style='display:none'class="card_tags">${link_tag_name}</div><div class="key" style="display:none">${key}</div></div></div>`       
+        markers.push(link_tag_name)
       }
-    //  if(document.getElementsByClassName('topcorner').length==0 || document.getElementsByClassName('topcorner').length==undefined ){
-    //   document.getElementById('news-content').innerHTML = "<center style='margin:40px 40px 40px 0px;font-size:30px;color:#202020'>There are no bookmarks</center>"
-    //  }
    for(var j=0;j<document.getElementsByClassName('topcorner').length;j++){
     
      let key
@@ -88,17 +102,13 @@ chrome.storage.local.get(['key'], function(result){
     key = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[6].innerText
     card_tags = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[5].innerText
     document.getElementsByClassName('edit')[j].onclick =  function(){tags1(key, uid, card_tags)}}
-
-
-    // if(document.getElementsByClassName('topcorner').length==0 || document.getElementsByClassName('topcorner').length==undefined ){
-    //   document.getElementById('news-content').innerHTML = "<center style='margin:40px 40px 40px 0px;font-size:30px;color:#202020'>There are no bookmarks</center>"
-    //  }
      
  }
  
  )
-  
+  //tags rendering 
   tag_render(markers.filter(onlyUnique).map(s=>s.split(',')).join().toLowerCase().split(',').map(tag_trimmer).filter(onlyUnique))
+  // tags rendering
   var filter_tags = document.getElementsByClassName("filter_tags")
   for(var i=0;i<filter_tags.length;i++){
     filter_tags[i].addEventListener('click', activeTag)
@@ -108,11 +118,12 @@ chrome.storage.local.get(['key'], function(result){
     )
    
   })
-  
+
+var db = firebase.firestore();  
+
 const hellocard1=(key, uid)=>{
- console.log(key, uid)
-  
-  let db = firebase.firestore();
+ console.log(key, uid)  
+ // let db = firebase.firestore();
   db.collection(uid).doc(key).update({
     status: 102  
    }).then(function() {
@@ -136,21 +147,27 @@ function removeModal1(){
   this.parentElement.parentElement.style.display = "none"
 } 
 
-const tag_render = (tags)=>{
 
+///HERE CHANGE//
+const tag_render = (tags)=>{
+  let dark = document.getElementById('dark_mode_checkbox')
   document.getElementById("span_container").innerHTML = ''
       tags.forEach(tag=>{
         if(tag!=''){
+        if(dark.checked){
+          document.getElementById("span_container").innerHTML += `<span class="filter_tags" style="background-color: #4c4e4d; color:white">${tag}</span>`        
+        }else{
         document.getElementById("span_container").innerHTML += `<span class="filter_tags" style="background-color: #f1f1f1;">${tag}</span>`
+        }
         }  
       })
 }
 
 
 const addTags1 =(uid, key)=>{
-  let db = firebase.firestore();
+ // let db = firebase.firestore();
   submit_btn = document.getElementById("make_changes_input")
-  submit_btn.value = " Saving..." 
+  submit_btn.value = "Saving..." 
   let modal = document.getElementsByClassName("myModal")[0];
   let new_tags = document.getElementById('tag_input').value 
   db.collection(uid).doc(key).update({
@@ -213,7 +230,63 @@ document.getElementById("SignOut").addEventListener('click', function(){
 
 /////SETTINGS MENU/////
 
-///SAVED SETTINGS///
+
+function make_dark(){
+ chrome.storage.local.set({isDark: true})
+  let logo =  document.getElementById('Netsips-img')
+  let body = document.getElementsByTagName('body')[0]
+  let london = document.getElementById('London')
+  let paris = document.getElementById('Paris')
+  body.style.background = '#303030'
+  london.style.background = '#303030'
+  paris.style.background = '#303030'
+ london.style.color  = 'rgba(255, 255, 255, 0.7)'
+ logo.src = 'images/nslg.png'
+ document.getElementById('sc').className ='darktablinks'
+ document.getElementById('saved-btn').className = 'darktablinks'
+ document.getElementById('SignOut').className = 'darktablinks'
+ let tags = document.getElementsByClassName('filter_tags')
+ for(let j=0;j<tags.length;j++){
+   tags[j].style.background = '#4c4e4d'
+   tags[j].style.color = 'white'
+ }
+
+}
+
+function make_light(){
+  chrome.storage.local.set({isDark: false})
+  let logo =  document.getElementById('Netsips-img')
+  let body = document.getElementsByTagName('body')[0]
+  let london = document.getElementById('London')
+  let paris = document.getElementById('Paris')
+  body.style.background = '#fff'
+  london.style.background = '#fff'
+  paris.style.background = '#fff'
+  body.style.color  = 'black'
+london.style.color  = 'black'
+logo.src = 'images/logo2.png'
+document.getElementById('sc').className ='tablinks'
+document.getElementById('saved-btn').className = 'tablinks'
+document.getElementById('SignOut').className = 'tablinks'
+ let tags = document.getElementsByClassName('filter_tags')
+ for(let j=0;j<tags.length;j++){
+   tags[j].style.background = '#f1f1f1'
+   tags[j].style.color = 'black'
+ }
+
+}
+
+
+
+//SAVED SETTINGS//
+ document.getElementById('dark_mode_checkbox').addEventListener('change', function(){
+  if(this.checked== true){
+    make_dark()
+  }else{
+    make_light()
+  }
+})
+
 
 document.getElementById("custom").addEventListener('click', function() {
     // Get the checkbox
@@ -310,14 +383,31 @@ document.getElementById('submit-settings').addEventListener('submit',function(){
 
 
 function activeTag(){
-  if(this.style.backgroundColor == "rgb(241, 241, 241)"){
-    this.style.backgroundColor = "rgb(255, 255, 0)" // the rgb value string is sensitive to spaces
-    filter_tag_collector()
-  }
-  else{
-    this.style.backgroundColor = "rgb(241,241,241)"
-    filter_tag_collector()
-  }
+  let x = this  
+  chrome.storage.local.get(['isDark'], function(result) {
+    if(result.isDark){
+      if(x.style.backgroundColor == "rgb(76, 78, 77)"){
+        x.style.backgroundColor = "rgb(255, 255, 0)" 
+        x.style.color = "rgb(0, 0, 0)" // the rgb value string is sensitive to spaces
+        filter_tag_collector()
+      }
+      else{
+        x.style.backgroundColor = "rgb(76, 78, 77)"
+        x.style.color = "rgb(255,255,255)"
+        filter_tag_collector()
+      }
+    }else{
+      if(x.style.backgroundColor == "rgb(241, 241, 241)"){
+        x.style.backgroundColor = "rgb(255, 255, 0)" // the rgb value string is sensitive to spaces
+        filter_tag_collector()
+      }
+      else{
+        x.style.backgroundColor = "rgb(241,241,241)"
+        filter_tag_collector()
+      }
+    }
+    
+  });
 
 
 }

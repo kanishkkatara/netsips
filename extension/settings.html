@@ -55,7 +55,7 @@
 }
 
 /* Style the buttons inside the tab */
-.tab button {
+.tablinks {
   display: block;
   background-color: inherit;
   color: black;
@@ -71,14 +71,41 @@
 }
 
 /* Change background color of buttons on hover */
-.tab button:hover {
+.tablinks:hover {
   background-color: #ddd;
 }
 
-/* Create an active/current "tab button" class */
-.tab button.active {
+/* Create an active/current "tab button" class 
+.tablinks:active {
   background-color: #ccc;
+}*/
+/*Dark tablink*/
+
+.darktablinks {
+  display: block;
+  background-color: inherit;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 22px;
+ font-family: 'Manrove-tabs';
 }
+
+/* Change background color of buttons on hover */
+.darktablinks:hover {
+  background-color:#171717;
+}
+
+/* Create an active/current "tab button" class 
+.darktablinks:active {
+  background-color: #ccc;
+}*/
+
 
 /* Style the tab content */
 .tabcontent {
@@ -470,6 +497,7 @@ padding: 6px 15px 6px 6px;
   display: inline-block;
   width: 60px;
   height: 34px;
+  
 }
 
 .switch input { 
@@ -525,7 +553,7 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 #dark_mode_switch{
-   margin-left:30px;
+   
 }
 
 #span_container{
@@ -542,6 +570,8 @@ input:checked + .slider:before {
   margin: 20px 20px 0 0;
   border-radius: 50%
 }
+
+
 /*My CSS ends*/
 
 </style>
@@ -551,7 +581,7 @@ input:checked + .slider:before {
 <div class="tab" >
 <div id="Netsips-logo-container"> <a href="http://netsips.in" target="blank_"><img src="images/logo2.png" id="Netsips-img"></a> </div>
 <button class="tablinks" value = "Paris" id="saved-btn">Saved</button>
-  <button class="tablinks" value="London">Settings</button>
+  <button class="tablinks" value="London" id='sc'>Settings</button>
   <button class="tablinks" id="SignOut">Sign out</button> 
 </div>
 
@@ -667,18 +697,19 @@ input:checked + .slider:before {
 
 
 
-<div style="display:none">
+<div >
 
 <br>
 <br>
-<br>
-<div id="dark_mode_switch">
-   <label class="switch">
-  <input type="checkbox" id="dark_mode_checkbox">
-  <span class="slider round"></span>
-</label>Dark Mode
 <div>
 
+<span id="dark_mode_switch"><div style="font-size:25px;font-family: 'Manrove-label';padding:25px">Dark Mode</div>
+   <label class="switch" style='margin-left:25px'>
+  <input type="checkbox" id="dark_mode_checkbox">
+  <span class="slider round"></span>
+</label>
+<span>
+</div>
 
 </div>
   </div> 
