@@ -72,7 +72,7 @@ function onlyUnique(value, index, self) {
 chrome.storage.local.get(['key'], function(result){
     let uid= result.key 
     // let dark = document.getElementById('dark_mode_checkbox')
-    let db_store = firebase.firestore()
+  let db_store = firebase.firestore()
     db_store.collection(uid).onSnapshot(function(snapshot) {
      document.getElementById('news-content').innerHTML = ''
          db_store.collection(uid).orderBy('dateAdded',"desc").get().then(querySnapshot => {
@@ -174,8 +174,9 @@ const addTags1 =(uid, key)=>{
     tags: new_tags
    })
    .then(function() {
-    submit_btn.value = "Saved!"
+  
     modal.style.display = "none";
+    submit_btn.value = "Saved!" 
    })
    .catch(function(error){
      console.error("Error updating document: ", error);
@@ -245,6 +246,7 @@ function make_dark(){
  document.getElementById('sc').className ='darktablinks'
  document.getElementById('saved-btn').className = 'darktablinks'
  document.getElementById('SignOut').className = 'darktablinks'
+ document.getElementById('howtouse').className = 'darktablinks'
  let tags = document.getElementsByClassName('filter_tags')
  for(let j=0;j<tags.length;j++){
    tags[j].style.background = '#4c4e4d'
@@ -268,6 +270,7 @@ logo.src = 'images/logo2.png'
 document.getElementById('sc').className ='tablinks'
 document.getElementById('saved-btn').className = 'tablinks'
 document.getElementById('SignOut').className = 'tablinks'
+document.getElementById('howtouse').className = 'tablinks'
  let tags = document.getElementsByClassName('filter_tags')
  for(let j=0;j<tags.length;j++){
    tags[j].style.background = '#f1f1f1'

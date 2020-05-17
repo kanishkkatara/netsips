@@ -20,9 +20,12 @@ function getPageDetails(callback) {
 
     });
 
-
-
-
+  chrome.runtime.onInstalled.addListener(function(details){
+      if(details.reason == "install"){
+        window.open('http://netsips.in/instructions.html' ,'_blank');
+      }
+  });
+  
 
 
 
