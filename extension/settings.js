@@ -99,9 +99,11 @@ chrome.storage.local.get(['key'], function(result){
    for(var j=0;j<document.getElementsByClassName('edit').length;j++){
     let key
     let card_tags
+    let card_title
     key = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[6].innerText
     card_tags = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[5].innerText
-    document.getElementsByClassName('edit')[j].onclick =  function(){tags1(key, uid, card_tags)}}
+    card_title = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[2].innerText
+    document.getElementsByClassName('edit')[j].onclick =  function(){tags1(key, uid, card_tags, card_title)}}
      
  }
  
@@ -133,10 +135,16 @@ const hellocard1=(key, uid)=>{
   
  }
 
-const tags1 = (key, uid,card_tags)=>{
+const tags1 = (key, uid,card_tags, card_title)=>{
  let modal = document.getElementsByClassName("myModal")[0];
+ if(card_title.length<42){
+  modal.childNodes[3].childNodes[8].innerText = card_title
+ }else{
+  modal.childNodes[3].childNodes[8].innerText = card_title.substring(0,42)+'...'
+ }
+ 
  modal.childNodes[3].childNodes[6].value = key //input title value //card_title
- modal.childNodes[3].childNodes[12].value = card_tags //input tag value
+ modal.childNodes[3].childNodes[11].value = card_tags //input tag value
  modal.style.display = "block";
  let cross = document.getElementsByClassName("myModal")[0].childNodes[3].childNodes[1]
  cross.addEventListener("click",removeModal1)
@@ -177,6 +185,7 @@ const addTags1 =(uid, key)=>{
   
     modal.style.display = "none";
     submit_btn.value = "Saved!" 
+    submit_btn.value = 'Add tags'
    })
    .catch(function(error){
      console.error("Error updating document: ", error);

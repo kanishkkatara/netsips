@@ -427,7 +427,7 @@ dialog{
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */;
 }
 
 /* Modal Content */
@@ -436,7 +436,9 @@ dialog{
   margin: auto;
   padding: 20px;
   width: 30%;
-  height:180px;
+  height:170px;
+  border-radius:10px;
+  text-align:center;
  
 }
 
@@ -464,18 +466,20 @@ dialog{
 }
 
 #tag_input{
-padding: 6px 15px 6px 6px;
+padding: 6px 15px 6px 8px;
+ border-radius:10px;
   border: 1px solid #ddd;
   width: 350px;
-  margin-top:10px
+ font-size:15px;
+  border-style: solid
 }
 
 #make_changes_input{
-   margin-left:75px;
-     transition: 0.5s;
+    border-radius:10px;
+     transition: 0.2s;
   border: none;
    color:#4c4e4d;
-  padding: 8px 22px;
+  padding: 10px 22px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -485,7 +489,8 @@ padding: 6px 15px 6px 6px;
 }
 
 #make_changes_input:hover{
-    background-color: #fff000;
+    background-color: #202020;
+    color:yellow;
 }
 #make_changes_input:focus{
   outline:none;
@@ -604,20 +609,19 @@ input:checked + .slider:before {
   <div class="myModal">
 
   <!-- Modal content -->
-  <div class="modal-content">
+    <div class="modal-content">
     <span id="close_modal">&times;</span>
     
     <label style="display:none">Title:</label><br>
-  <input type="text" id="title_input" style="display:none"><br>
-  <label style="font-size:16px; font-weight:4.5px;">Add tags</label><br>
+  <input type="text" id="title_input" style="display:none">
+  <label style="font-size:16px; font-weight:600;float:left;margin-left:10px;margin-bottom:15px;text-overflow: ellipsis;overflow:hidden"></label><br>
   <input type="text" id="tag_input" placeholder="tech, education, science"><br><br>
-   <input type="submit" id="make_changes_input" value="save changes"><br><br>
+   <input type="submit" id="make_changes_input" value="Add tags"><br><br>
 
 
 
 
   </div>
-  
 
 
  
