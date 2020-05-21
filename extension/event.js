@@ -16,8 +16,6 @@ function getPageDetails(callback) {
       } else {
           chrome.browserAction.setPopup({popup: "popup.html"});
       }
-
-
     });
 
   chrome.runtime.onInstalled.addListener(function(details){

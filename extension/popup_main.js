@@ -66,24 +66,26 @@ document.getElementById('drop-menu').addEventListener('click', checkdropy)
 function checkdropy(){  
   if(document.getElementById('recent-container').style.display =='block'){
     document.getElementById('recent-container').style.display ='none'
-    this.childNodes[0].src = 'images/arrow-down.svg'
+document.getElementById('up-icon').src = 'images/arrow-down.svg'
+//chrome.storage.local.set({recentIsOpen:false})
   }
     else{
       document.getElementById('recent-container').style.display ='block'
-      this.childNodes[0].src = 'images/arrow-up.svg'
+      document.getElementById('up-icon').src = 'images/arrow-up.svg'
+  //    chrome.storage.local.set({recentIsOpen:true})
     }
 }
 
 window.addEventListener('load', function(){
-  let drop_down = document.getElementById('drop-menu')
+  //let drop_down = document.getElementById('drop-menu')
   // console.log(drop_down)
   chrome.storage.local.get(['recentisOpen'], function(result) {
   if(result.recentIsOpen){
     document.getElementById('recent-container').style.display ='block'
-    drop_down.childNodes[0].src = 'images/arrow-up.svg'
+    document.getElementById('up-icon').src = 'images/arrow-up.svg'
   }else{
     document.getElementById('recent-container').style.display ='none'
-    drop_down.childNodes[0].src = 'images/arrow-down.svg'
+    document.getElementById('up-icon').src = 'images/arrow-down.svg'
   }})
   
 })

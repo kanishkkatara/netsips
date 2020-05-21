@@ -324,9 +324,9 @@ box-shadow: 0px 3px 5px 0px rgba(153,153,153,1);
   margin-left:30px;
   width:60%;
 }
-#Tag_search_button{
+#Tag_search_button_del{
    margin-left:30px;
-     transition: 0.5s;
+     transition: 0.2s;
   border: none;
    color:#4c4e4d;
   padding: 8px 22px;
@@ -337,10 +337,10 @@ box-shadow: 0px 3px 5px 0px rgba(153,153,153,1);
    font-weight: lighter;
 
 }
-#Tag_search_button:hover{
+#Tag_search_button_del:hover{
     background-color: #fff000;
 }
-#Tag_search_button:focus{
+#Tag_search_button_del:focus{
   outline:none;
 }
 .filter_tags{
@@ -354,6 +354,10 @@ box-shadow: 0px 3px 5px 0px rgba(153,153,153,1);
    
 }
 #Paris .row{
+ margin-left:30px;
+}
+
+#Rome .row{
  margin-left:30px;
 }
 a { color: inherit; text-decoration:none } 
@@ -391,6 +395,39 @@ input:focus {
 
  }
 
+
+.topcorner1{
+   position:absolute;
+   top:3px;
+   right:3.9px;
+   border-radius: 20%;
+   width:18px;
+  
+   text-align:center;
+  
+
+       }
+.topcorner1:hover{
+
+ background: rgba(224, 93, 81, 0.5)
+  } 
+.edit1:hover{
+ opacity:100%
+  }
+ .edit1{
+     position:absolute;
+   top:153px;
+   right:7px;
+   border-radius: 25%;
+   width:18px;
+   height:18px;
+   text-align:center;
+   opacity:70%;
+   margin-top: 5px;
+
+ }
+
+
   .saved_article_titles{
     margin-top:22px;
     margin-right:10px;
@@ -403,12 +440,15 @@ input:focus {
   margin-left:-115px
 }
 .card_date{
-  margin-left:-6.5px;
+  margin-left:-15px;
  font-family: 'Manrove-cards';
 }
 #news-content{
   padding-bottom:50px;
 
+}
+#deleted-content{
+  padding-bottom:50px;
 }
 dialog{
   margin-left:700px;
@@ -568,6 +608,10 @@ input:checked + .slider:before {
    
   
 }
+
+#span_container_2{
+   font-family: 'Raleway';
+}
 .profile-picture{
   height:50px;
   width:50px;
@@ -584,9 +628,10 @@ input:checked + .slider:before {
 <body id="settings-body">
 
 <div class="tab" >
-<div id="Netsips-logo-container"> <a href="http://netsips.in" target="blank_"><img src="images/logo2.png" id="Netsips-img"></a> </div>
+<div id="Netsips-logo-container"> <a href="http://netsips.in" target="blank_"><img src="images/grey_netsips.svg" id="Netsips-img"></a> </div>
 <button class="tablinks" value = "Paris" id="saved-btn">Saved</button>
   <button class="tablinks" value="London" id='sc'>Settings</button>
+  <button class="tablinks" value="Rome" id='archived'>Archived</button>
   
  
   <a href="http://netsips.in/instructions.html" target="blank_"> <button class="tablinks" id='howtouse'>How to use?</button></a>
@@ -594,6 +639,29 @@ input:checked + .slider:before {
 </div>
 
 <div  class="tabcontent" style="display: block;">
+<div  id="Rome" style="display:none">
+<center id="main-heading" >
+ <div > archived <span><img class="profile-picture"></span></div>
+   </center>
+   <input type="text" id="searchBar" placeholder="Search for bookmarks..." title="">
+   <button id="Tag_search_button_del" style='cursor:pointer'>Clear archive</button>
+<!--<input type="text" id="searchBar" placeholder="Search for bookmarks..." title="">
+<p style="word-break: break-all;line-height:3;margin-left:30px;margin-right:85px"><button id="Tag_search_button" style="display:none">Filter by tags</button><span id="span_container_2" style="margin-left:-15px;"></span>
+</p>
+<div class="row" id="deleted-content"></div>
+ </div>-->
+
+<div class="row" id="deleted-content">
+
+<center style="margin:40px 40px 40px 0px;font-family: 'Manrove-tabs';font-size:20px;color:#202020"><img src='images/load.gif'></center>
+
+</div>
+</div>
+
+
+
+
+
 
  <div  id="Paris">
  <center id="main-heading">

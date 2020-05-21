@@ -186,7 +186,7 @@ font-family: 'Courgette', cursive;
 <body>
     <div class="modal-header">
       <h1 class="logo">
-      <center><span><img id="main-logo"src="images/nslg.png"></span></center>
+      <center><span><img id="main-logo"src="images/yellow_netsips.svg"></span></center>
       </h1>
        <span><img id="settings-icon"src="images/menu_icon.svg"></span>
     </div>
@@ -207,10 +207,10 @@ font-family: 'Courgette', cursive;
             </p>-->
             <input id="save" type="submit" value="Save to Netsips" />
             
-    </form><div style='border-top: 0.5px solid #202020; margin:0 15px 0 15px; padding-top:10px'>
+    </form><div style='border-top: 0.5px solid #202020; margin:0 15px 0 15px; padding-top:10px;cursor:pointer;'id='drop-menu'>
 <span style='padding: 0px 0px 15px 15px;text-align:left;
         font-size:15px;
-        font-weight:light;'>Recents</span><span id='drop-menu'><img src='images/arrow-up.svg' style='opacity:0.7; cursor:pointer;transition: opacity 1s ease-in-out;'></span>
+        font-weight:light;'>Recents</span><span><img src='images/arrow-up.svg' style='opacity:0.7; transition: opacity 1s ease-in-out;'id="up-icon"></span>
         <table id='recent-container' style=' border-collapse: collapse;margin-top:10px;cellspacing="0";width="100%"; border="0";  cellpadding="0";'></table></div>
       <script src="firebase/firebase-app.js"></script>
     <script src="firebase/firebase-firestore.js"></script>
