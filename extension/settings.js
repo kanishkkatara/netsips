@@ -734,5 +734,25 @@ window.addEventListener('load', function(){
 
 })
 
+window.addEventListener('load', function(){
+  document.getElementById('searchBarDel').addEventListener('keyup',function(){
+     var input = document.getElementById("searchBarDel");
+     var filter = input.value.toUpperCase();
+    var cards = document.getElementsByClassName('card')
+    for(var j=0;j<cards.length;j++){
+        txtValue = cards[j].childNodes[2].innerText
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          cards[j].style.display = "";
+      } else {
+        cards[j].style.display = "none";
+      }
+    }
+  })
+
+
+})
+
+
+
 
 //See you later...//
