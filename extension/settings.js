@@ -216,7 +216,7 @@ let photo_link
             let link_tag_name = doc.data().tags
             let key = doc.id
             let img = doc.data().imageUrl
-            document.getElementById('news-content').innerHTML += `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(240,240,240,.80), rgba(240,240,240,.80)), url(${img});background-size: contain;"><div class="topcorner"><img src="images/close.png" style="height:25px;width:25px;opacity:40%;"/></div><img src="images/tag_icon.png" class="edit"><a href=${url} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time} </p><div style='display:none'class="card_tags">${link_tag_name}</div><div class="key" style="display:none">${key}</div></div></div>`       
+            document.getElementById('news-content').innerHTML += `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(240,240,240,.80), rgba(240,240,240,.80)), url(${img});background-size: contain;"><div class="topcorner"><img src="images/close.png" style="height:13px;width:13px;opacity:70%;"/></div><img src="images/tag_icon.png" class="edit"><a href=${url} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time} </p><div style='display:none'class="card_tags">${link_tag_name}</div><div class="key" style="display:none">${key}</div></div></div>`       
             markers.push(link_tag_name)
           }
        for(var j=0;j<document.getElementsByClassName('topcorner').length;j++){
