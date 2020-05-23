@@ -149,6 +149,11 @@ var year = d.getFullYear();
 // 100- in current session, 101- newsletter sent, 102- deleted   
 var statusDisplay = document.getElementById('save');
 statusDisplay.value = "Saving..."
+chrome.storage.local.get(['isNew'], function(result){
+  if(result.isNew){
+    chrome.storage.local.set({isNew: false})
+  }
+})
 chrome.storage.local.get(['key'], function(result) {
   db.collection(result.key).add({      //.doc().set({  //website_title
     status: 100,  //none

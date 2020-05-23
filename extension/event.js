@@ -18,17 +18,18 @@ function getPageDetails(callback) {
       }
     });
 
-  chrome.runtime.onInstalled.addListener(function(details){
-      if(details.reason == "install"){
-        window.open('http://netsips.in/instructions.html' ,'_blank');
-      }
-  });
-  
 
+    // chrome.storage.local.get(['isNew'], function(result) {
 
-
-
-  
-
-
-// });
+    //   if (result.isNew) {
+    //       var postUrl = 'http://netsips.in/script.php';
+    //       var xhr = new XMLHttpRequest();
+    //       xhr.open('POST', postUrl, true);
+    //       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    //       var params = '&email=' + encodeURIComponent(user_email) 
+         
+    //       params = params.replace(/%20/g, '+');
+    //       xhr.send(params);
+      
+    //   }
+    // });

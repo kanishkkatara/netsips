@@ -1,3 +1,84 @@
+var firebaseConfig = {
+  apiKey: "AIzaSyBDaQL21llq2-5ftbSh0WvC243M6p_ZsgY",
+  authDomain: "netsips-1586535958950.firebaseapp.com",
+  databaseURL: "https://netsips-1586535958950.firebaseio.com",
+  projectId: "netsips-1586535958950",
+  storageBucket: "netsips-1586535958950.appspot.com",
+  messagingSenderId: "617103322863",
+  appId: "1:617103322863:web:4fbe39c3ad6acf34f3f51a",
+  measurementId: "G-E4SH3K42ZY"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+chrome.storage.local.get(['isSigned'], function(result){
+  if(!result.isSigned){
+    document.getElementsByClassName('signModal')[0].style.display = 'block'
+    document.getElementById('news-content').innerHTML = '' 
+    let p = document.getElementsByClassName('profile-picture')
+    for(let i=0;i<p.length;i++){
+      p[i].style.display = "none"
+    }
+  }else{
+ 
+    chrome.storage.local.get(['key'], function(result){
+      let uid= result.key 
+      // let dark = document.getElementById('dark_mode_checkbox')
+   let db_store = firebase.firestore()
+      db_store.collection(uid).onSnapshot(function(snapshot) {
+       document.getElementById('news-content').innerHTML = ''
+           db_store.collection(uid).orderBy('dateAdded',"desc").get().then(querySnapshot => {
+            let  markers =[]
+           // let marker_del = []
+            querySnapshot.docs.forEach(doc => {            
+            if(doc.data().status!=102){ 
+          let url = doc.data().articleURL
+          let title = title_trimmer(doc.data().title)
+          let time = date_processing(doc.data().dateAdded.toDate())
+          let icon = favicon+url 
+          let link_tag_name = doc.data().tags
+          let key = doc.id
+          let img = doc.data().imageUrl
+          document.getElementById('news-content').innerHTML += `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(240,240,240,.80), rgba(240,240,240,.80)), url(${img});background-size: contain;"><div class="topcorner"><img src="images/close.png" style="height:13px;width:13px;opacity:70%"/></div><img src="images/tag_icon.png" class="edit"><a href=${url} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time} </p><div style='display:none'class="card_tags">${link_tag_name}</div><div class="key" style="display:none">${key}</div></div></div>`       
+          markers.push(link_tag_name)
+        }
+     for(var j=0;j<document.getElementsByClassName('topcorner').length;j++){
+      
+       let key
+       key = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[6].innerText
+      
+       document.getElementsByClassName('topcorner')[j].onclick = function(){
+        hellocard1(key, uid)}
+     }
+     
+     for(var j=0;j<document.getElementsByClassName('edit').length;j++){
+      let key
+      let card_tags
+      let card_title
+      key = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[6].innerText
+      card_tags = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[5].innerText
+      card_title = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[2].innerText
+      document.getElementsByClassName('edit')[j].onclick =  function(){tags1(key, uid, card_tags, card_title)}}
+       
+   }
+   
+   )
+    //tags rendering 
+    tag_render(markers.filter(onlyUnique).map(s=>s.split(',')).join().toLowerCase().split(',').map(tag_trimmer).filter(onlyUnique))
+    // tags rendering
+    var filter_tags = document.getElementsByClassName("filter_tags")
+    for(var i=0;i<filter_tags.length;i++){
+      filter_tags[i].addEventListener('click', activeTag)
+    }                            
+            })  
+      }
+      )
+     
+    })
+  
+  }
+})
+
 document.addEventListener('DOMContentLoaded',()=>{
   chrome.storage.local.get(['isDark'], function(result) {
     if(result.isDark){
@@ -13,18 +94,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   
 })
 
-var firebaseConfig = {
-  apiKey: "AIzaSyBDaQL21llq2-5ftbSh0WvC243M6p_ZsgY",
-  authDomain: "netsips-1586535958950.firebaseapp.com",
-  databaseURL: "https://netsips-1586535958950.firebaseio.com",
-  projectId: "netsips-1586535958950",
-  storageBucket: "netsips-1586535958950.appspot.com",
-  messagingSenderId: "617103322863",
-  appId: "1:617103322863:web:4fbe39c3ad6acf34f3f51a",
-  measurementId: "G-E4SH3K42ZY"
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
 
 function title_trimmer(website_title){
   if(website_title.length>=60){
@@ -67,59 +136,127 @@ function onlyUnique(value, index, self) {
 }
 
 
-chrome.storage.local.get(['key'], function(result){
-    let uid= result.key 
-    // let dark = document.getElementById('dark_mode_checkbox')
- let db_store = firebase.firestore()
-    db_store.collection(uid).onSnapshot(function(snapshot) {
-     document.getElementById('news-content').innerHTML = ''
-         db_store.collection(uid).orderBy('dateAdded',"desc").get().then(querySnapshot => {
-          let  markers =[]
-         // let marker_del = []
-          querySnapshot.docs.forEach(doc => {            
-          if(doc.data().status!=102){ 
-        let url = doc.data().articleURL
-        let title = title_trimmer(doc.data().title)
-        let time = date_processing(doc.data().dateAdded.toDate())
-        let icon = favicon+url 
-        let link_tag_name = doc.data().tags
-        let key = doc.id
-        let img = doc.data().imageUrl
-        document.getElementById('news-content').innerHTML += `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(240,240,240,.80), rgba(240,240,240,.80)), url(${img});background-size: contain;"><div class="topcorner"><img src="images/close.png" style="height:13px;width:13px;opacity:70%"/></div><img src="images/tag_icon.png" class="edit"><a href=${url} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time} </p><div style='display:none'class="card_tags">${link_tag_name}</div><div class="key" style="display:none">${key}</div></div></div>`       
-        markers.push(link_tag_name)
-      }
-   for(var j=0;j<document.getElementsByClassName('topcorner').length;j++){
-    
-     let key
-     key = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[6].innerText
-    
-     document.getElementsByClassName('topcorner')[j].onclick = function(){
-      hellocard1(key, uid)}
-   }
-   
-   for(var j=0;j<document.getElementsByClassName('edit').length;j++){
-    let key
-    let card_tags
-    let card_title
-    key = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[6].innerText
-    card_tags = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[5].innerText
-    card_title = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[2].innerText
-    document.getElementsByClassName('edit')[j].onclick =  function(){tags1(key, uid, card_tags, card_title)}}
-     
- }
+
+
+
+
+
+
+//SIGNUP
+document.getElementById('signinbtn').addEventListener('click', function(){
  
- )
-  //tags rendering 
-  tag_render(markers.filter(onlyUnique).map(s=>s.split(',')).join().toLowerCase().split(',').map(tag_trimmer).filter(onlyUnique))
-  // tags rendering
-  var filter_tags = document.getElementsByClassName("filter_tags")
-  for(var i=0;i<filter_tags.length;i++){
-    filter_tags[i].addEventListener('click', activeTag)
-  }                            
-          })  
+  var provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(provider).then(function(result) {
+    document.getElementsByClassName("signModal")[0].style.display = "none"   
+    chrome.storage.local.set({isSigned: true}, function() {
+    });
+    chrome.browserAction.setPopup({popup: "popup_main.html"});
+    var email =  result.user.email
+    var value = result.user.uid
+    var profile_picture = result.user.photoURL
+    var new_user  = result.additionalUserInfo.isNewUser
+    chrome.storage.local.set({isNew: new_user})
+
+    chrome.storage.local.set({isDark: false})
+
+// RTD Initialize
+var db = firebase.database();
+var rtd  = db.ref();
+
+rtd.once("value")
+  .then(function(snapshot) {
+    var hasName = snapshot.hasChild(value); 
+    if(!hasName){
+        rtd.child(value).set({'email':  email, 'days':"6"}).then().catch();
     }
-    )
-   
+  });
+
+ chrome.storage.local.set({profile_pic: profile_picture}, function() {
+});
+//document.getElementsByClassName('profile-picture')[0].style.display = 'block'
+let p = document.getElementsByClassName('profile-picture')
+    for(let i=0;i<p.length;i++){
+      p[i].style.display = "block"
+    }
+let photo_link
+ chrome.storage.local.get(['profile_pic'], function(result) {
+   photo_link =  result.profile_pic
+   for(let i=0;i<p.length;i++){
+  //  console.log(p[i])
+    p[i].src = photo_link 
+  }
+});
+    
+    chrome.storage.local.set({key: value}, function() {
+      });
+ 
+  //   document.getElementById('news-content').innerHTML = '<div style="font-size:30px">The bookmarks you save using Netsips will appear here<div>'
+  
+  chrome.storage.local.get(['isNew'], function(result){
+    if(result.isNew){
+      document.getElementById('news-content').innerHTML = '<div style="font-size:30px">The bookmarks you save using Netsips will appear here<div>'
+  
+    }else{
+  
+      chrome.storage.local.get(['key'], function(result){
+        let uid= result.key 
+        // let dark = document.getElementById('dark_mode_checkbox')
+     let db_store = firebase.firestore()
+        db_store.collection(uid).onSnapshot(function(snapshot) {
+         document.getElementById('news-content').innerHTML = ''
+             db_store.collection(uid).orderBy('dateAdded',"desc").get().then(querySnapshot => {
+              let  markers =[]
+             // let marker_del = []
+              querySnapshot.docs.forEach(doc => {            
+              if(doc.data().status!=102){ 
+            let url = doc.data().articleURL
+            let title = title_trimmer(doc.data().title)
+            let time = date_processing(doc.data().dateAdded.toDate())
+            let icon = favicon+url 
+            let link_tag_name = doc.data().tags
+            let key = doc.id
+            let img = doc.data().imageUrl
+            document.getElementById('news-content').innerHTML += `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(240,240,240,.80), rgba(240,240,240,.80)), url(${img});background-size: contain;"><div class="topcorner"><img src="images/close.png" style="height:25px;width:25px;opacity:40%;"/></div><img src="images/tag_icon.png" class="edit"><a href=${url} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time} </p><div style='display:none'class="card_tags">${link_tag_name}</div><div class="key" style="display:none">${key}</div></div></div>`       
+            markers.push(link_tag_name)
+          }
+       for(var j=0;j<document.getElementsByClassName('topcorner').length;j++){
+        
+         let key
+         key = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[6].innerText
+        
+         document.getElementsByClassName('topcorner')[j].onclick = function(){
+          hellocard1(key, uid)}
+       }
+       
+       for(var j=0;j<document.getElementsByClassName('edit').length;j++){
+        let key
+        let card_tags
+        let card_title
+        key = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[6].innerText
+        card_tags = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[5].innerText
+        card_title = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[2].innerText
+        document.getElementsByClassName('edit')[j].onclick =  function(){tags1(key, uid, card_tags, card_title)}}
+         
+     }
+     
+     )
+      //tags rendering 
+      tag_render(markers.filter(onlyUnique).map(s=>s.split(',')).join().toLowerCase().split(',').map(tag_trimmer).filter(onlyUnique))
+      // tags rendering
+      var filter_tags = document.getElementsByClassName("filter_tags")
+      for(var i=0;i<filter_tags.length;i++){
+        filter_tags[i].addEventListener('click', activeTag)
+      }                            
+              })  
+        }
+        )
+       
+      })
+    
+
+
+    
+    }
   })
 
 
@@ -127,80 +264,28 @@ chrome.storage.local.get(['key'], function(result){
 
 
 
-//   chrome.storage.local.get(['key'], function(result){
-//     let uid= result.key 
-//     // let dark = document.getElementById('dark_mode_checkbox')
-//   let db_store = firebase.firestore()
-//     db_store.collection(uid).onSnapshot(function(snapshot) {
-//      document.getElementById('news-content').innerHTML = ''
-//          db_store.collection(uid).orderBy('dateAdded',"desc").get().then(querySnapshot => {
-//         //  let  markers =[]
-//        //   let marker_del = []
-//           querySnapshot.docs.forEach(doc => {            
-//           if(doc.data().status==102){ 
-//         let url = doc.data().articleURL
-//         let title = title_trimmer(doc.data().title)
-//         let time = date_processing(doc.data().dateAdded.toDate())
-//         let icon = favicon+url 
-//         let link_tag_name = doc.data().tags
-//         let key = doc.id
-//         let img = doc.data().imageUrl
-//         document.getElementById('deleted-content').innerHTML += `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(240,240,240,.80), rgba(240,240,240,.80)), url(${img});background-size: contain;"><div class="topcorner"><img src="images/close.png" style="height:13px;width:13px;opacity:70%"/></div><img src="images/tag_icon.png" class="edit"><a href=${url} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time} </p><div style='display:none'class="card_tags">${link_tag_name}</div><div class="key" style="display:none">${key}</div></div></div>`       
-//         //markers.push(link_tag_name)
-//       }
-//   //  for(var j=0;j<document.getElementsByClassName('topcorner').length;j++){
-    
-//   //    let key
-//   //    key = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[6].innerText
-//   //    document.getElementsByClassName('topcorner')[j].onclick = function(){hellocard1(key, uid)}
-//   //  }
-   
-//   //  for(var j=0;j<document.getElementsByClassName('edit').length;j++){
-//   //   let key
-//   //   let card_tags
-//   //   let card_title
-//   //   key = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[6].innerText
-//   //   card_tags = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[5].innerText
-//   //   card_title = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[2].innerText
-//   //   document.getElementsByClassName('edit')[j].onclick =  function(){tags1(key, uid, card_tags, card_title)}}
-     
-//  }
- 
-//  )
-//   //tags rendering 
-//   // tag_render(markers.filter(onlyUnique).map(s=>s.split(',')).join().toLowerCase().split(',').map(tag_trimmer).filter(onlyUnique))
-//   // // tags rendering
-//   // var filter_tags = document.getElementsByClassName("filter_tags")
-//   // for(var i=0;i<filter_tags.length;i++){
-//   //   filter_tags[i].addEventListener('click', activeTag)
-//   // }                            
-//           })  
-//     }
-//     )
-   
-//   })
 
 
 
 
 
+        // ...
+      }).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+        //console.log(errorCode, errorMessage,email, credential)
+      });  
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
+})
+//SIGNUP
 
 
 var db = firebase.firestore();  
@@ -274,11 +359,6 @@ const addTags1 =(uid, key)=>{
    });  
 }
 
-// async getMarker() {
-//   const snapshot = await firebase.firestore().collection('events').get()
-//   return snapshot.docs.map(doc => doc.data());
-// }
-
 
 const render_deleted = ()=>{
   
@@ -297,7 +377,7 @@ const render_deleted = ()=>{
         let link_tag_name = doc.data().tags
         let key = doc.id
         let img = doc.data().imageUrl
-        document.getElementById('deleted-content').innerHTML += `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(240,240,240,.80), rgba(240,240,240,.80)), url(${img});background-size: contain;"><div class="topcorner1"><img src="images/bin.png" style="height:15px;width:15px;opacity:70%"/></div><img src="images/plus.png" class="edit1"><a href=${url} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time} </p><div style='display:none'class="card_tags">${link_tag_name}</div><div class="key" style="display:none">${key}</div></div></div>`
+        document.getElementById('deleted-content').innerHTML += `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(240,240,240,.80), rgba(240,240,240,.80)), url(${img});background-size: contain;"><div class="topcorner1"><img src="images/bin.png" style="height:18px;width:18px;opacity:70%"/></div><img src="images/plus.png" class="edit1" style='height:15px;width:14px'><a href=${url} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time} </p><div style='display:none'class="card_tags">${link_tag_name}</div><div class="key" style="display:none">${key}</div></div></div>`
               }
             }
             
@@ -322,67 +402,8 @@ const render_deleted = ()=>{
 
 
         })
-        //.forEach(doc =>{
-    //     if(doc.data().status==102){
-    //     let url = doc.data().articleURL
-    //     let title = title_trimmer(doc.data().title)
-    //     let time = date_processing(doc.data().dateAdded.toDate())
-    //     let icon = favicon+url 
-    //     let link_tag_name = doc.data().tags
-    //     let key = doc.id
-    //     let img = doc.data().imageUrl
-    //     document.getElementById('deleted-content').innerHTML += `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(240,240,240,.80), rgba(240,240,240,.80)), url(${img});background-size: contain;"><div class="topcorner1"><img src="images/bin.png" style="height:15px;width:15px;opacity:70%"/></div><img src="images/plus.png" class="edit1"><a href=${url} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time} </p><div style='display:none'class="card_tags">${link_tag_name}</div><div class="key" style="display:none">${key}</div></div></div>`       
-    //  //   marker_del.push(link_tag_name)
-    //           }
-    //   //  })
+  
   })
-
-//      chrome.storage.local.get(['key'], function(result){
-//     let uid= result.key 
-//     // let dark = document.getElementById('dark_mode_checkbox')
-//   let db_store = firebase.firestore()
-//     db_store.collection(uid).onSnapshot(function(snapshot) {
-//      document.getElementById('deleted-content').innerHTML = ''
-//          db_store.collection(uid).orderBy('dateAdded',"desc").get().then(querySnapshot => {
-//         //  let  markers =[]
-//         // let marker_del = []
-//           querySnapshot.docs.forEach(doc => {            
-//           if(doc.data().status==102){ 
-//         let url = doc.data().articleURL
-//         let title = title_trimmer(doc.data().title)
-//         let time = date_processing(doc.data().dateAdded.toDate())
-//         let icon = favicon+url 
-//         let link_tag_name = doc.data().tags
-//         let key = doc.id
-//         let img = doc.data().imageUrl
-//         document.getElementById('deleted-content').innerHTML += `<div class='column'> <div></div><div class='card' style="background:linear-gradient(rgba(240,240,240,.80), rgba(240,240,240,.80)), url(${img});background-size: contain;"><div class="topcorner1"><img src="images/bin.png" style="height:15px;width:15px;opacity:70%"/></div><img src="images/plus.png" class="edit1"><a href=${url} target="_blank" class='news-link'><div class="saved_article_titles">${title}</div></a><p class="card_logo"><img src=${icon} style="opacity:100%"/></p><p class="card_date">${time} </p><div style='display:none'class="card_tags">${link_tag_name}</div><div class="key" style="display:none">${key}</div></div></div>`       
-//      //   marker_del.push(link_tag_name)
-//       }
-//    for(var j=0;j<document.getElementsByClassName('topcorner1').length;j++){
-    
-//      let key
-//      key = document.getElementsByClassName('topcorner1')[j].parentElement.childNodes[6].innerText
-//      document.getElementsByClassName('topcorner1')[j].onclick = function(){permanent_delete(key, uid)}
-//    }
-   
-//    for(var j=0;j<document.getElementsByClassName('edit1').length;j++){
-//     let key
-//   //   let card_tags
-//   //   let card_title
-//     key = document.getElementsByClassName('topcorner1')[j].parentElement.childNodes[6].innerText
-//     // card_tags = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[5].innerText
-//     // card_title = document.getElementsByClassName('topcorner')[j].parentElement.childNodes[2].innerText
-//     document.getElementsByClassName('edit1')[j].onclick =  function(){restore_card(key, uid)}}
-     
-//  }
- 
-//  )                           
-//           })  
-//     }
-//     )
-   
-//   })
-
  
 }
 
@@ -402,11 +423,6 @@ function restore_card(key, uid){
    });
 
 }
-// if(document.getElementById("Rome").style.display == 'block'){
-// document.getElementById('Tag_search_button_del').onclick = function(){
-//   alert('edjbc')
-  
-//   clearArchive}}
 
 const clearArchive = ()=>{
   document.getElementById('deleted-content').innerHTML = ''
@@ -449,6 +465,7 @@ buttons[0].addEventListener('click', function(){
     document.getElementById("London").style.display = "none"
     document.getElementById("Rome").style.display = 'none'
     document.getElementById("Paris").style.display = "block"
+   
 })
 
 
@@ -474,13 +491,22 @@ render_deleted()
 document.getElementById("SignOut").addEventListener('click', function(){
   this.innerText = "Signing out..."
   firebase.auth().signOut().then(function() {
-    
+    document.getElementById('Paris').innerHTML = ''
     chrome.browserAction.setPopup({popup: "popup.html"});
     chrome.storage.local.set({isSigned: false}, function() {
+    });
+    chrome.storage.local.set({isDark: false}, function() {
+    });
+    let p = document.getElementsByClassName('profile-picture')
+    for(let i=0;i<p.length;i++){
+      p[i].style.display = "none"
+    }
+    chrome.storage.local.set({profile_pic: ''}, function() {
     });
     setTimeout(function(){ 
       window.close('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/settings.html') 
     }, 1000);
+    
    
   }).catch(function(error) {
     console.log("An error happened."+error)
@@ -498,10 +524,14 @@ function make_dark(){
   let london = document.getElementById('London')
   let paris = document.getElementById('Paris')
   let rome = document.getElementById('Rome')
+  let tabcontent = document.getElementsByClassName('tabcontent')[0]
+  let tab_btns = document.getElementsByClassName('tab')[0]
+  tab_btns.style.background = '#242424'
   body.style.background = '#303030'
-  london.style.background = '#303030'
-  paris.style.background = '#303030'
-  rome.style.background = '#303030'
+  tabcontent.style.background = '#303030'
+  // london.style.background = '#303030'
+  // paris.style.background = '#303030'
+  // rome.style.background = '#303030'
  london.style.color  = 'rgba(255, 255, 255, 0.7)'
  logo.src = 'images/yellow_netsips.svg'
  document.getElementById('sc').className ='darktablinks'
@@ -524,10 +554,14 @@ function make_light(){
   let london = document.getElementById('London')
   let paris = document.getElementById('Paris')
   let rome = document.getElementById('Rome')
+  let tabcontent = document.getElementsByClassName('tabcontent')[0]
   body.style.background = '#fff'
-  london.style.background = '#fff'
-  paris.style.background = '#fff'
-  rome.style.background = '#fff'
+  tabcontent.style.background = '#fff'
+  let tab_btns = document.getElementsByClassName('tab')[0]
+  tab_btns.style.background = '#f1f1f1'
+  // london.style.background = '#fff'
+  // paris.style.background = '#fff'
+  // rome.style.background = '#fff'
   body.style.color  = 'black'
 london.style.color  = 'black'
 logo.src = 'images/grey_netsips.svg'
