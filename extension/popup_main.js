@@ -94,6 +94,7 @@ window.addEventListener('load', function(){
 //Delivery from content.js
 var image
 var website_url
+var main_site
 function onPageDetailsReceived(pageDetails) {
   if(pageDetails.word_count>1000){
     document.getElementById('word_count').style.color = "red"
@@ -107,6 +108,8 @@ function onPageDetailsReceived(pageDetails) {
       document.getElementById('est_time').innerText = "(around "+ pageDetails.estimated_time+" minutes)";
     }
 image = pageDetails.img_url
+main_site = pageDetails.main_site
+
 }
 
 
@@ -161,7 +164,8 @@ chrome.storage.local.get(['key'], function(result) {
     title: website_title,
     imageUrl:image, //img
     dateAdded: firebase.firestore.Timestamp.now(), //timestamp
-    articleURL: website_url //url
+    articleURL: website_url,
+    mainSite:main_site //url
   }).then(function(docRef) {
     doc_id = docRef.id
     statusDisplay.value = "Saved!"

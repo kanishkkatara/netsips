@@ -66,9 +66,11 @@ font-family: 'Courgette', cursive;
         height:40px;
         border:none;
         margin-bottom:10px;
-        background: white;
         transition: 0.3s;
-        font-size:16px
+        font-size:16px;
+        background-color:rgb(34,139,34,0.8);
+        color:#ffffff;
+        cursor:pointer;
        
       }
 
@@ -111,8 +113,8 @@ font-family: 'Courgette', cursive;
       }
       #save:hover{
        border:none;
-        background: #313131;
-        color:#FFF000;
+         background-color:rgb(34,139,34);
+        color:#FFFFFF;
      
       }
       h3{
@@ -126,8 +128,9 @@ font-family: 'Courgette', cursive;
       #settings-icon{
           position: absolute;
      right: 5px;
-     top: 15px;
-     
+     top: 13px;
+     height:25px;
+     width:20px;
 
    
       }
@@ -200,11 +203,14 @@ font-family: 'Courgette', cursive;
             <input type="hidden" id="url" name="url" value="" readonly style="display:none"/>
      
               <input type="text" id="popup_tags" placeholder="Add tags..."/>
-              <p >
+                <br>
+                <br>
+              <p style='display:none'>
           Number of words: <span id="word_count"></span>
             <span id="est_time" style="display:none"></span></p>
       <!--      <p id='recent-container'>Recents:
             </p>-->
+          
             <input id="save" type="submit" value="Save to Netsips" />
             
     </form><div style='border-top: 0.5px solid #202020; margin:0 15px 0 15px; padding-top:10px;cursor:pointer;'id='drop-menu'>

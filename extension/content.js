@@ -32,7 +32,25 @@ function getMeta(metaName) {
     return '';
   }
 
+  function getMetaSite(metaName) {
+    const metas = document.getElementsByTagName('meta');
+  
+    for (let i = 0; i < metas.length; i++) {
+      if (metas[i].getAttribute('name') === metaName) {
+        return metas[i].getAttribute('content');
+      }
+    }
+    return '';
+  }
 
+  // var image_link
+  // if(getMeta("og:image")!='' || undefined){
+  //   image_link = getMeta("og:image")
+  // }else{
+  //   image_link = `https://ui-avatars.com/api/?background=ccc&color=202020&size=250&name=${document.title}`
+  // }
+  // console.log(image_link)
+//https://ui-avatars.com/api/?background=ccc&color=202020&size=250
 // Send a message containing the page details back to the event page
 chrome.runtime.sendMessage({
  //    'title': document.title, //pls remove if creates trouble
@@ -40,7 +58,8 @@ chrome.runtime.sendMessage({
      'word_count': count,
      'estimated_time': Math.ceil(time),
      'content': content,
-     'img_url': getMeta("og:image")
+     'img_url': getMeta("og:image"),
+     'main_site': getMeta('og:site_name')
     // 'total_time_saved': total_time_saved
      
  });
