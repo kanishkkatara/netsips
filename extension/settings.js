@@ -14,8 +14,9 @@ firebase.initializeApp(firebaseConfig);
 //This shortenes the title of the card 
 function title_trimmer(website_title){
   if(website_title.length>=78){
-  website_title = website_title.substring(0, 78) + '...'
-  }else{
+ website_title = website_title.substring(0, 78) + '...'
+// website_title = website_title  
+}else{
   website_title = website_title
   }
   return website_title
@@ -88,7 +89,7 @@ chrome.storage.local.get(['isSigned'], function(result){
           // if(img=='' || undefined){
         //   img = `https://ui-avatars.com/api/?background=ccc&color=202020&size=250&name=`+title 
         // }
-          document.getElementById('news-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:250px;height:200px; overflow:hidden'> <span class='topcorner'><img src='images/archive-grey.svg'></span> <img  class='img-container-tag' src=${img}> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags' style='overflow:hidden;text-overflow:ellipsis;margin-right:10px'>${link_tag_name}</span><span><img src='images/edit.png' class='edit'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
+          document.getElementById('news-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:250px;height:200px; overflow:hidden;object-fit: cover;'> <span class='topcorner'><img src='images/archive-grey.svg'></span> <img  class='img-container-tag' src=${img}> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags' style='overflow:hidden;text-overflow:ellipsis;margin-right:10px'>${link_tag_name}</span><span><img src='images/edit.png' class='edit'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
           markers.push(link_tag_name)
         }
      for(var j=0;j<document.getElementsByClassName('topcorner').length;j++){ //topcorner is the archive button
@@ -221,7 +222,7 @@ let photo_link
             if(img=='' || undefined || null){
               img = `https://api.apiflash.com/v1/urltoimage?access_key=f4e1b27f86c24518a71121520b35a636&format=png&no_ads=true&url=${url}&height=800&width=1000`
             } 
-            document.getElementById('news-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:250px;height:200px; overflow:hidden'> <span class='topcorner'><img src='images/archive-grey.svg'></span> <img  class='img-container-tag' src=${img}> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags'>${link_tag_name}</span><span><img src='images/edit.png' class='edit'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
+            document.getElementById('news-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:250px;height:200px; overflow:hidden;object-fit: cover;'> <span class='topcorner'><img src='images/archive-grey.svg'></span> <img  class='img-container-tag' src=${img}> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags'>${link_tag_name}</span><span><img src='images/edit.png' class='edit'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
             markers.push(link_tag_name)
           }
        for(var j=0;j<document.getElementsByClassName('topcorner').length;j++){
@@ -386,7 +387,7 @@ const render_deleted = ()=>{
         // if(img=='' || undefined){
         //   img = `https://ui-avatars.com/api/?background=ccc&color=202020&size=250&name=`+title 
         // }
-        document.getElementById('deleted-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:250px;height:200px; overflow:hidden'> <span class='topcorner1'><img src='images/delete.svg'></span> <img  class='img-container-tag' src=${img}> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags'>${link_tag_name}</span><span><img src='images/restore.svg' class='edit1'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`
+        document.getElementById('deleted-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:250px;height:200px; overflow:hidden;object-fit: cover;'> <span class='topcorner1'><img src='images/delete.svg'></span> <img  class='img-container-tag' src=${img}> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags' style='display:none'>${link_tag_name}</span><span><img src='images/restore.svg' class='edit1'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`
               }
             }
             
