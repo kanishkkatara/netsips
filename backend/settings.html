@@ -52,7 +52,7 @@ html{
 /* Style the tab */
 .tab {
   float: left;  
-  width: 8%;
+  width: 6%;
 background-color: #f1f1f1;
  height:100%;
     overflow:auto;
@@ -113,7 +113,7 @@ margin:0;
    background-color: #fff;
  overflow-y:auto;
   height: 100%;
-  width: 92%;
+  width: 94%;
  
 }
 /*My CSS*/
@@ -150,19 +150,20 @@ font-weight:lighter;
 }
 
 #Netsips-img-round{
-  height:80px;
+  height:70px;
 
 }
 
 
 #main-heading{
-  text-align: left;
-  font-size:60px;
+  text-align: center;
+  font-family: 'raleway';
+  font-size:50px;
   font-weight: lighter;
-  background-color: #4c4e4d;
-  color:yellow;
+  background-color: #303030;
+  color:#fff000;
   margin-bottom: 30px;
-  height:100px;
+  height:65px;
  
 }
 #main-heading div{
@@ -402,12 +403,15 @@ transition:0.2s;
   overflow: hidden;
   text-overflow: clip;
   height:18px;
-  width:200px;
+  width:180px;
   float:left;
-  border-bottom:1px solid #C8C8C8;
   top:310px;
   position: absolute;
 
+}
+
+.card:hover .card_tags{
+  border-bottom: 1px solid #c8c8c8
 }
 
 .edit{
@@ -417,11 +421,15 @@ transition:0.2s;
   opacity:60%;
   transition:0s;
   top:310px;
-  right: 20px;
+  right: 40px;
   position: absolute;
+  visibility:hidden
 }
 .edit:hover{
   opacity:100%
+}
+.card:hover .edit{
+  visibility:visible
 }
 #searchBar {
  
@@ -430,11 +438,15 @@ transition:0.2s;
   width: 100%;
   font-size: 16px;
   padding: 12px 20px 12px 20px;
-  border: 1px solid #ddd;
+  border: none;
+  border-bottom: 1px solid;
   margin-bottom: 20px;
   margin-left:30px;
-  width:40%;
-   border-radius:5px;
+  width:20%;
+  position: absolute;
+  left: 895px;
+  opacity: 0.4;
+  border-radius:3px;
   
 }
 #searchBarDel {
@@ -704,10 +716,10 @@ input:checked + .slider:before {
    font-family: 'Raleway';
 }
 .profile-picture{
-  height:50px;
-  width:50px;
+  height:40px;
+  width:40px;
   float:right;
-  margin: 20px 20px 0 0;
+  margin: 10px 20px 0 0;
   border-radius: 50%
 }
 
