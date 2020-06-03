@@ -1,3 +1,12 @@
+// (function(d, s, id) {
+//   var js, fjs = d.getElementsByTagName(s)[0];
+//   if (d.getElementById(id)) return;
+//   js = d.createElement(s); js.id = id;
+//   js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+//   fjs.parentNode.insertBefore(js, fjs);
+// }(document, 'script', 'facebook-jssdk'))
+
+
 var firebaseConfig = {
   apiKey: "AIzaSyBDaQL21llq2-5ftbSh0WvC243M6p_ZsgY",
   authDomain: "netsips-1586535958950.firebaseapp.com",
@@ -13,8 +22,8 @@ firebase.initializeApp(firebaseConfig);
 //MINOR UTILITY FUNCTIONS
 //This shortenes the title of the card 
 function title_trimmer(website_title){
-  if(website_title.length>=78){
- website_title = website_title.substring(0, 78) + '...'
+  if(website_title.length>=70){
+ website_title = website_title.substring(0, 70) + '...'
 // website_title = website_title  
 }else{
   website_title = website_title
@@ -65,7 +74,7 @@ chrome.storage.local.get(['isSigned'], function(result){
     //AKA THE MOST IMPORTANT FUNCTIONALITY OF THE ENTIRE PRODUCT
     chrome.storage.local.get(['key'], function(result){
       let uid= result.key 
-      let db_store = firebase.firestore()
+   let db_store = firebase.firestore()
       db_store.collection(uid).onSnapshot(function(snapshot) {
        document.getElementById('news-content').innerHTML = ''
            db_store.collection(uid).orderBy('dateAdded',"desc").get().then(querySnapshot => {
@@ -89,7 +98,7 @@ chrome.storage.local.get(['isSigned'], function(result){
           // if(img=='' || undefined){
         //   img = `https://ui-avatars.com/api/?background=ccc&color=202020&size=250&name=`+title 
         // }
-          document.getElementById('news-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:250px;height:200px; overflow:hidden;object-fit: cover;'> <span class='topcorner'><img src='images/archive-grey.svg'></span> <img  class='img-container-tag' src=${img}> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags' style='overflow:hidden;text-overflow:ellipsis;margin-right:10px'>${link_tag_name}</span><span><img src='images/edit.png' class='edit'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
+          document.getElementById('news-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:250px;height:200px; overflow:hidden;object-fit: cover;'> <span class='topcorner'><img src='images/archive-grey.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags' style='overflow:hidden;text-overflow:ellipsis;margin-right:10px'>${link_tag_name}</span><span><img src='images/edit.png' class='edit'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
           markers.push(link_tag_name)
         }
      for(var j=0;j<document.getElementsByClassName('topcorner').length;j++){ //topcorner is the archive button
@@ -115,10 +124,18 @@ chrome.storage.local.get(['isSigned'], function(result){
     //tags rendering on the span container
     //NEVER CHANGE WHAT'S INSIDE THE TAG RENDERING METHOD
     tag_render(markers.filter(onlyUnique).map(s=>s.split(',')).join().toLowerCase().split(',').map(tag_trimmer).filter(onlyUnique))
-    var filter_tags = document.getElementsByClassName("filter_tags")
-    for(var i=0;i<filter_tags.length;i++){
-      filter_tags[i].addEventListener('click', activeTag)
-    }                            
+    let tagdivs = document.getElementsByClassName('tags')
+          for(let i=0; tagdivs.length;i++){
+           tagdivs[i].onclick = function(){filter_using_tags(tagdivs[i].innerText)}
+          }
+    
+    
+    
+    
+    // var filter_tags = document.getElementsByClassName("filter_tags")
+    // for(var i=0;i<filter_tags.length;i++){
+    //   filter_tags[i].addEventListener('click', activeTag)
+    // }                            
             })  
       }
       )
@@ -222,7 +239,7 @@ let photo_link
             if(img=='' || undefined || null){
               img = `https://api.apiflash.com/v1/urltoimage?access_key=f4e1b27f86c24518a71121520b35a636&format=png&no_ads=true&url=${url}&height=800&width=1000`
             } 
-            document.getElementById('news-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:250px;height:200px; overflow:hidden;object-fit: cover;'> <span class='topcorner'><img src='images/archive-grey.svg'></span> <img  class='img-container-tag' src=${img}> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags'>${link_tag_name}</span><span><img src='images/edit.png' class='edit'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
+            document.getElementById('news-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:250px;height:200px; overflow:hidden;object-fit: cover;'> <span class='topcorner'><img src='images/archive-grey.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags'>${link_tag_name}</span><span><img src='images/edit.png' class='edit'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
             markers.push(link_tag_name)
           }
        for(var j=0;j<document.getElementsByClassName('topcorner').length;j++){
@@ -249,11 +266,18 @@ let photo_link
      )
       //tags rendering 
       tag_render(markers.filter(onlyUnique).map(s=>s.split(',')).join().toLowerCase().split(',').map(tag_trimmer).filter(onlyUnique))
+      let tagdivs = document.getElementsByClassName('tags')
+          for(let i=0; tagdivs.length;i++){
+           tagdivs[i].onclick = function(){filter_using_tags(tagdivs[i].innerText)}
+          }
+     
+     
+     
       // tags rendering
-      var filter_tags = document.getElementsByClassName("filter_tags")
-      for(var i=0;i<filter_tags.length;i++){
-        filter_tags[i].addEventListener('click', activeTag)
-      }                            
+      // var filter_tags = document.getElementsByClassName("filter_tags")
+      // for(var i=0;i<filter_tags.length;i++){
+      //   filter_tags[i].addEventListener('click', activeTag)
+      // }                            
               })  
         }
         )
@@ -325,17 +349,19 @@ function removeModal1(){
 //WHY THE HELL IS THIS THING HERE??
 //WELL,THIS IS ESSENTIALLY THE METHOD THE RENDERS THE UNIQUE TAGS FOR FILTERATION
 const tag_render = (tags)=>{
-  let dark = document.getElementById('dark_mode_checkbox')
-  document.getElementById("span_container").innerHTML = ''
+   let dark = document.getElementById('dark_mode_checkbox')
+  document.getElementById("tagContainer").innerHTML = ''
       tags.forEach(tag=>{
         if(tag!=''){
         if(dark.checked){
-          document.getElementById("span_container").innerHTML += `<span class="filter_tags" style="background-color: #4c4e4d; color:white">${tag}</span>`        
+          document.getElementById("tagContainer").innerHTML += `<div class="tags">${tag}</div>`        
         }else{
-        document.getElementById("span_container").innerHTML += `<span class="filter_tags" style="background-color: #f1f1f1;">${tag}</span>`
+        document.getElementById("tagContainer").innerHTML += `<div class="tags">${tag}</div>`
         }
         }  
       })
+
+
 }
 //TAG_RENDER ENDS
 
@@ -387,7 +413,7 @@ const render_deleted = ()=>{
         // if(img=='' || undefined){
         //   img = `https://ui-avatars.com/api/?background=ccc&color=202020&size=250&name=`+title 
         // }
-        document.getElementById('deleted-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:250px;height:200px; overflow:hidden;object-fit: cover;'> <span class='topcorner1'><img src='images/delete.svg'></span> <img  class='img-container-tag' src=${img}> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags' style='display:none'>${link_tag_name}</span><span><img src='images/restore.svg' class='edit1'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`
+        document.getElementById('deleted-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:250px;height:200px; overflow:hidden;object-fit: cover;'> <span class='topcorner1'><img src='images/delete.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags' style='display:none'>${link_tag_name}</span><span><img src='images/restore.svg' class='edit1'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`
               }
             }
             
@@ -438,7 +464,7 @@ function restore_card(key, uid){
 
 // DELETE ALL THE ARCHIVED ARTICLES PERMANENTLY FROM DB
 const clearArchive = ()=>{
-  document.getElementById('deleted-content').innerHTML = ''
+  document.getElementById('deleted-content').innerHTML = ` `
   chrome.storage.local.get(['key'], function(result){
     let uid = result.key
     let db = firebase.firestore()
@@ -450,8 +476,7 @@ const clearArchive = ()=>{
         }
         
       })
-      alert('All cleared!')
-
+      
   })
 
 })
@@ -474,34 +499,63 @@ var photo_link
 //PARIS - SAVED MENU
 //LONDON - SETTINGS MENU
 //ROME - ARCHIVED MENU
-var buttons
-buttons = document.getElementsByTagName('button')
 
-buttons[0].addEventListener('click', function(){
-    document.getElementById("London").style.display = "none"
-    document.getElementById("Rome").style.display = 'none'
-    document.getElementById("Paris").style.display = "block"
-   
+
+document.getElementById('saved-btn').addEventListener('click', function(){
+  document.getElementById("London").style.display = "none"
+  document.getElementById("Rome").style.display = 'none'
+  document.getElementById("Paris").style.display = "block"
+  document.getElementsByClassName('tab')[0].style.display = 'block'
+  document.getElementsByClassName('tabcontent')[0].style.width = '83%'
 })
 
-
-buttons[1].addEventListener('click', function(){
-    document.getElementById("London").style.display = "block"
+document.getElementById('sc').addEventListener('click', function(){
+      document.getElementById("London").style.display = "block"
   document.getElementById("Paris").style.display = "none"
   document.getElementById("Rome").style.display = 'none'
- 
+  document.getElementsByClassName('tab')[0].style.display = 'none'
+  document.getElementsByClassName('tabcontent')[0].style.width = '100%'
 })
 
-buttons[2].addEventListener('click', function(){
+
+document.getElementById('archived').addEventListener('click', function(){
   document.getElementById("London").style.display = "none"
 document.getElementById("Paris").style.display = "none"
 document.getElementById("Rome").style.display = 'block'
+document.getElementsByClassName('tab')[0].style.display = 'none'
+document.getElementsByClassName('tabcontent')[0].style.width = '100%'
 document.getElementById('Tag_search_button_del').onclick = function(){
    clearArchive()
   }
 render_deleted()
 
 })
+
+// buttons[1].addEventListener('click', function(){
+//     document.getElementById("London").style.display = "none"
+//     document.getElementById("Rome").style.display = 'none'
+//     document.getElementById("Paris").style.display = "block"
+   
+// })
+
+
+// buttons[2].addEventListener('click', function(){
+//     document.getElementById("London").style.display = "block"
+//   document.getElementById("Paris").style.display = "none"
+//   document.getElementById("Rome").style.display = 'none'
+ 
+// })
+
+// buttons[3].addEventListener('click', function(){
+//   document.getElementById("London").style.display = "none"
+// document.getElementById("Paris").style.display = "none"
+// document.getElementById("Rome").style.display = 'block'
+// document.getElementById('Tag_search_button_del').onclick = function(){
+//    clearArchive()
+//   }
+// render_deleted()
+
+// })
 
 
 //HANDLES THE SIGNOUT OPERATIONS
@@ -535,7 +589,6 @@ document.getElementById("SignOut").addEventListener('click', function(){
 
 function make_dark(){
  chrome.storage.local.set({isDark: true})
-  let logo =  document.getElementById('Netsips-img')
   let body = document.getElementsByTagName('body')[0]
   let london = document.getElementById('London')
   let paris = document.getElementById('Paris')
@@ -543,31 +596,16 @@ function make_dark(){
   let tabcontent = document.getElementsByClassName('tabcontent')[0]
   let tab_btns = document.getElementsByClassName('tab')[0]
   tab_btns.style.background = '#242424'
+  tab_btns.style.color = 'rgba(255, 255, 255, 0.7)'
   body.style.background = '#303030'
   tabcontent.style.background = '#303030'
- // // london.style.background = '#303030'
- // // paris.style.background = '#303030'
-  //// rome.style.background = '#303030'
+  paris.style.color = 'rgba(255, 255, 255, 0.7)'
  london.style.color  = 'rgba(255, 255, 255, 0.7)'
- //logo.src = 'images/yellow_netsips.svg'
- document.getElementById('sc').className ='darktablinks'
- document.getElementById('saved-btn').className = 'darktablinks'
- document.getElementById('archived').className = 'darktablinks'
- document.getElementById('SignOut').className = 'darktablinks'
- document.getElementById('howtouse').className = 'darktablinks'
-
- document.getElementById('sc').getElementsByTagName('img')[0].src = 'images/settings-w.svg'
-document.getElementById('archived').getElementsByTagName('img')[0].src = 'images/archived-w.svg'
-document.getElementById('saved-btn').getElementsByTagName('img')[0].src = 'images/bookmark-w.svg'
-document.getElementById('SignOut').getElementsByTagName('img')[0].src = 'images/exit-w.svg'
-document.getElementById('howtouse').getElementsByTagName('img')[0].src = 'images/help-w.svg'
- let tags = document.getElementsByClassName('filter_tags')
- for(let j=0;j<tags.length;j++){
-   tags[j].style.background = '#4c4e4d'
-   tags[j].style.color = 'white'
- }
+ rome.style.color  = 'rgba(255, 255, 255, 0.7)'
 
 }
+
+
 
 function make_light(){
   chrome.storage.local.set({isDark: false})
@@ -581,28 +619,14 @@ function make_light(){
   tabcontent.style.background = '#fff'
   let tab_btns = document.getElementsByClassName('tab')[0]
   tab_btns.style.background = '#f1f1f1'
+  tab_btns.style.color = 'black'
   // london.style.background = '#fff'
   // paris.style.background = '#fff'
   // rome.style.background = '#fff'
+  paris.style.color = 'black'
+  rome.style.color = 'black'
   body.style.color  = 'black'
 london.style.color  = 'black'
-//logo.src = 'images/grey_netsips.svg'
-document.getElementById('sc').className ='tablinks'
-document.getElementById('archived').className = 'tablinks'
-document.getElementById('saved-btn').className = 'tablinks'
-document.getElementById('SignOut').className = 'tablinks'
-document.getElementById('howtouse').className = 'tablinks'
-
-document.getElementById('sc').getElementsByTagName('img')[0].src = 'images/settings.svg'
-document.getElementById('archived').getElementsByTagName('img')[0].src = 'images/archived.svg'
-document.getElementById('saved-btn').getElementsByTagName('img')[0].src = 'images/bookmark.svg'
-document.getElementById('SignOut').getElementsByTagName('img')[0].src = 'images/logout.svg'
-document.getElementById('howtouse').getElementsByTagName('img')[0].src = 'images/help.svg'
- let tags = document.getElementsByClassName('filter_tags')
- for(let j=0;j<tags.length;j++){
-   tags[j].style.background = '#f1f1f1'
-   tags[j].style.color = 'black'
- }
 
 }
 
@@ -819,6 +843,67 @@ window.addEventListener('load', function(){
 
 
 })
+
+//SEARCHBAR FOR TAGS
+window.addEventListener('load', function(){
+  document.getElementById('tagSearch').addEventListener('keyup',function(){
+     var input = document.getElementById("tagSearch");
+     var filter = input.value.toUpperCase();
+    var cards = document.getElementsByClassName('card')
+   var tags =  document.getElementsByClassName('tags')
+    for(var j=0;j<tags.length;j++){
+      txtValue = tags[j].innerText
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tags[j].style.display = "";
+    } else {
+      tags[j].style.display = "none";
+    }
+  }
+    for(var j=0;j<cards.length;j++){
+        txtValue = cards[j].getElementsByClassName('card_tags')[0].innerText
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          cards[j].style.display = "";
+      } else {
+        cards[j].style.display = "none";
+      }
+    }
+  })
+})
+
+
+const filter_using_tags=(tag)=>{
+    let cards = document.getElementsByClassName('card')
+    document.getElementById('tagSearch').value = tag
+    for(var j=0;j<cards.length;j++){
+      let txtValue = cards[j].getElementsByClassName('card_tags')[0].innerText.toUpperCase()
+      let txtValueArr = txtValue.split(',')
+      for(let k=0;k<txtValueArr.length;k++){
+        txtValueArr[k] = txtValueArr[k].trim()
+      }
+      if(txtValueArr.includes(tag.toUpperCase())) {
+        cards[j].style.display = "";
+    } else {
+      cards[j].style.display = "none";
+    }
+  }
+}
+
+
+
+
+// const filter_using_tags=(tag)=>{
+//   let cards = document.getElementsByClassName('card')
+//   document.getElementById('tagSearch').value = tag
+//   for(var j=0;j<cards.length;j++){
+//     txtValue = cards[j].getElementsByClassName('card_tags')[0].innerText
+//     if (txtValue.toUpperCase().indexOf(tag.toUpperCase()) > -1) {
+//       cards[j].style.display = "";
+//   } else {
+//     cards[j].style.display = "none";
+//   }
+// }
+// }
+
 
 
 

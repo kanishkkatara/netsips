@@ -4,7 +4,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="images/icon_128.png"/>
 	<title>Netsips | Dashboard</title>
-
 <style>
 html{
   overflow-y:auto;
@@ -50,35 +49,13 @@ html{
 
 
 /* Style the tab */
-.tab {
-  float: left;  
-  width: 8%;
-background-color: #f1f1f1;
- height:100%;
-    overflow:auto;
-margin:0;
- transition: 0.3s;
-}
+
 
 /* Style the buttons inside the tab */
-.tablinks {
-  display: block;
-  background-color: #f1f1f1;
-  color: black;
-  padding: 8px;
-  width: 100%;
-  border: none;
-  outline: none;
-  text-align: center;
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 22px;
- font-family: 'Manrove-tabs';
-}
 
 /* Change background color of buttons on hover */
 .tablinks:hover {
-  background-color: #ddd;
+  background-color: #242424;
 }
 
 /* Create an active/current "tab button" class 
@@ -113,8 +90,23 @@ margin:0;
    background-color: #fff;
  overflow-y:auto;
   height: 100%;
-  width: 92%;
+  width: 83%;
+  margin-top:20px
  
+}
+
+.tab {
+  float: left;  
+  width: 17%;
+   overflow-x:hidden;
+background-color: #f1f1f1;
+ height:100%;
+    overflow-y:auto;
+margin:0;
+ transition: 0.3s;
+ padding:0 10px 0 10px;
+
+
 }
 /*My CSS*/
 
@@ -138,37 +130,120 @@ font-weight:lighter;
  
 }
 #Netsips-logo-container{
+ height:40px;
+ width:40px;
+ padding:0;
+ top:12px;
+ position:absolute
+ 
 
-  margin:10px 0 8px 0;
-  text-align:center;
-
+ 
 }
 #Netsips-img{
-  width: 200px;
+  width: 100px;
   color:#4c4e4d;
+  padding-bottom:5px;
   
 }
 
 #Netsips-img-round{
-  height:80px;
+  height:50px;
 
 }
 
 
 #main-heading{
   text-align: left;
-  font-size:60px;
+  font-size:30px;
   font-weight: lighter;
   background-color: #4c4e4d;
   color:yellow;
-  margin-bottom: 30px;
-  height:100px;
+  height:80px;
+  justify-content:center;
+  align-items:center;
+   position: -webkit-sticky;
+  position: sticky;
+   top: 0; 
+   z-index:98;
+
  
 }
 #main-heading div{
   margin-left: 30px;
-  padding-bottom:20px;
+  padding-top:8px;
 }
+
+#toggle-container{
+  float:right;
+   margin-top: 16px;
+  margin-right:30px
+}
+
+.tablinks {
+  height:50px;
+  width:50px;
+  display: inline-block;
+  color: black;
+  margin:0px 10px 0 10px;
+  padding:0;
+  border: none;
+  outline: none;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 22px;
+ font-family: 'Manrove-tabs';
+ background-color: #4c4e4d;
+ border-radius:px;
+}
+
+.menu_icons{
+  width:50px
+}
+
+#tagSearch{
+width: 100%;
+margin:20px 20px 10px 0px;
+padding: 8px;
+background-repeat: no-repeat;
+border: 1px solid #202020;
+ border-radius:2px;
+    display:inline-block;
+    font-size: 16px;
+}
+#searchBar {
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 20px;
+  border: 1px solid #ddd;
+  margin-top: 16px;
+  margin-left:30px;
+  width:40%;
+   border-radius:5px;
+   display:inline-block
+   
+  
+}
+.tags{
+  height:30px;
+width: 100%;
+padding:5px 5px 5px 7px;
+border-bottom: 1px solid #ddd;
+ font-size: 16px;
+ cursor:pointer;
+ opacity:0.9;
+ transition:0.1s;
+}
+
+.tags:hover{
+  opacity:1
+}
+
+
+
+
 #submit-settings{
   margin-left:30px;
   font-size: 35px;
@@ -261,7 +336,7 @@ box-shadow: 0px 3px 5px 0px rgba(153,153,153,1);
  float: left;
   width: 20%;
   padding: 0 ;
-  margin-right:40px;
+  margin-right:50px;
   margin-bottom:0px;
   margin-top:0px;
   
@@ -297,26 +372,37 @@ box-shadow: 0px 3px 5px 0px rgba(153,153,153,1);
 .card {
   font-size: 16px;
    font-family: 'Manrove-cards'; 
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
- /* background-color: #f1f1f1;*/
+ /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+  background-color: #f1f1f1;*/
   margin-top:30px;
   width: 250px;
   height:350px;/*CHANGE*/
-  background:#f1f1f1;
+  background:#white;
   overflow:hidden;
   position:relative;
   border-radius:5px;
   transition:0.2s;
   
 }
-.card:hover {
+.card:  hover {
 -webkit-box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.75);
 -moz-box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.75);
 box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.75);
 }
 .img-container{
- 
+  justify-content:center;
+ text-align:center
 }
+.card:hover .edit{
+  visibility:visible;
+  background:yellow
+}
+
+.card:hover .edit1{
+  visibility:visible;
+   background:yellow
+}
+
 .card:hover .img-container-tag{
 opacity:0.72
 }
@@ -334,15 +420,19 @@ opacity:0.72
 
 
 .img-container-tag{
+  display:inline-block;
    margin-top:0;
   max-width:1000%;
 max-height: 100%;
 transition:0.2s;
    position:relative; /*sndcsnkjdnjwsndkwns*/
    z-index:1;
-   margin-top:-30px
+   margin-top:-30px;
+
+
   
 }
+
 
 .topcorner{
   float:right;
@@ -392,29 +482,44 @@ transition:0.2s;
 
 .card_tags{
   font-size:14px;
-  padding: 0px 10px 10px 0;
+  padding: 0px 10px 20px 0;
    white-space: nowrap;
   overflow: hidden;
   text-overflow: clip;
   height:18px;
-  width:200px;
+  width:230px;
   float:left;
-  border-bottom:1px solid #C8C8C8
+  top:310px;
+  /*right:200px;*/
+  position:absolute;
+   border-bottom:1px solid #C8C8C8;
+   transition:0.2s;
 
 }
+
+
 
 .edit{
   height:20px;
   width:20px;
   float:right;
-  opacity:60%;
+   border-radius: 20%;
   transition:0s;
+  cursor:pointer;
+   top:308px;
+  left:220px;
+  position:absolute;
+  visibility:hidden;
+  transition:0.2s
+  
    
 }
 .edit:hover{
-  opacity:100%
+  opacity:100%;
+  
 }
 #searchBar {
+ 
  
   background-position: 10px 12px;
   background-repeat: no-repeat;
@@ -422,10 +527,12 @@ transition:0.2s;
   font-size: 16px;
   padding: 12px 20px 12px 20px;
   border: 1px solid #ddd;
-  margin-bottom: 20px;
+  margin-top: 16px;
   margin-left:30px;
   width:40%;
    border-radius:5px;
+   display:inline-block
+   
   
 }
 #searchBarDel {
@@ -441,6 +548,7 @@ transition:0.2s;
    border-radius:5px;
   
 }
+
 #Tag_search_button_del{
    margin-left:30px;
      transition: 0.2s;
@@ -463,7 +571,7 @@ transition:0.2s;
   outline:none;
 }
 .filter_tags{
-  margin: 15px 10px 10px 15px;
+  margin: 10px 10px 10px 0px;
    
    border-radius: 20%;
    font-size:12px;
@@ -496,11 +604,14 @@ input:focus {
    height:25px;
   width:25px;
   float:right;
-  opacity:60%;
   transition:0s;
+   border-radius: 20%;
    top:310px;
   right:7px;
   position:absolute;
+  cursor:pointer;
+  visibility:hidden;
+  transition:0.2s
   
 
  }
@@ -606,7 +717,8 @@ padding: 6px 15px 6px 8px;
   display: inline-block;
   font-size: 16px;
    font-weight: lighter;
-   width: 200px
+   width: 200px;
+   cursor:pointer;
 }
 
 #make_changes_input:hover{
@@ -683,8 +795,8 @@ input:checked + .slider:before {
 }
 
 #span_container{
-
   font-family: 'Raleway';
+ 
 
    
   
@@ -697,7 +809,7 @@ input:checked + .slider:before {
   height:50px;
   width:50px;
   float:right;
-  margin: 20px 20px 0 0;
+  margin: 15px 20px 0px 0;
   border-radius: 50%
 }
 
@@ -706,7 +818,7 @@ input:checked + .slider:before {
   display:none;
  /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 99; /* Sit on top */
   padding-top: 100px; /* Location of the box */
   left: 0;
   top: 0;
@@ -750,36 +862,48 @@ border-radius:10px;
 #signinbtn:hover{
   box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
 }
-.menu_icons{
-  width:50px
-}
+
 /*My CSS ends*/
 
 </style>
 </head>
 <body id="settings-body" style='display:table; height:100%;width:100%'>
-
+<center id="main-heading">
+ <span style='padding-top:40px;margin:20px 0 -50px 5px;top:10px;'><span><img src='images/icon_128.png' id="Netsips-logo-container"></span>
+ <span style='margin:50px 0 -20px 50px;top:50px'> Netsips | Dashboard</span></span>
+ <span> <input type="text" id="searchBar" placeholder="Search for bookmarks..." title=""></span>
+ <span id='toggle-container'>
+<span> <button class="tablinks" value = "Paris" id="saved-btn"><img src='images/bookmark-w.svg' class='menu_icons'></button></span>
+ <span> <button class="tablinks" value="London" id='sc'><img src='images/settings-w.svg' class='menu_icons'></button></span>
+ <span>  <button class="tablinks" value="Rome" id='archived'><img src='images/archived-w.svg' class='menu_icons'></button></span>
+ <span><button class="tablinks" id="SignOut"><img src='images/exit-w.svg' class='menu_icons'></button></span> 
+ </span>
+  </center> 
 <div class="tab" >
-<div id="Netsips-logo-container"> <a href="http://netsips.in" target="blank_"><img src="images/final_logo.svg" id="Netsips-img-round"></a> </div>
-<button class="tablinks" value = "Paris" id="saved-btn"><img src='images/bookmark.svg' class='menu_icons'></button>
-  <button class="tablinks" value="London" id='sc'><img src='images/settings.svg' class='menu_icons'></button>
-  <button class="tablinks" value="Rome" id='archived'><img src='images/archived.svg' class='menu_icons'></button>
-  <a href="http://netsips.in/instructions.html" target="blank_"> <button class="tablinks" id='howtouse'><img src='images/help.svg' class='menu_icons'></button></a>
-      <button class="tablinks" id="SignOut"><img src='images/logout.svg' class='menu_icons'></button> 
+
+<input type='text' id='tagSearch' placeholder='Filter using tags'>
+<div id='tagContainer'>
 </div>
+
+</div>
+
 
 <div  class="tabcontent" style="display: block;">
 <div  id="Rome" style="display:none">
-<center id="main-heading" >
- <div > archived <span><img class="profile-picture"></span></div>
-   </center>
+<!--<center id="main-heading">
+
+ <span> <input type="text" id="searchBar" placeholder="Search for bookmarks..." title=""></span>
+ <span id='toggle-container'>
+<span> <button class="tablinks" value = "Paris" id="saved-btn"><img src='images/bookmark.svg' class='menu_icons'></button></span>
+ <span> <button class="tablinks" value="London" id='sc'><img src='images/settings.svg' class='menu_icons'></button></span>
+ <span>  <button class="tablinks" value="Rome" id='archived'><img src='images/archived.svg' class='menu_icons'></button></span>
+ <span><button class="tablinks" id="SignOut"><img src='images/logout.svg' class='menu_icons'></button></span> 
+ </span>
+  </center> -->
+
    <input type="text" id="searchBarDel" placeholder="Search for bookmarks..." title="">
    <button id="Tag_search_button_del" style='cursor:pointer'>Clear archive</button>
-<!--<input type="text" id="searchBar" placeholder="Search for bookmarks..." title="">
-<p style="word-break: break-all;line-height:3;margin-left:30px;margin-right:85px"><button id="Tag_search_button" style="display:none">Filter by tags</button><span id="span_container_2" style="margin-left:-15px;"></span>
-</p>
-<div class="row" id="deleted-content"></div>
- </div>-->
+
 
 <div class="row" id="deleted-content">
 
@@ -791,39 +915,40 @@ border-radius:10px;
 
 
 
+<div  id="Paris">
+<!--<center id="main-heading">
 
-
- <div  id="Paris">
- <center id="main-heading">
- <div> saved <span><img class="profile-picture"></span></div>
-   </center>
-<input type="text" id="searchBar" placeholder="Search for bookmarks..." title="">
-<p style="word-break: break-all;line-height:3;margin-left:30px;margin-right:85px"><button id="Tag_search_button" style="display:none">Filter by tags</button><span id="span_container" style="margin-left:-15px;"></span>
-</p>
+ <span> <input type="text" id="searchBar" placeholder="Search for bookmarks..." title=""></span>
+ <span id='toggle-container'>
+<span> <button class="tablinks" value = "Paris" id="saved-btn"><img src='images/bookmark.svg' class='menu_icons'></button></span>
+ <span> <button class="tablinks" value="London" id='sc'><img src='images/settings.svg' class='menu_icons'></button></span>
+ <span>  <button class="tablinks" value="Rome" id='archived'><img src='images/archived.svg' class='menu_icons'></button></span>
+ <span><button class="tablinks" id="SignOut"><img src='images/logout.svg' class='menu_icons'></button></span> 
+ </span>
+  </center> -->
 
 
 
 <div class="row" id="news-content">
-
-<center style="margin:40px 40px 40px 0px;font-family: 'Manrove-tabs';font-size:20px;color:#202020;"><img src='images/load.gif'></center></div>
-
-
- <!--<div class='column'> 
- <div class='card'>
- <div class='img-container' style='width:250px;height:200px; overflow:hidden'> <span class='topcorner'><img src='images/archive-grey.svg'></span>
- <img class='img-container-tag' src=${img}>
- </div>
- <div class='card-info-container'>
- <span class='card_favicon'><img src=${icon}></span>
- <span class='card_site'>${main_site_name}</span>
-<span class='card_date'>${time}</span>
- <p class='card_title'><a href=${url} target='blank_'>${title}</a></p>
+<center style="margin:40px 40px 40px 0px;font-family: 'Manrove-tabs';font-size:20px;color:#202020;">
+<img src='images/load.gif'>
+</center>
+</div>
+<!--
  
- <div><span class='card_tags'>${link_tag_names}</span><span><img src='images/edit.png' class='edit'></span></div>
- </div>
- <div class='key' style='display:none'>${key}</div>
- </div>
- </div>-->
+  <div class="column"> <div class="card"> 
+  <div class="img-container" style="width:250px;height:200px; overflow:hidden;object-fit: cover;"> 
+  <p class="topcorner"><img src="images/archive-grey.svg"></p> 
+  <p class="topcorner"><img src="images/archive-grey.svg"></p> 
+  <a href="https://open.spotify.com/" target="blank_"><img class="img-container-tag" src="https://open.scdn.co/cdn/images/og-image.64b84348.png"></a> </div> 
+  <div class="card-info-container"> 
+  <span class="card_favicon"><img src="https://s2.googleusercontent.com/s2/favicons?domain_url=https://open.spotify.com/"></span> 
+  <span class="card_site">Spotify</span> <span class="card_date">28 May</span> 
+  <p class="card_title"><a href="https://open.spotify.com/" target="blank_">Spotify- Home</a></p> 
+  <div><span class="card_tags" style="overflow:hidden;text-overflow:ellipsis;margin-right:10px">music, spotify, really? </span><span><img src="images/edit.png" class="edit"></span></div> </div>
+   <div class="key" style="display:none">5njR2VgrGjicCUz2Gbst</div> </div> </div>
+ 
+-->
  
  
 
@@ -833,7 +958,8 @@ border-radius:10px;
 <div id='signInText'>
 <span><img src="images/grey_netsips.svg" id="Netsips-img"></span>
 <p style="font-family: 'Manrove-tabs';font-size:20px;color:#202020">
-For a new web browsing experience</p>
+For a new web browsing experience
+</p>
 </div>
 <center>
 <button id='signinbtn'>	</button>
@@ -845,7 +971,7 @@ For a new web browsing experience</p>
 
 
   <!-- Modal begins -->
-  <div class="myModal">
+ <div class="myModal">
 
   <!-- Modal content -->
     <div class="modal-content">
@@ -853,20 +979,28 @@ For a new web browsing experience</p>
     
     <label style="display:none">Title:</label><br>
   <input type="text" id="title_input" style="display:none">
-  <label style="font-size:16px; font-weight:600;float:left;margin-left:10px;margin-bottom:15px;text-overflow: ellipsis;overflow:hidden"></label><br>
-  <input type="text" id="tag_input" placeholder="tech, education, science"><br><br>
-   <input type="submit" id="make_changes_input" value="Add tags"><br><br>
+  <label style="color:black;font-size:16px; font-weight:600;float:left;margin-left:10px;margin-bottom:15px;text-overflow: ellipsis;overflow:hidden"></label><br>
+  <input type="text" id="tag_input" placeholder=""><br><br>
+   <input type="submit" id="make_changes_input" value="Update tags"><br><br>
 
   </div>
   </div>
-  </div> 
+  </div>  
 <!-- Modal content ends-->
 <!-- Modal ends -->
 
 <div id="London" style="display:none;"> 
-<center id="main-heading" >
- <div > settings <span><img class="profile-picture"></span></div>
-   </center>
+ <!--<center id="main-heading">
+
+ <span> <input type="text" id="searchBar" placeholder="Search for bookmarks..." title=""></span>
+ <span id='toggle-container'>
+<span> <button class="tablinks" value = "Paris" id="saved-btn"><img src='images/bookmark.svg' class='menu_icons'></button></span>
+ <span> <button class="tablinks" value="London" id='sc'><img src='images/settings.svg' class='menu_icons'></button></span>
+ <span>  <button class="tablinks" value="Rome" id='archived'><img src='images/archived.svg' class='menu_icons'></button></span>
+ <span><button class="tablinks" id="SignOut"><img src='images/logout.svg' class='menu_icons'></button></span> 
+ </span>
+  </center> -->
+
    <div id="question">When do you want your newsletter to be delivered?</div>
    <form id="submit-settings">
 
@@ -953,10 +1087,17 @@ For a new web browsing experience</p>
   </div> 
   
 </div>
-   <script src="firebase/firebase-app.js"></script>
+ <!--  <script src="firebase/firebase-app.js"></script>
 <script src="firebase/firebase-auth.js"></script>
 <script src="firebase/firebase-firestore.js"></script>
-<script src="firebase/firebase-database.js"></script>
+<script src="firebase/firebase-database.js"></script>-->
+
+  <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
+
+
    <script src="settings.js"></script>
 </body>
 </html> 
