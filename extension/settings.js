@@ -89,7 +89,7 @@ chrome.storage.local.get(['isSigned'], function(result){
           let key = doc.id
          let img = doc.data().imageUrl
          if(img=='' || undefined || null){
-           img = `https://api.apiflash.com/v1/urltoimage?access_key=f4e1b27f86c24518a71121520b35a636&format=png&no_ads=true&url=${url}&height=800&width=1000`
+           img = `https://api.apiflash.com/v1/urltoimage?access_key=996f192584b4414bac444ad540480b3d&format=png&no_ads=true&url=${url}&height=800&width=1000`
          } 
          let main_site_name = doc.data().mainSite
          if(main_site_name == undefined){
@@ -98,7 +98,7 @@ chrome.storage.local.get(['isSigned'], function(result){
           // if(img=='' || undefined){
         //   img = `https://ui-avatars.com/api/?background=ccc&color=202020&size=250&name=`+title 
         // }
-          document.getElementById('news-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:250px;height:200px; overflow:hidden;object-fit: cover;'> <span class='topcorner'><img src='images/archive-grey.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags' style='overflow:hidden;text-overflow:ellipsis;margin-right:10px'>${link_tag_name}</span><span><img src='images/edit.png' class='edit'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
+          document.getElementById('news-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner'><img src='images/archive-grey.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags' style='overflow:hidden;text-overflow:ellipsis;margin-right:10px'>${link_tag_name}</span><span><img src='images/edit.png' class='edit'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
           markers.push(link_tag_name)
         }
      for(var j=0;j<document.getElementsByClassName('topcorner').length;j++){ //topcorner is the archive button
@@ -124,18 +124,19 @@ chrome.storage.local.get(['isSigned'], function(result){
     //tags rendering on the span container
     //NEVER CHANGE WHAT'S INSIDE THE TAG RENDERING METHOD
     tag_render(markers.filter(onlyUnique).map(s=>s.split(',')).join().toLowerCase().split(',').map(tag_trimmer).filter(onlyUnique))
-    let tagdivs = document.getElementsByClassName('tags')
-          for(let i=0; tagdivs.length;i++){
-           tagdivs[i].onclick = function(){filter_using_tags(tagdivs[i].innerText)}
-          }
+   
+    // let tagdivs = document.getElementsByClassName('tags')
+    //       for(let i=0; tagdivs.length;i++){
+    //        tagdivs[i].onclick = function(){filter_using_tags(tagdivs[i].innerText)}
+    //       }
     
     
     
     
-    // var filter_tags = document.getElementsByClassName("filter_tags")
-    // for(var i=0;i<filter_tags.length;i++){
-    //   filter_tags[i].addEventListener('click', activeTag)
-    // }                            
+    var filter_tags = document.getElementsByClassName("filter_tags")
+    for(var i=0;i<filter_tags.length;i++){
+      filter_tags[i].addEventListener('click', activeTag)
+    }                            
             })  
       }
       )
@@ -237,9 +238,9 @@ let photo_link
               main_site_name = ''
             }
             if(img=='' || undefined || null){
-              img = `https://api.apiflash.com/v1/urltoimage?access_key=f4e1b27f86c24518a71121520b35a636&format=png&no_ads=true&url=${url}&height=800&width=1000`
+              img = `https://api.apiflash.com/v1/urltoimage?access_key=996f192584b4414bac444ad540480b3d&format=png&no_ads=true&url=${url}&height=800&width=1000`
             } 
-            document.getElementById('news-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:250px;height:200px; overflow:hidden;object-fit: cover;'> <span class='topcorner'><img src='images/archive-grey.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags'>${link_tag_name}</span><span><img src='images/edit.png' class='edit'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
+            document.getElementById('news-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner'><img src='images/archive-grey.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags'>${link_tag_name}</span><span><img src='images/edit.png' class='edit'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
             markers.push(link_tag_name)
           }
        for(var j=0;j<document.getElementsByClassName('topcorner').length;j++){
@@ -266,18 +267,19 @@ let photo_link
      )
       //tags rendering 
       tag_render(markers.filter(onlyUnique).map(s=>s.split(',')).join().toLowerCase().split(',').map(tag_trimmer).filter(onlyUnique))
-      let tagdivs = document.getElementsByClassName('tags')
-          for(let i=0; tagdivs.length;i++){
-           tagdivs[i].onclick = function(){filter_using_tags(tagdivs[i].innerText)}
-          }
+      
+      // let tagdivs = document.getElementsByClassName('tags')
+      //     for(let i=0; tagdivs.length;i++){
+      //      tagdivs[i].onclick = function(){filter_using_tags(tagdivs[i].innerText)}
+      //     }
      
      
      
       // tags rendering
-      // var filter_tags = document.getElementsByClassName("filter_tags")
-      // for(var i=0;i<filter_tags.length;i++){
-      //   filter_tags[i].addEventListener('click', activeTag)
-      // }                            
+      var filter_tags = document.getElementsByClassName("filter_tags")
+      for(var i=0;i<filter_tags.length;i++){
+        filter_tags[i].addEventListener('click', activeTag)
+      }                            
               })  
         }
         )
@@ -347,22 +349,39 @@ function removeModal1(){
 } 
 
 //WHY THE HELL IS THIS THING HERE??
-//WELL,THIS IS ESSENTIALLY THE METHOD THE RENDERS THE UNIQUE TAGS FOR FILTERATION
+//WELL,THIS IS THE METHOD THE RENDERS THE UNIQUE TAGS FOR FILTERATION
+
+//TAG RENDER FOR LIST VIEW
+// const tag_render = (tags)=>{
+//    let dark = document.getElementById('dark_mode_checkbox')
+//   document.getElementById("tagContainer").innerHTML = ''
+//       tags.forEach(tag=>{
+//         if(tag!=''){
+//         if(dark.checked){
+//           document.getElementById("tagContainer").innerHTML += `<div class="tags">${tag}</div>`        
+//         }else{
+//         document.getElementById("tagContainer").innerHTML += `<div class="tags">${tag}</div>`
+//         }
+//         }  
+//       })
+// }  
+
+//TAG RENDER FOR BUBBLE VIEW
 const tag_render = (tags)=>{
-   let dark = document.getElementById('dark_mode_checkbox')
-  document.getElementById("tagContainer").innerHTML = ''
+  let dark = document.getElementById('dark_mode_checkbox')
+  document.getElementById("span_container").innerHTML = ''
       tags.forEach(tag=>{
         if(tag!=''){
         if(dark.checked){
-          document.getElementById("tagContainer").innerHTML += `<div class="tags">${tag}</div>`        
+          document.getElementById("span_container").innerHTML += `<span class="filter_tags" style="background-color: #4c4e4d; color:white">${tag}</span>&nbsp &nbsp &nbsp`        
         }else{
-        document.getElementById("tagContainer").innerHTML += `<div class="tags">${tag}</div>`
+        document.getElementById("span_container").innerHTML += `<span class="filter_tags" style="background-color: #f1f1f1;">${tag}</span>&nbsp &nbsp &nbsp`
         }
         }  
       })
-
-
 }
+
+
 //TAG_RENDER ENDS
 
 const addTags1 =(uid, key)=>{
@@ -404,7 +423,7 @@ const render_deleted = ()=>{
         let key = doc.id
         let img = doc.data().imageUrl
         if(img=='' || undefined || null){
-          img = `https://api.apiflash.com/v1/urltoimage?access_key=f4e1b27f86c24518a71121520b35a636&format=png&no_ads=true&url=${url}&height=800&width=1000`
+          img = `https://api.apiflash.com/v1/urltoimage?access_key=996f192584b4414bac444ad540480b3d&format=png&no_ads=true&url=${url}&height=800&width=1000`
         } 
         let main_site_name =  doc.data().mainSite
         if(main_site_name == undefined){
@@ -413,7 +432,7 @@ const render_deleted = ()=>{
         // if(img=='' || undefined){
         //   img = `https://ui-avatars.com/api/?background=ccc&color=202020&size=250&name=`+title 
         // }
-        document.getElementById('deleted-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:250px;height:200px; overflow:hidden;object-fit: cover;'> <span class='topcorner1'><img src='images/delete.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags' style='display:none'>${link_tag_name}</span><span><img src='images/restore.svg' class='edit1'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`
+        document.getElementById('deleted-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner1'><img src='images/delete.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags' style='display:none'>${link_tag_name}</span><span><img src='images/restore.svg' class='edit1'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`
               }
             }
             
@@ -505,16 +524,16 @@ document.getElementById('saved-btn').addEventListener('click', function(){
   document.getElementById("London").style.display = "none"
   document.getElementById("Rome").style.display = 'none'
   document.getElementById("Paris").style.display = "block"
-  document.getElementsByClassName('tab')[0].style.display = 'block'
-  document.getElementsByClassName('tabcontent')[0].style.width = '83%'
+//  document.getElementsByClassName('tab')[0].style.display = 'block'
+ // document.getElementsByClassName('tabcontent')[0].style.width = '83%'
 })
 
 document.getElementById('sc').addEventListener('click', function(){
       document.getElementById("London").style.display = "block"
   document.getElementById("Paris").style.display = "none"
   document.getElementById("Rome").style.display = 'none'
-  document.getElementsByClassName('tab')[0].style.display = 'none'
-  document.getElementsByClassName('tabcontent')[0].style.width = '100%'
+ // document.getElementsByClassName('tab')[0].style.display = 'none'
+//  document.getElementsByClassName('tabcontent')[0].style.width = '100%'
 })
 
 
@@ -522,41 +541,14 @@ document.getElementById('archived').addEventListener('click', function(){
   document.getElementById("London").style.display = "none"
 document.getElementById("Paris").style.display = "none"
 document.getElementById("Rome").style.display = 'block'
-document.getElementsByClassName('tab')[0].style.display = 'none'
-document.getElementsByClassName('tabcontent')[0].style.width = '100%'
+//document.getElementsByClassName('tab')[0].style.display = 'none'
+//document.getElementsByClassName('tabcontent')[0].style.width = '100%'
 document.getElementById('Tag_search_button_del').onclick = function(){
    clearArchive()
   }
 render_deleted()
 
 })
-
-// buttons[1].addEventListener('click', function(){
-//     document.getElementById("London").style.display = "none"
-//     document.getElementById("Rome").style.display = 'none'
-//     document.getElementById("Paris").style.display = "block"
-   
-// })
-
-
-// buttons[2].addEventListener('click', function(){
-//     document.getElementById("London").style.display = "block"
-//   document.getElementById("Paris").style.display = "none"
-//   document.getElementById("Rome").style.display = 'none'
- 
-// })
-
-// buttons[3].addEventListener('click', function(){
-//   document.getElementById("London").style.display = "none"
-// document.getElementById("Paris").style.display = "none"
-// document.getElementById("Rome").style.display = 'block'
-// document.getElementById('Tag_search_button_del').onclick = function(){
-//    clearArchive()
-//   }
-// render_deleted()
-
-// })
-
 
 //HANDLES THE SIGNOUT OPERATIONS
 document.getElementById("SignOut").addEventListener('click', function(){
@@ -594,14 +586,21 @@ function make_dark(){
   let paris = document.getElementById('Paris')
   let rome = document.getElementById('Rome')
   let tabcontent = document.getElementsByClassName('tabcontent')[0]
-  let tab_btns = document.getElementsByClassName('tab')[0]
-  tab_btns.style.background = '#242424'
-  tab_btns.style.color = 'rgba(255, 255, 255, 0.7)'
+  // let tab_btns = document.getElementsByClassName('tab')[0]
+  // tab_btns.style.background = '#242424'
+  // tab_btns.style.color = 'rgba(255, 255, 255, 0.7)'
   body.style.background = '#303030'
   tabcontent.style.background = '#303030'
   paris.style.color = 'rgba(255, 255, 255, 0.7)'
  london.style.color  = 'rgba(255, 255, 255, 0.7)'
  rome.style.color  = 'rgba(255, 255, 255, 0.7)'
+
+ //bubble tags
+ let tags = document.getElementsByClassName('filter_tags')
+ for(let j=0;j<tags.length;j++){
+   tags[j].style.background = '#4c4e4d'
+   tags[j].style.color = 'white'
+ }
 
 }
 
@@ -617,16 +616,20 @@ function make_light(){
   let tabcontent = document.getElementsByClassName('tabcontent')[0]
   body.style.background = '#fff'
   tabcontent.style.background = '#fff'
-  let tab_btns = document.getElementsByClassName('tab')[0]
-  tab_btns.style.background = '#f1f1f1'
-  tab_btns.style.color = 'black'
-  // london.style.background = '#fff'
-  // paris.style.background = '#fff'
-  // rome.style.background = '#fff'
+  // let tab_btns = document.getElementsByClassName('tab')[0]
+  // tab_btns.style.background = '#f1f1f1'
+  // tab_btns.style.color = 'black'
   paris.style.color = 'black'
   rome.style.color = 'black'
   body.style.color  = 'black'
 london.style.color  = 'black'
+//bubble tags
+let tags = document.getElementsByClassName('filter_tags')
+ for(let j=0;j<tags.length;j++){
+   tags[j].style.background = '#f1f1f1'
+   tags[j].style.color = 'black'
+ }
+
 
 }
 
@@ -845,12 +848,43 @@ window.addEventListener('load', function(){
 })
 
 //SEARCHBAR FOR TAGS
+//LIST VIEW
+// window.addEventListener('load', function(){
+//   document.getElementById('tagSearch').addEventListener('keyup',function(){
+//      var input = document.getElementById("tagSearch");
+//      var filter = input.value.toUpperCase();
+//     var cards = document.getElementsByClassName('card')
+//    var tags =  document.getElementsByClassName('tags')
+//     for(var j=0;j<tags.length;j++){
+//       txtValue = tags[j].innerText
+//       if (txtValue.toUpperCase().indexOf(filter) > -1) {
+//         tags[j].style.display = "";
+//     } else {
+//       tags[j].style.display = "none";
+//     }
+//   }
+//     for(var j=0;j<cards.length;j++){
+//         txtValue = cards[j].getElementsByClassName('card_tags')[0].innerText
+//         if (txtValue.toUpperCase().indexOf(filter) > -1) {
+//           cards[j].style.display = "";
+//       } else {
+//         cards[j].style.display = "none";
+//       }
+//     }
+//   })
+// })
+
+
+//SEARCHBAR FOR TAGS
+//BUBBLE VIEW
 window.addEventListener('load', function(){
   document.getElementById('tagSearch').addEventListener('keyup',function(){
+   // console.log('Hi')
      var input = document.getElementById("tagSearch");
      var filter = input.value.toUpperCase();
     var cards = document.getElementsByClassName('card')
-   var tags =  document.getElementsByClassName('tags')
+   var tags =  document.getElementsByClassName('filter_tags')
+  // alert(tags)
     for(var j=0;j<tags.length;j++){
       txtValue = tags[j].innerText
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -871,6 +905,11 @@ window.addEventListener('load', function(){
 })
 
 
+
+
+
+
+
 const filter_using_tags=(tag)=>{
     let cards = document.getElementsByClassName('card')
     document.getElementById('tagSearch').value = tag
@@ -888,21 +927,6 @@ const filter_using_tags=(tag)=>{
   }
 }
 
-
-
-
-// const filter_using_tags=(tag)=>{
-//   let cards = document.getElementsByClassName('card')
-//   document.getElementById('tagSearch').value = tag
-//   for(var j=0;j<cards.length;j++){
-//     txtValue = cards[j].getElementsByClassName('card_tags')[0].innerText
-//     if (txtValue.toUpperCase().indexOf(tag.toUpperCase()) > -1) {
-//       cards[j].style.display = "";
-//   } else {
-//     cards[j].style.display = "none";
-//   }
-// }
-// }
 
 
 
