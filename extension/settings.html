@@ -131,16 +131,7 @@ font-weight:lighter;
   padding-bottom:20px;
  
 }
-#Netsips-logo-container{
- height:40px;
- width:40px;
- padding:0;
- top:12px;
- position:absolute
- 
 
- 
-}
 #Netsips-img{
  
   height:50px;
@@ -155,41 +146,43 @@ font-weight:lighter;
 }
 
 
+
 #main-heading{
   text-align: left;
   font-size:30px;
   font-weight: lighter;
-  background-color: #4c4e4d;
+  background-color: #303030;
   color:yellow;
-  height:80px;
+  height:70px;
   justify-content:center;
   align-items:center;
    position: -webkit-sticky;
   position: sticky;
    top: 0; 
    z-index:98;
-
- 
-
  
 }
-#main-heading div{
-  margin-left: 30px;
-  padding-top:8px;
+#searchBar {
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 20px;
+  border: 1px solid #ddd;
+ margin-top: 12.5px;
+  margin-left:370px;
+  width:40%;
+   border-radius:5px;
+   display:inline-block;
+   background:#f1f1f1
 }
-
-#toggle-container{
-  float:right;
-   margin-top: 16px;
-  margin-right:30px
-}
-
 .tablinks {
   height:50px;
   width:50px;
   display: inline-block;
   color: black;
-  margin:0px 10px 0 10px;
+  margin-top:-6px;
+  margin-left:20px;
   padding:0;
   border: none;
   outline: none;
@@ -198,17 +191,37 @@ font-weight:lighter;
   transition: 0.3s;
   font-size: 22px;
  font-family: 'Manrove-tabs';
- background-color: #4c4e4d;
- border-radius:px;
+ background-color: #303030;
 }
-
+#Netsips-logo-container{
+ height:40px;
+ width:40px;
+ padding:0;
+ top:14px;
+ left:25px;
+ position:absolute 
+}
+#dashboard{
+  top:12.25px;
+  left:80px;
+  position:absolute;
+}
 .menu_icons{
   width:50px
 }
 
+
+#toggle-container{
+  float:right;
+   margin-top: 16px;
+  margin-right:30px
+}
+
+
+
 #tagSearch{
 border: 0;
-border-bottom: 2px solid #9b9b9b;
+border-bottom: 2px solid #303030;
   outline: 0;
 width: 15%; /*100%
 top:80px;
@@ -220,23 +233,10 @@ background-repeat: no-repeat;
  border-radius:2px;
     display:inline-block;
     font-size: 16px;
+    background:#f1f1f1
 
 }
-#searchBar {
-  background-position: 10px 12px;
-  background-repeat: no-repeat;
-  width: 100%;
-  font-size: 16px;
-  padding: 12px 20px 12px 20px;
-  border: 1px solid #ddd;
-  margin-top: 16px;
-  margin-left:30px;
-  width:40%;
-   border-radius:5px;
-   display:inline-block
-   
-  
-}
+
 .tags{
   height:30px;
 width: 100%;
@@ -383,7 +383,7 @@ box-shadow: 0px 3px 5px 0px rgba(153,153,153,1);
 .card {
   font-size: 16px;
    font-family: 'Manrove-cards'; 
- box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+ box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
   
   margin-top:30px;
   width: 280px; /*250px*/
@@ -396,9 +396,9 @@ box-shadow: 0px 3px 5px 0px rgba(153,153,153,1);
   
 }
 .card:  hover {
--webkit-box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.75);
--moz-box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.75);
-box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.75);
+-webkit-box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.8);
+-moz-box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.8);
+box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.8);
 }
 .img-container{
 
@@ -538,36 +538,6 @@ transition:0.2s;
   opacity:100%;
   
 }
-#searchBar {
- 
- 
-  background-position: 10px 12px;
-  background-repeat: no-repeat;
-  width: 100%;
-  font-size: 16px;
-  padding: 12px 20px 12px 20px;
-  border: 1px solid #ddd;
-  margin-top: 16px;
-  margin-left:30px;
-  width:40%;
-   border-radius:5px;
-   display:inline-block
-   
-  
-}
-#searchBarDel {
-  background-position: 10px 12px;
-  background-repeat: no-repeat;
-  width: 100%;
-  font-size: 16px;
-  padding: 12px 20px 12px 20px;
-  border: 1px solid #ddd;
-  margin-bottom: 20px;
-  margin-left:30px;
-  width:40%;
-   border-radius:5px;
-  
-}
 
 #Tag_search_button_del{
    margin-left:30px;
@@ -595,7 +565,7 @@ transition:0.2s;
   margin: 1% 1.5% 1% 0;*/
   user-select:none;
    border-radius: 20%;
-   font-size:12px;
+   font-size:14px;
    padding:5px;
    cursor: pointer;
    text-align:center;
@@ -894,9 +864,14 @@ border-radius:10px;
 </head>
 <body id="settings-body" style='display:table; height:100%;width:100%'>
 <center id="main-heading">
- <span style='padding-top:40px;margin:20px 0 -50px 5px;top:10px;'><span><img src='images/icon_128.png' id="Netsips-logo-container"></span>
- <span style='margin:50px 0 -20px 50px;top:50px'> netsips | dashboard</span></span>
- <span> <input type="text" id="searchBar" placeholder="Search for bookmarks..." title=""></span>
+
+ <span id='logo_heading'>
+ <span ><img src='images/icon_128.png' id="Netsips-logo-container"></span>
+ 
+ <span id='dashboard'> Netsips | Dashboard</span>
+ </span>
+
+ <span> <input type="text" id="searchBar" placeholder="Search for bookmarks" title=""></span>
  <span id='toggle-container'>
 <span> <button class="tablinks" value = "Paris" id="saved-btn"><img src='images/bookmark-w.svg' class='menu_icons'></button></span>
  <span> <button class="tablinks" value="London" id='sc'><img src='images/settings-w.svg' class='menu_icons'></button></span>
