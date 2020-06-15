@@ -64,7 +64,7 @@ font-family: 'Courgette', cursive;
         border-radius: 5px;
         width: 224px;
         height:40px;
-        border:none;
+        border:1px solid white;
         margin-bottom:10px;
         transition: 0.3s;
         font-size:16px;
@@ -112,11 +112,17 @@ font-family: 'Courgette', cursive;
         margin-bottom:-5px;
       }
       #save:hover{
-       border:none;
+      border:1px solid white;
          background-color:rgb(34,139,34);
         color:#FFFFFF;
      
       }
+
+     #save:active, 
+ #save:focus 
+ {
+     border:1px solid white;
+  }
       h3{
         color: rgb(0,0,0,0.8);
       }
@@ -189,9 +195,9 @@ font-family: 'Courgette', cursive;
 <body>
     <div class="modal-header">
       <h1 class="logo">
-      <center><span><img id="main-logo"src="images/yellow_netsips.svg"></span></center>
+      <center><span><img id="main-logo"src="images/extension_images/yellow_netsips.svg"></span></center>
       </h1>
-       <span><img id="settings-icon"src="images/menu_icon.svg"></span>
+       <span><img id="settings-icon"src="images/extension_images/menu_icon.svg"></span>
     </div>
    
     <div id="modal-content">
@@ -202,7 +208,7 @@ font-family: 'Courgette', cursive;
               <input  id="uid" name="uid" value="" placeholder="" type="hidden" style="display:none"/>                  
             <input type="hidden" id="url" name="url" value="" readonly style="display:none"/>
      
-              <input type="text" id="popup_tags" placeholder="Add tags..."/>
+              <input type="text" id="popup_tags" placeholder="Add tags..." value='not tagged'/>
                 <br>
                 <br>
               <p style='display:none'>
@@ -216,10 +222,11 @@ font-family: 'Courgette', cursive;
     </form><div style='border-top: 0.5px solid #202020; margin:0 15px 0 15px; padding-top:10px;cursor:pointer;'id='drop-menu'>
 <span style='padding: 0px 0px 15px 15px;text-align:left;
         font-size:15px;
-        font-weight:light;'>Recents</span><span><img src='images/arrow-up.svg' style='opacity:0.7; transition: opacity 1s ease-in-out;'id="up-icon"></span>
+        font-weight:light;'>Recents</span><span><img src='images/extension_images/arrow-up.svg' style='opacity:0.7; transition: opacity 1s ease-in-out;'id="up-icon"></span>
         <table id='recent-container' style=' border-collapse: collapse;margin-top:10px;cellspacing="0";width="100%"; border="0";  cellpadding="0";'></table></div>
-      <script src="firebase/firebase-app.js"></script>
-    <script src="firebase/firebase-firestore.js"></script>
+      
+     <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-firestore.js"></script>
     <script src="popup_main.js"></script>
 
 </body>

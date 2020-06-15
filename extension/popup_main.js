@@ -7,7 +7,7 @@ chrome.tabs.getSelected(null,function(tab) {
     
   });
 
-
+//console.log(localStorage.lastname)
 var recent = document.getElementById('recent-container') 
 //Firebase
 var firebaseConfig = {
@@ -66,12 +66,12 @@ document.getElementById('drop-menu').addEventListener('click', checkdropy)
 function checkdropy(){  
   if(document.getElementById('recent-container').style.display =='block'){
     document.getElementById('recent-container').style.display ='none'
-document.getElementById('up-icon').src = 'images/arrow-down.svg'
+document.getElementById('up-icon').src = 'images/extension_images/arrow-down.svg'
 //chrome.storage.local.set({recentIsOpen:false})
   }
     else{
       document.getElementById('recent-container').style.display ='block'
-      document.getElementById('up-icon').src = 'images/arrow-up.svg'
+      document.getElementById('up-icon').src = 'images/extension_images/arrow-up.svg'
   //    chrome.storage.local.set({recentIsOpen:true})
     }
 }
@@ -82,10 +82,10 @@ window.addEventListener('load', function(){
   chrome.storage.local.get(['recentisOpen'], function(result) {
   if(result.recentIsOpen){
     document.getElementById('recent-container').style.display ='block'
-    document.getElementById('up-icon').src = 'images/arrow-up.svg'
+    document.getElementById('up-icon').src = 'images/extension_images/arrow-up.svg'
   }else{
     document.getElementById('recent-container').style.display ='none'
-    document.getElementById('up-icon').src = 'images/arrow-down.svg'
+    document.getElementById('up-icon').src = 'images/extension_images/arrow-down.svg'
   }})
   
 })
@@ -122,7 +122,8 @@ function update(array, webdata)
   });
   }
 
-function addBookmark() {
+// function addBookmark() {
+const addBookmark=()=> {
 var d = new Date();    
 var date = d.getDate();
 var month = d.getMonth() + 1; 
@@ -153,6 +154,7 @@ var year = d.getFullYear();
 var statusDisplay = document.getElementById('save');
 statusDisplay.value = "Saving..."
 chrome.storage.local.get(['isNew'], function(result){
+  //SETTING IS NEW AS FALSE AFTER THE FIRST USE
   if(result.isNew){
     chrome.storage.local.set({isNew: false})
   }
@@ -187,23 +189,20 @@ window.addEventListener('load', function(evt) {
     // Handle the bookmark form submit event with our addBookmark function
     document.getElementById('addbookmark')
             .addEventListener('submit', addBookmark);
-
-    
-   
     chrome.runtime.getBackgroundPage(function(eventPage) {
         eventPage.getPageDetails(onPageDetailsReceived);
     });
 });
 
 
-(
-  function () {
-    var otherWindows = chrome.extension.getBackgroundPage();
-    document.getElementById("email").value = otherWindows.user_email;
-    document.getElementById("uid").value = otherWindows.user_id;
+// (
+//   function () {
+//     var otherWindows = chrome.extension.getBackgroundPage();
+//     document.getElementById("email").value = otherWindows.user_email;
+//     document.getElementById("uid").value = otherWindows.user_id;
 
     
-})();
+// })();
 
 //Settings page open on click
 document.getElementById('settings-icon').addEventListener('click', function(){

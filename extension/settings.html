@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="images/icon_128.png"/>
+<link rel="icon" type="image/png" href="images/extension_images/icon_128.png"/>
 	<title>Netsips | Dashboard</title>
 <style>
 html{
@@ -181,8 +181,8 @@ font-weight:lighter;
   width:50px;
   display: inline-block;
   color: black;
-  margin-top:-6px;
-  margin-left:20px;
+  margin-top:-3px;
+  margin-left:7px;
   padding:0;
   border: none;
   outline: none;
@@ -194,8 +194,8 @@ font-weight:lighter;
  background-color: #303030;
 }
 #Netsips-logo-container{
- height:38px;
- width:38px;
+ height:37px;
+ width:37px;
  padding:0;
  top:14px;
  left:25px;
@@ -208,7 +208,7 @@ font-weight:lighter;
   font-family:'Raleway'
 }
 .menu_icons{
-  width:50px
+  width:40px
 }
 
 
@@ -412,6 +412,10 @@ box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.8);
   background:yellow
 }
 
+.card:hover .card_tags{
+  border-bottom:1px solid #C8C8C8;
+}
+
 .card:hover .edit1{
   visibility:visible;
    background:yellow
@@ -513,8 +517,7 @@ transition:0.2s;
   top:310px;
   /*right:200px;*/
   position:absolute;
-   border-bottom:1px solid #C8C8C8;
-   transition:0.2s;
+ 
 
 }
 
@@ -676,9 +679,24 @@ dialog{
   right:0;
  
 }
+#close_modal_wa{
+    color: #aaaaaa;
+  float: right;
+  font-size: 22px;
+  margin: -10px 0px 0px -10px ;
+  top:0;
+  right:0;
+ 
+}
 
 #close_modal:hover,
 #close_modal:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+#close_modal_wa:hover,
+#close_modal_wa:focus {
   color: #000;
   text-decoration: none;
   cursor: pointer;
@@ -782,10 +800,34 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
-#dark_mode_switch{
-   
+#dark_mode_switch{   
+}
+.wa-radio-mark { 
+            position: absolute; 
+            margin-top: 17px;
+            margin-left:-20px;
+           
+            height: 25px; 
+            width: 25px; 
+          background-color: #ddd; 
+        } 
+#whatsapp-input{
+  margin:10px 0 0 0;
+  font-size:16px;
+  border-radius:2px;
+  padding:10px;
+  border:1px solid #303030
+}
+#otp{
+  font-size:16px;
+  padding:7px;
+  cursor:pointer;
+  margin-top:20px
 }
 
+#recaptcha{
+   margin-left:26px;
+}
 #span_container{
   font-family: 'Raleway';
   /*CHANGE
@@ -808,7 +850,50 @@ position:absolute;*/
   margin: 15px 20px 0px 0;
   border-radius: 50%
 }
+/*OTP*/
+.otpModal {
+display:none;
+ /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 99; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.6); /* Black w/ opacity */;
+}
+.otpModalContent {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 5px;
+  width: 25%;
+  height:200px;
+  border-radius:10px;
+  text-align:center;
+ 
+}
+#otpText{
+  margin-top:30px;
+}
+#otpinput{
+  font-size:16px;
+  margin:25px 0 0 0;
+  padding:5px
+}
+#Verify{
+  margin:20px 0 0 0;
+  font-size: 15px;
+  padding:8px;
+  border:none;
+  cursor:pointer
+}
 
+#whatsapp-input-div{
+  margin-top:30px;
+}
 /*SIGNUP MODAL*/
 .signModal {
   display:none;
@@ -848,7 +933,7 @@ border-radius:10px;
 	cursor: pointer;
 	outline: inherit;
   margin-top:40px;
-   background-image:url('images/signin_light.png');
+   background-image:url('images/extension_images/signin_light.png');
    height:60px;
    width:249px;
   background-size: cover;
@@ -858,7 +943,16 @@ border-radius:10px;
 #signinbtn:hover{
   box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
 }
-
+#isWhatsApp{
+  margin-left:11px;
+  display:inline-block
+  
+}
+#whatsapp_text{
+     margin-top:13px;
+   margin-left:20px;
+    display:inline-block
+}
 /*My CSS ends*/
 
 </style>
@@ -867,17 +961,17 @@ border-radius:10px;
 <center id="main-heading">
 
  <span id='logo_heading'>
- <span ><img src='images/icon_128.png' id="Netsips-logo-container"></span>
+ <span ><img src='images/extension_images/icon_128.png' id="Netsips-logo-container"></span>
  
  <span id='dashboard'> Netsips | Dashboard</span>
  </span>
 
  <span> <input type="text" id="searchBar" placeholder="Search for bookmarks" title=""></span>
  <span id='toggle-container'>
-<span> <button class="tablinks" value = "Paris" id="saved-btn"><img src='images/bookmark-w.svg' class='menu_icons'></button></span>
- <span> <button class="tablinks" value="London" id='sc'><img src='images/settings-w.svg' class='menu_icons'></button></span>
- <span>  <button class="tablinks" value="Rome" id='archived'><img src='images/archived-w.svg' class='menu_icons'></button></span>
- <span><button class="tablinks" id="SignOut"><img src='images/exit-w.svg' class='menu_icons'></button></span> 
+<span> <button class="tablinks" value = "Paris" id="saved-btn"><img src='images/extension_images/bookmark-w.svg' class='menu_icons'></button></span>
+ <span> <button class="tablinks" value="London" id='sc'><img src='images/extension_images/settings-w.svg' class='menu_icons'></button></span>
+ <span>  <button class="tablinks" value="Rome" id='archived'><img src='images/extension_images/archived-w.svg' class='menu_icons'></button></span>
+ <span><button class="tablinks" id="SignOut"><img src='images/extension_images/exit-w.svg' class='menu_icons'></button></span> 
  </span>
   </center> 
 <div class="tab" >
@@ -895,10 +989,10 @@ border-radius:10px;
 
  <span> <input type="text" id="searchBar" placeholder="Search for bookmarks..." title=""></span>
  <span id='toggle-container'>
-<span> <button class="tablinks" value = "Paris" id="saved-btn"><img src='images/bookmark.svg' class='menu_icons'></button></span>
- <span> <button class="tablinks" value="London" id='sc'><img src='images/settings.svg' class='menu_icons'></button></span>
- <span>  <button class="tablinks" value="Rome" id='archived'><img src='images/archived.svg' class='menu_icons'></button></span>
- <span><button class="tablinks" id="SignOut"><img src='images/logout.svg' class='menu_icons'></button></span> 
+<span> <button class="tablinks" value = "Paris" id="saved-btn"><img src='images/extension_images/bookmark.svg' class='menu_icons'></button></span>
+ <span> <button class="tablinks" value="London" id='sc'><img src='images/extension_images/settings.svg' class='menu_icons'></button></span>
+ <span>  <button class="tablinks" value="Rome" id='archived'><img src='images/extension_images/archived.svg' class='menu_icons'></button></span>
+ <span><button class="tablinks" id="SignOut"><img src='images/extension_images/logout.svg' class='menu_icons'></button></span> 
  </span>
   </center> -->
    <button id="Tag_search_button_del" style='cursor:pointer'>Clear archive</button>
@@ -906,7 +1000,7 @@ border-radius:10px;
 
 <div class="row" id="deleted-content">
 
-<center style="margin:40px 40px 40px 0px;font-family: 'Manrove-tabs';font-size:20px;color:#202020"><img src='images/load.gif'></center>
+<center style="margin:40px 40px 40px 0px;font-family: 'Manrove-tabs';font-size:20px;color:#202020"><img src='images/extension_images/load.gif'></center>
 
 </div>
 </div>
@@ -914,15 +1008,15 @@ border-radius:10px;
 
 
 
-<div  id="Paris">
+<div  id="Paris" style='display:block'>  
 <!--<center id="main-heading">
-
+$$$
  <span> <input type="text" id="searchBar" placeholder="Search for bookmarks..." title=""></span>
  <span id='toggle-container'>
-<span> <button class="tablinks" value = "Paris" id="saved-btn"><img src='images/bookmark.svg' class='menu_icons'></button></span>
- <span> <button class="tablinks" value="London" id='sc'><img src='images/settings.svg' class='menu_icons'></button></span>
- <span>  <button class="tablinks" value="Rome" id='archived'><img src='images/archived.svg' class='menu_icons'></button></span>
- <span><button class="tablinks" id="SignOut"><img src='images/logout.svg' class='menu_icons'></button></span> 
+<span> <button class="tablinks" value = "Paris" id="saved-btn"><img src='images/extension_images/bookmark.svg' class='menu_icons'></button></span>
+ <span> <button class="tablinks" value="London" id='sc'><img src='images/extension_images/settings.svg' class='menu_icons'></button></span>
+ <span>  <button class="tablinks" value="Rome" id='archived'><img src='images/extension_images/archived.svg' class='menu_icons'></button></span>
+ <span><button class="tablinks" id="SignOut"><img src='images/extension_images/logout.svg' class='menu_icons'></button></span> 
  </span>
   </center> 
 
@@ -934,21 +1028,21 @@ border-radius:10px;
 
 <div class="row" id="news-content">
 <center style="margin:40px 40px 40px 0px;font-family: 'Manrove-tabs';font-size:20px;color:#202020;">
-<img src='images/load.gif'>
+<img src='images/extension_images/load.gif'>
 </center>
 </div>
 <!--
  
   <div class="column"> <div class="card"> 
   <div class="img-container" style="width:250px;height:200px; overflow:hidden;object-fit: cover;"> 
-  <p class="topcorner"><img src="images/archive-grey.svg"></p> 
-  <p class="topcorner"><img src="images/archive-grey.svg"></p> 
-  <a href="https://open.spotify.com/" target="blank_"><img class="img-container-tag" src="https://open.scdn.co/cdn/images/og-image.64b84348.png"></a> </div> 
+  <p class="topcorner"><img src="images/extension_images/archive-grey.svg"></p> 
+  <p class="topcorner"><img src="images/extension_images/archive-grey.svg"></p> 
+  <a href="https://open.spotify.com/" target="blank_"><img class="img-container-tag" src="https://open.scdn.co/cdn/images/extension_images/og-image.64b84348.png"></a> </div> 
   <div class="card-info-container"> 
   <span class="card_favicon"><img src="https://s2.googleusercontent.com/s2/favicons?domain_url=https://open.spotify.com/"></span> 
   <span class="card_site">Spotify</span> <span class="card_date">28 May</span> 
   <p class="card_title"><a href="https://open.spotify.com/" target="blank_">Spotify- Home</a></p> 
-  <div><span class="card_tags" style="overflow:hidden;text-overflow:ellipsis;margin-right:10px">music, spotify, really? </span><span><img src="images/edit.png" class="edit"></span></div> </div>
+  <div><span class="card_tags" style="overflow:hidden;text-overflow:ellipsis;margin-right:10px">music, spotify, really? </span><span><img src="images/extension_images/edit.png" class="edit"></span></div> </div>
    <div class="key" style="display:none">5njR2VgrGjicCUz2Gbst</div> </div> </div>
  
 -->
@@ -959,7 +1053,7 @@ border-radius:10px;
 <div class='signModal'>
 <div class='signModalContent'>
 <div id='signInText'>
-<span><img src="images/grey_netsips.svg" id="Netsips-img"></span>
+<span><img src="images/extension_images/grey_netsips.svg" id="Netsips-img"></span>
 <p style="font-family: 'Manrove-tabs';font-size:20px;color:#202020">
 For a new web browsing experience
 </p>
@@ -993,16 +1087,38 @@ For a new web browsing experience
 <!-- Modal ends -->
 
 <div id="London" style="display:none;"> 
- <!--<center id="main-heading">
+<!-- $$$ 
+<div class='otpModal'>
+<div class='otpModalContent'>
+<span id="close_modal_wa">&times;</span>
+<div id='whatsapp-input-div'>
+<p style="font-family: 'Manrove-tabs';font-size:20px;color:#202020;">
+Enter your number</p>
+<input type="tel" id='whatsapp-input' name="phone"
+       pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder='+91 1234567890'>
+<div id='recaptcha'></div>
+<center>
+<button type='button' id='otp'>Generate OTP</button>
+</center>
+</div>
 
- <span> <input type="text" id="searchBar" placeholder="Search for bookmarks..." title=""></span>
- <span id='toggle-container'>
-<span> <button class="tablinks" value = "Paris" id="saved-btn"><img src='images/bookmark.svg' class='menu_icons'></button></span>
- <span> <button class="tablinks" value="London" id='sc'><img src='images/settings.svg' class='menu_icons'></button></span>
- <span>  <button class="tablinks" value="Rome" id='archived'><img src='images/archived.svg' class='menu_icons'></button></span>
- <span><button class="tablinks" id="SignOut"><img src='images/logout.svg' class='menu_icons'></button></span> 
- </span>
-  </center> -->
+
+
+<div id='otp-input-div' style='display:none'>
+<div id='otpText'>
+<p style="font-family: 'Manrove-tabs';font-size:20px;color:#202020">
+Enter verification code
+<input id='otpinput' type="password"></input>
+</p>
+</div>
+<center>
+<button id='Verify' value='Submit OTP'>Submit OTP</button>
+</center>
+</div>
+
+</div>
+</div>
+-->
 
    <div id="question">When do you want your newsletter to be delivered?</div>
    <form id="submit-settings">
@@ -1075,11 +1191,31 @@ For a new web browsing experience
 <div >
 
 <br>
-<br>
+
+<div style="font-size:25px;font-family: 'Manrove-label';padding:25px;">
+  <label class="radio-button" data-toggle="tooltip" data-placement="top" title="Please enable popup for this feature"> 
+  <input type="checkbox" id='isWhatsApp' name='whatsapp_popup'> 
+  <span class="radio-mark"></span>
+
+  <span id='whatsapp_text'>Receive bookmark compilation on WhatsApp</span>
+  </label>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
 <div>
 
-<span id="dark_mode_switch"><div style="font-size:25px;font-family: 'Manrove-label';padding:25px">Dark Mode</div>
-   <label class="switch" style='margin-left:25px'>
+<span id="dark_mode_switch"><div style="font-size:25px;font-family: 'Manrove-label';padding:25px;margin-left:10px">Dark Mode</div>
+   <label class="switch" style='margin-left:35px'>
   <input type="checkbox" id="dark_mode_checkbox">
   <span class="slider round"></span>
 </label>

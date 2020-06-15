@@ -74,7 +74,7 @@ chrome.storage.local.get(['isSigned'], function(result){
     //AKA THE MOST IMPORTANT FUNCTIONALITY OF THE ENTIRE PRODUCT
     chrome.storage.local.get(['key'], function(result){
       let uid= result.key 
-   let db_store = firebase.firestore()
+ let db_store = firebase.firestore()
       db_store.collection(uid).onSnapshot(function(snapshot) {
        document.getElementById('news-content').innerHTML = ''
            db_store.collection(uid).orderBy('dateAdded',"desc").get().then(querySnapshot => {
@@ -88,17 +88,14 @@ chrome.storage.local.get(['isSigned'], function(result){
           let link_tag_name = doc.data().tags
           let key = doc.id
          let img = doc.data().imageUrl
-         if(img=='' || undefined || null){
-           img = `https://api.apiflash.com/v1/urltoimage?access_key=996f192584b4414bac444ad540480b3d&format=png&no_ads=true&url=${url}&height=800&width=1000`
-         } 
+        //  if(img=='' || undefined || null){
+        //    img = `https://api.apiflash.com/v1/urltoimage?access_key=996f192584b4414bac444ad540480b3d&format=png&no_ads=true&url=${url}&height=800&width=1000`
+        //  } 
          let main_site_name = doc.data().mainSite
          if(main_site_name == undefined){
            main_site_name = ''
          }
-          // if(img=='' || undefined){
-        //   img = `https://ui-avatars.com/api/?background=ccc&color=202020&size=250&name=`+title 
-        // }
-          document.getElementById('news-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner'><img src='images/archive-grey.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags' style='overflow:hidden;text-overflow:ellipsis;margin-right:10px'>${link_tag_name}</span><span><img src='images/edit.png' class='edit'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
+          document.getElementById('news-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner'><img src='images/extension_images/archive-grey.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags' style='overflow:hidden;text-overflow:ellipsis;margin-right:10px'>${link_tag_name}</span><span><img src='images/extension_images/edit.png' class='edit'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
           markers.push(link_tag_name)
         }
      for(var j=0;j<document.getElementsByClassName('topcorner').length;j++){ //topcorner is the archive button
@@ -122,6 +119,7 @@ chrome.storage.local.get(['isSigned'], function(result){
    
    )
     //tags rendering on the span container
+
     //NEVER CHANGE WHAT'S INSIDE THE TAG RENDERING METHOD
     tag_render(markers.filter(onlyUnique).map(s=>s.split(',')).join().toLowerCase().split(',').map(tag_trimmer).filter(onlyUnique))
    
@@ -160,13 +158,25 @@ document.addEventListener('DOMContentLoaded',()=>{
   });
   
 })
-
+document.addEventListener('DOMContentLoaded',()=>{
+  chrome.storage.local.get(['isWhatsApp'], function(result) {
+    if(result.isWhatsApp){
+      document.getElementById('isWhatsApp').checked = true  
+    }else{
+      document.getElementById('isWhatsApp').checked = false
+    }
+    
+  });
+  
+})
 
 
 //SIGNUP
 document.getElementById('signinbtn').addEventListener('click', function(){
  
   var provider = new firebase.auth.GoogleAuthProvider();
+ 
+
   firebase.auth().signInWithPopup(provider).then(function(result) {
     document.getElementsByClassName("signModal")[0].style.display = "none"   
     chrome.storage.local.set({isSigned: true}, function() {
@@ -177,7 +187,7 @@ document.getElementById('signinbtn').addEventListener('click', function(){
     var profile_picture = result.user.photoURL
     var new_user  = result.additionalUserInfo.isNewUser
     chrome.storage.local.set({isNew: new_user})
-
+    
     chrome.storage.local.set({isDark: false})
     chrome.storage.local.set({userEmail: email})
 
@@ -189,9 +199,11 @@ rtd.once("value")
   .then(function(snapshot) {
     var hasName = snapshot.hasChild(value); 
     if(!hasName){
-        rtd.child(value).set({'email':  email, 'days':"6"}).then().catch();
+        rtd.child(value).set({'email': email, 'days':"6", 'isWhatsApp':false,'phone':''}).then().catch(); //$$ isNew Added
     }
   });
+
+rtd.child(value).update({'isSigned': true})
 
  chrome.storage.local.set({profile_pic: profile_picture}, function() {
 });
@@ -206,7 +218,7 @@ let photo_link
     p[i].src = photo_link 
   }
 });
-    
+    //UID OF THE USER BEING SENT TO LOCAL STORAGE
     chrome.storage.local.set({key: value}, function() {
       });
   
@@ -218,7 +230,7 @@ let photo_link
   
       chrome.storage.local.get(['key'], function(result){
         let uid= result.key 
-       let db_store = firebase.firestore()
+     let db_store = firebase.firestore()
         db_store.collection(uid).onSnapshot(function(snapshot) {
          document.getElementById('news-content').innerHTML = ''
              db_store.collection(uid).orderBy('dateAdded',"desc").get().then(querySnapshot => {
@@ -237,10 +249,10 @@ let photo_link
             if(main_site_name == undefined){
               main_site_name = ''
             }
-            if(img=='' || undefined || null){
-              img = `https://api.apiflash.com/v1/urltoimage?access_key=996f192584b4414bac444ad540480b3d&format=png&no_ads=true&url=${url}&height=800&width=1000`
-            } 
-            document.getElementById('news-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner'><img src='images/archive-grey.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags'>${link_tag_name}</span><span><img src='images/edit.png' class='edit'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
+            // if(img=='' || undefined || null){
+            //   img = `https://api.apiflash.com/v1/urltoimage?access_key=996f192584b4414bac444ad540480b3d&format=png&no_ads=true&url=${url}&height=800&width=1000`
+            // } 
+            document.getElementById('news-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner'><img src='images/extension_images/archive-grey.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags'>${link_tag_name}</span><span><img src='images/extension_images/edit.png' class='edit'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
             markers.push(link_tag_name)
           }
        for(var j=0;j<document.getElementsByClassName('topcorner').length;j++){
@@ -397,7 +409,7 @@ const addTags1 =(uid, key)=>{
   
     modal.style.display = "none";
     submit_btn.value = "Saved!" 
-    submit_btn.value = 'Add tags'
+    submit_btn.value = 'Update tags'
    })
    .catch(function(error){
      console.error("Error updating document: ", error);
@@ -422,9 +434,9 @@ const render_deleted = ()=>{
         let link_tag_name = doc.data().tags
         let key = doc.id
         let img = doc.data().imageUrl
-        if(img=='' || undefined || null){
-          img = `https://api.apiflash.com/v1/urltoimage?access_key=996f192584b4414bac444ad540480b3d&format=png&no_ads=true&url=${url}&height=800&width=1000`
-        } 
+        // if(img=='' || undefined || null){
+        //   img = `https://api.apiflash.com/v1/urltoimage?access_key=996f192584b4414bac444ad540480b3d&format=png&no_ads=true&url=${url}&height=800&width=1000`
+        // } 
         let main_site_name =  doc.data().mainSite
         if(main_site_name == undefined){
           main_site_name = ''
@@ -432,7 +444,7 @@ const render_deleted = ()=>{
         // if(img=='' || undefined){
         //   img = `https://ui-avatars.com/api/?background=ccc&color=202020&size=250&name=`+title 
         // }
-        document.getElementById('deleted-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner1'><img src='images/delete.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags' style='display:none'>${link_tag_name}</span><span><img src='images/restore.svg' class='edit1'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`
+        document.getElementById('deleted-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner1'><img src='images/extension_images/delete.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags' style='display:none'>${link_tag_name}</span><span><img src='images/extension_images/restore.svg' class='edit1'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`
               }
             }
             
@@ -554,6 +566,12 @@ render_deleted()
 document.getElementById("SignOut").addEventListener('click', function(){
  // this.innerText = "Signing out..."
   firebase.auth().signOut().then(function() {
+  //   let db_rtd = firebase.database();
+  //   let rtd  = db_rtd.ref();
+  // chrome.storage.local.get(['key'], function(result) {
+  //     rtd.child(result.key).update({'isSigned': false })
+  //   });
+      //  {'uid':value,'email':  email, 'days':"6", 'isNew': new_user, 'isSigned':true}
     document.getElementById('Paris').innerHTML = ''
     chrome.browserAction.setPopup({popup: "popup.html"});
     chrome.storage.local.set({isSigned: false}, function() {
@@ -829,23 +847,23 @@ window.addEventListener('load', function(){
 })
 
 //SEARCHBAR FOR ARCHIVED
-window.addEventListener('load', function(){
-  document.getElementById('searchBarDel').addEventListener('keyup',function(){
-     var input = document.getElementById("searchBarDel");
-     var filter = input.value.toUpperCase();
-    var cards = document.getElementsByClassName('card')
-    for(var j=0;j<cards.length;j++){
-        txtValue = cards[j].getElementsByClassName('card_title')[0].innerText
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          cards[j].style.display = "";
-      } else {
-        cards[j].style.display = "none";
-      }
-    }
-  })
+// window.addEventListener('load', function(){
+//   document.getElementById('searchBarDel').addEventListener('keyup',function(){
+//      var input = document.getElementById("searchBarDel");
+//      var filter = input.value.toUpperCase();
+//     var cards = document.getElementsByClassName('card')
+//     for(var j=0;j<cards.length;j++){
+//         txtValue = cards[j].getElementsByClassName('card_title')[0].innerText
+//         if (txtValue.toUpperCase().indexOf(filter) > -1) {
+//           cards[j].style.display = "";
+//       } else {
+//         cards[j].style.display = "none";
+//       }
+//     }
+//   })
 
 
-})
+// })
 
 //SEARCHBAR FOR TAGS
 //LIST VIEW
@@ -927,9 +945,75 @@ const filter_using_tags=(tag)=>{
   }
 }
 
+//WHATSAPP//
+// function whatsApp(){ 
+//     var checkBox = document.getElementById("isWhatsApp");
+//     // Get the output text
+//     if(checkBox.checked){
+//     //  let popup = window.open("http://netsips.in/whatsapp.html?", "Netsips | WhatsApp", "width=500,height=550");
+//       window.open("http://netsips.in/whatsapp.html?", "Netsips | WhatsApp", "width=500,height=550");
+//       // popup.postMessage("The user is Bob",
+//       //               "http://netsips.in/whatsapp.html?");
+//     //  window.postMessage({ type: "FROM_PAGE", text: "Hello from the webpage!" }, "http://netsips.in/whatsapp.html?");
+//     // window.postMessage({ type: "FROM_CONTENT", text: "Something message here"}, "*")
+                    
+//     }else{
+//       alert('Unsubcribed from WhatsApp alerts')
+//     }
+//   }
+
+var wa_checkbox = document.querySelector("input[name=whatsapp_popup]");
+//document.getElementById("isWhatsApp").addEventListener('click', whatsApp)
+let db_rtd = firebase.database();
+let rtd  = db_rtd.ref();
+wa_checkbox.addEventListener( 'change', function() {
+  if(this.checked) {
+      window.open("http://netsips.in/whatsapp.html?", "Netsips | WhatsApp", "width=500,height=550");
+    // chrome.storage.local.get(['key'], function(result) {
+    //     rtd.child(result.key).update({'isWhatsApp': true })
+    //   }); 
+    //   chrome.storage.local.set({isWhatsApp: true})  
+  } else {
+    alert('Unsubcribed from Netsips WhatsApp alerts')
+    chrome.storage.local.get(['key'], function(result) {
+      rtd.child(result.key).update({'isWhatsApp': false })
+    }); 
+    chrome.storage.local.set({isWhatsApp: false}) 
+  }
+});
+
+/* 
+// window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha', {
+//   size: "invisible",
+//   // callback: function(response) {
+//   //   submitPhoneNumberAuth();
+//   // }
+// });
+// recaptchaVerifier.render()
+document.getElementById('close_modal_wa').addEventListener('click', function(){
+  document.getElementsByClassName('otpModal')[0].style.display='none'
+})
+
+// document.getElementById('isWhatsApp').addEventListener('clicked',function(){
+//   let whatsappModal = document.getElementById('isWhatsApp')
+//   alert('Hi')
+//   if(whatsappModal.checked==true){
+//     document.getElementsByClassName('otpModal')[0].style.display='block'
+//   }
+  
+// })
 
 
 
-
-
+document.getElementById('otp').addEventListener('click', function(){
+  document.getElementById('whatsapp-input-div').style.display = 'none'
+  document.getElementById('otp-input-div').style.display = 'block'
+})
+document.getElementById('Verify').addEventListener('click', function(){
+ document.getElementsByClassName("otpModal")[0].style.display = 'none'
+ document.getElementById('whatsapp-input-div').style.display = 'block'
+ document.getElementById('otp-input-div').style.display = 'none'
+ // document.getElementById('otp-input-div').style.display = 'block'
+})
+*/
 //See you later...//

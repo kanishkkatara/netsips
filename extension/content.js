@@ -52,16 +52,19 @@ function getMeta(metaName) {
   // console.log(image_link)
 //https://ui-avatars.com/api/?background=ccc&color=202020&size=250
 // Send a message containing the page details back to the event page
+var metaImage = getMeta("og:image")
+if(metaImage == ''){
+  metaImage = `https://api.apiflash.com/v1/urltoimage?access_key=996f192584b4414bac444ad540480b3d&format=png&no_ads=true&url=${window.location.href}&height=800&width=1000`         
+}
 chrome.runtime.sendMessage({
- //    'title': document.title, //pls remove if creates trouble
+    'title': document.title, //pls remove if creates trouble
      'url': window.location.href,
      'word_count': count,
      'estimated_time': Math.ceil(time),
      'content': content,
-     'img_url': getMeta("og:image"),
+     'img_url': metaImage,
      'main_site': getMeta('og:site_name')
     // 'total_time_saved': total_time_saved
      
  });
- 
  
