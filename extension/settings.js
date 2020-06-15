@@ -158,13 +158,37 @@ document.addEventListener('DOMContentLoaded',()=>{
   });
   
 })
+let db_rtd = firebase.database();
+let rtd  = db_rtd.ref();
+
+
 document.addEventListener('DOMContentLoaded',()=>{
-  chrome.storage.local.get(['isWhatsApp'], function(result) {
-    if(result.isWhatsApp){
-      document.getElementById('isWhatsApp').checked = true  
-    }else{
-      document.getElementById('isWhatsApp').checked = false
-    }
+  chrome.storage.local.get(['isWhatsApp', 'key'], function(result) {
+
+rtd.child(result.key).once('value').then(function(snapshot) {
+  let phone = snapshot.val().phone;
+  let isWhatsApp = snapshot.val().isWhatsApp;
+  document.getElementById('number_holder').value = phone
+  chrome.storage.local.set({isWhatsApp: isWhatsApp}) 
+  if(isWhatsApp){
+    document.getElementById('isWhatsApp').checked = true  
+  }else{
+    document.getElementById('isWhatsApp').checked = false  
+  }
+});
+    // if(result.isWhatsApp){
+    //   document.getElementById('isWhatsApp').checked = true  
+    //   rtd.child(result.key).once('value').then(function(snapshot) {
+    //         var phone = snapshot.val().phone;
+    //         document.getElementById('number_holder').value = phone
+    //       });
+    // }else{
+    //   document.getElementById('isWhatsApp').checked = false
+    //   rtd.child(result.key).once('value').then(function(snapshot) {
+    //     var phone = snapshot.val().phone;
+    //     document.getElementById('number_holder').value = phone
+    //   });
+    // }
     
   });
   
@@ -202,8 +226,19 @@ rtd.once("value")
         rtd.child(value).set({'email': email, 'days':"6", 'isWhatsApp':false,'phone':''}).then().catch(); //$$ isNew Added
     }
   });
-
-rtd.child(value).update({'isSigned': true})
+  rtd.child(value).once('value').then(function(snapshot) {
+    let phone = snapshot.val().phone;
+    let isWhatsApp = snapshot.val().isWhatsApp;
+    document.getElementById('number_holder').value = phone
+    chrome.storage.local.set({isWhatsApp: isWhatsApp}) 
+    if(isWhatsApp){
+      document.getElementById('isWhatsApp').checked = true
+    }else{
+      document.getElementById('isWhatsApp').checked = false
+    }
+  });
+  
+//rtd.child(value).update({'isSigned': true})
 
  chrome.storage.local.set({profile_pic: profile_picture}, function() {
 });
@@ -578,16 +613,18 @@ document.getElementById("SignOut").addEventListener('click', function(){
     });
     chrome.storage.local.set({isDark: false}, function() {
     });
-    let p = document.getElementsByClassName('profile-picture')
-    for(let i=0;i<p.length;i++){
-      p[i].style.display = "none"
-    }
-    chrome.storage.local.set({profile_pic: ''}, function() {
-    });
+   // document.getElementsByClassName("signModal")[0].style.display = "block" 
+    // let p = document.getElementsByClassName('profile-picture')
+    // for(let i=0;i<p.length;i++){
+    //   p[i].style.display = "none"
+    // }
+    // chrome.storage.local.set({profile_pic: ''}, function() {
+    // });
     setTimeout(function(){ 
+    //  document.getElementsByClassName("signModal")[0].style.display = "block" 
       window.close('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/settings.html') 
     }, 1000);
-    
+   
    
   }).catch(function(error) {
     console.log("An error happened."+error)
@@ -946,35 +983,47 @@ const filter_using_tags=(tag)=>{
 }
 
 //WHATSAPP//
-// function whatsApp(){ 
-//     var checkBox = document.getElementById("isWhatsApp");
-//     // Get the output text
-//     if(checkBox.checked){
-//     //  let popup = window.open("http://netsips.in/whatsapp.html?", "Netsips | WhatsApp", "width=500,height=550");
-//       window.open("http://netsips.in/whatsapp.html?", "Netsips | WhatsApp", "width=500,height=550");
-//       // popup.postMessage("The user is Bob",
-//       //               "http://netsips.in/whatsapp.html?");
-//     //  window.postMessage({ type: "FROM_PAGE", text: "Hello from the webpage!" }, "http://netsips.in/whatsapp.html?");
-//     // window.postMessage({ type: "FROM_CONTENT", text: "Something message here"}, "*")
-                    
-//     }else{
-//       alert('Unsubcribed from WhatsApp alerts')
-//     }
-//   }
-
-var wa_checkbox = document.querySelector("input[name=whatsapp_popup]");
-//document.getElementById("isWhatsApp").addEventListener('click', whatsApp)
-let db_rtd = firebase.database();
-let rtd  = db_rtd.ref();
+// return rtd.equalTo(userUID).once('value').then(function(snapshot) {
+//   var username = snapshot.val().username;
+//   // ...
+// });
+let wa_checkbox = document.querySelector("input[name=whatsapp_popup]");
+// let db_rtd = firebase.database();
+// let rtd  = db_rtd.ref();
+let number = document.getElementById('number_holder').value
 wa_checkbox.addEventListener( 'change', function() {
-  if(this.checked) {
-      window.open("http://netsips.in/whatsapp.html?", "Netsips | WhatsApp", "width=500,height=550");
-    // chrome.storage.local.get(['key'], function(result) {
-    //     rtd.child(result.key).update({'isWhatsApp': true })
-    //   }); 
-    //   chrome.storage.local.set({isWhatsApp: true})  
-  } else {
-    alert('Unsubcribed from Netsips WhatsApp alerts')
+  if(this.checked && number ===JSON.stringify('Your number')) {
+    window.open("http://netsips.in/whatsapp.html?", "Netsips | WhatsApp", "width=500,height=550");
+     let win = window.open("http://netsips.in/whatsapp.html?", "Netsips | WhatsApp", "width=500,height=550");
+   
+       let timer = setInterval(function() { 
+            if(win.closed ==true) {
+  
+                clearInterval(timer);
+              //  document.querySelector("input[name=whatsapp_popup]").checked = false
+             alert('if');
+            }else if(win.closed ==true && !document.querySelector("input[name=whatsapp_popup]").checked){
+               clearInterval(timer);
+                // document.querySelector("input[name=whatsapp_popup]").checked = true
+                alert('else');
+              }
+        }
+        , 100);
+      
+
+
+
+
+  }else if(this.checked && number!=JSON.stringify('Your number')){
+    document.querySelector("input[name=whatsapp_popup]").checked = true
+    chrome.storage.local.get(['key'], function(result) {
+      rtd.child(result.key).update({'isWhatsApp': true })
+    }); 
+    chrome.storage.local.set({isWhatsApp: true}) 
+  }   
+  else {
+   // alert('Unsubcribed from WhatsApp alerts')
+    document.querySelector("input[name=whatsapp_popup]").checked = false
     chrome.storage.local.get(['key'], function(result) {
       rtd.child(result.key).update({'isWhatsApp': false })
     }); 
@@ -982,38 +1031,27 @@ wa_checkbox.addEventListener( 'change', function() {
   }
 });
 
-/* 
-// window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha', {
-//   size: "invisible",
-//   // callback: function(response) {
-//   //   submitPhoneNumberAuth();
-//   // }
+document.getElementById('change_number').addEventListener('click', function(){
+   window.open("http://netsips.in/whatsapp.html?", "Netsips | WhatsApp", "width=500,height=550");
+   let win = window.open("http://netsips.in/whatsapp.html?", "Netsips | WhatsApp", "width=500,height=550");
+   let timer = setInterval(function() { 
+    if(win.closed ==true) {
+        clearInterval(timer);
+        chrome.storage.local.get(['key'], function(result) {
+        rtd.child(result.key).once('value').then(function(snapshot) {
+        let phone = snapshot.val().phone;
+        document.getElementById('number_holder').value = phone
+      });
+        }); 
+    }
+}
+, 100);
+
+})
+
+// rtd.child(result.key).once('value').then(function(snapshot) {
+//   var phone = snapshot.val().phone;
+//   document.getElementById('number_holder').value = phone
 // });
-// recaptchaVerifier.render()
-document.getElementById('close_modal_wa').addEventListener('click', function(){
-  document.getElementsByClassName('otpModal')[0].style.display='none'
-})
-
-// document.getElementById('isWhatsApp').addEventListener('clicked',function(){
-//   let whatsappModal = document.getElementById('isWhatsApp')
-//   alert('Hi')
-//   if(whatsappModal.checked==true){
-//     document.getElementsByClassName('otpModal')[0].style.display='block'
-//   }
   
-// })
-
-
-
-document.getElementById('otp').addEventListener('click', function(){
-  document.getElementById('whatsapp-input-div').style.display = 'none'
-  document.getElementById('otp-input-div').style.display = 'block'
-})
-document.getElementById('Verify').addEventListener('click', function(){
- document.getElementsByClassName("otpModal")[0].style.display = 'none'
- document.getElementById('whatsapp-input-div').style.display = 'block'
- document.getElementById('otp-input-div').style.display = 'none'
- // document.getElementById('otp-input-div').style.display = 'block'
-})
-*/
 //See you later...//

@@ -28,9 +28,10 @@ chrome.runtime.onMessageExternal.addListener(function (request, sender, sendResp
 let db_rtd = firebase.database();
 let rtd  = db_rtd.ref();
   chrome.storage.local.get(['key'], function(result) {
-    rtd.child(result.key).update({'phone': request.phone,'isWhatsApp': true })
+    rtd.child(result.key).update({'phone': request.phone})
   }); 
   chrome.storage.local.set({isWhatsApp: true})  
+  chrome.storage.local.set({phone: request.phone})  
 })
 
 

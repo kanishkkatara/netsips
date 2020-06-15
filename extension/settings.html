@@ -953,6 +953,36 @@ border-radius:10px;
    margin-left:20px;
     display:inline-block
 }
+#number_holder{
+    margin:10px 0 0 52px;
+    background-position: 10px 12px;
+  background-repeat: no-repeat;
+  font-size: 16px;
+  padding: 8px 10px 8px 10px;
+  border: 1px solid #ddd;
+
+  width:13%;
+   border-radius:5px;
+   display:inline-block;
+   background:#f1f1f1
+}
+#change_number{
+     margin-left:25px;
+     transition: 0.2s;
+  border: none;
+   color:#4c4e4d;
+  padding: 8px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+   font-weight: lighter;
+   border-radius:5px;
+   cursor:pointer
+}
+#change_number:hover{
+   background:#ccc
+}
 /*My CSS ends*/
 
 </style>
@@ -1199,8 +1229,9 @@ Enter verification code
 
   <span id='whatsapp_text'>Receive bookmark compilation on WhatsApp</span>
   </label>
-
-
+  <div>
+<input type='text' id='number_holder' value = 'Your number' disabled/><button id='change_number'>Update number</button>
+</div>
 </div>
 
 
@@ -1213,13 +1244,23 @@ Enter verification code
 
 
 <div>
-
 <span id="dark_mode_switch"><div style="font-size:25px;font-family: 'Manrove-label';padding:25px;margin-left:10px">Dark Mode</div>
    <label class="switch" style='margin-left:35px'>
   <input type="checkbox" id="dark_mode_checkbox">
   <span class="slider round"></span>
 </label>
 <span>
+<!--
+<br>
+<span id="dark_mode_switch">
+<span style='margin-left:110px;position:absolute; font-family:"Manrove-label";font-size:25px'>Dark Mode</span>
+<label class="switch" style='margin-left:35px'>
+
+  <input type="checkbox" id="dark_mode_checkbox">
+
+  <span class="slider round"></span>
+</label>
+<span>-->
 </div>
 
 </div>
