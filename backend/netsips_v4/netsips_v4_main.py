@@ -5,7 +5,7 @@ from firebase import firebase
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
-# import netsips_pdf as npdf
+import netsips_pdf as npdf
 import netsips_mail as nmail
 import netsips_html as nhtml
 
@@ -44,7 +44,7 @@ for i in range(len(ulist)):
         except:
             uids.document(j.id).update({'status':103})
     if(len(url)>0):
-        # npdf.generate_pdf(url)
+        npdf.generate_pdf(url)
         html = nhtml.generate_html(url)
         nmail.send(html, mails[i])
         
