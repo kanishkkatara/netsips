@@ -1,10 +1,6 @@
-// (function(d, s, id) {
-//   var js, fjs = d.getElementsByTagName(s)[0];
-//   if (d.getElementById(id)) return;
-//   js = d.createElement(s); js.id = id;
-//   js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
-//   fjs.parentNode.insertBefore(js, fjs);
-// }(document, 'script', 'facebook-jssdk'))
+/*   "chrome_url_overrides" : {
+        "newtab": "settings.html"
+      }, */
 
 
 var firebaseConfig = {
@@ -74,11 +70,12 @@ chrome.storage.local.get(['isSigned'], function(result){
     //AKA THE MOST IMPORTANT FUNCTIONALITY OF THE ENTIRE PRODUCT
     chrome.storage.local.get(['key'], function(result){
       let uid= result.key 
- let db_store = firebase.firestore()
+let db_store = firebase.firestore()
       db_store.collection(uid).onSnapshot(function(snapshot) {
        document.getElementById('news-content').innerHTML = ''
            db_store.collection(uid).orderBy('dateAdded',"desc").get().then(querySnapshot => {
             let  markers =[]
+            let sources = []
             querySnapshot.docs.forEach(doc => {            
             if(doc.data().status!=102){ 
           let url = doc.data().articleURL
@@ -97,6 +94,7 @@ chrome.storage.local.get(['isSigned'], function(result){
          }
           document.getElementById('news-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner'><img src='images/extension_images/archive-grey.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags' style='overflow:hidden;text-overflow:ellipsis;margin-right:10px'>${link_tag_name}</span><span><img src='images/extension_images/edit.png' class='edit'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
           markers.push(link_tag_name)
+          sources.push(main_site_name)
         }
      for(var j=0;j<document.getElementsByClassName('topcorner').length;j++){ //topcorner is the archive button
        let key
@@ -146,7 +144,7 @@ chrome.storage.local.get(['isSigned'], function(result){
 
 //CHECK IF THE DOM SUPPOSED TO BE IN DARK MODE OR NAH
 document.addEventListener('DOMContentLoaded',()=>{
-  chrome.storage.local.get(['isDark'], function(result) {
+  chrome.storage.local.get(['isDark','isHome'], function(result) {
     if(result.isDark){
       document.getElementById('dark_mode_checkbox').checked = true  
       make_dark()
@@ -154,7 +152,13 @@ document.addEventListener('DOMContentLoaded',()=>{
       document.getElementById('dark_mode_checkbox').checked = false
       make_light() //THAT'S A RACIST FUNCTION 
     }
+    if(result.isHome){
+      document.getElementById('home_mode_checkbox').checked = true  
     
+    }else{
+      document.getElementById('home_mode_checkbox').checked = false
+
+    }
   });
   
 })
@@ -176,19 +180,7 @@ rtd.child(result.key).once('value').then(function(snapshot) {
     document.getElementById('isWhatsApp').checked = false  
   }
 });
-    // if(result.isWhatsApp){
-    //   document.getElementById('isWhatsApp').checked = true  
-    //   rtd.child(result.key).once('value').then(function(snapshot) {
-    //         var phone = snapshot.val().phone;
-    //         document.getElementById('number_holder').value = phone
-    //       });
-    // }else{
-    //   document.getElementById('isWhatsApp').checked = false
-    //   rtd.child(result.key).once('value').then(function(snapshot) {
-    //     var phone = snapshot.val().phone;
-    //     document.getElementById('number_holder').value = phone
-    //   });
-    // }
+
     
   });
   
@@ -214,6 +206,7 @@ document.getElementById('signinbtn').addEventListener('click', function(){
     
     chrome.storage.local.set({isDark: false})
     chrome.storage.local.set({userEmail: email})
+    chrome.storage.local.set({isHome: true})
 
 // RTD Initialize for setting default settings preferences
 var db = firebase.database();
@@ -223,7 +216,7 @@ rtd.once("value")
   .then(function(snapshot) {
     var hasName = snapshot.hasChild(value); 
     if(!hasName){
-        rtd.child(value).set({'email': email, 'days':"6", 'isWhatsApp':false,'phone':''}).then().catch(); //$$ isNew Added
+        rtd.child(value).set({'email': email, 'days':"6", 'isWhatsApp':false,'phone':'Your Number'}).then().catch(); //$$ isNew Added
     }
   });
   rtd.child(value).once('value').then(function(snapshot) {
@@ -270,7 +263,7 @@ let photo_link
          document.getElementById('news-content').innerHTML = ''
              db_store.collection(uid).orderBy('dateAdded',"desc").get().then(querySnapshot => {
               let  markers =[]
-             // let marker_del = []
+              let sources = []
               querySnapshot.docs.forEach(doc => {            
               if(doc.data().status!=102){ 
             let url = doc.data().articleURL
@@ -289,6 +282,7 @@ let photo_link
             // } 
             document.getElementById('news-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner'><img src='images/extension_images/archive-grey.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags'>${link_tag_name}</span><span><img src='images/extension_images/edit.png' class='edit'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
             markers.push(link_tag_name)
+            sources.push(main_site_name)
           }
        for(var j=0;j<document.getElementsByClassName('topcorner').length;j++){
         
@@ -430,6 +424,30 @@ const tag_render = (tags)=>{
 
 
 //TAG_RENDER ENDS
+
+//SOURCE RENDER
+
+
+const source_render = (tags)=>{
+  let dark = document.getElementById('dark_mode_checkbox')
+  document.getElementById("span_container").innerHTML = ''
+      tags.forEach(tag=>{
+        if(tag!=''){
+        if(dark.checked){
+          document.getElementById("span_container").innerHTML += `<span class="filter_tags" style="background-color: #4c4e4d; color:white">${tag}</span>&nbsp &nbsp &nbsp`        
+        }else{
+        document.getElementById("span_container").innerHTML += `<span class="filter_tags" style="background-color: #f1f1f1;">${tag}</span>&nbsp &nbsp &nbsp`
+        }
+        }  
+      })
+}
+
+
+
+
+
+
+//SOURCE RENDER ENDS
 
 const addTags1 =(uid, key)=>{
  // let db = firebase.firestore();
@@ -644,8 +662,11 @@ function make_dark(){
   // let tab_btns = document.getElementsByClassName('tab')[0]
   // tab_btns.style.background = '#242424'
   // tab_btns.style.color = 'rgba(255, 255, 255, 0.7)'
-  body.style.background = '#303030'
-  tabcontent.style.background = '#303030'
+  body.style.background = '#242424' 
+  tabcontent.style.background = '#242424'
+  // linear-gradient(90deg, rgba(36,36,36,1) 0%, rgba(87,87,87,1) 100%)
+  //   body.style.background = 'linear-gradient(135deg, rgba(36,36,36,1) 0%, rgba(87,87,87,1) 100%)' 
+  // tabcontent.style.background = 'linear-gradient(135deg, rgba(36,36,36,1) 0%, rgba(87,87,87,1) 100%)'
   paris.style.color = 'rgba(255, 255, 255, 0.7)'
  london.style.color  = 'rgba(255, 255, 255, 0.7)'
  rome.style.color  = 'rgba(255, 255, 255, 0.7)'
@@ -982,76 +1003,92 @@ const filter_using_tags=(tag)=>{
   }
 }
 
-//WHATSAPP//
-// return rtd.equalTo(userUID).once('value').then(function(snapshot) {
-//   var username = snapshot.val().username;
-//   // ...
-// });
-let wa_checkbox = document.querySelector("input[name=whatsapp_popup]");
-// let db_rtd = firebase.database();
-// let rtd  = db_rtd.ref();
-let number = document.getElementById('number_holder').value
-wa_checkbox.addEventListener( 'change', function() {
-  if(this.checked && number ===JSON.stringify('Your number')) {
-    window.open("http://netsips.in/whatsapp.html?", "Netsips | WhatsApp", "width=500,height=550");
-     let win = window.open("http://netsips.in/whatsapp.html?", "Netsips | WhatsApp", "width=500,height=550");
+// //WHATSAPP//
+// // return rtd.equalTo(userUID).once('value').then(function(snapshot) {
+// //   var username = snapshot.val().username;
+// //   // ...
+// // });
+// let wa_checkbox = document.querySelector("input[name=whatsapp_popup]");
+// // let db_rtd = firebase.database();
+// // let rtd  = db_rtd.ref();
+// let number = document.getElementById('number_holder').value
+// wa_checkbox.addEventListener( 'change', function() {
+//   if(this.checked && number ===JSON.stringify('Your number')) {
+//     window.open("http://netsips.in/whatsapp.html?", "Netsips | WhatsApp", "width=500,height=550");
+//      let win = window.open("http://netsips.in/whatsapp.html?", "Netsips | WhatsApp", "width=500,height=550");
    
-       let timer = setInterval(function() { 
-            if(win.closed ==true) {
+//        let timer = setInterval(function() { 
+//             if(win.closed ==true) {
   
-                clearInterval(timer);
-              //  document.querySelector("input[name=whatsapp_popup]").checked = false
-             alert('if');
-            }else if(win.closed ==true && !document.querySelector("input[name=whatsapp_popup]").checked){
-               clearInterval(timer);
-                // document.querySelector("input[name=whatsapp_popup]").checked = true
-                alert('else');
-              }
-        }
-        , 100);
+//                 clearInterval(timer);
+//               //  document.querySelector("input[name=whatsapp_popup]").checked = false
+//            //  alert('if');
+//             }else if(win.closed ==true && !document.querySelector("input[name=whatsapp_popup]").checked){
+//                clearInterval(timer);
+//                 // document.querySelector("input[name=whatsapp_popup]").checked = true
+//           //      alert('else');
+//               }
+//         }
+//         , 100);
       
 
 
 
 
-  }else if(this.checked && number!=JSON.stringify('Your number')){
-    document.querySelector("input[name=whatsapp_popup]").checked = true
-    chrome.storage.local.get(['key'], function(result) {
-      rtd.child(result.key).update({'isWhatsApp': true })
-    }); 
-    chrome.storage.local.set({isWhatsApp: true}) 
-  }   
-  else {
-   // alert('Unsubcribed from WhatsApp alerts')
-    document.querySelector("input[name=whatsapp_popup]").checked = false
-    chrome.storage.local.get(['key'], function(result) {
-      rtd.child(result.key).update({'isWhatsApp': false })
-    }); 
-    chrome.storage.local.set({isWhatsApp: false}) 
+//   }else if(this.checked && number!=JSON.stringify('Your number')){
+//     document.querySelector("input[name=whatsapp_popup]").checked = true
+//     chrome.storage.local.get(['key'], function(result) {
+//       rtd.child(result.key).update({'isWhatsApp': true })
+//     }); 
+//     chrome.storage.local.set({isWhatsApp: true}) 
+//   }   
+//   else {
+//    // alert('Unsubcribed from WhatsApp alerts')
+//     document.querySelector("input[name=whatsapp_popup]").checked = false
+//     chrome.storage.local.get(['key'], function(result) {
+//       rtd.child(result.key).update({'isWhatsApp': false })
+//     }); 
+//     chrome.storage.local.set({isWhatsApp: false}) 
+//   }
+// });
+
+// document.getElementById('change_number').addEventListener('click', function(){
+//    window.open("http://netsips.in/whatsapp.html?", "Netsips | WhatsApp", "width=500,height=550");
+//    let win = window.open("http://netsips.in/whatsapp.html?", "Netsips | WhatsApp", "width=500,height=550");
+//    let timer = setInterval(function() { 
+//     if(win.closed ==true) {
+//         clearInterval(timer);
+//         chrome.storage.local.get(['key'], function(result) {
+//         rtd.child(result.key).once('value').then(function(snapshot) {
+//         let phone = snapshot.val().phone;
+//         document.getElementById('number_holder').value = phone
+//       });
+//         }); 
+//     }
+// }
+// , 100);
+
+// })
+
+// // rtd.child(result.key).once('value').then(function(snapshot) {
+// //   var phone = snapshot.val().phone;
+// //   document.getElementById('number_holder').value = phone
+// // });
+ 
+
+//HOME PAGE//
+
+document.getElementById('home_mode_checkbox').addEventListener('change', function(){
+  if(this.checked){
+    chrome.storage.local.set({isHome: true})
+  }else{
+    chrome.storage.local.set({isHome: false})
   }
-});
-
-document.getElementById('change_number').addEventListener('click', function(){
-   window.open("http://netsips.in/whatsapp.html?", "Netsips | WhatsApp", "width=500,height=550");
-   let win = window.open("http://netsips.in/whatsapp.html?", "Netsips | WhatsApp", "width=500,height=550");
-   let timer = setInterval(function() { 
-    if(win.closed ==true) {
-        clearInterval(timer);
-        chrome.storage.local.get(['key'], function(result) {
-        rtd.child(result.key).once('value').then(function(snapshot) {
-        let phone = snapshot.val().phone;
-        document.getElementById('number_holder').value = phone
-      });
-        }); 
-    }
-}
-, 100);
-
 })
 
-// rtd.child(result.key).once('value').then(function(snapshot) {
-//   var phone = snapshot.val().phone;
-//   document.getElementById('number_holder').value = phone
-// });
-  
+
+
+
+
+
 //See you later...//

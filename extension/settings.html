@@ -160,6 +160,9 @@ font-weight:lighter;
   position: sticky;
    top: 0; 
    z-index:98;
+ -webkit-box-shadow: 0px 5px 5px -5px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 5px 5px -5px rgba(0,0,0,0.75);
+box-shadow: 0px 5px 5px -5px rgba(0,0,0,0.75);
  
 }
 #searchBar {
@@ -221,6 +224,7 @@ font-weight:lighter;
 
 
 #tagSearch{
+
 border: 0;
 border-bottom: 2px solid #303030;
   outline: 0;
@@ -993,15 +997,15 @@ border-radius:10px;
  <span id='logo_heading'>
  <span ><img src='images/extension_images/icon_128.png' id="Netsips-logo-container"></span>
  
- <span id='dashboard'> Netsips | Dashboard</span>
+ <span id='dashboard'> netsips | dashboard</span>
  </span>
 
  <span> <input type="text" id="searchBar" placeholder="Search for bookmarks" title=""></span>
  <span id='toggle-container'>
-<span> <button class="tablinks" value = "Paris" id="saved-btn"><img src='images/extension_images/bookmark-w.svg' class='menu_icons'></button></span>
- <span> <button class="tablinks" value="London" id='sc'><img src='images/extension_images/settings-w.svg' class='menu_icons'></button></span>
- <span>  <button class="tablinks" value="Rome" id='archived'><img src='images/extension_images/archived-w.svg' class='menu_icons'></button></span>
- <span><button class="tablinks" id="SignOut"><img src='images/extension_images/exit-w.svg' class='menu_icons'></button></span> 
+<span> <button class="tablinks" value = "Paris" id="saved-btn"><img src='images/extension_images/bookmark-w.svg' class='menu_icons' aria-label="Bookmarks"></button></span>
+ <span> <button class="tablinks" value="London" id='sc'><img src='images/extension_images/settings-w.svg' class='menu_icons' aria-label="Settings"></button></span>
+ <span>  <button class="tablinks" value="Rome" id='archived'><img src='images/extension_images/archived-w.svg' class='menu_icons' aria-label="Archive"></button></span>
+ <span><button class="tablinks" id="SignOut"><img src='images/extension_images/exit-w.svg' class='menu_icons' aria-label="Sign out"></button></span> 
  </span>
   </center> 
 <div class="tab" >
@@ -1052,7 +1056,7 @@ $$$
 
 <p style="word-break: break-all;line-height:3;margin-left:30px;margin-right:50px"><input type='text' id='tagSearch'/><span id="span_container" style="margin-left:0px;"></span>
 </p>-->
-<p style="line-height:3;margin-left:30px;margin-right:30px;"><input type='text' id='tagSearch' placeholder='Filter using tags'/><span id="span_container" style="margin-left:0px"></span>
+<p style="line-height:3;margin-left:30px;margin-right:30px;"><input type='text'id='tagSearch' placeholder='Filter using tags'/><span id="span_container" style="margin-left:0px"></span>
 
 </p>
 
@@ -1222,7 +1226,7 @@ Enter verification code
 
 <br>
 
-<div style="font-size:25px;font-family: 'Manrove-label';padding:25px;">
+<div style="font-size:25px;font-family: 'Manrove-label';padding:25px;display:none">
   <label class="radio-button" data-toggle="tooltip" data-placement="top" title="Please enable popup for this feature"> 
   <input type="checkbox" id='isWhatsApp' name='whatsapp_popup'> 
   <span class="radio-mark"></span>
@@ -1243,34 +1247,55 @@ Enter verification code
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div>
-<span id="dark_mode_switch"><div style="font-size:25px;font-family: 'Manrove-label';padding:25px;margin-left:10px">Dark Mode</div>
+<span id="home_mode_switch">
+<div style="font-size:25px;font-family: 'Manrove-label';padding:25px;margin-left:10px">Make Netsips your homepage</div>
+   <label class="switch" style='margin-left:35px'>
+  <input type="checkbox" id="home_mode_checkbox">
+  <span class="slider round"></span>
+</label>
+<span>
+
+</div>
+
+
+
+
+
+
+
+<div>
+<span id="dark_mode_switch">
+<div style="font-size:25px;font-family: 'Manrove-label';padding:25px;margin-left:10px">Dark Theme</div>
    <label class="switch" style='margin-left:35px'>
   <input type="checkbox" id="dark_mode_checkbox">
   <span class="slider round"></span>
 </label>
 <span>
-<!--
-<br>
-<span id="dark_mode_switch">
-<span style='margin-left:110px;position:absolute; font-family:"Manrove-label";font-size:25px'>Dark Mode</span>
-<label class="switch" style='margin-left:35px'>
 
-  <input type="checkbox" id="dark_mode_checkbox">
-
-  <span class="slider round"></span>
-</label>
-<span>-->
 </div>
 
 </div>
   </div> 
   
 </div>
- <!--  <script src="firebase/firebase-app.js"></script>
-<script src="firebase/firebase-auth.js"></script>
-<script src="firebase/firebase-firestore.js"></script>
-<script src="firebase/firebase-database.js"></script>-->
+
 
   <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-auth.js"></script>

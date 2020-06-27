@@ -13,7 +13,8 @@
     },
     "externally_connectable":{
         "matches":[
-            "http://*.netsips.in/*"  
+            "http://*.netsips.in/*",
+            "http://localhost/*" 
         ]
     },
     "permissions": [
@@ -22,8 +23,6 @@
         "https://*/*",
         "storage",
         "<all_urls>",
-        "activeTab",
-        "contextMenus",
         "http://*.google.com/"
     ],
     "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgwFLea1WstLWDhiTjpsBNUlRqgcrMJLMAreCR7edZONONRbkNbZO5r99lUDUvQCHKTl9Yeip1FhUoep4CohWCfVBh5Ch2p5cLsCY+wKY20af8Y2xHVw8x6YF4GGiNzFihMIa2NRom8ZUDXZosXh94K5xqgXg43z89RoEodHa35uPzoz6AHTab15534Ig6jZMQFLUObJQA4F2VwXKG0QZSaCrhlpZY8MUqZyUWM4qXuON+vmGr3vaumAk1sINh70+1LO1wGJ1VRJn7LLznlJfk/UDo4bYyRo5lYXye6vie5LwrQV9KGZRp9U8HNOuhM14CDhzt60T9EekI4OIlXWrawIDAQAB",
@@ -32,9 +31,9 @@
       },
     "web_accessible_resources": [
         "settings.html",
-        "signup.html",
         "Raleway-Regular.ttf",
         "Manrope-VariableFont_wght.ttf"
     ],
+ 
     "content_security_policy": "script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://apis.google.com; object-src 'self';"}
 

@@ -7,6 +7,7 @@ chrome.tabs.getSelected(null,function(tab) {
     
   });
 
+
 //console.log(localStorage.lastname)
 var recent = document.getElementById('recent-container') 
 //Firebase
@@ -145,7 +146,8 @@ var year = d.getFullYear();
       short_web_title = website_title
     }
     var tags = document.getElementById("popup_tags").value
-    var web_details  
+    
+    var web_details  = {URL:website_url, imageUrl:image, Title:website_title, Date:Date.now(),Icon:fav_icon, Tags:tags,mainSite:main_site};
    event.preventDefault();
 
 
@@ -180,6 +182,15 @@ chrome.storage.local.get(['key'], function(result) {
     statusDisplay.value = "Error"
   });
 });
+
+chrome.storage.local.get({ 
+list:[] 
+}, function(data){
+update(data.list, web_details); 
+}); 
+
+
+
  
 }
 
