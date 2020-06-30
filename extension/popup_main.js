@@ -24,33 +24,60 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
- 
-chrome.storage.local.get(['key'], function(result){
-  let i = 0
-  var icon_link = "https://s2.googleusercontent.com/s2/favicons?domain_url="
-  db.collection(result.key).orderBy('dateAdded',"desc").get().then(function(querySnapshot) {
-    querySnapshot.forEach(function(doc) {
-       if(doc.data().status!=102 && i<3){
-         let recent_title
-         let fav
-         if(doc.data().title.length>60){
-              recent_title = doc.data().title.substring(0,70)+'...'
-         }else{
-          recent_title = doc.data().title
-         }
-         fav = icon_link + doc.data().articleURL
-         recent.innerHTML += `<tr><td style='border-bottom: 1px solid #dddddd;padding-top:-1000px; margin: 0;'><img style="height:15px; width:15px;" src=${fav}/></td><td class='recent' style='border-bottom: 1px solid #dddddd;'><a href=${doc.data().articleURL}>${recent_title}</a></td></tr>`
-         i++
-       }
-     
-    });
-    for(let x=0;x<3;x++){
-    let link = document.getElementsByClassName('recent')[x].childNodes[0].href
-    document.getElementsByClassName('recent')[x].onclick = function(){linkopener(link)}
-    } 
+function title_trimmer(website_title){
+  if(website_title.length>=60){
+ website_title = website_title.substring(0, 60) + '...'
+// website_title = website_title  
+}else{
+  website_title = website_title
+  }
+  return website_title
+}
 
-});
-})
+// chrome.storage.local.get(['key'], function(result){
+//   let i = 0
+//   var icon_link = "https://s2.googleusercontent.com/s2/favicons?domain_url="
+//   db.collection(result.key).orderBy('dateAdded',"desc").get().then(function(querySnapshot) {
+//     querySnapshot.forEach(function(doc) {
+//        if(doc.data().status!=102 && i<3){
+//          let recent_title
+//          let fav
+//          if(doc.data().title.length>60){
+//               recent_title = doc.data().title.substring(0,70)+'...'
+//          }else{
+//           recent_title = doc.data().title
+//          }
+//          fav = icon_link + doc.data().articleURL
+//          recent.innerHTML += `<tr><td style='border-bottom: 1px solid #dddddd;padding-top:-1000px; margin: 0;'><img style="height:15px; width:15px;" src=${fav}/></td><td class='recent' style='border-bottom: 1px solid #dddddd;'><a href=${doc.data().articleURL}>${recent_title}</a></td></tr>`
+//          i++
+//        }
+     
+//     });
+//     for(let x=0;x<3;x++){
+//     let link = document.getElementsByClassName('recent')[x].childNodes[0].href
+//     document.getElementsByClassName('recent')[x].onclick = function(){linkopener(link)}
+//     } 
+
+// });
+// })
+chrome.storage.local.get({ 
+  list:[]
+},
+function(data){
+  var icon_link = "https://s2.googleusercontent.com/s2/favicons?domain_url="
+  for(let i=data.list.length-1;i>=0;i--){
+    if(i>data.list.length-4){
+      let url = data.list[i]["URL"]
+      let title = title_trimmer(data.list[i]["Title"])  
+      let fav = icon_link + url
+      recent.innerHTML += `<tr><td style='border-bottom: 1px solid #dddddd;padding-top:-1000px; margin: 0;'><img style="height:15px; width:15px;" src=${fav}/></td><td class='recent' style='border-bottom: 1px solid #dddddd;'><a href=${url}>${title}</a></td></tr>`
+    }
+  }
+}
+
+)
+
+
 
 for(let x=0;x<document.getElementsByClassName('recent');x++){
   console.log( document.getElementsByClassName[x])
