@@ -2,11 +2,11 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="images/extension_images/icon_128.png"/>
-	<title>Netsips </title>
+<link rel="icon" type="image/png"/>
+	<title>New Tab </title>
 <style>
 html{
-  overflow-y:auto;
+  overflow-y:hidden;
   height: 100%;
 }
 body{
@@ -324,7 +324,7 @@ box-shadow: 0px 3px 5px 0px rgba(153,153,153,1);
  float: left;
   width: 20%;
   padding: 0 ;
-  margin-right:50px;
+  margin-right:60px;
   margin-bottom:0px;
   margin-top:0px;
   
@@ -1061,7 +1061,7 @@ background-repeat: no-repeat;
   background-color: rgb(48, 48, 48,0);
   color:yellow;
   height:70px;
- 
+
    position: -webkit-sticky;
   position: sticky;
    top: 0; 
@@ -1148,8 +1148,8 @@ button:focus {outline:0;}
 <body id="settings-body" style='display:table; height:100%;width:100%'>
 <center id="main-heading">
 
- <span id='logo_heading'>
- <span ><img src='images/extension_images/icon_128.png' id="Netsips-logo-container"></span>
+ <span id='logo_heading' >
+ <span ><img src='images/extension_images/icon_128.png' id="Netsips-logo-container" ></span>
  
  <span id='dashboard'> netsips </span>
  </span>
@@ -1171,7 +1171,7 @@ button:focus {outline:0;}
  <span>
   <span id='toggle-container'>
  <span> 
- <button class="tablinks" value="London" id='sc'  title="Settings"><img src='images/extension_images/settings.svg' class='menu_icons'></button></span>
+ <button class="tablinks" value="London" id='sc'  title="Settings"><img src='images/extension_images/menu_icon.svg' class='menu_icons'></button></span>
   </span>
 
 </span>
@@ -1190,32 +1190,32 @@ button:focus {outline:0;}
 
 
 
-<div  id="Paris" style='display:block'>  
+<div  id="Paris" style='display:block'> 
+<div style='text-align:center'> 
 <div id='brand-logos'>
-<a href='https://www.youtube.com/' target='blank_'><img src='https://cdn3.iconfinder.com/data/icons/popular-services-brands/512/youtube-512.png' class='logo'></a>
-<a href='https://www.facebook.com/' target='blank_'><img src='https://cdn3.iconfinder.com/data/icons/social-network-icon/112/facebook-512.png' class='logo'></a>
-<a href='https://www.whatsapp.com/' target='blank_'><img src='https://cdn4.iconfinder.com/data/icons/miu-flat-social/60/whatsapp-512.png' class='logo'></a>
-<a href='https://open.spotify.com/' target='blank_'><img src='https://cdn2.iconfinder.com/data/icons/social-icons-33/128/Spotify-512.png' class='logo'></a>
-<a href='https://www.instagram.com/' target='blank_'><img src='https://cdn4.iconfinder.com/data/icons/social-media-2146/512/25_social-512.png' class='logo'></a>
-<a href='https://www.reddit.com/' target='blank_'><img src='https://cdn0.iconfinder.com/data/icons/free-social-media-set/24/reddit-512.png' class='logo'></a>
-<a href='https://www.wikipedia.org/' target='blank_'><img src='https://cdn4.iconfinder.com/data/icons/miu-flat-social/60/wikipedia-512.png' class='logo'></a>
-<a href='https://twitter.com/' target='blank_'><img src='https://cdn3.iconfinder.com/data/icons/capsocial-round/500/twitter-512.png' class='logo'></a>
-<a href='https://www.netflix.com/' target='blank_'><img src='https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/227_Netflix_logo-512.png' class='logo'></a>
-
+<a href='https://www.youtube.com/' ><img src='https://cdn3.iconfinder.com/data/icons/popular-services-brands/512/youtube-512.png' class='logo'></a>
+<a href='https://www.facebook.com/' ><img src='https://cdn3.iconfinder.com/data/icons/social-network-icon/112/facebook-512.png' class='logo'></a>
+<a href='https://web.whatsapp.com/'><img src='https://cdn4.iconfinder.com/data/icons/miu-flat-social/60/whatsapp-512.png' class='logo'></a>
+<a href='https://open.spotify.com/' ><img src='https://cdn2.iconfinder.com/data/icons/social-icons-33/128/Spotify-512.png' class='logo'></a>
+<a href='https://www.instagram.com/'><img src='https://cdn4.iconfinder.com/data/icons/social-media-2146/512/25_social-512.png' class='logo'></a>
+<a href='https://www.reddit.com/' ><img src='https://cdn0.iconfinder.com/data/icons/free-social-media-set/24/reddit-512.png' class='logo'></a>
+<a href='https://www.wikipedia.org/'><img src='https://cdn4.iconfinder.com/data/icons/miu-flat-social/60/wikipedia-512.png' class='logo'></a>
+<a href='https://twitter.com/'><img src='https://cdn3.iconfinder.com/data/icons/capsocial-round/500/twitter-512.png' class='logo'></a>
+<a href='https://www.netflix.com/'><img src='https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/227_Netflix_logo-512.png' class='logo'></a>
+</div>
 <input type='text'id='bookmarkSearch' placeholder='Search for bookmarks' style='display:none'/>
 </div>
 
 <p style="line-height:3;margin-left:30px;margin-right:30px;"><input type='text' style='display:none' id='tagSearch' placeholder='Filter using tags'/><span id="span_container" style="margin-left:0px"></span>
 
 </p>
-<div style="font-family: 'Manrove-tabs';color:#f1f1f1; font-size:20px;margin-left:30px;">Recent bookmarks</div>
+<div style="font-family:'Manrove-tabs';color:#f1f1f1; font-size:20px;margin-left:30px;" id='recents'>Recent bookmarks</div>
 <div class="row" id="news-content">
 <center style="margin:40px 40px 40px 0px;font-family: 'Manrove-tabs';font-size:20px;color:#202020;">
 <img src='images/extension_images/load.gif'>
 </center>
 </div>
-<center><div style='color:rgb(255,255,0,0.7); font-size:15px'>For Netsips dashboard, <span id='allbookmarks' style='cursor:pointer'>click here<span></div><center>
- 
+
 
 
 

@@ -1,7 +1,7 @@
 /*   "chrome_url_overrides" : {
         "newtab": "settings.html"
       }, */
-      const numItemsToGenerate = 1;
+      // const numItemsToGenerate = 1;
       // function renderItem(){
       //   fetch(`https://source.unsplash.com/1600x900/?wallpaper`).then((response) => {   
       //       document.body.style.backgroundImage = `url(${response.url})`
@@ -19,9 +19,6 @@
       //   measurementId: "G-E4SH3K42ZY"
       // };
       // firebase.initializeApp(firebaseConfig);
-      document.getElementById('allbookmarks').addEventListener('click', function(){
-        window.open('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/settings.html', "blank_");
-      })
       document.getElementById('sc').addEventListener('click', function(){
         window.open('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/settings.html', "blank_");
       })
@@ -77,36 +74,40 @@
       }
       
       chrome.storage.local.get({ 
-        list:[] 
+        list:[]
       },
       function(data) {
-       document.getElementById('news-content').innerHTML = ''
-       for(let i=data.list.length-1;i>=0;i--){
-                    if(i>data.list.length-5){
-                    let url = data.list[i]["URL"]
-                    let title = title_trimmer(data.list[i]["Title"])  
-                    let time = real_date(data.list[i]["Date"])
-              // let time = data.list[i]["Date"]
-               let icon = data.list[i]["Icon"]
-                    let link_tag_name = data.list[i]["Tags"]
-                   //let key = doc.id
-                   let img = data.list[i]["imageUrl"]
-                  //  if(img=='' || undefined || null){
-                  //    img = `https://api.apiflash.com/v1/urltoimage?access_key=996f192584b4414bac444ad540480b3d&format=png&no_ads=true&url=${url}&height=800&width=1000`
-                  //  } 
-                   let main_site_name = data.list[i]["mainSite"]
-                   if(main_site_name == undefined){
-                     main_site_name = ''
-                   }
-                   let key = data.list[i]["Date"]
-         document.getElementById('news-content').innerHTML +=  `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner'><img src='images/extension_images/archive-grey.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags' style='overflow:hidden;text-overflow:ellipsis;margin-right:10px'>${link_tag_name}</span><span></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
-        }
-    
-        for(let j=0;j<document.getElementsByClassName('topcorner').length;j++){
-          document.getElementsByClassName('topcorner')[j].addEventListener('click', hellocard)
-        }
-    
-      } 
+        chrome.storage.local.get(["isNew"],function(result){
+          if(result.isNew){
+            document.getElementById('recents').style.display = 'none'
+            document.getElementById('news-content').innerHTML = '<div style="color:#f1f1f1;font-size:18px" >Your saved bookmarks will appear here</div>'
+          }else{
+            document.getElementById('news-content').innerHTML = ''
+            for(let i=data.list.length-1;i>=0;i--){
+                         if(i>data.list.length-5){
+                         let url = data.list[i]["URL"]
+                         let title = title_trimmer(data.list[i]["Title"])  
+                         let time = real_date(data.list[i]["Date"])
+                    let icon = data.list[i]["Icon"]
+                         let link_tag_name = data.list[i]["Tags"]
+                  
+                        let img = data.list[i]["imageUrl"]
+                        let main_site_name = data.list[i]["mainSite"]
+                        if(main_site_name == undefined){
+                          main_site_name = ''
+                        }
+                        let key = data.list[i]["Date"]
+              document.getElementById('news-content').innerHTML +=  `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner'><img src='images/extension_images/visibility_off-grey.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags' style='overflow:hidden;text-overflow:ellipsis;margin-right:10px'>${link_tag_name}</span><span></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
+             }
+         
+             for(let j=0;j<document.getElementsByClassName('topcorner').length;j++){
+               document.getElementsByClassName('topcorner')[j].addEventListener('click', hellocard)
+             }
+         
+           } 
+          }
+        })
+     
     
       
       }
@@ -694,8 +695,11 @@
 //   autocomplete(document.getElementById("searchBar"));
 document.getElementById('gsearch').addEventListener('click', function(){
   let search = document.getElementById('searchBar').value
-  let url = `https://www.google.com/search?q=${search}`
-  window.open(url,"_self");
+  if(search){
+    let url = `https://www.google.com/search?q=${search}`
+    window.open(url,"_self");
+  }
+  
 })
 
 // document.getElementById('gsearch').onkeypress=function(e){

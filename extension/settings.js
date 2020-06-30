@@ -202,8 +202,7 @@ document.getElementById('signinbtn').addEventListener('click', function(){
     var value = result.user.uid
     var profile_picture = result.user.photoURL
     var new_user  = result.additionalUserInfo.isNewUser
-    chrome.storage.local.set({isNew: new_user})
-    
+    chrome.storage.local.set({isNew: new_user}) 
     chrome.storage.local.set({isDark: false})
     chrome.storage.local.set({userEmail: email})
     chrome.storage.local.set({isHome: true})

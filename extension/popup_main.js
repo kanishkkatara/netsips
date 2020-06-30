@@ -3,7 +3,7 @@ chrome.tabs.getSelected(null,function(tab) {
     var title = tab.title; 
     var url = tab.url;
     var favicon = "https://s2.googleusercontent.com/s2/favicons?domain_url="+url 
-    document.getElementById("modal-content").innerHTML = "<p id='website-title'>" + `<span ><img style="height:16px; width:16px; margin-left:-0.5px" src=${favicon}/></span>`+title+"</p>";
+    document.getElementById("modal-content").innerHTML = "<p id='website-title'>"+title+"</p>";
     
   });
 
@@ -109,6 +109,9 @@ function onPageDetailsReceived(pageDetails) {
       document.getElementById('est_time').innerText = "(around "+ pageDetails.estimated_time+" minutes)";
     }
 image = pageDetails.img_url
+
+document.getElementById('website-title').style.backgroundImage=`linear-gradient(45deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.4) ),url(${image})`; 
+
 main_site = pageDetails.main_site
 
 }

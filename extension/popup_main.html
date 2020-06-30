@@ -33,16 +33,26 @@ font-family: 'Courgette', cursive;
       }
       .modal-header {
         align-items: center;
-        border-bottom: 0.5px solid #dadada;
-	background: #313131;
+       
+  
   
   
       }
-      .modal-content {
+      .modal-content{
       
         text-align:center;
 	color: #4c4e4d;
+ 
   
+      }
+      #website-title{
+        background:linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url('images/extension_images/placeholder.png');
+        background-repeat: no-repeat;
+       background-size: cover;
+         padding: 25% 20% 15px 15px;
+         color:white;
+         font-size:20px;
+         font-weight:1px;
       }
       .modal-icons {
         border-top: 0.5px solid #dadada;
@@ -62,7 +72,7 @@ font-family: 'Courgette', cursive;
       #save{
        font-family: 'Manrove-cards';
         border-radius: 5px;
-        width: 224px;
+        width: 200px;
         height:40px;
         border:1px solid white;
         margin-bottom:10px;
@@ -96,6 +106,7 @@ font-family: 'Courgette', cursive;
          
       }
       p{
+        margin:0 0 10px 0;
         padding: 0px 15px 0px 15px;
         text-align:left;
         font-size:16.5px;
@@ -144,14 +155,14 @@ font-family: 'Courgette', cursive;
         cursor: pointer;
       }
       #popup_tags{
-       
-        width:85%;
-        padding:3px 3px 3px 4px;
-        border-radius: 2px;
+       font-size:16px;
+        width:100%;
+        padding:7px 3px 7px 15px;
+        border-radius: 0px;
         border-top:none;
         border-left:none;
         border-right:none;
-        border-bottom: 1px solid #cccccc
+        
       }
        #popup_tags:focus{
        outline:none
@@ -193,22 +204,23 @@ font-family: 'Courgette', cursive;
   
 </head>
 <body>
-    <div class="modal-header">
-      <h1 class="logo">
-      <center><span><img id="main-logo"src="images/extension_images/yellow_netsips.svg"></span></center>
-      </h1>
+
+    <div class="modal-header" >
+    
        <span><img id="settings-icon"src="images/extension_images/menu_icon.svg"></span>
+      
     </div>
    
-    <div id="modal-content">
+    <div id="modal-content" >
     
     </div>
+ 
     <form id="addbookmark">  
             <input  id="email" name="email" value="" placeholder="Enter your email" type="hidden"/>    
               <input  id="uid" name="uid" value="" placeholder="" type="hidden" style="display:none"/>                  
             <input type="hidden" id="url" name="url" value="" readonly style="display:none"/>
      
-              <input type="text" id="popup_tags" placeholder="Add tags..." value=''/>
+              <input type="text" id="popup_tags" style='font-size:18px'placeholder="add tags" value=''/>
                 <br>
                 <br>
               <p style='display:none'>

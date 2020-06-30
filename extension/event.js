@@ -23,7 +23,9 @@ function getPageDetails(callback) {
  //   console.log(message.title)
   });
 };
-
+// chrome.storage.local.get(['key'], function(result){
+//   console.log(result.key)
+// })
 
 chrome.storage.local.get(['isSigned'], function (result) {
 
@@ -105,3 +107,19 @@ chrome.tabs.onCreated.addListener(function(tab) {
   })
  
 });
+
+chrome.storage.local.get(['isHome','isSigned'], function(result){
+  chrome.runtime.onStartup.addListener(function() {
+    if (result.isHome && result.isSigned) {
+    chrome.tabs.update({ url: 'chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/new.html' })
+    }
+  })
+})
+
+// chrome.storage.local.get(['isHome','isSigned'], function(result){
+//   chrome.windows.onCreated.addListener(function() {
+//     if (result.isHome && result.isSigned) {
+//       chrome.tabs.update({ url: 'chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/new.html' })
+//       }
+// });
+// })
