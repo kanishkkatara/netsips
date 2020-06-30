@@ -1,15 +1,4 @@
 
-var firebaseConfig = {
-  apiKey: "AIzaSyBDaQL21llq2-5ftbSh0WvC243M6p_ZsgY",
-  authDomain: "netsips-1586535958950.firebaseapp.com",
-  databaseURL: "https://netsips-1586535958950.firebaseio.com",
-  projectId: "netsips-1586535958950",
-  storageBucket: "netsips-1586535958950.appspot.com",
-  messagingSenderId: "617103322863",
-  appId: "1:617103322863:web:4fbe39c3ad6acf34f3f51a",
-  measurementId: "G-E4SH3K42ZY"
-};
-firebase.initializeApp(firebaseConfig);
 // This function is called onload in the popup code
 function getPageDetails(callback) {
   // Inject the content script into the current page
@@ -108,18 +97,18 @@ chrome.tabs.onCreated.addListener(function(tab) {
  
 });
 
-chrome.storage.local.get(['isHome','isSigned'], function(result){
-  chrome.runtime.onStartup.addListener(function() {
-    if (result.isHome && result.isSigned) {
-    chrome.tabs.update({ url: 'chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/new.html' })
+// chrome.storage.local.get(['isHome','isSigned'], function(result){
+//   chrome.runtime.onStartup.addListener(function() {
+//     if (result.isHome && result.isSigned) {
+//     chrome.tabs.update({ url: 'chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/new.html' })
+//     }
+//   })
+// })
+
+chrome.runtime.onStartup.addListener(() => {
+  chrome.storage.local.get(['isHome','isSigned'], function(result){
+    if(result.isHome && result.isSigned){
+      chrome.tabs.update({ url: 'chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/new.html' })
     }
   })
 })
-
-// chrome.storage.local.get(['isHome','isSigned'], function(result){
-//   chrome.windows.onCreated.addListener(function() {
-//     if (result.isHome && result.isSigned) {
-//       chrome.tabs.update({ url: 'chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/new.html' })
-//       }
-// });
-// })
