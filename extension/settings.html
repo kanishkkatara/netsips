@@ -2,9 +2,12 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="images/extension_images/icon_128.png"/>
+<link rel="icon" type="image/png" href="http://netsips.in/images/extension_images/icon_128.png"/>
 	<title>Netsips | Dashboard</title>
 <style>
+::-webkit-scrollbar {
+    display: none;
+}
 html{
   overflow-y:auto;
   height: 100%;
@@ -16,7 +19,7 @@ html{
 }
 @font-face {
  font-family: 'Manrove-cards';
- font-weight:100rem;
+ font-weight:400rem;
  src: url('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/fonts/Manrope-VariableFont_wght.ttf'); 
 }
 
@@ -87,7 +90,8 @@ html{
 /* Style the tab content */
 .tabcontent {
   float: left;
-   background-color: #fff;
+ background-color: #fff;
+
  overflow-y:auto;
   height: 100%;
  /* width: 83%;*/
@@ -148,21 +152,23 @@ font-weight:lighter;
 
 
 #main-heading{
+  padding-top:0px;
   text-align: left;
   font-size:30px;
   font-weight: lighter;
-  background-color: #303030;
-  color:yellow;
+   background-color: white;
+  color:black;
   height:70px;
   justify-content:center;
   align-items:center;
    position: -webkit-sticky;
   position: sticky;
    top: 0; 
-   z-index:98;
- -webkit-box-shadow: 0px 5px 5px -5px rgba(0,0,0,0.75);
+   z-index:97;
+    -webkit-box-shadow: 0px 5px 5px -5px rgba(0,0,0,0.75);
 -moz-box-shadow: 0px 5px 5px -5px rgba(0,0,0,0.75);
 box-shadow: 0px 5px 5px -5px rgba(0,0,0,0.75);
+
  
 }
 #searchBar {
@@ -173,9 +179,9 @@ box-shadow: 0px 5px 5px -5px rgba(0,0,0,0.75);
   padding: 12px 20px 12px 20px;
   border: 1px solid #ddd;
  margin-top: 12.5px;
-  margin-left:390px;
-  width:40%;
-   border-radius:5px;
+  margin-left:260px;
+  width:37%;
+   border-radius:15px;
    display:inline-block;
    background:#f1f1f1
 }
@@ -195,18 +201,19 @@ box-shadow: 0px 5px 5px -5px rgba(0,0,0,0.75);
   font-size: 22px;
  font-family: 'Manrove-tabs';
  background-color: #303030;
+ display:none
 }
 #Netsips-logo-container{
  height:37px;
  width:37px;
  padding:0;
- top:14px;
+ top:13px;
  left:25px;
  position:absolute 
 }
 #dashboard{
-  top:16px;
-  left:73px;
+  top:18px;
+  left:70px;
   position:absolute;
   font-family:'Raleway'
 }
@@ -300,7 +307,8 @@ input[type=checkbox] {
   background-color: #bbb;
 }
 .radio-button input:checked ~ .radio-mark {
-  background-color: yellow;
+  background-color: rgb(177,156,217);
+  color:white;
 }
 .radio-mark:after {
   content: "";
@@ -392,8 +400,8 @@ box-shadow: 0px 3px 5px 0px rgba(153,153,153,1);
   
   margin-top:30px;
   width: 280px; /*250px*/
-  height:350px;/*CHANGE*/
-  background:#white;
+  height:360px;/*CHANGE*/
+  background:#fff;
   overflow:hidden;
   position:relative;
   border-radius:5px;
@@ -409,14 +417,20 @@ box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.8);
 
   justify-content:center;
  text-align:center;
+ margin-bottom:10px;
 
 }
 .card:hover .edit{
   visibility:visible;
-  background:yellow
+  
 }
+.card:hover .topcorner{
+    visibility:visible;
 
+ 
+}
 .card:hover .card_tags{
+  color:rgb(0,0,0);
   border-bottom:1px solid #C8C8C8;
 }
 
@@ -428,11 +442,7 @@ box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.8);
 .card:hover .img-container-tag{
 opacity:0.72
 }
-.card:hover .topcorner{
-    visibility:visible;
-  background:yellow
- 
-}
+
 
 .card:hover .topcorner1{
    visibility:visible;
@@ -496,32 +506,48 @@ transition:0.2s;
 }
 
 .card_title{
+  margin-top:14px!important;
+  color:black;
   overflow:hidden;
   text-overflow:ellipsis;
-  padding:7px 0 12px 0;
+  padding:7px 0 6px 0;
 }
 
-.card_site .card_favicon{
-  
-}
+
 .card_site{
-  padding: 0 0 0 5px;
-  font-size:14px
+  color:#9271c2;
+  margin-left:2px;
+  padding: 0 0 15px 0px;
+  font-size:14px;
+  font-weight: 600!important;
 }
+.card_favicon{
+  margin:7px 0 0 0;
+}
+
+
+.card_date{
+  padding:2.75px 0 0 0;
+  float:right;
+ font-family: 'Manrove-cards';
+ font-size:14px
+
+}
+
 
 .card_tags{
   font-size:14px;
-  padding: 0px 15px 20px 0;
    white-space: nowrap;
   overflow: hidden;
   text-overflow: clip;
-  height:18px;
+  height:20px;
   width:260px; /*230*/
   float:left;
-  top:310px;
+  top:320px;
   /*right:200px;*/
   position:absolute;
- 
+  color:rgb(0,0,0,0.7);
+  bottom:5px;
 
 }
 
@@ -534,7 +560,7 @@ transition:0.2s;
    border-radius: 20%;
   transition:0s;
   cursor:pointer;
-   top:308px;
+   top:318px;
   left:250px;
   position:absolute;
   visibility:hidden;
@@ -568,17 +594,18 @@ transition:0.2s;
 #Tag_search_button_del:focus{
   outline:none;
 }
+
+
 .filter_tags{
-  /*
-  margin: 1% 1.5% 1% 0;*/
   user-select:none;
-   border-radius: 20%;
-   font-size:14px;
-   padding:5px;
-   cursor: pointer;
-   text-align:center;
-   
+  min-width: 150px;
+padding: 10px 10px 10px 10px;
+border-radius: 3px;
+ cursor: pointer;
 }
+
+
+
 #Paris .row{
  margin-left:30px;
 }
@@ -627,13 +654,7 @@ input:focus {
 .card_logo{
   margin-left:-115px
 }
-.card_date{
-  padding:2px 0 0 0;
-  float:right;
- font-family: 'Manrove-cards';
- font-size:14px
 
-}
 #news-content{
   padding-bottom:50px;
 
@@ -650,7 +671,7 @@ dialog{
 .myModal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 98; /* Sit on top */
   padding-top: 100px; /* Location of the box */
   left: 0;
   top: 0;
@@ -848,12 +869,14 @@ position:absolute;*/
    font-family: 'Raleway';
 }
 .profile-picture{
-  height:50px;
-  width:50px;
+  cursor:pointer;
+  height:40px;
+  width:40px;
   float:right;
-  margin: 15px 20px 0px 0;
+  margin: 2px 20px 0px 10px;
   border-radius: 50%
 }
+
 /*OTP*/
 .otpModal {
 display:none;
@@ -937,7 +960,7 @@ border-radius:10px;
 	cursor: pointer;
 	outline: inherit;
   margin-top:40px;
-   background-image:url('images/extension_images/signin_light.png');
+   background-image:url(http://netsips.in/images/extension_images/signin_light.png);
    height:60px;
    width:249px;
   background-size: cover;
@@ -987,25 +1010,84 @@ border-radius:10px;
 #change_number:hover{
    background:#ccc
 }
+
+#dropdown-menu{
+  display:none;
+  border-radius:3px;
+  margin:8px 90px 0 -28px;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-height: 240px;
+  min-width: 230px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-option-area{
+  color: rgb(0,0,0,0.7);
+}
+#dropdown-menu a{
+  text-align:left;
+  font-size:23px;
+  
+  padding: 13px 20px 15px 20px;
+  text-decoration: none;
+  display: block;
+  cursor:pointer;
+  transition:0.2s
+
+}
+#dropdown-menu a:hover {
+   background:#b19cd9;
+  color:rgb(0,0,0);
+  padding-left:25px
+  
+  }
+#dropdown-menu a:hover .dropdown-option-area{
+   
+}
+
+
+#dropdown-menu img{
+  height:18px;
+  margin: 10px 5px 0 0;
+  padding-top: 2px
+}
 /*My CSS ends*/
 
 </style>
 </head>
-<body id="settings-body" style='display:table; height:100%;width:100%'>
+<body id="settings-body" style='display:table; height:100%;width:100%;'>
 <center id="main-heading">
 
  <span id='logo_heading'>
- <span ><img src='images/extension_images/icon_128.png' id="Netsips-logo-container"></span>
+ <span><img src='https://img.techpowerup.org/200709/new-logo.png' id="Netsips-logo-container"></span>
  
- <span id='dashboard'> netsips | dashboard</span>
+ <span id='dashboard'>netsips </span>
  </span>
 
- <span> <input type="text" id="searchBar" placeholder="Search for bookmarks" title=""></span>
+ <span> <input type="text" id="searchBar" placeholder="Search for bookmarks by title" title=""></span>
  <span id='toggle-container'>
-<span> <button class="tablinks" value = "Paris" id="saved-btn"><img src='images/extension_images/bookmark-w.svg' class='menu_icons' aria-label="Bookmarks"></button></span>
- <span> <button class="tablinks" value="London" id='sc'><img src='images/extension_images/settings-w.svg' class='menu_icons' aria-label="Settings"></button></span>
- <span>  <button class="tablinks" value="Rome" id='archived'><img src='images/extension_images/archived-w.svg' class='menu_icons' aria-label="Archive"></button></span>
- <span><button class="tablinks" id="SignOut"><img src='images/extension_images/exit-w.svg' class='menu_icons' aria-label="Sign out"></button></span> 
+<span id='user-name'></span>
+<span>
+<img class='profile-picture'>
+<div id='dropdown-menu'>
+<div class='dropdown-option-area'><a id='saved-btn' style='font-weight:50px;'><img src='https://img.techpowerup.org/200704/bookmark-1.png'> bookmarks</a></div>
+<div class='dropdown-option-area'><a id='archived'><img src='https://img.techpowerup.org/200704/box.png'> archive</a></div>
+<div class='dropdown-option-area'><a id='sc'><img src='https://img.techpowerup.org/200704/settings.png'> settings</a></div>
+<div class='dropdown-option-area'><a id="SignOut"><img src='https://img.techpowerup.org/200704/logout.png'> signout</a></div>
+</div>
+
+
+
+</span>
+
+
+<span> <button class="tablinks" value = "Paris" id="saved-btn"><img src='http://netsips.in/images/extension_images/bookmark-w.svg' class='menu_icons' aria-label="Bookmarks"></button></span>
+ <span> <button class="tablinks" value="London" id='sc'><img src='http://netsips.in/images/extension_images/settings-w.svg' class='menu_icons' aria-label="Settings"></button></span>
+ <span>  <button class="tablinks" value="Rome" id='archived'><img src='http://netsips.in/images/extension_images/archived-w.svg' class='menu_icons' aria-label="Archive"></button></span>
+ <span><button class="tablinks" id="SignOut"><img src='http://netsips.in/images/extension_images/exit-w.svg' class='menu_icons' aria-label="Sign out"></button></span> 
+ 
  </span>
   </center> 
 <div class="tab" >
@@ -1034,7 +1116,7 @@ border-radius:10px;
 
 <div class="row" id="deleted-content">
 
-<center style="margin:40px 40px 40px 0px;font-family: 'Manrove-tabs';font-size:20px;color:#202020"><img src='images/extension_images/load.gif'></center>
+<center style="margin:40px 40px 40px 0px;font-family: 'Manrove-tabs';font-size:20px;color:#202020"><img src='http://netsips.in/images/extension_images/load.gif'></center>
 
 </div>
 </div>
@@ -1056,13 +1138,13 @@ $$$
 
 <p style="word-break: break-all;line-height:3;margin-left:30px;margin-right:50px"><input type='text' id='tagSearch'/><span id="span_container" style="margin-left:0px;"></span>
 </p>-->
-<p style="line-height:3;margin-left:30px;margin-right:30px;"><input type='text'id='tagSearch' placeholder='Filter using tags'/><span id="span_container" style="margin-left:0px"></span>
+<p style="line-height:3;margin-left:30px;margin-right:30px;"><input type='text'id='tagSearch' placeholder='Filter using tags' style='display:none'/><span id="span_container" style="margin-left:0px"></span>
 
 </p>
-
+<div style='margin:20px 0 20px 30px;font-weight:lighter; font-size:25px;'>Your bookmarks</div>
 <div class="row" id="news-content">
 <center style="margin:40px 40px 40px 0px;font-family: 'Manrove-tabs';font-size:20px;color:#202020;">
-<img src='images/extension_images/load.gif'>
+<img src='http://netsips.in/images/extension_images/load.gif'>
 </center>
 </div>
 <!--
@@ -1087,7 +1169,7 @@ $$$
 <div class='signModal'>
 <div class='signModalContent'>
 <div id='signInText'>
-<span><img src="images/extension_images/grey_netsips.svg" id="Netsips-img"></span>
+<span><img src="http://netsips.in/images/extension_images/grey_netsips.svg" id="Netsips-img"></span>
 <p style="font-family: 'Manrove-tabs';font-size:20px;color:#202020">
 For a new web browsing experience
 </p>
@@ -1216,7 +1298,7 @@ Enter verification code
   </label>
   </p>
   
-  <input type="submit" value="Save settings" id="submit-button">
+  <input type="submit" value="Set days" id="submit-button">
 </form>
 
 
@@ -1279,8 +1361,8 @@ Enter verification code
 
 
 
-
-<div>
+<!--DARK MODE SWITCH-->
+<div style='display:none'>
 <span id="dark_mode_switch">
 <div style="font-size:25px;font-family: 'Manrove-label';padding:25px;margin-left:10px">Dark Theme</div>
    <label class="switch" style='margin-left:35px'>
