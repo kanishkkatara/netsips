@@ -92,7 +92,7 @@ let db_store = firebase.firestore()
          if(main_site_name == undefined){
            main_site_name = ''
          }
-          document.getElementById('news-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner'><img src='images/extension_images/archive-grey.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags' style='overflow:hidden;text-overflow:ellipsis;margin-right:10px'>${link_tag_name}</span><span><img src='images/extension_images/edit.png' class='edit'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
+          document.getElementById('news-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner'><img src='http://netsips.in/images/extension_images/archive-grey.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags' style='overflow:hidden;text-overflow:ellipsis;margin-right:10px'>${link_tag_name}</span><span><img src='http://netsips.in/images/extension_images/edit.png' class='edit'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
           markers.push(link_tag_name)
           sources.push(main_site_name)
         }
@@ -198,10 +198,14 @@ document.getElementById('signinbtn').addEventListener('click', function(){
     chrome.storage.local.set({isSigned: true}, function() {
     });
     chrome.browserAction.setPopup({popup: "popup_main.html"});
+    
+    document.getElementById('user-name').innerHTML = "hello, " + result.user.displayName.split(' ')[0].toLowerCase()
     var email =  result.user.email
     var value = result.user.uid
     var profile_picture = result.user.photoURL
+    var username = "hello, " + result.user.displayName.split(' ')[0].toLowerCase()
     var new_user  = result.additionalUserInfo.isNewUser
+    chrome.storage.local.set({username: username})
     chrome.storage.local.set({isNew: new_user}) 
     chrome.storage.local.set({isDark: false})
     chrome.storage.local.set({userEmail: email})
@@ -279,7 +283,7 @@ let photo_link
             // if(img=='' || undefined || null){
             //   img = `https://api.apiflash.com/v1/urltoimage?access_key=996f192584b4414bac444ad540480b3d&format=png&no_ads=true&url=${url}&height=800&width=1000`
             // } 
-            document.getElementById('news-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner'><img src='images/extension_images/archive-grey.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags'>${link_tag_name}</span><span><img src='images/extension_images/edit.png' class='edit'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
+            document.getElementById('news-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner'><img src='http://netsips.in/images/extension_images/archive-grey.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags'>${link_tag_name}</span><span><img src='http://netsips.in/images/extension_images/edit.png' class='edit'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
             markers.push(link_tag_name)
             sources.push(main_site_name)
           }
@@ -496,7 +500,7 @@ const render_deleted = ()=>{
         // if(img=='' || undefined){
         //   img = `https://ui-avatars.com/api/?background=ccc&color=202020&size=250&name=`+title 
         // }
-        document.getElementById('deleted-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner1'><img src='images/extension_images/delete.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags' style='display:none'>${link_tag_name}</span><span><img src='images/extension_images/restore.svg' class='edit1'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`
+        document.getElementById('deleted-content').innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner1'><img src='http://netsips.in/images/extension_images/delete.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags' style='display:none'>${link_tag_name}</span><span><img src='http://netsips.in/images/extension_images/restore.svg' class='edit1'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`
               }
             }
             
@@ -576,7 +580,10 @@ var photo_link
   }
 });
 
-
+var un = document.getElementById('user-name')
+chrome.storage.local.get(['username'], function(result){
+  un.innerHTML = result.username
+})
 
 //SIDEMENU//
 //PARIS - SAVED MENU
@@ -625,6 +632,7 @@ document.getElementById("SignOut").addEventListener('click', function(){
   //   });
       //  {'uid':value,'email':  email, 'days':"6", 'isNew': new_user, 'isSigned':true}
     document.getElementById('Paris').innerHTML = ''
+    document.title = 'Signing out...'
     chrome.browserAction.setPopup({popup: "popup.html"});
     chrome.storage.local.set({isSigned: false}, function() {
     });
@@ -635,8 +643,13 @@ document.getElementById("SignOut").addEventListener('click', function(){
     // for(let i=0;i<p.length;i++){
     //   p[i].style.display = "none"
     // }
-    // chrome.storage.local.set({profile_pic: ''}, function() {
-    // });
+    chrome.storage.local.set({profile_pic: ''})
+    let p = document.getElementsByClassName('profile-picture')
+    for(let i=0;i<p.length;i++){
+      p[i].style.display = "none"
+    }
+     chrome.storage.local.set({username: ''})
+     document.getElementById('user-name').innerHTML = ''
     setTimeout(function(){ 
     //  document.getElementsByClassName("signModal")[0].style.display = "block" 
       window.close('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/settings.html') 
@@ -819,7 +832,7 @@ function activeTag(){
   chrome.storage.local.get(['isDark'], function(result) {
     if(result.isDark){
       if(x.style.backgroundColor == "rgb(76, 78, 77)"){
-        x.style.backgroundColor = "rgb(255, 255, 0)" 
+        x.style.backgroundColor = "rgb(177, 156, 217)" 
         x.style.color = "rgb(0, 0, 0)" // the rgb value string is sensitive to spaces
         filter_tag_collector()
       }
@@ -830,11 +843,13 @@ function activeTag(){
       }
     }else{
       if(x.style.backgroundColor == "rgb(241, 241, 241)"){
-        x.style.backgroundColor = "rgb(255, 255, 0)" // the rgb value string is sensitive to spaces
+        x.style.backgroundColor = "rgb(177, 156, 217)" // the rgb value string is sensitive to spaces
+        x.style.color = "rgb(255, 255, 255)"
         filter_tag_collector()
       }
       else{
         x.style.backgroundColor = "rgb(241,241,241)"
+        x.style.color = "rgb(0, 0, 0)"
         filter_tag_collector()
       }
     }
@@ -849,7 +864,7 @@ function filter_tag_collector(){
   var tag_spans = document.getElementsByClassName("filter_tags")
   var filter_tags = []
   for(var i=0;i<tag_spans.length;i++){
-   if(tag_spans[i].style.backgroundColor=="rgb(255, 255, 0)"){
+   if(tag_spans[i].style.backgroundColor=="rgb(177, 156, 217)"){
         filter_tags.push(tag_spans[i].innerText)
    }
   }
@@ -1086,8 +1101,16 @@ document.getElementById('home_mode_checkbox').addEventListener('change', functio
 })
 
 
-
-
+//DROPDOWN
+// profile-picture
+document.getElementsByClassName('profile-picture')[0].addEventListener('click', function(){
+  if(document.getElementById('dropdown-menu').style.display == 'block'){
+    document.getElementById('dropdown-menu').style.display = 'none'
+  }else{
+    document.getElementById('dropdown-menu').style.display = 'block'
+  }
+  
+})
 
 
 //See you later...//
