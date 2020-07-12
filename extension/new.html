@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png"/>
+<link rel="icon" type="image/png" href="http://netsips.in/images/extension_images/icon.svg"/>
 	<title>New Tab </title>
 <style>
 html{
@@ -16,6 +16,10 @@ body{
  font-family: 'Raleway';
 
  src: url('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/fonts/Raleway-Regular.ttf'); 
+}
+@font-face {
+ font-family: 'worksans';
+ src: url('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/fonts/WorkSans-VariableFont_wght.ttf'); 
 }
 @font-face {
  font-family: 'Manrove-cards';
@@ -63,30 +67,6 @@ body{
 */
 /* Create an active/current "tab button" class 
 
-/*Dark tablink*/
-
-.darktablinks {
-  display: block;
-  background-color: #242424;
-  color: rgba(255, 255, 255, 0.7);
-  padding: 8px;
-  width: 100%;
-  border: none;
-  outline: none;
-  text-align: center;
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 22px;
- font-family: 'Manrove-tabs';
-}
-
-/* Change background color of buttons on hover */
-.darktablinks:hover {
-  background-color:#171717;
-}
-
-
-
 /* Style the tab content */
 .tabcontent {
   float: left;
@@ -116,39 +96,6 @@ margin:0;
 /*My CSS*/
 
 
-#Netsips{
-  text-align: left;
-font-size:60px;
-  color:#4c4e4d;
-  margin-bottom: 0px;
-  height:100px;
-  -webkit-user-select: none;      
--moz-user-select: none; 
--ms-user-select: none; 
-user-select: none; 
-font-weight:lighter;
-
-}
-#Netsips div{
-  margin-left: 30px;
-  padding-bottom:20px;
- 
-}
-
-#Netsips-img{
- 
-  height:50px;
-  color:#4c4e4d;
-  padding-bottom:5px;
-  
-}
-
-#Netsips-img-round{
-  height:50px;
-
-}
-
-
 .tablinks {
   height:50px;
   width:50px;
@@ -167,19 +114,13 @@ font-weight:lighter;
  background-color: rgb(48, 48, 48,0);
 
 }
-#Netsips-logo-container{
- height:37px;
- width:37px;
- padding:0;
- top:14px;
- left:25px;
- position:absolute 
-}
+
 #dashboard{
   top:16px;
-  left:73px;
+  left:30px;
   position:absolute;
-  font-family:'Raleway'
+  font-family:'worksans';
+  color:#f1f1f1
 }
 .menu_icons{
   width:40px
@@ -194,129 +135,6 @@ font-weight:lighter;
 }
 
 
-
-#tagSearch{
-
-border: 0;
-border-bottom: 2px solid #303030;
-  outline: 0;
-width: 15%; /*100%
-top:80px;
-right:20px;
-position:absolute;*/ 
-margin:8px 20px 10px 0px;
-padding: 8px;
-background-repeat: no-repeat;
- border-radius:2px;
-    display:inline-block;
-    font-size: 16px;
-    background:#f1f1f1
-
-}
-
-.tags{
-  height:30px;
-width: 100%;
-padding:5px 5px 5px 7px;
-border-bottom: 1px solid #ddd;
- font-size: 16px;
- cursor:pointer;
- opacity:0.9;
- transition:0.1s;
-}
-
-.tags:hover{
-  opacity:1
-}
-
-
-
-
-#submit-settings{
-  margin-left:30px;
-  font-size: 35px;
-  font-weight: 100;
-}
-#days-menu{
-  font-size: 20px;
-  margin-left: 10px;
-}
- .radio-button { 
-            display: block; 
-            
-            cursor: pointer; 
-   
-        } 
-input[type=radio] { 
-            visibility: hidden; 
-        } 
-input[type=checkbox] { 
-            visibility: hidden; 
-        } 
-.radio-mark { 
-            position: absolute; 
-            margin-top: 17px;
-            margin-left:-20px;
-           
-            height: 25px; 
-            width: 25px; 
-          background-color: #ddd; 
-        } 
-.label-text{
-  padding: 20px;
-  font-size:25px;
-  font-family: "Manrove-label"
-  
-}
-.radio-button:hover input ~ .radio-mark {
-  background-color: #bbb;
-}
-.radio-button input:checked ~ .radio-mark {
-  background-color: yellow;
-}
-.radio-mark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-.radio-button input:checked ~ .radio-mark:after {
-  display: block;
-}
-.radio-button .radio-mark:after {
-  left: 9px;
-  top: 5px;
-  width: 5px;
-  height: 10px;
-  border: solid #4c4e4d;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
-#question{
-  margin-left:30px;
-  font-size: 28px;
-  font-family: 'Manrove-tabs'
-}
-#submit-button{
-        text-align:center;
-        border-radius: 5px;
-        width: 200px;
-        height:38px;
-        margin-top: 30px;
-        background: white;
-        transition: 0.3s;
-        font-size: 20px;
-        font-weight: 100;
-       
-      
-}
- #submit-button:hover{
-           -webkit-box-shadow: 0px 3px 5px 0px rgba(153,153,153,1);
--moz-box-shadow: 0px 3px 5px 0px rgba(153,153,153,1);
-box-shadow: 0px 3px 5px 0px rgba(153,153,153,1);
-  cursor: pointer;
-      }
 
 
 /* Float four columns side by side */
@@ -384,7 +202,7 @@ box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.8);
 }
 .card:hover .edit{
   visibility:visible;
-  background:yellow
+ 
 }
 
 .card:hover .card_tags{
@@ -393,7 +211,7 @@ box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.8);
 
 .card:hover .edit1{
   visibility:visible;
-   background:yellow
+  
 }
 
 .card:hover .img-container-tag{
@@ -401,13 +219,13 @@ opacity:0.72
 }
 .card:hover .topcorner{
     visibility:visible;
-  background:yellow
+ 
  
 }
 
 .card:hover .topcorner1{
    visibility:visible;
-  background:yellow
+ 
 }
 
 
@@ -518,45 +336,12 @@ transition:0.2s;
   
 }
 
-#Tag_search_button_del{
-   margin-left:30px;
-     transition: 0.2s;
-  border: none;
-   color:#4c4e4d;
-  padding: 8px 22px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-   font-weight: lighter;
-   border-radius:5px
 
-}
-#Tag_search_button_del:hover{
-    background-color: #DC143C;
-    color:white;
-}
-#Tag_search_button_del:focus{
-  outline:none;
-}
-.filter_tags{
-  /*
-  margin: 1% 1.5% 1% 0;*/
-  user-select:none;
-   border-radius: 20%;
-   font-size:14px;
-   padding:5px;
-   cursor: pointer;
-   text-align:center;
-   
-}
 #Paris .row{
  margin-left:30px;
 }
 
-#Rome .row{
- margin-left:30px;
-}
+
 a { color: inherit; text-decoration:none } 
 input:focus {
     outline:none;
@@ -587,11 +372,6 @@ input:focus {
  }
 
 
-  .saved_article_titles{
-    margin-top:22px;
-    margin-right:10px;
-    opacity:1
-  }
 .card_date .card_logo{
   display:inline-block
 }
@@ -609,355 +389,10 @@ input:focus {
   padding-bottom:40px;
 
 }
-#deleted-content{
-  padding-bottom:50px;
-}
-dialog{
-  margin-left:700px;
- 
-}
 
 
-.myModal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */;
-}
-
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  width: 30%;
-  height:170px;
-  border-radius:10px;
-  text-align:center;
- 
-}
-
-/* The Close Button */
-#close_modal {
-  color: #aaaaaa;
-  float: right;
-  font-size: 22px;
-  margin: -20px -10px 0px -10px ;
-  top:0;
-  right:0;
- 
-}
-#close_modal_wa{
-    color: #aaaaaa;
-  float: right;
-  font-size: 22px;
-  margin: -10px 0px 0px -10px ;
-  top:0;
-  right:0;
- 
-}
-
-#close_modal:hover,
-#close_modal:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-#close_modal_wa:hover,
-#close_modal_wa:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
 
 
-.filter_tags :focus{
-  background-color:yellow
-}
-
-#tag_input{
-padding: 6px 15px 6px 8px;
- border-radius:10px;
-  border: 1px solid #ddd;
-  width: 350px;
- font-size:15px;
-  border-style: solid
-}
-
-#make_changes_input{
-    border-radius:10px;
-     transition: 0.2s;
-  border: none;
-   color:#4c4e4d;
-  padding: 10px 22px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-   font-weight: lighter;
-   width: 200px;
-   cursor:pointer;
-}
-
-#make_changes_input:hover{
-    background-color: #202020;
-    color:yellow;
-}
-#make_changes_input:focus{
-  outline:none;
-}
-
-/*SWITCH CSS*/
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-  
-}
-
-.switch input { 
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #4c4e4d;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #4c4e4d;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-#dark_mode_switch{   
-}
-.wa-radio-mark { 
-            position: absolute; 
-            margin-top: 17px;
-            margin-left:-20px;
-           
-            height: 25px; 
-            width: 25px; 
-          background-color: #ddd; 
-        } 
-#whatsapp-input{
-  margin:10px 0 0 0;
-  font-size:16px;
-  border-radius:2px;
-  padding:10px;
-  border:1px solid #303030
-}
-#otp{
-  font-size:16px;
-  padding:7px;
-  cursor:pointer;
-  margin-top:20px
-}
-
-#recaptcha{
-   margin-left:26px;
-}
-#span_container{
-  font-family: 'Raleway';
-  /*CHANGE
-  top:100px;
-  left:100px;
-position:absolute;*/
-
-
-   
-  
-}
-
-#span_container_2{
-   font-family: 'Raleway';
-}
-.profile-picture{
-  height:50px;
-  width:50px;
-  float:right;
-  margin: 15px 20px 0px 0;
-  border-radius: 50%
-}
-/*OTP*/
-.otpModal {
-display:none;
- /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 99; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.6); /* Black w/ opacity */;
-}
-.otpModalContent {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 5px;
-  width: 25%;
-  height:200px;
-  border-radius:10px;
-  text-align:center;
- 
-}
-#otpText{
-  margin-top:30px;
-}
-#otpinput{
-  font-size:16px;
-  margin:25px 0 0 0;
-  padding:5px
-}
-#Verify{
-  margin:20px 0 0 0;
-  font-size: 15px;
-  padding:8px;
-  border:none;
-  cursor:pointer
-}
-
-#whatsapp-input-div{
-  margin-top:30px;
-}
-/*SIGNUP MODAL*/
-.signModal {
-  display:none;
- /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 99; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.6); /* Black w/ opacity */;
-}
-.signModalContent {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  width: 30%;
-  height:270px;
-  border-radius:10px;
-  text-align:center;
- 
-}
-#signin{
-   width:220px
-}
-#signInText{
-  margin-top:30px
-}
-#signinbtn{
-border: none;
-border-radius:10px;
-	padding: 0px;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
-  margin-top:40px;
-   background-image:url('images/extension_images/signin_light.png');
-   height:60px;
-   width:249px;
-  background-size: cover;
-  display:inline-block;
-  transition:0.4s;
-}
-#signinbtn:hover{
-  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
-}
-#isWhatsApp{
-  margin-left:11px;
-  display:inline-block
-  
-}
-#whatsapp_text{
-     margin-top:13px;
-   margin-left:20px;
-    display:inline-block
-}
-#number_holder{
-    margin:10px 0 0 52px;
-    background-position: 10px 12px;
-  background-repeat: no-repeat;
-  font-size: 16px;
-  padding: 8px 10px 8px 10px;
-  border: 1px solid #ddd;
-
-  width:13%;
-   border-radius:5px;
-   display:inline-block;
-   background:#f1f1f1
-}
-#change_number{
-     margin-left:25px;
-     transition: 0.2s;
-  border: none;
-   color:#4c4e4d;
-  padding: 8px 22px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-   font-weight: lighter;
-   border-radius:5px;
-   cursor:pointer
-}
-#change_number:hover{
-   background:#ccc
-}
 #brand-logos{
   display:flex;
   justify-content: center;
@@ -1149,7 +584,7 @@ button:focus {outline:0;}
 <center id="main-heading">
 
  <span id='logo_heading' >
- <span ><img src='images/extension_images/icon_128.png' id="Netsips-logo-container" ></span>
+
  
  <span id='dashboard'> netsips </span>
  </span>
@@ -1163,7 +598,7 @@ button:focus {outline:0;}
 
 <img id='google-icon' src='https://cdn.worldvectorlogo.com/logos/google-g-2015.svg'>
 <input type="text" id="searchBar" placeholder="Google Search" title="" required="required">
-<button id='gsearch' type="submit"><img id ='searchimg'src='images/extension_images/search.png'></button>
+<button id='gsearch' type="submit"><img id ='searchimg'src='http://netsips.in/images/extension_images/search.png'></button>
 
 
 </span>
@@ -1171,7 +606,7 @@ button:focus {outline:0;}
  <span>
   <span id='toggle-container'>
  <span> 
- <button class="tablinks" value="London" id='sc'  title="Settings"><img src='images/extension_images/menu_icon.svg' class='menu_icons'></button></span>
+ <button class="tablinks" value="London" id='sc'  title="Open dashboard"><img src='http://netsips.in/images/extension_images/bookmark-w.svg' class='menu_icons'></button></span>
   </span>
 
 </span>
@@ -1179,10 +614,7 @@ button:focus {outline:0;}
  
   </center> 
 <div class="tab" >
-<!--
-<input type='text' id='tagSearch' placeholder='Filter using tags'>
-<div id='tagContainer'>
-</div>-->
+
 
 </div>
 
@@ -1206,13 +638,13 @@ button:focus {outline:0;}
 <input type='text'id='bookmarkSearch' placeholder='Search for bookmarks' style='display:none'/>
 </div>
 
-<p style="line-height:3;margin-left:30px;margin-right:30px;"><input type='text' style='display:none' id='tagSearch' placeholder='Filter using tags'/><span id="span_container" style="margin-left:0px"></span>
 
 </p>
 <div style="font-family:'Manrove-tabs';color:#f1f1f1; font-size:20px;margin-left:30px;" id='recents'>Recent bookmarks</div>
+
 <div class="row" id="news-content">
 <center style="margin:40px 40px 40px 0px;font-family: 'Manrove-tabs';font-size:20px;color:#202020;">
-<img src='images/extension_images/load.gif'>
+<img src='http://netsips.in/images/extension_images/load.gif'>
 </center>
 </div>
 

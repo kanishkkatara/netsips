@@ -94,12 +94,12 @@ document.getElementById('drop-menu').addEventListener('click', checkdropy)
 function checkdropy(){  
   if(document.getElementById('recent-container').style.display =='block'){
     document.getElementById('recent-container').style.display ='none'
-document.getElementById('up-icon').src = 'images/extension_images/arrow-down.svg'
+document.getElementById('up-icon').src = 'http://netsips.in/images/extension_images/arrow-down.svg'
 //chrome.storage.local.set({recentIsOpen:false})
   }
     else{
       document.getElementById('recent-container').style.display ='block'
-      document.getElementById('up-icon').src = 'images/extension_images/arrow-up.svg'
+      document.getElementById('up-icon').src = 'http://netsips.in/images/extension_images/arrow-up.svg'
   //    chrome.storage.local.set({recentIsOpen:true})
     }
 }
@@ -110,10 +110,10 @@ window.addEventListener('load', function(){
   chrome.storage.local.get(['recentisOpen'], function(result) {
   if(result.recentIsOpen){
     document.getElementById('recent-container').style.display ='block'
-    document.getElementById('up-icon').src = 'images/extension_images/arrow-up.svg'
+    document.getElementById('up-icon').src = 'http://netsips.in/images/extension_images/arrow-up.svg'
   }else{
     document.getElementById('recent-container').style.display ='none'
-    document.getElementById('up-icon').src = 'images/extension_images/arrow-down.svg'
+    document.getElementById('up-icon').src = 'http://netsips.in/images/extension_images/arrow-down.svg'
   }})
   
 })

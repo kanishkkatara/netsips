@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="http://netsips.in/images/extension_images/icon_128.png"/>
+<link rel="icon" type="image/png" href="http://netsips.in/images/extension_images/icon.svg"/>
 	<title>Netsips | Dashboard</title>
 <style>
 ::-webkit-scrollbar {
@@ -16,6 +16,14 @@ html{
  font-family: 'Raleway';
 
  src: url('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/fonts/Raleway-Regular.ttf'); 
+}
+@font-face {
+ font-family: 'worksans';
+ src: url('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/fonts/WorkSans-VariableFont_wght.ttf'); 
+}
+@font-face {
+ font-family: 'tisa';
+ src: url('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/fonts/tisa.ttf'); 
 }
 @font-face {
  font-family: 'Manrove-cards';
@@ -90,13 +98,13 @@ html{
 /* Style the tab content */
 .tabcontent {
   float: left;
- background-color: #fff;
+background:#f2f2f2;
 
  overflow-y:auto;
   height: 100%;
  /* width: 83%;*/
  width:100%;
-  margin-top:20px
+  padding-top:20px
  
 }
 
@@ -176,14 +184,21 @@ box-shadow: 0px 5px 5px -5px rgba(0,0,0,0.75);
   background-repeat: no-repeat;
   width: 100%;
   font-size: 16px;
-  padding: 12px 20px 12px 20px;
+  padding: 12px 20px 12px 45px;
   border: 1px solid #ddd;
  margin-top: 12.5px;
   margin-left:260px;
   width:37%;
-   border-radius:15px;
+   border-radius:25px;
    display:inline-block;
    background:#f1f1f1
+}
+#searchIcon{
+  position:absolute;
+    height:20px;
+     margin-top:3px; 
+     top:22px;
+     left:275px;
 }
 .tablinks {
   height:50px;
@@ -212,10 +227,11 @@ box-shadow: 0px 5px 5px -5px rgba(0,0,0,0.75);
  position:absolute 
 }
 #dashboard{
-  top:18px;
+  top:14px; /*18px*/
   left:70px;
   position:absolute;
-  font-family:'Raleway'
+  font-size:30px;
+  font-family: 'worksans';
 }
 .menu_icons{
   width:40px
@@ -307,7 +323,7 @@ input[type=checkbox] {
   background-color: #bbb;
 }
 .radio-button input:checked ~ .radio-mark {
-  background-color: rgb(177,156,217);
+  background-color: #ccc;
   color:white;
 }
 .radio-mark:after {
@@ -323,7 +339,7 @@ input[type=checkbox] {
   top: 5px;
   width: 5px;
   height: 10px;
-  border: solid #4c4e4d;
+  border: solid #371777;
   border-width: 0 3px 3px 0;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
@@ -344,15 +360,9 @@ input[type=checkbox] {
         transition: 0.3s;
         font-size: 20px;
         font-weight: 100;
-       
-      
+        cursor:pointer;             
 }
- #submit-button:hover{
-           -webkit-box-shadow: 0px 3px 5px 0px rgba(153,153,153,1);
--moz-box-shadow: 0px 3px 5px 0px rgba(153,153,153,1);
-box-shadow: 0px 3px 5px 0px rgba(153,153,153,1);
-  cursor: pointer;
-      }
+
 
 
 /* Float four columns side by side */
@@ -360,7 +370,7 @@ box-shadow: 0px 3px 5px 0px rgba(153,153,153,1);
  float: left;
   width: 20%;
   padding: 0 ;
-  margin-right:50px;
+  margin-right:60px;
   margin-bottom:0px;
   margin-top:0px;
   
@@ -436,7 +446,7 @@ box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.8);
 
 .card:hover .edit1{
   visibility:visible;
-   background:yellow
+
 }
 
 .card:hover .img-container-tag{
@@ -446,7 +456,7 @@ opacity:0.72
 
 .card:hover .topcorner1{
    visibility:visible;
-  background:yellow
+ 
 }
 
 
@@ -506,16 +516,18 @@ transition:0.2s;
 }
 
 .card_title{
+     font-family: 'arial'; 
   margin-top:14px!important;
-  color:black;
+  color:rgb(0,0,0,0.8);
   overflow:hidden;
   text-overflow:ellipsis;
   padding:7px 0 6px 0;
+  font-weight:400!important;
 }
 
 
 .card_site{
-  color:#9271c2;
+  color:#6534ac;
   margin-left:2px;
   padding: 0 0 15px 0px;
   font-size:14px;
@@ -574,9 +586,9 @@ transition:0.2s;
 }
 
 #Tag_search_button_del{
-   margin-left:30px;
+   margin-left:72px;
      transition: 0.2s;
-  border: none;
+  border: 0.6px solid #D3D3D3;
    color:#4c4e4d;
   padding: 8px 22px;
   text-align: center;
@@ -584,7 +596,8 @@ transition:0.2s;
   display: inline-block;
   font-size: 16px;
    font-weight: lighter;
-   border-radius:5px
+   border-radius:5px;
+
 
 }
 #Tag_search_button_del:hover{
@@ -597,21 +610,26 @@ transition:0.2s;
 
 
 .filter_tags{
+  border:0.6px solid #D3D3D3;
   user-select:none;
   min-width: 150px;
 padding: 10px 10px 10px 10px;
 border-radius: 3px;
  cursor: pointer;
+ transition:0.1s
 }
 
-
+.filter_tags:hover{
+  border:0.6px solid 	#A9A9A9;
+}
 
 #Paris .row{
- margin-left:30px;
+ margin-left:55px;
+ 
 }
 
 #Rome .row{
- margin-left:30px;
+margin-left:70px;
 }
 a { color: inherit; text-decoration:none } 
 input:focus {
@@ -624,7 +642,7 @@ input:focus {
 
 .edit1:hover{
  border-radius: 20%;
- background: rgba(0, 255, 0, 0.5)
+ 
   }
  .edit1{
    height:25px;
@@ -686,9 +704,9 @@ dialog{
 .modal-content {
   background-color: #fefefe;
   margin: auto;
-  padding: 20px;
+  padding: 20px 20px 3% 20px;
   width: 30%;
-  height:170px;
+  height:35%;
   border-radius:10px;
   text-align:center;
  
@@ -733,7 +751,8 @@ dialog{
 }
 
 #tag_input{
-padding: 6px 15px 6px 8px;
+margin-top:5px;  
+padding: 6px 15px 6px 10px;
  border-radius:10px;
   border: 1px solid #ddd;
   width: 350px;
@@ -742,10 +761,12 @@ padding: 6px 15px 6px 8px;
 }
 
 #make_changes_input{
+  margin-top:6px;
+  background-color: #6534ac;
     border-radius:10px;
      transition: 0.2s;
   border: none;
-   color:#4c4e4d;
+   color:#fff;
   padding: 10px 22px;
   text-align: center;
   text-decoration: none;
@@ -757,8 +778,7 @@ padding: 6px 15px 6px 8px;
 }
 
 #make_changes_input:hover{
-    background-color: #202020;
-    color:yellow;
+    background-color: #371777;
 }
 #make_changes_input:focus{
   outline:none;
@@ -804,11 +824,11 @@ padding: 6px 15px 6px 8px;
 }
 
 input:checked + .slider {
-  background-color: #4c4e4d;
+  background-color: #371777;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #4c4e4d;
+  box-shadow: 0 0 1px #371777;
 }
 
 input:checked + .slider:before {
@@ -953,6 +973,7 @@ display:none;
   margin-top:30px
 }
 #signinbtn{
+  background:white;
 border: none;
 border-radius:10px;
 	padding: 0px;
@@ -967,9 +988,7 @@ border-radius:10px;
   display:inline-block;
   transition:0.4s;
 }
-#signinbtn:hover{
-  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
-}
+
 #isWhatsApp{
   margin-left:11px;
   display:inline-block
@@ -1043,8 +1062,7 @@ border-radius:10px;
   padding-left:25px
   
   }
-#dropdown-menu a:hover .dropdown-option-area{
-   
+#dropdown-menu a:hover .dropdown-option-area{   
 }
 
 
@@ -1053,7 +1071,11 @@ border-radius:10px;
   margin: 10px 5px 0 0;
   padding-top: 2px
 }
-/*My CSS ends*/
+/*
+.profile-picture:hover #dropdown-menu{
+  display:block
+}
+My CSS ends*/
 
 </style>
 </head>
@@ -1061,12 +1083,12 @@ border-radius:10px;
 <center id="main-heading">
 
  <span id='logo_heading'>
- <span><img src='https://img.techpowerup.org/200709/new-logo.png' id="Netsips-logo-container"></span>
+ <span><img src='http://netsips.in/images/extension_images/icon.svg' id="Netsips-logo-container"></span>
  
  <span id='dashboard'>netsips </span>
  </span>
 
- <span> <input type="text" id="searchBar" placeholder="Search for bookmarks by title" title=""></span>
+ <span><img src='http://netsips.in/images/extension_images/search.png' id='searchIcon'> <input type="text" id="searchBar" placeholder="Search for bookmarks by title" title=""></span>
  <span id='toggle-container'>
 <span id='user-name'></span>
 <span>
@@ -1116,7 +1138,7 @@ border-radius:10px;
 
 <div class="row" id="deleted-content">
 
-<center style="margin:40px 40px 40px 0px;font-family: 'Manrove-tabs';font-size:20px;color:#202020"><img src='http://netsips.in/images/extension_images/load.gif'></center>
+<center style="margin:40px 40px 40px 0px;font-family: 'Manrove-tabs';font-size:20px;color:#202020"><img src='https://img.techpowerup.org/200712/ripple.gif'></center>
 
 </div>
 </div>
@@ -1138,13 +1160,13 @@ $$$
 
 <p style="word-break: break-all;line-height:3;margin-left:30px;margin-right:50px"><input type='text' id='tagSearch'/><span id="span_container" style="margin-left:0px;"></span>
 </p>-->
-<p style="line-height:3;margin-left:30px;margin-right:30px;"><input type='text'id='tagSearch' placeholder='Filter using tags' style='display:none'/><span id="span_container" style="margin-left:0px"></span>
+<p style="line-height:3;margin-left:55px;margin-right:30px;"><input type='text'id='tagSearch' placeholder='Filter using tags' style='display:none'/><span id="span_container" style="margin-left:0px"></span>
 
 </p>
-<div style='margin:20px 0 20px 30px;font-weight:lighter; font-size:25px;'>Your bookmarks</div>
+<div style='margin:22px 0 8px 55px;font-weight:lighter; font-size:25px;'>Your bookmarks</div>
 <div class="row" id="news-content">
 <center style="margin:40px 40px 40px 0px;font-family: 'Manrove-tabs';font-size:20px;color:#202020;">
-<img src='http://netsips.in/images/extension_images/load.gif'>
+<img src='https://img.techpowerup.org/200712/ripple.gif'>
 </center>
 </div>
 <!--
@@ -1188,11 +1210,11 @@ For a new web browsing experience
 
   <!-- Modal content -->
     <div class="modal-content">
-    <span id="close_modal">&times;</span>
+    <span id="close_modal" title='close'>&times;</span>
     
     <label style="display:none">Title:</label><br>
   <input type="text" id="title_input" style="display:none">
-  <label style="color:black;font-size:16px; font-weight:600;float:left;margin-left:10px;margin-bottom:15px;text-overflow: ellipsis;overflow:hidden"></label><br>
+  <label style="white-space:initial;color:black;font-size:16px; font-weight:600;float:left;margin-left:10px;margin-bottom:12px;overflow:hidden;text-align:left"></label><br>
   <input type="text" id="tag_input" placeholder=""><br><br>
    <input type="submit" id="make_changes_input" value="Update tags"><br><br>
 
