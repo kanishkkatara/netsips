@@ -1,10 +1,11 @@
 //The favicon and the title
-chrome.tabs.getSelected(null,function(tab) { 
-    var title = tab.title; 
-    var url = tab.url;
-    var favicon = "https://s2.googleusercontent.com/s2/favicons?domain_url="+url 
-    document.getElementById("modal-content").innerHTML = "<p id='website-title'>"+title+"</p>";
-    
+chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) { 
+    if (tabs && tabs[0]) {
+        var tab = tabs[0];
+        var title = tab.title || ''; 
+        var url = tab.url || '';
+        document.getElementById("modal-content").innerHTML = "<p id='website-title'>"+title+"</p>";
+    }
   });
 
 
@@ -230,8 +231,21 @@ window.addEventListener('load', function(evt) {
     // Handle the bookmark form submit event with our addBookmark function
     document.getElementById('addbookmark')
             .addEventListener('submit', addBookmark);
-    chrome.runtime.getBackgroundPage(function(eventPage) {
-        eventPage.getPageDetails(onPageDetailsReceived);
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+        if (tabs && tabs[0]) {
+            var tabId = tabs[0].id;
+            if (chrome.scripting && chrome.scripting.executeScript) {
+                chrome.scripting.executeScript({
+                    target: { tabId: tabId },
+                    files: ['content.js']
+                });
+            } else if (chrome.tabs.executeScript) {
+                chrome.tabs.executeScript(tabId, { file: 'content.js' });
+            }
+        }
+    });
+    chrome.runtime.onMessage.addListener(function(message) {
+        onPageDetailsReceived(message);
     });
 });
 
@@ -247,7 +261,7 @@ window.addEventListener('load', function(evt) {
 
 //Settings page open on click
 document.getElementById('settings-icon').addEventListener('click', function(){
-    window.open('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/settings.html', '_blank');
+    window.open(chrome.runtime.getURL('settings.html'), '_blank');
 
 })
 

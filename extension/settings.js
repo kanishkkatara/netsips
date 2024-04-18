@@ -197,7 +197,10 @@ document.getElementById('signinbtn').addEventListener('click', function(){
     document.getElementsByClassName("signModal")[0].style.display = "none"   
     chrome.storage.local.set({isSigned: true}, function() {
     });
-    chrome.browserAction.setPopup({popup: "popup_main.html"});
+    var actionApi = chrome.action || chrome.browserAction;
+    if (actionApi && actionApi.setPopup) {
+      actionApi.setPopup({popup: "popup_main.html"});
+    }
     
     document.getElementById('user-name').innerHTML = "hello, " + result.user.displayName.split(' ')[0].toLowerCase()
     var email =  result.user.email
@@ -633,7 +636,10 @@ document.getElementById("SignOut").addEventListener('click', function(){
       //  {'uid':value,'email':  email, 'days':"6", 'isNew': new_user, 'isSigned':true}
     document.getElementById('Paris').innerHTML = ''
     document.title = 'Signing out...'
-    chrome.browserAction.setPopup({popup: "popup.html"});
+    var actionApi = chrome.action || chrome.browserAction;
+    if (actionApi && actionApi.setPopup) {
+      actionApi.setPopup({popup: "popup.html"});
+    }
     chrome.storage.local.set({isSigned: false}, function() {
     });
     chrome.storage.local.set({isDark: false}, function() {
@@ -655,7 +661,7 @@ document.getElementById("SignOut").addEventListener('click', function(){
      
     setTimeout(function(){ 
     //  document.getElementsByClassName("signModal")[0].style.display = "block" 
-      window.close('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/settings.html') 
+      window.close(); 
     }, 1000);
    
    

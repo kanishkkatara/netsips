@@ -20,7 +20,7 @@
       // };
       // firebase.initializeApp(firebaseConfig);
       document.getElementById('sc').addEventListener('click', function(){
-        window.open('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/settings.html', "blank_");
+        window.open(chrome.runtime.getURL('settings.html'), '_blank');
       })
       //MINOR UTILITY FUNCTIONS
       //This shortenes the title of the card 

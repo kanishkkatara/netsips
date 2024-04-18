@@ -1,4 +1,3 @@
 document.getElementById("ext_link").addEventListener('click', function(){
-  window.open('chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/settings.html', '_blank');
-  })
-  //chrome-extension://gbahaeoliekjdeaklngijenopidoifhc/settings.html
+  window.open(chrome.runtime.getURL('settings.html'), '_blank');
+});
