@@ -20,7 +20,7 @@
       // };
       // firebase.initializeApp(firebaseConfig);
       document.getElementById('sc').addEventListener('click', function(){
-        window.open(chrome.runtime.getURL('settings.html'), '_blank');
+        chrome.tabs.create({ url: chrome.runtime.getURL('settings.html') });
       })
       //MINOR UTILITY FUNCTIONS
       //This shortenes the title of the card 
@@ -62,54 +62,50 @@
         return self.indexOf(value) === index;
       }
       function real_date(ts){
-          d = new Date(ts)
+          var d = new Date(ts);
           var date = d.getDate();
-           var month = d.getMonth() + 1; 
+          var month = d.getMonth() + 1; 
           var year = d.getFullYear();
-     if(date.length==1){
-        return "0" + date + "/" + month + "/" ; //
-     }else{
-      return date + "/" + month + "/" + year;
-     }
+          var dayStr = (date < 10) ? ("0" + date) : ("" + date);
+          var monthStr = (month < 10) ? ("0" + month) : ("" + month);
+          return dayStr + "/" + monthStr + "/" + year;
       }
       
       chrome.storage.local.get({ 
         list:[]
       },
       function(data) {
-        chrome.storage.local.get(["isNew"],function(result){
-          if(result.isNew){
-            document.getElementById('recents').style.display = 'none'
-            document.getElementById('news-content').innerHTML = '<div style="color:#f1f1f1;font-size:18px" >Your saved bookmarks will appear here</div>'
-          }else{
-            document.getElementById('news-content').innerHTML = ''
-            for(let i=data.list.length-1;i>=0;i--){
-                         if(i>data.list.length-5){
-                         let url = data.list[i]["URL"]
-                         let title = title_trimmer(data.list[i]["Title"])  
-                         let time = real_date(data.list[i]["Date"])
-                    let icon = data.list[i]["Icon"]
-                         let link_tag_name = data.list[i]["Tags"]
-                  
-                        let img = data.list[i]["imageUrl"]
-                        let main_site_name = data.list[i]["mainSite"]
-                        if(main_site_name == undefined){
-                          main_site_name = ''
-                        }
-                        let key = data.list[i]["Date"]
-              document.getElementById('news-content').innerHTML +=  `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner' title='Hide'><img src='images/extension_images/visibility_off-grey.svg'></span> <a href=${url} target='blank_'><img  class='img-container-tag' src=${img}></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src=${icon}></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href=${url} target='blank_'>${title}</a></p> <div><span class='card_tags' style='overflow:hidden;text-overflow:ellipsis;margin-right:10px'>${link_tag_name}</span><span></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`       
-             }
-         
-             for(let j=0;j<document.getElementsByClassName('topcorner').length;j++){
-               document.getElementsByClassName('topcorner')[j].addEventListener('click', hellocard)
-             }
-         
-           } 
+        var items = data.list || [];
+        var recentsEl = document.getElementById('recents');
+        var newsContent = document.getElementById('news-content');
+        if (!newsContent) return;
+        
+        if (items.length === 0) {
+          if (recentsEl) recentsEl.style.display = 'none';
+          newsContent.innerHTML = '<div style="color:#f1f1f1;font-size:18px;margin-left:30px;">Your saved bookmarks will appear here</div>';
+          return;
+        }
+
+        if (recentsEl) recentsEl.style.display = 'block';
+        newsContent.innerHTML = '';
+        for (let i = items.length - 1; i >= 0; i--) {
+          if (i > items.length - 5) {
+            let url = items[i]["URL"] || '#';
+            let title = title_trimmer(items[i]["Title"] || url);  
+            let time = items[i]["Date"] ? real_date(items[i]["Date"]) : '';
+            let icon = items[i]["Icon"] || (favicon + encodeURIComponent(url));
+            let link_tag_name = items[i]["Tags"] || '';
+            let img = items[i]["imageUrl"] || 'images/extension_images/placeholder.png';
+            let main_site_name = items[i]["mainSite"] || '';
+            let key = items[i]["Date"] || ('key_' + i);
+            newsContent.innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner' title='Hide'><img src='images/extension_images/visibility_off-grey.svg'></span> <a href="${url}" target='_blank'><img class='img-container-tag' src="${img}"></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src="${icon}"></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href="${url}" target='_blank">${title}</a></p> <div><span class='card_tags' style='overflow:hidden;text-overflow:ellipsis;margin-right:10px'>${link_tag_name}</span><span></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`;
           }
-        })
-     
+        }
     
-      
+        var topCorners = document.getElementsByClassName('topcorner');
+        for (let j = 0; j < topCorners.length; j++) {
+          topCorners[j].addEventListener('click', hellocard);
+        }
       }
       );  
 

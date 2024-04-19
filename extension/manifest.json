@@ -2,9 +2,9 @@
   "manifest_version": 3,
   "name": "Netsips",
   "description": "Curate your web",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "popup_main.html",
     "default_icon": {
       "16": "new_icon_16.png",
       "48": "new_icon_48.png",
@@ -18,14 +18,12 @@
     "tabs",
     "storage",
     "activeTab",
-    "scripting"
+    "scripting",
+    "identity"
   ],
   "host_permissions": [
     "http://*/*",
-    "https://*/*",
-    "*://*.google.com/*",
-    "*://*.firebaseio.com/*",
-    "*://*.netsips.in/*"
+    "https://*/*"
   ],
   "externally_connectable": {
     "matches": [
@@ -46,13 +44,11 @@
       "resources": [
         "settings.html",
         "new.html",
-        "fonts/Raleway-Regular.ttf",
-        "fonts/Manrope-VariableFont_wght.ttf",
-        "fonts/WorkSans-VariableFont_wght.ttf",
+        "popup_main.html",
+        "popup.html",
+        "fonts/*",
         "images/*",
-        "new_icon.png",
-        "new_icon_48.png",
-        "new_icon_16.png"
+        "firebase/*"
       ],
       "matches": ["<all_urls>"]
     }
