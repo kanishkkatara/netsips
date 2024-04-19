@@ -2,7 +2,6 @@ try {
   if (typeof importScripts === 'function') {
     importScripts(
       'firebase/firebase-app.js',
-      'firebase/firebase-firestore.js',
       'firebase/firebase-database.js'
     );
   }
@@ -22,7 +21,7 @@ var firebaseConfig = {
 };
 
 try {
-  if (typeof firebase !== 'undefined' && firebase.initializeApp) {
+  if (typeof firebase !== 'undefined' && firebase.initializeApp && !firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
   }
 } catch (e) {
@@ -38,6 +37,8 @@ function getPageDetails(callback) {
         chrome.scripting.executeScript({
           target: { tabId: tabId },
           files: ['content.js']
+        }).catch(function(err) {
+          console.warn('Scripting inject catch:', err);
         });
       } else if (chrome.tabs.executeScript) {
         chrome.tabs.executeScript(tabId, { file: 'content.js' });
@@ -53,14 +54,23 @@ function getPageDetails(callback) {
 }
 
 // Set initial popup based on signed-in state
-chrome.storage.local.get(['isSigned'], function (result) {
+function syncActionPopup(isSigned) {
   var actionApi = chrome.action || chrome.browserAction;
   if (actionApi && actionApi.setPopup) {
-    if (result && result.isSigned) {
-      actionApi.setPopup({ popup: "popup_main.html" });
-    } else {
-      actionApi.setPopup({ popup: "popup_main.html" });
-    }
+    actionApi.setPopup({
+      popup: isSigned ? "popup_main.html" : "popup.html"
+    });
+  }
+}
+
+chrome.storage.local.get(['isSigned'], function (result) {
+  syncActionPopup(result && result.isSigned);
+});
+
+// Reactively update popup when user signs in or signs out
+chrome.storage.onChanged.addListener(function(changes, namespace) {
+  if (namespace === 'local' && changes.isSigned) {
+    syncActionPopup(changes.isSigned.newValue);
   }
 });
 

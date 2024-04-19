@@ -56,9 +56,9 @@ var metaImage = getMeta("og:image")
 // if(metaImage == ''){
 //   metaImage = `https://api.apiflash.com/v1/urltoimage?access_key=996f192584b4414bac444ad540480b3d&format=png&no_ads=true&url=${window.location.href}&height=800&width=1000`         
 // }
-// http://netsips.in/images/placeholder.png
+// images/placeholder.png
 if(metaImage == ''){
-  metaImage = `http://netsips.in/images/placeholder_3.png`         
+  metaImage = chrome.runtime.getURL('images/extension_images/placeholder.png');         
 }
 chrome.runtime.sendMessage({
     'title': document.title, //pls remove if creates trouble

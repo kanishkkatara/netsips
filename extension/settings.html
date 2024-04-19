@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="http://netsips.in/images/extension_images/icon.svg"/>
+<link rel="icon" type="image/png" href="images/extension_images/icon_128.png"/>
 	<title>Netsips | Dashboard</title>
 <style>
 ::-webkit-scrollbar {
@@ -976,7 +976,7 @@ border-radius:10px;
 	cursor: pointer;
 	outline: inherit;
   margin-top:40px;
-   background-image:url(http://netsips.in/images/extension_images/signin_light.png);
+   background-image:url(images/extension_images/signin_light.png);
    height:60px;
    width:249px;
   background-size: cover;
@@ -1078,21 +1078,21 @@ My CSS ends*/
 <center id="main-heading">
 
  <span id='logo_heading'>
- <span><img src='http://netsips.in/images/extension_images/icon.svg' id="Netsips-logo-container"></span>
+ <span><img src='images/extension_images/icon_128.png' id="Netsips-logo-container"></span>
  
  <span id='dashboard'>netsips </span>
  </span>
 
- <span><img src='http://netsips.in/images/extension_images/search.png' id='searchIcon'> <input type="text" id="searchBar" placeholder="Search for bookmarks by title" title=""></span>
+ <span><img src='images/extension_images/search.png' id='searchIcon'> <input type="text" id="searchBar" placeholder="Search for bookmarks by title" title=""></span>
  <span id='toggle-container'>
 <span id='user-name'></span>
 <span>
 <img class='profile-picture'>
 <div id='dropdown-menu'>
-<div class='dropdown-option-area'><a id='saved-btn' style='font-weight:50px;'><img src='https://img.techpowerup.org/200704/bookmark-1.png'> bookmarks</a></div>
-<div class='dropdown-option-area'><a id='archived'><img src='https://img.techpowerup.org/200704/box.png'> archive</a></div>
-<div class='dropdown-option-area'><a id='sc'><img src='https://img.techpowerup.org/200704/settings.png'> settings</a></div>
-<div class='dropdown-option-area'><a id="SignOut"><img src='https://img.techpowerup.org/200704/logout.png'> signout</a></div>
+<div class='dropdown-option-area'><a id='saved-btn' style='font-weight:50px;'><img src='images/extension_images/bookmark.svg'> bookmarks</a></div>
+<div class='dropdown-option-area'><a id='archived'><img src='images/extension_images/archived.svg'> archive</a></div>
+<div class='dropdown-option-area'><a id='sc'><img src='images/extension_images/settings.svg'> settings</a></div>
+<div class='dropdown-option-area'><a id="SignOut"><img src='images/extension_images/exit-w.svg'> signout</a></div>
 </div>
 
 
@@ -1100,10 +1100,10 @@ My CSS ends*/
 </span>
 
 
-<span> <button class="tablinks" value = "Paris" id="saved-btn"><img src='http://netsips.in/images/extension_images/bookmark-w.svg' class='menu_icons' aria-label="Bookmarks"></button></span>
- <span> <button class="tablinks" value="London" id='sc'><img src='http://netsips.in/images/extension_images/settings-w.svg' class='menu_icons' aria-label="Settings"></button></span>
- <span>  <button class="tablinks" value="Rome" id='archived'><img src='http://netsips.in/images/extension_images/archived-w.svg' class='menu_icons' aria-label="Archive"></button></span>
- <span><button class="tablinks" id="SignOut"><img src='http://netsips.in/images/extension_images/exit-w.svg' class='menu_icons' aria-label="Sign out"></button></span> 
+<span> <button class="tablinks" value = "Paris" id="saved-btn"><img src='images/extension_images/bookmark-w.svg' class='menu_icons' aria-label="Bookmarks"></button></span>
+ <span> <button class="tablinks" value="London" id='sc'><img src='images/extension_images/settings-w.svg' class='menu_icons' aria-label="Settings"></button></span>
+ <span>  <button class="tablinks" value="Rome" id='archived'><img src='images/extension_images/archived-w.svg' class='menu_icons' aria-label="Archive"></button></span>
+ <span><button class="tablinks" id="SignOut"><img src='images/extension_images/exit-w.svg' class='menu_icons' aria-label="Sign out"></button></span> 
  
  </span>
   </center> 
@@ -1133,7 +1133,7 @@ My CSS ends*/
 
 <div class="row" id="deleted-content">
 
-<center style="margin:40px 40px 40px 0px;font-family: 'Manrove-tabs';font-size:20px;color:#202020"><img src='https://img.techpowerup.org/200712/ripple.gif'></center>
+<center style="margin:40px 40px 40px 0px;font-family: 'Manrove-tabs';font-size:20px;color:#202020"><img src='images/extension_images/load.gif'></center>
 
 </div>
 </div>
@@ -1161,7 +1161,7 @@ $$$
 <div style='margin:22px 0 8px 55px;font-weight:lighter; font-size:25px;'>Your bookmarks</div>
 <div class="row" id="news-content">
 <center style="margin:40px 40px 40px 0px;font-family: 'Manrove-tabs';font-size:20px;color:#202020;">
-<img src='https://img.techpowerup.org/200712/ripple.gif'>
+<img src='images/extension_images/load.gif'>
 </center>
 </div>
 <!--
@@ -1186,7 +1186,7 @@ $$$
 <div class='signModal'>
 <div class='signModalContent'>
 <div id='signInText'>
-<span><img src="http://netsips.in/images/extension_images/grey_netsips.svg" id="Netsips-img"></span>
+<span><img src="images/extension_images/grey_netsips.svg" id="Netsips-img"></span>
 <p style="font-family: 'Manrove-tabs';font-size:20px;color:#202020">
 For a new web browsing experience
 </p>
@@ -1396,10 +1396,10 @@ Enter verification code
 </div>
 
 
-  <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
+  <script src="firebase/firebase-app.js"></script>
+  <script src="firebase/firebase-auth.js"></script>
+  <script src="firebase/firebase-firestore.js"></script>
+  <script src="firebase/firebase-database.js"></script>
 
 
    <script src="settings.js"></script>
