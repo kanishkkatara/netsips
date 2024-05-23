@@ -18,35 +18,6 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
 
 var recent = document.getElementById('recent-container');
 
-// Firebase Configuration
-var firebaseConfig = {
-  apiKey: "AIzaSyBDaQL21llq2-5ftbSh0WvC243M6p_ZsgY",
-  authDomain: "netsips-1586535958950.firebaseapp.com",
-  databaseURL: "https://netsips-1586535958950.firebaseio.com",
-  projectId: "netsips-1586535958950",
-  storageBucket: "netsips-1586535958950.appspot.com",
-  messagingSenderId: "617103322863",
-  appId: "1:617103322863:web:4fbe39c3ad6acf34f3f51a",
-  measurementId: "G-E4SH3K42ZY"
-};
-
-try {
-  if (typeof firebase !== 'undefined' && firebase.apps && !firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-  }
-} catch(e) {
-  console.warn("Firebase init:", e);
-}
-
-var db = null;
-try {
-  if (typeof firebase !== 'undefined' && firebase.firestore) {
-    db = firebase.firestore();
-  }
-} catch(e) {
-  console.warn("Firestore init:", e);
-}
-
 function title_trimmer(website_title) {
   if (!website_title) return '';
   if (website_title.length >= 60) {
@@ -55,35 +26,52 @@ function title_trimmer(website_title) {
   return website_title;
 }
 
-// Render recents from local storage
-chrome.storage.local.get({ list: [] }, function(data) {
+// Render recents from Local-First Database
+function renderRecents() {
   if (!recent) return;
   var icon_link = "https://s2.googleusercontent.com/s2/favicons?domain_url=";
-  var items = data.list || [];
-  recent.innerHTML = '';
-  for (let i = items.length - 1; i >= 0; i--) {
-    if (i > items.length - 4) {
-      let url = items[i]["URL"] || '';
-      let title = title_trimmer(items[i]["Title"] || '');  
-      let fav = items[i]["Icon"] || (icon_link + encodeURIComponent(url));
-      let tr = document.createElement('tr');
-      tr.innerHTML = `<td style='border-bottom: 1px solid #dddddd; margin: 0;'><img style="height:15px; width:15px;" src="${fav}"/></td><td class='recent' style='border-bottom: 1px solid #dddddd;'><a href="${url}" target="_blank">${title}</a></td>`;
-      recent.appendChild(tr);
-    }
-  }
 
-  // Bind clicks for recent links
-  var recentLinks = document.getElementsByClassName('recent');
-  for (let x = 0; x < recentLinks.length; x++) {
-    let anchor = recentLinks[x].querySelector('a');
-    if (anchor) {
-      recentLinks[x].addEventListener('click', function(e) {
-        e.preventDefault();
-        chrome.tabs.create({ url: anchor.href });
+  if (typeof LocalDB !== 'undefined' && LocalDB.bookmarks) {
+    LocalDB.bookmarks.getAll({ status: 100, limit: 3 }).then(function(items) {
+      recent.innerHTML = '';
+      items.forEach(function(item) {
+        let url = item.articleURL || item.URL || '';
+        let title = title_trimmer(item.title || item.Title || '');  
+        let fav = item.Icon || (icon_link + encodeURIComponent(url));
+        let tr = document.createElement('tr');
+        tr.innerHTML = `<td style='border-bottom: 1px solid #dddddd; margin: 0;'><img style="height:15px; width:15px;" src="${fav}"/></td><td class='recent' style='border-bottom: 1px solid #dddddd;'><a href="${url}" target="_blank">${title}</a></td>`;
+        recent.appendChild(tr);
       });
-    }
+
+      // Bind clicks for recent links
+      var recentLinks = document.getElementsByClassName('recent');
+      for (let x = 0; x < recentLinks.length; x++) {
+        let anchor = recentLinks[x].querySelector('a');
+        if (anchor) {
+          recentLinks[x].addEventListener('click', function(e) {
+            e.preventDefault();
+            chrome.tabs.create({ url: anchor.href });
+          });
+        }
+      }
+    });
+  } else {
+    chrome.storage.local.get({ list: [] }, function(data) {
+      var items = data.list || [];
+      recent.innerHTML = '';
+      for (let i = items.length - 1; i >= 0 && i > items.length - 4; i--) {
+        let url = items[i]["URL"] || '';
+        let title = title_trimmer(items[i]["Title"] || '');  
+        let fav = items[i]["Icon"] || (icon_link + encodeURIComponent(url));
+        let tr = document.createElement('tr');
+        tr.innerHTML = `<td style='border-bottom: 1px solid #dddddd; margin: 0;'><img style="height:15px; width:15px;" src="${fav}"/></td><td class='recent' style='border-bottom: 1px solid #dddddd;'><a href="${url}" target="_blank">${title}</a></td>`;
+        recent.appendChild(tr);
+      }
+    });
   }
-});
+}
+
+renderRecents();
 
 const linkopener = (link) => {
   if (typeof link === 'string') {
@@ -156,7 +144,7 @@ function onPageDetailsReceived(pageDetails) {
   main_site = pageDetails.main_site || '';
 }
 
-// Add Bookmark submit handler
+// Add Bookmark submit handler (Local-First)
 const addBookmark = (e) => {
   if (e && e.preventDefault) {
     e.preventDefault();
@@ -168,14 +156,19 @@ const addBookmark = (e) => {
   var tagsEl = document.getElementById("popup_tags");
   var tags = tagsEl ? tagsEl.value : '';
 
-  var web_details = {
+  var bookmarkDoc = {
     URL: website_url,
+    articleURL: website_url,
     imageUrl: image,
     Title: website_title,
+    title: website_title,
     Date: Date.now(),
+    dateAdded: Date.now(),
     Icon: fav_icon,
     Tags: tags,
-    mainSite: main_site
+    tags: tags,
+    mainSite: main_site,
+    status: 100
   };
 
   var statusDisplay = document.getElementById('save');
@@ -183,42 +176,35 @@ const addBookmark = (e) => {
     statusDisplay.value = "Saving...";
   }
 
-  chrome.storage.local.get({ list: [], key: '', isNew: false }, function(data) {
-    var list = data.list || [];
-    list.push(web_details);
-
-    var updates = { list: list };
-    if (data.isNew) {
-      updates.isNew = false;
-    }
-
-    chrome.storage.local.set(updates, function() {
-      if (db && data.key && data.key !== 'local_user') {
-        try {
-          db.collection(data.key).add({
-            status: 100,
-            tags: tags,
-            title: website_title,
-            imageUrl: image,
-            dateAdded: (firebase.firestore && firebase.firestore.Timestamp) ? firebase.firestore.Timestamp.now() : new Date(),
-            articleURL: website_url,
-            mainSite: main_site
-          }).catch(function(error) {
-            console.warn("Firestore sync warning:", error);
-          });
-        } catch (err) {
-          console.warn("Firestore call error:", err);
-        }
-      }
-
+  if (typeof LocalDB !== 'undefined' && LocalDB.bookmarks) {
+    LocalDB.bookmarks.add(bookmarkDoc).then(function() {
       if (statusDisplay) {
         statusDisplay.value = "Saved!";
       }
       setTimeout(function() { 
         window.close(); 
       }, 500);
+    }).catch(function(err) {
+      console.warn("LocalDB save fallback:", err);
+      chrome.storage.local.get({ list: [] }, function(data) {
+        var list = data.list || [];
+        list.push(bookmarkDoc);
+        chrome.storage.local.set({ list: list }, function() {
+          if (statusDisplay) statusDisplay.value = "Saved!";
+          setTimeout(function() { window.close(); }, 500);
+        });
+      });
     });
-  });
+  } else {
+    chrome.storage.local.get({ list: [] }, function(data) {
+      var list = data.list || [];
+      list.push(bookmarkDoc);
+      chrome.storage.local.set({ list: list }, function() {
+        if (statusDisplay) statusDisplay.value = "Saved!";
+        setTimeout(function() { window.close(); }, 500);
+      });
+    });
+  }
 };
 
 // When popup HTML has loaded

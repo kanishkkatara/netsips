@@ -1390,6 +1390,14 @@ Enter verification code
 </label>
 <span>
 
+<!-- LOCAL DATABASE & BACKUP -->
+<div style="margin-left:35px;margin-top:25px;margin-bottom:35px;">
+  <div style="font-size:25px;font-family: 'Manrove-label';margin-bottom:12px">Local Database & Backup</div>
+  <p style="font-family:'Manrove-tabs';color:#666;font-size:15px;margin-bottom:15px">All your bookmarks and settings are stored locally on your device with zero-dependency IndexedDB.</p>
+  <button id="export_db_btn" style="background:#5B2E91;color:#fff;border:none;border-radius:6px;padding:10px 20px;font-family:'Manrove-tabs';font-size:14px;cursor:pointer;margin-right:12px;">Export Bookmarks (JSON)</button>
+  <input type="file" id="import_db_file" accept=".json" style="display:none">
+  <button id="import_db_btn" style="background:#f0f0f0;color:#333;border:1px solid #ccc;border-radius:6px;padding:10px 20px;font-family:'Manrove-tabs';font-size:14px;cursor:pointer;">Import Bookmarks</button>
+  <span id="import_status" style="margin-left:15px;font-family:'Manrove-tabs';font-size:14px;color:#2e7d32;"></span>
 </div>
 
 </div>
@@ -1398,12 +1406,7 @@ Enter verification code
 </div>
 
 
-  <script src="firebase/firebase-app.js"></script>
-  <script src="firebase/firebase-auth.js"></script>
-  <script src="firebase/firebase-firestore.js"></script>
-  <script src="firebase/firebase-database.js"></script>
-
-
+  <script src="db.js"></script>
    <script src="settings.js"></script>
 </body>
 </html> 

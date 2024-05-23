@@ -8,15 +8,15 @@
 
 ```
 netsips/
-├── extension/                 # Chrome browser extension (v2)
-│   ├── manifest.json          # Extension manifest & permissions
+├── extension/                 # Chrome browser extension (Local-First Edition)
+│   ├── manifest.json          # Extension manifest & permissions (MV3)
+│   ├── db.js                  # Local-first IndexedDB persistent database & sync
 │   ├── popup.html / .js       # Action popup launcher
 │   ├── popup_main.html / .js  # Saved links UI & current page capture
-│   ├── settings.html / .js    # Saved dashboard & tags manager
+│   ├── settings.html / .js    # Saved dashboard & tags manager (with JSON export/import)
 │   ├── new.html / .js         # New tab curation interface
-│   ├── event.js               # Background script
+│   ├── event.js               # Background service worker
 │   ├── content.js             # Tab content extractor
-│   ├── firebase/              # Firebase Client SDKs (Auth, Firestore, RTD)
 │   ├── fonts/                 # Custom typography (Raleway, Manrope, Work Sans)
 │   └── images/                # UI icons and graphics
 │
@@ -69,13 +69,13 @@ python netsips_v4_main.py
 
 ## 🔄 Data Lifecycle & Status Codes
 
-Articles saved through the extension are stored in Google Cloud Firestore under `collection(<user_id>)`:
+Articles saved through the extension are stored locally on the user's device using zero-dependency **IndexedDB** (`NetsipsLocalDB`) with cross-context reactive broadcast sync (`BroadcastChannel` & `chrome.storage.local`):
 
 | Status Code | Meaning |
 | :--- | :--- |
-| `100` | **Queued**: Link saved by user, awaiting next scheduled digest |
+| `100` | **Queued / Active**: Link saved locally by user, awaiting reading or digest |
 | `101` | **Delivered**: Successfully parsed and included in sent digest |
-| `102` | **Archived/Deleted**: User removed card from dashboard |
+| `102` | **Archived**: User moved card to archive (recoverable or permanently erasable) |
 | `103` | **Error**: Scraper could not extract valid article body |
 
 ---

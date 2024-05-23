@@ -1,32 +1,27 @@
+/**
+ * Netsips Background Service Worker (Manifest V3)
+ * Offline-first, event-driven background controller.
+ */
+
 try {
   if (typeof importScripts === 'function') {
-    importScripts(
-      'firebase/firebase-app.js',
-      'firebase/firebase-database.js'
-    );
+    importScripts('db.js');
   }
 } catch (e) {
-  console.warn('Firebase scripts import in background worker:', e);
+  console.warn('LocalDB import in background worker:', e);
 }
 
-var firebaseConfig = {
-  apiKey: "AIzaSyBDaQL21llq2-5ftbSh0WvC243M6p_ZsgY",
-  authDomain: "netsips-1586535958950.firebaseapp.com",
-  databaseURL: "https://netsips-1586535958950.firebaseio.com",
-  projectId: "netsips-1586535958950",
-  storageBucket: "netsips-1586535958950.appspot.com",
-  messagingSenderId: "617103322863",
-  appId: "1:617103322863:web:4fbe39c3ad6acf34f3f51a",
-  measurementId: "G-E4SH3K42ZY"
-};
-
-try {
-  if (typeof firebase !== 'undefined' && firebase.initializeApp && !firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
+// Ensure default popup is always the primary bookmarking interface
+function syncActionPopup() {
+  var actionApi = chrome.action || chrome.browserAction;
+  if (actionApi && actionApi.setPopup) {
+    actionApi.setPopup({
+      popup: "popup_main.html"
+    });
   }
-} catch (e) {
-  console.warn('Firebase init warning in background worker:', e);
 }
+
+syncActionPopup();
 
 // Function to inject content script and listen for details
 function getPageDetails(callback) {
@@ -62,38 +57,12 @@ function getPageDetails(callback) {
   });
 }
 
-// Set initial popup based on signed-in state
-function syncActionPopup(isSigned) {
-  var actionApi = chrome.action || chrome.browserAction;
-  if (actionApi && actionApi.setPopup) {
-    actionApi.setPopup({
-      popup: isSigned ? "popup_main.html" : "popup.html"
-    });
-  }
-}
-
-chrome.storage.local.get(['isSigned'], function (result) {
-  syncActionPopup(result && result.isSigned);
-});
-
-// Reactively update popup when user signs in or signs out
-chrome.storage.onChanged.addListener(function(changes, namespace) {
-  if (namespace === 'local' && changes.isSigned) {
-    syncActionPopup(changes.isSigned.newValue);
-  }
-});
-
 // External message handling
 chrome.runtime.onMessageExternal.addListener(function (request, sender, sendResponse) {
   if (sender && sender.url && sender.url.indexOf('netsips.in/whatsapp.html') !== -1) {
-    if (typeof firebase !== 'undefined' && firebase.database) {
-      let db_rtd = firebase.database();
-      let rtd = db_rtd.ref();
-      chrome.storage.local.get(['key'], function(result) {
-        if (result && result.key) {
-          rtd.child(result.key).update({ 'phone': request.phone });
-        }
-      });
+    if (typeof LocalDB !== 'undefined' && LocalDB.settings) {
+      LocalDB.settings.set('phone', request.phone);
+      LocalDB.settings.set('isWhatsApp', true);
     }
     chrome.storage.local.set({ isWhatsApp: true, phone: request.phone });
   }
@@ -108,17 +77,21 @@ chrome.runtime.onInstalled.addListener(function(details) {
 
 // Custom new tab listener
 chrome.tabs.onCreated.addListener(function(tab) {
-  chrome.storage.local.get(['isHome', 'isSigned'], function(result) {
-    if (tab.title === 'New Tab' && result && result.isHome && result.isSigned) {
+  chrome.storage.local.get(['isHome'], function(result) {
+    if (tab.title === 'New Tab' && result && result.isHome) {
       chrome.tabs.update(tab.id, { url: chrome.runtime.getURL('new.html') });
     }
   });
 });
 
-chrome.storage.local.get(['isHome', 'isSigned'], function(result) {
-  chrome.runtime.onStartup.addListener(function() {
-    if (result && result.isHome && result.isSigned) {
-      chrome.tabs.update({ url: chrome.runtime.getURL('new.html') });
+chrome.runtime.onStartup.addListener(function() {
+  chrome.storage.local.get(['isHome'], function(result) {
+    if (result && result.isHome) {
+      chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+        if (tabs && tabs[0] && tabs[0].url === 'chrome://newtab/') {
+          chrome.tabs.update(tabs[0].id, { url: chrome.runtime.getURL('new.html') });
+        }
+      });
     }
   });
 });

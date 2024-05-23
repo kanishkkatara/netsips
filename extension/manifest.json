@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Netsips",
   "description": "Curate your web",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "action": {
     "default_popup": "popup_main.html",
     "default_icon": {
@@ -18,8 +18,7 @@
     "tabs",
     "storage",
     "activeTab",
-    "scripting",
-    "identity"
+    "scripting"
   ],
   "host_permissions": [
     "http://*/*",
@@ -48,7 +47,7 @@
         "popup.html",
         "fonts/*",
         "images/*",
-        "firebase/*"
+        "db.js"
       ],
       "matches": ["<all_urls>"]
     }

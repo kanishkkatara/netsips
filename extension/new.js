@@ -71,15 +71,31 @@
           return dayStr + "/" + monthStr + "/" + year;
       }
       
-      chrome.storage.local.get({ 
-        list:[]
-      },
-      function(data) {
-        var items = data.list || [];
+      function renderNewTabBookmarks() {
         var recentsEl = document.getElementById('recents');
         var newsContent = document.getElementById('news-content');
         if (!newsContent) return;
-        
+
+        if (typeof LocalDB !== 'undefined' && LocalDB.bookmarks) {
+          LocalDB.bookmarks.getAll({ status: 100, limit: 4 }).then(function(items) {
+            displayNewTabBookmarks(items);
+          }).catch(function(err) {
+            console.warn('LocalDB get error:', err);
+            displayNewTabBookmarks([]);
+          });
+        } else {
+          chrome.storage.local.get({ list: [] }, function(data) {
+            displayNewTabBookmarks(data.list || []);
+          });
+        }
+      }
+
+      function displayNewTabBookmarks(items) {
+        var recentsEl = document.getElementById('recents');
+        var newsContent = document.getElementById('news-content');
+        if (!newsContent) return;
+
+        items = items || [];
         if (items.length === 0) {
           if (recentsEl) recentsEl.style.display = 'none';
           newsContent.innerHTML = '<div style="color:#f1f1f1;font-size:18px;margin-left:30px;">Your saved bookmarks will appear here</div>';
@@ -88,56 +104,55 @@
 
         if (recentsEl) recentsEl.style.display = 'block';
         newsContent.innerHTML = '';
-        for (let i = items.length - 1; i >= 0; i--) {
-          if (i > items.length - 5) {
-            let url = items[i]["URL"] || '#';
-            let title = title_trimmer(items[i]["Title"] || url);  
-            let time = items[i]["Date"] ? real_date(items[i]["Date"]) : '';
-            let icon = items[i]["Icon"] || (favicon + encodeURIComponent(url));
-            let link_tag_name = items[i]["Tags"] || '';
-            let img = items[i]["imageUrl"] || 'images/extension_images/placeholder.png';
-            let main_site_name = items[i]["mainSite"] || '';
-            let key = items[i]["Date"] || ('key_' + i);
-            newsContent.innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner' title='Hide'><img src='images/extension_images/visibility_off-grey.svg'></span> <a href="${url}" target='_blank'><img class='img-container-tag' src="${img}"></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src="${icon}"></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href="${url}" target='_blank">${title}</a></p> <div><span class='card_tags' style='overflow:hidden;text-overflow:ellipsis;margin-right:10px'>${link_tag_name}</span><span></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`;
-          }
+        for (let i = 0; i < items.length && i < 4; i++) {
+          let item = items[i];
+          let url = item.articleURL || item.URL || '#';
+          let title = title_trimmer(item.title || item.Title || url);
+          let time = item.dateAdded ? real_date(item.dateAdded) : (item.Date ? real_date(item.Date) : '');
+          let icon = item.Icon || (favicon + encodeURIComponent(url));
+          let link_tag_name = item.tags || item.Tags || '';
+          let img = item.imageUrl || 'images/extension_images/placeholder.png';
+          let main_site_name = item.mainSite || '';
+          let key = item.id || item.Date || ('key_' + i);
+          newsContent.innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner' title='Hide'><img src='images/extension_images/visibility_off-grey.svg'></span> <a href="${url}" target='_blank'><img class='img-container-tag' src="${img}"></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src="${icon}"></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href="${url}" target='_blank">${title}</a></p> <div><span class='card_tags' style='overflow:hidden;text-overflow:ellipsis;margin-right:10px'>${link_tag_name}</span><span></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`;
         }
-    
+
         var topCorners = document.getElementsByClassName('topcorner');
         for (let j = 0; j < topCorners.length; j++) {
           topCorners[j].addEventListener('click', hellocard);
         }
       }
-      );  
 
-      function hellocard(){
+      renderNewTabBookmarks();
 
-        let website_title= this.parentElement.parentElement.getElementsByClassName('key')[0].innerText
-     
-        delete_this_card(website_title)
-         this.parentElement.parentElement.style.display = 'none'
-       
-       
-       }
-         
-       function delete_this_card(x){
-       
-         chrome.storage.local.get({list: []}, function(items) {
-       
-     
-         for(let i=0;i<items.list.length;i++){
-       console.log(items.list[i].Date)
-         if(x == items.list[i].Date){ //check title instead of entire object
-     
-          items.list.splice(i, 1)
-         }
-       }
-       
-             chrome.storage.local.set(items, function() {
-               console.log()
-             });
-           });
-           
-       }
+      if (typeof LocalDB !== 'undefined' && LocalDB.bookmarks && LocalDB.bookmarks.onSnapshot) {
+        LocalDB.bookmarks.onSnapshot(function() {
+          renderNewTabBookmarks();
+        });
+      }
+
+      function hellocard() {
+        let key = this.parentElement.parentElement.getElementsByClassName('key')[0].innerText;
+        this.parentElement.parentElement.style.display = 'none';
+        if (typeof LocalDB !== 'undefined' && LocalDB.bookmarks) {
+          LocalDB.bookmarks.archive(key);
+        } else {
+          delete_this_card(key);
+        }
+      }
+
+      function delete_this_card(x) {
+        chrome.storage.local.get({list: []}, function(items) {
+          items.list = items.list || [];
+          for (let i = 0; i < items.list.length; i++) {
+            if (x == items.list[i].Date || x == items.list[i].id) {
+              items.list.splice(i, 1);
+              break;
+            }
+          }
+          chrome.storage.local.set(items);
+        });
+      }
       
      
       
@@ -203,24 +218,26 @@
       
       //SOURCE RENDER ENDS
       
-      const addTags1 =(uid, key)=>{
-       // let db = firebase.firestore();
-        submit_btn = document.getElementById("make_changes_input")
-        submit_btn.value = "Saving..." 
-        let modal = document.getElementsByClassName("myModal")[0];
-        let new_tags = document.getElementById('tag_input').value 
-        db.collection(uid).doc(key).update({
-          tags: new_tags
-         })
-         .then(function() {
-        
-          modal.style.display = "none";
-          submit_btn.value = "Saved!" 
-          submit_btn.value = 'Update tags'
-         })
-         .catch(function(error){
-           console.error("Error updating document: ", error);
-         });  
+      const addTags1 = (uid, key) => {
+        var targetKey = key || uid;
+        var submit_btn = document.getElementById("make_changes_input");
+        if (submit_btn) submit_btn.value = "Saving...";
+        var modal = document.getElementsByClassName("myModal")[0];
+        var new_tags = document.getElementById('tag_input').value;
+
+        if (typeof LocalDB !== 'undefined' && LocalDB.bookmarks) {
+          LocalDB.bookmarks.update(targetKey, { tags: new_tags }).then(function() {
+            if (modal) modal.style.display = "none";
+            if (submit_btn) {
+              submit_btn.value = "Saved!";
+              setTimeout(function() { submit_btn.value = 'Update tags'; }, 1000);
+            }
+            renderNewTabBookmarks();
+          }).catch(function(error) {
+            console.error("Error updating tags: ", error);
+            if (submit_btn) submit_btn.value = 'Update tags';
+          });
+        }
       }
       
       //MAIN RENDER METHOD FOR ARCHIVED TAGS
