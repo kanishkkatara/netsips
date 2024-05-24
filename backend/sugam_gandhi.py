@@ -96,13 +96,16 @@ for i1 in mails:
             server = smtplib.SMTP('smtp.gmail.com:587') 
             if __name__ == "__main__":
                 server.set_debuglevel(1)
-            password = 'smilemiddle#1'
-            server.starttls()
-            server.login(FROM,password)
-            server.sendmail(FROM, [TO], MESSAGE.as_string())
-            server.quit()
+            password = os.environ.get('SMTP_PASS', '')
+            if password:
+                server.starttls()
+                server.login(FROM, password)
+                server.sendmail(FROM, [TO], MESSAGE.as_string())
+                server.quit()
+            else:
+                print("SMTP_PASS not configured; skipping email dispatch.")
         if __name__ == "__main__": 
             email_content = html
-            TO = str(i1)
-            FROM ='anishasrivastava53@gmail.com' 
+            TO = os.environ.get('RECIPIENT_EMAIL', str(i1))
+            FROM = os.environ.get('SENDER_EMAIL', 'care.netsips@example.com') 
             py_mail("Netsips weekly newsletter", email_content, TO, FROM)
