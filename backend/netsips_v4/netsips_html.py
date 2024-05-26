@@ -1,43 +1,104 @@
-from newspaper import Article
-from gensim.summarization.summarizer import summarize
+try:
+    from newspaper import Article
+except ImportError:
+    Article = None
 
 def sumary(text):
-    sum_list=summarize(text, word_count=100, split=True)
-    sum=''
-    for i in sum_list:
-        if(len(i.split())>4):
-            sum=sum+'‣ '+str(i)+'<br>'
-    return sum
+    """
+    Extractive summarizer with graceful fallback if gensim is not available.
+    """
+    try:
+        from gensim.summarization.summarizer import summarize
+        sum_list = summarize(text, word_count=100, split=True)
+        sum_str = ''
+        for i in sum_list:
+            if len(i.split()) > 4:
+                sum_str += '‣ ' + str(i) + '<br>'
+        if sum_str:
+            return sum_str
+    except Exception:
+        pass
 
-def generate_html(url):
-    print('generating html mail...')
-    html='<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml"> <head> <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/> <meta content="width=device-width" name="viewport"/> <meta content="IE=edge" http-equiv="X-UA-Compatible"/> <title></title> <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css"/> <link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet" type="text/css"/> <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" type="text/css"/> <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css"/> <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet" type="text/css"/> <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet" type="text/css"/> <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css"/> <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css"/> <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css"/> <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet" type="text/css"/> <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet" type="text/css"/> <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet" type="text/css"/> <style type="text/css"> body { margin: 0; padding: 0; } table, td, tr { vertical-align: top; border-collapse: collapse; } * { line-height: inherit; } a[x-apple-data-detectors=true] { color: inherit !important; text-decoration: none !important; } </style> <style id="media-query" type="text/css"> @media (max-width: 835px) { .block-grid, .col { min-width: 320px !important; max-width: 100% !important; display: block !important; } .block-grid { width: 100% !important; } .col { width: 100% !important; } .col>div { margin: 0 auto; } img.fullwidth, img.fullwidthOnMobile { max-width: 100% !important; } .no-stack .col { min-width: 0 !important; display: table-cell !important; } .no-stack.two-up .col { width: 50% !important; } .no-stack .col.num4 { width: 33% !important; } .no-stack .col.num8 { width: 66% !important; } .no-stack .col.num4 { width: 33% !important; } .no-stack .col.num3 { width: 25% !important; } .no-stack .col.num6 { width: 50% !important; } .no-stack .col.num9 { width: 75% !important; } .video-block { max-width: none !important; } .mobile_hide { min-height: 0px; max-height: 0px; max-width: 0px; display: none; overflow: hidden; font-size: 0px; } .desktop_hide { display: block !important; max-height: none !important; } } </style> </head> <body klass="clean-body" style="margin: 0; padding: 0; -webkit-text-size-adjust: 100%; background-color: #ffffff;"> <table bgcolor="#ffffff" cellpadding="0" cellspacing="0" klass="nl-container" role="presentation" style="table-layout: fixed; vertical-align: top; min-width: 320px; Margin: 0 auto; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff; width: 100%;" valign="top" width="100%"> <tbody> <tr style="vertical-align: top;" valign="top"> <td style="word-break: break-word; vertical-align: top;" valign="top"> <div style="background-color:#4c4e4d;"> <div klass="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 815px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent;"> <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;"> <div klass="col num12" style="min-width: 320px; max-width: 815px; display: table-cell; vertical-align: top; width: 815px;"> <div style="width:100% !important;"> <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:10px; padding-bottom:5px; padding-right: 0px; padding-left: 0px;"> <div style="color:#ffd200;font-family:Oxygen, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.2;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;"> <div style="font-size: 12px; line-height: 1.2; font-family: Oxygen, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #ffd200; mso-line-height-alt: 14px;"> <p style="line-height: 1.2; word-break: break-word; text-align: center; font-family: inherit; font-size: 64px; mso-line-height-alt: 77px; margin: 0;"><img align="center" alt="netsips" border="0" src="https://drive.google.com/uc?id=113caFpS2F6K7ou5S9nU87el7IKmKAhVa" class="center autowidth" style="text-decoration: none; -ms-interpolation-mode: bicubic; border: 0; height: auto; width: 40%; max-width: 367px;" title="Image" width="367"></p> </div> </div></div> </div> </div> </div> </div> </div> <div style="background-color:transparent;"> <div klass="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 815px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent;"> <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;"> <div klass="col num12" style="min-width: 320px; max-width: 815px; display: table-cell; vertical-align: top; width: 815px;"> <div style="width:100% !important;"> <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:15px; padding-right: 0px; padding-left: 0px;"> <table border="0" cellpadding="0" cellspacing="0" klass="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%"> <tbody> <tr style="vertical-align: top;" valign="top"> <td klass="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px;" valign="top"> <table align="center" border="0" cellpadding="0" cellspacing="0" klass="divider_content" height="0" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 0px solid transparent; height: 0px; width: 100%;" valign="top" width="100%"> <tbody> <tr style="vertical-align: top;" valign="top"> <td height="0" style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top"><span></span></td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <div style="color:#445352;font-family:Oxygen, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.2;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;"> <div style="line-height: 1.2; font-size: 12px; color: #445352; font-family: Oxygen, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 14px;"> <p style="line-height: 1.2; font-size: 42px; text-align: center; word-break: break-word; mso-line-height-alt: 50px; margin: 0;"><span style="font-size: 25px;">You have '
-    html=html+str(len(url))
-    if len(url)>1:
-        html=html+' articles'
-    else:
-        html=html+' article'
-    html=html+' this week</span></p> </div> </div> </div> </div> </div> </div> </div> </div>'
-    for i in range(len(url)):
-        article = Article(str(url[i]))
-        article.download()
-        article.parse()
-        title = article.title
-        text = article.text
-        image = article.top_image
+    # Resilient fallback: extract top key sentences from article text
+    sentences = [s.strip() for s in text.replace('\r', ' ').replace('\n', ' ').split('.') if len(s.strip().split()) > 4]
+    if not sentences:
+        return '‣ Summary unavailable.<br>'
+    return ''.join(f'‣ {s}.<br>' for s in sentences[:3])
+
+
+def generate_html(urls, output_path=None):
+    """
+    Generates a clean HTML newsletter digest from a list of URLs.
+    """
+    print(f'Generating HTML newsletter for {len(urls)} items...')
+    item_count = len(urls)
+    count_label = f"{item_count} {'articles' if item_count != 1 else 'article'}"
+
+    html = f'''<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Netsips Digest</title>
+  <style type="text/css">
+    body {{ margin: 0; padding: 0; background-color: #f7f9fa; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }}
+    .container {{ max-width: 680px; margin: 0 auto; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }}
+    .header {{ background: #242424; color: #ffd200; padding: 32px 24px; text-align: center; }}
+    .header h1 {{ margin: 0; font-size: 28px; font-weight: 700; letter-spacing: 1px; color: #ffd200; }}
+    .subhead {{ color: #ffffff; opacity: 0.8; font-size: 15px; margin-top: 8px; }}
+    .card {{ padding: 24px; border-bottom: 1px solid #ebebeb; }}
+    .card-title {{ font-size: 20px; font-weight: 600; color: #202020; margin-bottom: 10px; line-height: 1.4; }}
+    .card-title a {{ color: #202020; text-decoration: none; }}
+    .card-title a:hover {{ color: #5B2E91; }}
+    .card-summary {{ color: #555555; font-size: 14px; line-height: 1.6; margin-bottom: 14px; }}
+    .btn {{ display: inline-block; background: #5B2E91; color: #ffffff !important; padding: 8px 18px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600; }}
+    .footer {{ background: #313131; color: #aaaaaa; padding: 24px; text-align: center; font-size: 12px; }}
+    .footer a {{ color: #ffd200; text-decoration: none; }}
+  </style>
+</head>
+<body>
+  <div style="padding: 24px 12px;">
+    <div class="container">
+      <div class="header">
+        <h1>NETSIPS DIGEST</h1>
+        <div class="subhead">You have {count_label} curated in your reading queue</div>
+      </div>
+'''
+
+    for u in urls:
+        url_str = str(u)
+        is_yt = 'www.youtube.com' in url_str or 'youtu.be' in url_str
         try:
-            summary = sumary(text)
-        except:
-            summary = ''
-        content1='<div style="background-color:transparent;"> <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 815px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent;"> <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;"> <div class="col num12" style="min-width: 320px; max-width: 815px; display: table-cell; vertical-align: top; width: 815px;"> <div style="width:100% !important;"> <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:5px; padding-right: 0px; padding-left: 0px;"> <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%"> <tbody> <tr style="vertical-align: top;" valign="top"> <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 0px; padding-right: 10px; padding-bottom: 20px; padding-left: 10px;" valign="top"> <table align="center" border="0" cellpadding="0" cellspacing="0" class="divider_content" height="0" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 2px solid #E1BF19; height: 0px; width: 100%;" valign="top" width="100%"> <tbody> <tr style="vertical-align: top;" valign="top"> <td height="0" style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top"><span></span></td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <div style="color:#445352;font-family:Oswald, Arial, Helvetica Neue, Helvetica, sans-serif;line-height:1.5;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;"> <div style="line-height: 1.5; font-size: 12px; font-family: Oswald, Arial, Helvetica Neue, Helvetica, sans-serif; color: #445352; mso-line-height-alt: 18px;"> <p style="line-height: 1.5; font-size: 20px; word-break: break-word; text-align: center; font-family: Oswald, Arial, Helvetica Neue, Helvetica, sans-serif; mso-line-height-alt: 30px; margin: 0;"><span style="font-size: 20px;">'
-        content2='</span></p> </div> </div> </div> </div> </div> </div> </div> </div> <div style="background-color:transparent;"> <div class="block-grid two-up" style="Margin: 0 auto; min-width: 320px; max-width: 815px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent;"> <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;"> <div class="col num6" style="min-width: 320px; max-width: 407px; display: table-cell; vertical-align: top; width: 407px;"> <div style="width:100% !important;"> <div style="border-top:15px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:10px; padding-right: 10px; padding-left: 10px;"> <div align="center" class="img-container center autowidth" style="padding-right: 0px;padding-left: 20px;"> <img align="center" alt="Image" border="0" class="center autowidth" src="'
-        content3='"style="text-decoration: none; -ms-interpolation-mode: bicubic; border: 0; height: auto; width: 100%; max-width: 367px; display: block;" title="Image" width="367"> </div> </div> </div> </div> <div class="col num6" style="min-width: 320px; max-width: 407px; display: table-cell; vertical-align: top; width: 407px;"> <div style="width:100% !important;"> <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;"> <div style="color:#555555;font-family:Oxygen, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.5;padding-top:10px;padding-right:10px;padding-bottom:5px;padding-left:10px;"> <div style="font-size: 12px; line-height: 1.5; color: #555555; font-family: Oxygen, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 18px;"> <p style="line-height: 1.5; text-align:justify; word-break: break-word; mso-line-height-alt: NaNpx; margin: 0;">'
-        content4='</p> </div> </div> <div align="center" class="button-container" style="padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;"> <div style="text-decoration:none;display:inline-block;color:#000000;background-color:transparent;border-radius:13px;-webkit-border-radius:13px;-moz-border-radius:13px;width:auto; width:auto;;border-top:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000;border-left:1px solid #000000;padding-top:2px;padding-bottom:2px;font-family:Oxygen, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;"><span style="padding-left:25px;padding-right:25px;font-size:16px;display:inline-block;"><span style="font-size: 12px; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;"><a href="'
-        content5='</a></span></span></div> </div> </div> </div> </div> </div> </div> </div>'
-        button='">Read More'
-        if 'www.youtube.com' in url[i]:
-            summary='‣ This is a youtube video. Kindly click on the "Watch Video" button below to watch it.'
-            button='">Watch Video'
-        html=html+content1+title+content2+image+content3+summary+content4+url[i]+button+content5
-    html=html+'<div style="background-color:transparent;"> <div klass="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 815px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent;"> <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;"> <div klass="col num12" style="min-width: 320px; max-width: 815px; display: table-cell; vertical-align: top; width: 815px;"> <div style="width:100% !important;"> <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:5px; padding-right: 0px; padding-left: 0px;"> <table border="0" cellpadding="0" cellspacing="0" klass="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%"> <tbody> <tr style="vertical-align: top;" valign="top"> <td klass="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 0px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px;" valign="top"> <table align="center" border="0" cellpadding="0" cellspacing="0" klass="divider_content" height="0" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 2px solid #E1BF19; height: 0px; width: 100%;" valign="top" width="100%"> <tbody> <tr style="vertical-align: top;" valign="top"> <td height="0" style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top"><span></span></td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </div> </div> </div> </div> </div> </div> <div style="background-color:#445352;"> <div klass="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 815px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent;"> <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;"> <div klass="col num12" style="min-width: 320px; max-width: 815px; display: table-cell; vertical-align: top; width: 815px;"> <div style="width:100% !important;"> <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:5px; padding-right: 0px; padding-left: 0px;"> <div style="color:#D6D5D5;font-family:Oxygen, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.2;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;"> <div style="font-size: 12px; line-height: 1.2; color: #D6D5D5; font-family: Oxygen, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 14px;"> <p style="font-size: 14px; line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 17px; margin: 0;">NETSIPS | www.netsips.in | care.netsips@gmail.com | Technology and Business Incubator, BITS Pilani Hyderabad Campus, Shameerpet, Jawaharnagar, Hyderabad, 500078</p> </div> </div> <div style="color:#555555;font-family:Oxygen, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.2;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;"> <div style="font-size: 14px; line-height: 1.2; color: #555555; font-family: Oxygen, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 17px;"> <p style="font-size: 14px; line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 17px; margin: 0;"><span style="color: #ffffff;">You are receiving this mail because you are registered on netsips.in with this email address. </span></p> <p style="font-size: 14px; line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 17px; margin: 0;"><span style="color: #ffffff;">If you wish to opt out of these mails, <a href="http://www.netsips.in/unsubscribe.html">click here</a></span><br/><span style="color: #ffffff;">Read our <a href="http://www.netsips.in/terms-conditions.html">Terms &amp; Conditions</a>, <a href="http://www.netsips.in/privacy-policy.html">Privacy Policy</a></span></p> </div> </div> </div> </div> </div> </div> </div> </div> </td> </tr> </tbody> </table> </body> </html>'
-    return(html)
+            article = Article(url_str)
+            article.download()
+            article.parse()
+            title = article.title or url_str
+            text = article.text
+            summary_text = '‣ Video link curated via Netsips. Click below to watch.' if is_yt else sumary(text)
+        except Exception:
+            title = url_str
+            summary_text = '‣ Curated reading link saved to your Netsips digest.'
+
+        btn_text = "Watch Video" if is_yt else "Read Article"
+
+        html += f'''      <div class="card">
+        <div class="card-title"><a href="{url_str}" target="_blank">{title}</a></div>
+        <div class="card-summary">{summary_text}</div>
+        <div><a href="{url_str}" target="_blank" class="btn">{btn_text} &rarr;</a></div>
+      </div>
+'''
+
+    html += '''      <div class="footer">
+        <p>Curated automatically by Netsips | Keep your web reading focused and deliberate.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>'''
+
+    if output_path:
+        with open(output_path, 'w', encoding='utf-8') as f:
+            f.write(html)
+        print(f"HTML newsletter written to: {output_path}")
+
+    return html
