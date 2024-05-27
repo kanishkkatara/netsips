@@ -1,0 +1,17 @@
+{
+  "name": "netsips-extension",
+  "version": "1.5.0",
+  "description": "Netsips Chrome Extension - Local-first offline bookmark curation",
+  "main": "db.js",
+  "scripts": {
+    "test": "node test/db.test.js"
+  },
+  "keywords": [
+    "chrome-extension",
+    "local-first",
+    "indexeddb",
+    "bookmarks"
+  ],
+  "author": "kanishkkatara",
+  "license": "MIT"
+}
