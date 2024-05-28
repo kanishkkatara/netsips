@@ -1,7 +1,14 @@
-firebase-admin>=5.0.0
-python-firebase>=1.2
+# Core Digest & Scraping Dependencies
 newspaper3k>=0.2.8
 fpdf>=1.7.2
 Pillow>=8.0.0
 urllib3>=1.26.0
-nltk>=3.5
+
+# Configuration & Utilities
+python-dotenv>=1.0.0
+
+# Testing & Development
+pytest>=7.0.0
+
+# Optional Legacy Firebase Support
+firebase-admin>=5.0.0
