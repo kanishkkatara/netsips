@@ -23,39 +23,7 @@ function syncActionPopup() {
 
 syncActionPopup();
 
-// Function to inject content script and listen for details
-function getPageDetails(callback) {
-  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-    if (tabs && tabs[0]) {
-      var tabId = tabs[0].id;
-      var tabUrl = tabs[0].url || '';
-      var isRestricted = tabUrl.startsWith('chrome://') || 
-                         tabUrl.startsWith('chrome-extension://') || 
-                         tabUrl.startsWith('edge://') || 
-                         tabUrl.startsWith('about:') ||
-                         tabUrl.indexOf('chrome.google.com/webstore') !== -1 ||
-                         tabUrl.indexOf('chromewebstore.google.com') !== -1;
-      if (!isRestricted) {
-        if (chrome.scripting && chrome.scripting.executeScript) {
-          chrome.scripting.executeScript({
-            target: { tabId: tabId },
-            files: ['content.js']
-          }).catch(function(err) {
-            console.warn('Scripting inject catch:', err);
-          });
-        } else if (chrome.tabs.executeScript) {
-          chrome.tabs.executeScript(tabId, { file: 'content.js' });
-        }
-      }
-    }
-  });
 
-  chrome.runtime.onMessage.addListener(function (message) {
-    if (typeof callback === 'function') {
-      callback(message);
-    }
-  });
-}
 
 // External message handling
 chrome.runtime.onMessageExternal.addListener(function (request, sender, sendResponse) {

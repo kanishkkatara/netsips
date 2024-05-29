@@ -60,15 +60,18 @@ var metaImage = getMeta("og:image")
 if(metaImage == ''){
   metaImage = chrome.runtime.getURL('images/extension_images/placeholder.png');         
 }
-chrome.runtime.sendMessage({
-    'title': document.title, //pls remove if creates trouble
-     'url': window.location.href,
-     'word_count': count,
-     'estimated_time': Math.ceil(time),
-     'content': content,
-     'img_url': metaImage,
-     'main_site': getMeta('og:site_name')
-    // 'total_time_saved': total_time_saved
-     
- });
+try {
+  chrome.runtime.sendMessage({
+    title: document.title,
+    url: window.location.href,
+    word_count: count,
+    estimated_time: Math.ceil(time),
+    content: content,
+    img_url: metaImage,
+    main_site: getMeta('og:site_name') || ''
+  }, function() {
+    // Suppress error if popup is not active
+    if (chrome.runtime.lastError) {}
+  });
+} catch (e) {}
  
