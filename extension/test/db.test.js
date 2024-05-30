@@ -80,6 +80,7 @@ async function runTests() {
   assert.strictEqual(active.length, 1);
 
   console.log('PASS: All 8 LocalDB test cases passed successfully!');
+  process.exit(0);
 }
 
 runTests().catch(err => {

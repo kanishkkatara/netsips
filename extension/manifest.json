@@ -46,6 +46,7 @@
         "popup.html",
         "fonts/*",
         "images/*",
+        "images/extension_images/*",
         "db.js"
       ],
       "matches": ["<all_urls>"]

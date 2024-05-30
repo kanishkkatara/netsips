@@ -8,20 +8,9 @@
       //   }) 
       // }
       // renderItem()
-      // var firebaseConfig = {
-      //   apiKey: "AIzaSyBDaQL21llq2-5ftbSh0WvC243M6p_ZsgY",
-      //   authDomain: "netsips-1586535958950.firebaseapp.com",
-      //   databaseURL: "https://netsips-1586535958950.firebaseio.com",
-      //   projectId: "netsips-1586535958950",
-      //   storageBucket: "netsips-1586535958950.appspot.com",
-      //   messagingSenderId: "617103322863",
-      //   appId: "1:617103322863:web:4fbe39c3ad6acf34f3f51a",
-      //   measurementId: "G-E4SH3K42ZY"
-      // };
-      // firebase.initializeApp(firebaseConfig);
-      document.getElementById('sc').addEventListener('click', function(){
-        chrome.tabs.create({ url: chrome.runtime.getURL('settings.html') });
-      })
+document.getElementById('sc').addEventListener('click', function(){
+  chrome.tabs.create({ url: chrome.runtime.getURL('settings.html') });
+});
       //MINOR UTILITY FUNCTIONS
       //This shortenes the title of the card 
       function title_trimmer(website_title){

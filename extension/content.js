@@ -52,12 +52,8 @@ function getMeta(metaName) {
   // console.log(image_link)
 //https://ui-avatars.com/api/?background=ccc&color=202020&size=250
 // Send a message containing the page details back to the event page
-var metaImage = getMeta("og:image")
-// if(metaImage == ''){
-//   metaImage = `https://api.apiflash.com/v1/urltoimage?access_key=996f192584b4414bac444ad540480b3d&format=png&no_ads=true&url=${window.location.href}&height=800&width=1000`         
-// }
-// images/placeholder.png
-if(metaImage == ''){
+var metaImage = getMeta("og:image");
+if (!metaImage) {
   metaImage = chrome.runtime.getURL('images/extension_images/placeholder.png');         
 }
 try {
