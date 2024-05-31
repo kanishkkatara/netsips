@@ -39,12 +39,12 @@ def run_firebase_worker():
         )
         return False
 
-    db_url = os.environ.get("FIREBASE_DATABASE_URL", "https://netsips-1586535958950.firebaseio.com/")
+    db_url = os.environ.get("FIREBASE_DATABASE_URL", "")
     cred_path = os.environ.get("FIREBASE_CREDENTIALS_PATH", "firebase-sdk.json")
 
-    if not os.path.exists(cred_path):
+    if not db_url or not os.path.exists(cred_path):
         logger.warning(
-            f"Firebase credentials not found at '{cred_path}'. "
+            "Firebase database URL or credentials not configured. "
             "For offline/local digests, use: python -m backend.main --input <bookmarks.json>"
         )
         return False

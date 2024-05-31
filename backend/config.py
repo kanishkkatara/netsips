@@ -31,7 +31,7 @@ class Config:
     default_delivery_day: int = 6
 
     # Legacy Firebase Settings (Optional)
-    firebase_db_url: str = "https://netsips-1586535958950.firebaseio.com/"
+    firebase_db_url: str = ""
     firebase_credentials_path: Optional[str] = "./firebase-sdk.json"
 
     @classmethod
@@ -47,6 +47,6 @@ class Config:
             digest_output_dir=os.environ.get("DIGEST_OUTPUT_DIR", "./dist"),
             max_articles_per_digest=int(os.environ.get("MAX_DIGEST_ARTICLES", 15)),
             default_delivery_day=int(os.environ.get("DEFAULT_DELIVERY_DAY", 6)),
-            firebase_db_url=os.environ.get("FIREBASE_DATABASE_URL", "https://netsips-1586535958950.firebaseio.com/"),
+            firebase_db_url=os.environ.get("FIREBASE_DATABASE_URL", ""),
             firebase_credentials_path=os.environ.get("FIREBASE_CREDENTIALS_PATH", "./firebase-sdk.json"),
         )
