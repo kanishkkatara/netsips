@@ -43,14 +43,6 @@ function getMeta(metaName) {
     return '';
   }
 
-  // var image_link
-  // if(getMeta("og:image")!='' || undefined){
-  //   image_link = getMeta("og:image")
-  // }else{
-  //   image_link = `https://ui-avatars.com/api/?background=ccc&color=202020&size=250&name=${document.title}`
-  // }
-  // console.log(image_link)
-//https://ui-avatars.com/api/?background=ccc&color=202020&size=250
 // Send a message containing the page details back to the event page
 var metaImage = getMeta("og:image");
 if (!metaImage) {

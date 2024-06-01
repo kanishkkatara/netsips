@@ -1,13 +1,6 @@
-/*   "chrome_url_overrides" : {
-        "newtab": "settings.html"
-      }, */
-      // const numItemsToGenerate = 1;
-      // function renderItem(){
-      //   fetch(`https://source.unsplash.com/1600x900/?wallpaper`).then((response) => {   
-      //       document.body.style.backgroundImage = `url(${response.url})`
-      //   }) 
-      // }
-      // renderItem()
+/**
+ * Netsips New Tab Page (Local-First Edition)
+ */
 document.getElementById('sc').addEventListener('click', function(){
   chrome.tabs.create({ url: chrome.runtime.getURL('settings.html') });
 });
@@ -381,34 +374,7 @@ document.getElementById('sc').addEventListener('click', function(){
         }
       }
       
-      
-      ///////SEARCHBAR FOR SAVED/////
-      
-    //   window.addEventListener('load', function(){
-    //     document.getElementById('searchBar').addEventListener('keyup',function(){
-    //        var input = document.getElementById("searchBar");
-    //        var filter = input.value.toUpperCase();
-    //       var cards = document.getElementsByClassName('card')
-    //       for(var j=0;j<cards.length;j++){
-    //           txtValue = cards[j].getElementsByClassName('card_title')[0].innerText
-    //           if (txtValue.toUpperCase().indexOf(filter) > -1) {
-    //             cards[j].style.display = "";
-    //         } else {
-    //           cards[j].style.display = "none";
-    //         }
-    //       }
-    //     })
-      
-      
-    //   })
-      
 
-
-      
-      
-      
-      
-      
       const filter_using_tags=(tag)=>{
           let cards = document.getElementsByClassName('card')
           document.getElementById('tagSearch').value = tag
@@ -436,14 +402,6 @@ document.getElementById('gsearch').addEventListener('click', function(){
   }
   
 })
-
-// document.getElementById('gsearch').onkeypress=function(e){
-//   if(e.keyCode==13){
-//     let search = document.getElementById('searchBar').value
-//     let url = `https://www.google.com/search?q=${search}`
-//     window.open(url);
-//   }
-// }
 
 document.getElementById('searchBar').addEventListener("keyup", function(event) {
 

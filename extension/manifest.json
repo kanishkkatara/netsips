@@ -45,7 +45,6 @@
         "popup_main.html",
         "popup.html",
         "fonts/*",
-        "images/*",
         "images/extension_images/*",
         "db.js"
       ],
