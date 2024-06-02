@@ -62,6 +62,20 @@ def generate_pdf(urls, output_path="netsips.pdf"):
     for url in urls:
         if 'www.youtube.com' in str(url):
             continue
+        if Article is None:
+            title = url.split('/')[-1].replace('-', ' ').replace('_', ' ').title() or url
+            link.append(pdf.add_link())
+            pdf.set_font(main_font, size=20)
+            pdf.multi_cell(150, 9, txt=f"{c}. {title}", align="L")
+            pdf.set_font(main_font, size=15)
+            pdf.set_text_color(r=41, g=128, b=185)
+            pdf.cell(150, 10, border=0, txt='Click here to read', ln=1, align='R', fill=False, link=link[c])
+            pdf.cell(150, 5, txt='', ln=1, align="L")
+            pdf.set_text_color(r=76, g=78, b=79)
+            c += 1
+            parsed_articles.append((url, None))
+            continue
+
         try:
             article = Article(url)
             article.download()
@@ -83,11 +97,15 @@ def generate_pdf(urls, output_path="netsips.pdf"):
     c = 1
     for url, article in parsed_articles:
         try:
-            title = article.title or url
-            y1 = article.text.encode('latin-1', 'ignore').decode('latin-1')
-            text_paragraphs = [p.strip() for p in y1.split('\n') if len(p.strip()) > 30]
-
-            authors = 'By: ' + ', '.join(article.authors) if article.authors else 'By: Netsips Curated'
+            if article is None:
+                title = url.split('/')[-1].replace('-', ' ').replace('_', ' ').title() or url
+                text_paragraphs = [f"Curated reading link saved to your Netsips digest queue: {url}"]
+                authors = "By: Netsips Curated"
+            else:
+                title = article.title or url
+                y1 = article.text.encode('latin-1', 'ignore').decode('latin-1')
+                text_paragraphs = [p.strip() for p in y1.split('\n') if len(p.strip()) > 30]
+                authors = 'By: ' + ', '.join(article.authors) if article.authors else 'By: Netsips Curated'
 
             pdf.add_page()
             if c < len(link):

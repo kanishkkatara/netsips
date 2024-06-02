@@ -69,6 +69,9 @@ def run_digest(
     # 1. Compile PDF Digest
     try:
         npdf.generate_pdf(urls, output_path=pdf_path)
+    except ImportError as e:
+        logger.warning(f"PDF generation skipped: {e}")
+        pdf_path = None
     except Exception as e:
         logger.error(f"Error compiling PDF digest: {e}", exc_info=True)
         pdf_path = None

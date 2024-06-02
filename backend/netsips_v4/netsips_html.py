@@ -68,16 +68,20 @@ def generate_html(urls, output_path=None):
     for u in urls:
         url_str = str(u)
         is_yt = 'www.youtube.com' in url_str or 'youtu.be' in url_str
-        try:
-            article = Article(url_str)
-            article.download()
-            article.parse()
-            title = article.title or url_str
-            text = article.text
-            summary_text = '‣ Video link curated via Netsips. Click below to watch.' if is_yt else sumary(text)
-        except Exception:
-            title = url_str
-            summary_text = '‣ Curated reading link saved to your Netsips digest.'
+        if Article is not None:
+            try:
+                article = Article(url_str)
+                article.download()
+                article.parse()
+                title = article.title or url_str
+                text = article.text
+                summary_text = '‣ Video link curated via Netsips. Click below to watch.' if is_yt else sumary(text)
+            except Exception:
+                title = url_str
+                summary_text = '‣ Curated reading link saved to your Netsips digest.'
+        else:
+            title = url_str.split('/')[-1].replace('-', ' ').replace('_', ' ').title() or url_str
+            summary_text = '‣ Video link curated via Netsips. Click below to watch.' if is_yt else '‣ Curated reading link saved to your Netsips digest.'
 
         btn_text = "Watch Video" if is_yt else "Read Article"
 

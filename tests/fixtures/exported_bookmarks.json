@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "exportedAt": "2024-06-01T10:00:00Z",
+  "bookmarks": [
+    {
+      "id": "test_bkmk_1",
+      "title": "Offline-First Web Development",
+      "articleURL": "https://en.wikipedia.org/wiki/Offline-first",
+      "tags": "offline, web",
+      "status": 100
+    },
+    {
+      "id": "test_bkmk_2",
+      "title": "Indexed Database API",
+      "articleURL": "https://en.wikipedia.org/wiki/Indexed_Database_API",
+      "tags": "storage, browser",
+      "status": 100
+    }
+  ]
+}

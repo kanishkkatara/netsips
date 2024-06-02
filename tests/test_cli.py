@@ -51,6 +51,16 @@ class TestCLI(unittest.TestCase):
         self.assertIsNone(result["pdf"])
         self.assertFalse(result["delivered"])
 
+    def test_run_digest_generation(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            result = run_digest(
+                urls=["https://example.com/test1", "https://example.com/test2"],
+                output_dir=tmpdir
+            )
+            self.assertEqual(result["count"], 2)
+            self.assertIsNotNone(result["html"])
+            self.assertTrue(os.path.exists(result["html"]))
+
 
 if __name__ == "__main__":
     unittest.main()
