@@ -1,164 +1,189 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-   <title>Netsips</title>
- 
-
-    <style>
+  <meta charset="utf-8">
+  <title>Netsips | Welcome</title>
+  <style>
     @font-face {
- font-family: 'Manrove-cards';
- font-weight:200rem;
- src: url('fonts/Manrope-VariableFont_wght.ttf'); 
-}
-      html,
-      body {
-      font-family: 'Manrove-cards';
-        font-size: 14px;
-        margin: 0;
-        min-height: 180px;
-        padding: 0;
-        width: 250px;
-	color: #4c4e4d;
-      }
-      h1 {
-font-family: 'Courgette', cursive;
+      font-family: 'Manrope';
+      font-weight: 400 800;
+      src: url('fonts/Manrope-VariableFont_wght.ttf') format('truetype');
+      font-display: swap;
+    }
 
-        font-size: 22px;
-        font-weight: 400;
-        margin: 0;
-        color: #FFF000;
-      }
-      
-      img {
-        width: 30px;
-      }
-      .modal-header {
-        align-items: center;
-        border-bottom: 0.5px solid #dadada;
-	background: #313131;
-  margin-bottom:10px;
-  
-      }
-      .modal-content-2 {
-    
-       
-	color: #4c4e4d;
-  
-      }
-      .modal-icons {
-        border-top: 0.5px solid #dadada;
-        height: 50px;
-        width: 100%;
-      }
-      .logo {
-        padding: 12px;
-        text-align: left;
-        font-weight:bold;
-        
-      }
-  button:focus {outline:0;}
-      #btncontainer{
-        text-align: center;
-      }
-      #ext_link{
-         font-family: 'Manrove-cards';
-        border-radius: 5px;
-        width: 224px;
-        height:40px;
-        border:none;
-        margin-bottom:10px;
-        transition: 0.3s;
-        font-size:16px;
-        background-color:rgb(34,139,34,0.8);
-        color:#ffffff;
-        cursor:pointer;
-      }
-      #addbookmark{
-        text-align: center;
-      }
-      #email{
-         width: 150px;
-         
-          border-radius: 2px;
-         border:1px solid #cccccc;
-       
-      }
-      #url{
-         width: 150px;
-        
-         border-radius: 2px;
-         border:1px solid #cccccc;
-         
-      }
-      p{
-        margin-left:10px;
-        margin-right:10px;
-        padding: 0px;
-        text-align:left;
-        font-size:15px;
-        line-spacing:1;
+    :root {
+      --bg-primary: #ffffff;
+      --bg-surface: #f8fafc;
+      --border-color: #e2e8f0;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      --accent-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      --accent-hover: linear-gradient(135deg, #059669 0%, #047857 100%);
+      --shadow-btn: 0 4px 14px rgba(16, 185, 129, 0.35);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+    }
 
-      }
-      img{
-        height:15px;
-        width:15px;
-        margin:4px 5px -2px 4px;
-        opacity:90%;
-      }
-      h3{
-        padding-left:15px;
-        margin-bottom:-5px;
-      }
-      #ext_link:hover{
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        border:none;
-         background-color:rgb(34,139,34);
-        color:#FFFFFF;
-      }
-      h3{
-        color: rgb(0,0,0,0.8);
-      }
-      #main-logo{
-         width:90px;
-         height:30px;
-         margin: 0px 0px -12px 0px;
-      }
-      #settings-icon{
-          position: absolute;
-     right: 0;
-     top: 0;
-   
-      }
-      #settings-icon{
-        cursor: pointer;
-      }
-      .tick{
-        color:#3CB371;
-        margin-right:1px;
-      }
-    </style>
-    
-   
+    body {
+      font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      width: 320px;
+      padding: 20px;
+      margin: 0;
+      font-size: 13.5px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .brand-hero {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      margin-bottom: 8px;
+    }
+
+    .brand-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .features-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .feature-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12.5px;
+      color: var(--text-secondary);
+    }
+
+    .check-icon {
+      width: 16px;
+      height: 16px;
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #a7f3d0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .actions-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      width: 100%;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #ffffff;
+      background: var(--accent-gradient);
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      box-shadow: var(--shadow-btn);
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      width: 100%;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: #f1f5f9;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      background: #e2e8f0;
+      color: var(--text-primary);
+    }
+  </style>
 </head>
 <body>
-    <div class="modal-header">
-      <h1 class="logo">
-      <center><span><img id="main-logo"src="images/extension_images/yellow_netsips.svg"></span></center>
-      </h1>
-     
+  <div class="brand-hero">
+    <img class="brand-logo" src="images/extension_images/icon_128.png" alt="Netsips">
+    <h1 class="brand-title">Netsips Clipper</h1>
+    <p class="brand-subtitle">Curate and digest your web bookmarks</p>
+  </div>
+
+  <div class="features-card">
+    <div class="feature-row">
+      <span class="check-icon">✓</span>
+      <span>Save articles with one click</span>
     </div>
-   <center id="modal-content-2"> 
-   <p><span class="tick">&#10003</span>Save bookmarks using Netsips</p>
-   <p><span class="tick">&#10003</span>Manage them in your dashboard</p>
-   <p><span class="tick">&#10003</span>Get personalised newsletters</p>
-   <p><span class="tick">&#10003</span>Sync with Netsips app</p>
- 
+    <div class="feature-row">
+      <span class="check-icon">✓</span>
+      <span>Organize with tags & local storage</span>
+    </div>
+    <div class="feature-row">
+      <span class="check-icon">✓</span>
+      <span>Read clean summaries & digests</span>
+    </div>
+    <div class="feature-row">
+      <span class="check-icon">✓</span>
+      <span>Sync across your devices offline-first</span>
+    </div>
+  </div>
 
-    </center>
-<center> <button id="ext_link">Open Netsips Dashboard</button></center>
-<center> <button id="guest_btn" style="margin-top:2px;margin-bottom:12px;font-family:'Manrove-cards';border-radius:5px;width:224px;height:34px;border:1px solid #ccc;background-color:#f5f5f5;color:#333;font-size:14px;cursor:pointer;">Continue as Guest</button></center>
-  
-    <script src="popup.js"></script>
+  <div class="actions-wrap">
+    <button id="guest_btn" class="btn-primary">Start Using Netsips</button>
+    <button id="ext_link" class="btn-secondary">Open Dashboard</button>
+  </div>
 
+  <script src="popup.js"></script>
 </body>
 </html>
