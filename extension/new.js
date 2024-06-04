@@ -80,13 +80,13 @@ document.getElementById('sc').addEventListener('click', function(){
         items = items || [];
         if (items.length === 0) {
           if (recentsEl) recentsEl.style.display = 'none';
-          newsContent.innerHTML = '<div style="color:#f1f1f1;font-size:18px;margin-left:30px;">Your saved bookmarks will appear here</div>';
+          newsContent.innerHTML = '<div class="empty-state">No saved bookmarks yet. Clip any webpage using the Netsips extension to see them here!</div>';
           return;
         }
 
-        if (recentsEl) recentsEl.style.display = 'block';
+        if (recentsEl) recentsEl.style.display = 'flex';
         newsContent.innerHTML = '';
-        for (let i = 0; i < items.length && i < 4; i++) {
+        for (let i = 0; i < items.length && i < 12; i++) {
           let item = items[i];
           let url = item.articleURL || item.URL || '#';
           let title = title_trimmer(item.title || item.Title || url);
@@ -96,7 +96,42 @@ document.getElementById('sc').addEventListener('click', function(){
           let img = item.imageUrl || 'images/extension_images/placeholder.png';
           let main_site_name = item.mainSite || '';
           let key = item.id || item.Date || ('key_' + i);
-          newsContent.innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner' title='Hide'><img src='images/extension_images/visibility_off-grey.svg'></span> <a href="${url}" target='_blank'><img class='img-container-tag' src="${img}"></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src="${icon}"></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href="${url}" target='_blank">${title}</a></p> <div><span class='card_tags' style='overflow:hidden;text-overflow:ellipsis;margin-right:10px'>${link_tag_name}</span><span></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`;
+
+          var tagPills = '';
+          if (link_tag_name) {
+            var tagList = link_tag_name.split(',').map(function(t) { return t.trim(); }).filter(Boolean);
+            tagPills = tagList.map(function(t) {
+              return `<span class="tag-chip">#${t}</span>`;
+            }).join(' ');
+          }
+
+          newsContent.innerHTML += `
+            <div class="card">
+              <div class="card-thumb-wrap">
+                <span class="topcorner" title="Archive / Hide">
+                  <img src="images/extension_images/visibility_off-grey.svg" alt="Hide">
+                </span>
+                <a href="${url}" target="_blank" rel="noopener noreferrer">
+                  <img class="card-thumb" src="${img}" alt="" onerror="this.src='images/extension_images/placeholder.png'">
+                </a>
+              </div>
+              <div class="card-body">
+                <div class="card-meta">
+                  <span class="card_favicon"><img src="${icon}" alt="" onerror="this.src='images/extension_images/icon_128.png'"></span>
+                  <span class="card_site">${main_site_name || 'web'}</span>
+                  <span class="card_date">${time}</span>
+                </div>
+                <h3 class="card_title">
+                  <a href="${url}" target="_blank" rel="noopener noreferrer">${title}</a>
+                </h3>
+                <div class="card-tags-row">
+                  <span class="card_tags" style="display:none">${link_tag_name}</span>
+                  ${tagPills}
+                </div>
+                <div class="key" style="display:none">${key}</div>
+              </div>
+            </div>
+          `;
         }
 
         var topCorners = document.getElementsByClassName('topcorner');
@@ -114,12 +149,17 @@ document.getElementById('sc').addEventListener('click', function(){
       }
 
       function hellocard() {
-        let key = this.parentElement.parentElement.getElementsByClassName('key')[0].innerText;
-        this.parentElement.parentElement.style.display = 'none';
-        if (typeof LocalDB !== 'undefined' && LocalDB.bookmarks) {
-          LocalDB.bookmarks.archive(key);
-        } else {
-          delete_this_card(key);
+        let cardEl = this.closest('.card');
+        if (!cardEl) return;
+        let keyEl = cardEl.querySelector('.key');
+        let key = keyEl ? keyEl.innerText : null;
+        cardEl.style.display = 'none';
+        if (key) {
+          if (typeof LocalDB !== 'undefined' && LocalDB.bookmarks) {
+            LocalDB.bookmarks.archive(key);
+          } else {
+            delete_this_card(key);
+          }
         }
       }
 
