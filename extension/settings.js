@@ -78,13 +78,41 @@ function displayCards(items) {
     let img = item.imageUrl || 'images/extension_images/placeholder.png';
     let main_site_name = item.mainSite || '';
 
-    newsContent.innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner' title='Archive bookmark'><img src='images/extension_images/archive-grey.svg'></span> <a href="${url}" target="_blank"><img class='img-container-tag' src="${img}"></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src="${icon}"></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href="${url}" target="_blank">${title}</a></p> <div><span class='card_tags' style='overflow:hidden;text-overflow:ellipsis;margin-right:10px'>${link_tag_name}</span><span><img src='images/extension_images/edit.png' class='edit' title='Update tags'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`;
+    var tagDisplay = link_tag_name ? link_tag_name.split(',').map(function(t) { return '#' + t.trim(); }).join(' ') : '';
+
+    newsContent.innerHTML += `
+      <div class='column'>
+        <div class='card'>
+          <div class='img-container'>
+            <span class='topcorner' title='Archive bookmark'>
+              <img src='images/extension_images/archive-grey.svg' alt="Archive">
+            </span>
+            <a href="${url}" target="_blank" rel="noopener noreferrer">
+              <img class='img-container-tag' src="${img}" alt="" onerror="this.src='images/extension_images/placeholder.png'">
+            </a>
+          </div>
+          <div class='card-info-container'>
+            <div class='card-meta-row'>
+              <span class='card_favicon'><img src="${icon}" alt="" onerror="this.src='images/extension_images/icon_128.png'"></span>
+              <span class='card_site'>${main_site_name || 'web'}</span>
+              <span class='card_date'>${time}</span>
+            </div>
+            <h3 class='card_title'><a href="${url}" target="_blank" rel="noopener noreferrer">${title}</a></h3>
+            <div class='card-bottom-row'>
+              <span class='card_tags' data-raw-tags="${link_tag_name}" title="${link_tag_name}">${tagDisplay}</span>
+              <span><img src='images/extension_images/edit.png' class='edit' title='Update tags' alt="Edit"></span>
+            </div>
+          </div>
+          <div class='key' style='display:none'>${key}</div>
+        </div>
+      </div>
+    `;
     if (link_tag_name) markers.push(link_tag_name);
   });
 
   var topcorners = document.getElementsByClassName('topcorner');
   for (var j = 0; j < topcorners.length; j++) {
-    let key = topcorners[j].parentElement.parentElement.getElementsByClassName('key')[0].innerText;
+    let key = topcorners[j].closest('.card').getElementsByClassName('key')[0].innerText;
     topcorners[j].onclick = function() {
       hellocard1(key);
     };
@@ -94,7 +122,7 @@ function displayCards(items) {
   for (var k = 0; k < edits.length; k++) {
     let cardEl = edits[k].closest('.card');
     let key = cardEl.getElementsByClassName('key')[0].innerText;
-    let card_tags = cardEl.getElementsByClassName('card_tags')[0].innerText;
+    let card_tags = cardEl.getElementsByClassName('card_tags')[0].getAttribute('data-raw-tags') || cardEl.getElementsByClassName('card_tags')[0].innerText;
     let card_title = cardEl.getElementsByClassName('card_title')[0].innerText;
     edits[k].onclick = function() {
       tags1(key, card_tags, card_title);
@@ -135,15 +163,15 @@ function hellocard1(key) {
 function tags1(key, card_tags, card_title) {
   var modal = document.getElementsByClassName("myModal")[0];
   if (!modal) return;
-  var titleDisplay = modal.querySelector('label:not([style*="none"])');
+  var titleDisplay = document.getElementById("modal_card_title") || modal.querySelector('label:not([style*="none"])');
   if (titleDisplay) {
-    titleDisplay.innerText = (card_title.length < 42) ? card_title : (card_title.substring(0, 42) + '...');
+    titleDisplay.innerText = card_title;
   }
   var titleInput = document.getElementById("title_input");
   if (titleInput) titleInput.value = key;
   var tagInput = document.getElementById("tag_input");
   if (tagInput) tagInput.value = card_tags || '';
-  modal.style.display = "block";
+  modal.style.display = "flex";
 
   var closeBtn = document.getElementById('close_modal');
   if (closeBtn) closeBtn.onclick = removeModal1;
@@ -210,7 +238,7 @@ function render_deleted() {
 
   LocalDB.bookmarks.getAll({ status: 102 }).then(function(docs) {
     if (!docs || docs.length === 0) {
-      delContent.innerHTML = '<center style="margin:40px;font-family:\'Manrove-tabs\';font-size:18px;color:#666;">No archived bookmarks.</center>';
+      delContent.innerHTML = '<div style="grid-column: 1 / -1; text-align:center; padding: 48px; color: var(--text-muted); font-size: 15px;">No archived bookmarks found.</div>';
       return;
     }
     docs.forEach(function(doc) {
@@ -222,14 +250,41 @@ function render_deleted() {
       let key = doc.id;
       let img = doc.imageUrl || 'images/extension_images/placeholder.png';
       let main_site_name = doc.mainSite || '';
-      delContent.innerHTML += `<div class='column'> <div class='card'> <div class='img-container' style='width:280px; height:200px; overflow:hidden; object-fit: cover;'> <span class='topcorner1' title='Permanently delete bookmark'><img src='images/extension_images/delete.svg'></span> <a href="${url}" target='_blank'><img class='img-container-tag' src="${img}"></a> </div> <div class='card-info-container'> <span class='card_favicon'><img src="${icon}"></span> <span class='card_site'>${main_site_name}</span> <span class='card_date'>${time}</span> <p class='card_title'><a href="${url}" target='_blank">${title}</a></p> <div><span class='card_tags' style='display:none'>${link_tag_name}</span><span><img src='images/extension_images/restore.svg' class='edit1' title='Restore bookmark'></span></div> </div> <div class='key' style='display:none'>${key}</div> </div> </div>`;
+
+      delContent.innerHTML += `
+        <div class='column'>
+          <div class='card'>
+            <div class='img-container'>
+              <span class='topcorner1' title='Permanently delete bookmark'>
+                <img src='images/extension_images/delete.svg' alt="Delete">
+              </span>
+              <a href="${url}" target='_blank' rel="noopener noreferrer">
+                <img class='img-container-tag' src="${img}" alt="" onerror="this.src='images/extension_images/placeholder.png'">
+              </a>
+            </div>
+            <div class='card-info-container'>
+              <div class='card-meta-row'>
+                <span class='card_favicon'><img src="${icon}" alt="" onerror="this.src='images/extension_images/icon_128.png'"></span>
+                <span class='card_site'>${main_site_name || 'web'}</span>
+                <span class='card_date'>${time}</span>
+              </div>
+              <h3 class='card_title'><a href="${url}" target='_blank' rel="noopener noreferrer">${title}</a></h3>
+              <div class='card-bottom-row'>
+                <span class='card_tags' style='display:none'>${link_tag_name}</span>
+                <span><img src='images/extension_images/restore.svg' class='edit1' title='Restore bookmark' alt="Restore"></span>
+              </div>
+            </div>
+            <div class='key' style='display:none'>${key}</div>
+          </div>
+        </div>
+      `;
     });
 
     var topcorners1 = document.getElementsByClassName('topcorner1');
     for (var j = 0; j < topcorners1.length; j++) {
-      let key = topcorners1[j].parentElement.parentElement.getElementsByClassName('key')[0].innerText;
+      let key = topcorners1[j].closest('.card').getElementsByClassName('key')[0].innerText;
       topcorners1[j].onclick = function() {
-        this.parentElement.parentElement.style.display = 'none';
+        this.closest('.card').style.display = 'none';
         permanent_delete(key);
       };
     }
@@ -244,7 +299,7 @@ function render_deleted() {
     }
   }).catch(function(err) {
     console.warn("Deleted fetch error:", err);
-    delContent.innerHTML = '<center style="margin:40px;font-family:\'Manrove-tabs\';font-size:18px;color:#666;">No archived bookmarks.</center>';
+    delContent.innerHTML = '<div style="grid-column: 1 / -1; text-align:center; padding: 48px; color: var(--text-muted); font-size: 15px;">No archived bookmarks found.</div>';
   });
 }
 
@@ -275,54 +330,27 @@ function clearArchive() {
 // TAG RENDERING & FILTERING
 // -------------------------------------------------------------
 function tag_render(tags) {
-  var dark = document.getElementById('dark_mode_checkbox');
   var spanContainer = document.getElementById("span_container");
   if (!spanContainer) return;
   spanContainer.innerHTML = '';
   tags.forEach(function(tag) {
     if (tag !== '') {
-      if (dark && dark.checked) {
-        spanContainer.innerHTML += `<span class="filter_tags" style="background-color: #4c4e4d; color:white">${tag}</span>&nbsp;&nbsp;&nbsp;`;
-      } else {
-        spanContainer.innerHTML += `<span class="filter_tags" style="background-color: #f1f1f1;">${tag}</span>&nbsp;&nbsp;&nbsp;`;
-      }
+      spanContainer.innerHTML += `<span class="filter_tags">${tag}</span>`;
     }
   });
 }
 
 function activeTag() {
-  var x = this;
-  chrome.storage.local.get(['isDark'], function(result) {
-    if (result.isDark) {
-      if (x.style.backgroundColor == "rgb(76, 78, 77)") {
-        x.style.backgroundColor = "rgb(101, 52, 172)";
-        x.style.color = "rgb(255, 255, 255)";
-        filter_tag_collector();
-      } else {
-        x.style.backgroundColor = "rgb(76, 78, 77)";
-        x.style.color = "rgb(255, 255, 255)";
-        filter_tag_collector();
-      }
-    } else {
-      if (x.style.backgroundColor == "rgb(241, 241, 241)") {
-        x.style.backgroundColor = "rgb(101, 52, 172)";
-        x.style.color = "rgb(255, 255, 255)";
-        filter_tag_collector();
-      } else {
-        x.style.backgroundColor = "rgb(241, 241, 241)";
-        x.style.color = "rgb(0, 0, 0)";
-        filter_tag_collector();
-      }
-    }
-  });
+  this.classList.toggle('active-tag');
+  filter_tag_collector();
 }
 
 function filter_tag_collector() {
   var tag_spans = document.getElementsByClassName("filter_tags");
   var filter_tags = [];
   for (var i = 0; i < tag_spans.length; i++) {
-    if (tag_spans[i].style.backgroundColor == "rgb(101, 52, 172)") {
-      filter_tags.push(tag_spans[i].innerText);
+    if (tag_spans[i].classList.contains("active-tag")) {
+      filter_tags.push(tag_spans[i].innerText.toLowerCase().trim());
     }
   }
   real_tag_filter(filter_tags);
@@ -334,10 +362,17 @@ var checker = function(arr, target) {
 
 function real_tag_filter(list) {
   var cards = document.getElementsByClassName("card");
+  if (!list || list.length === 0) {
+    for (var j = 0; j < cards.length; j++) {
+      cards[j].style.display = '';
+    }
+    return;
+  }
   for (var i = 0; i < cards.length; i++) {
     var tagSpan = cards[i].getElementsByClassName('card_tags')[0];
     if (!tagSpan) continue;
-    var tag = tagSpan.innerText.toLowerCase().split(',');
+    var raw = tagSpan.getAttribute('data-raw-tags') || tagSpan.innerText;
+    var tag = raw.toLowerCase().replace(/#/g, '').split(',');
     for (var k = 0; k < tag.length; k++) {
       tag[k] = tag[k].trim();
     }
@@ -624,6 +659,16 @@ document.addEventListener('DOMContentLoaded', function() {
 // -------------------------------------------------------------
 // NAVIGATION TABS
 // -------------------------------------------------------------
+function setActiveNav(activeId) {
+  ['saved-btn', 'sc', 'archived'].forEach(function(id) {
+    var btn = document.getElementById(id);
+    if (btn) {
+      if (id === activeId) btn.classList.add('active');
+      else btn.classList.remove('active');
+    }
+  });
+}
+
 function showSaved() {
   var london = document.getElementById("London");
   var rome = document.getElementById("Rome");
@@ -633,6 +678,7 @@ function showSaved() {
   if (paris) paris.style.display = "block";
   var drop = document.getElementById("dropdown-menu");
   if (drop) drop.style.display = "none";
+  setActiveNav('saved-btn');
   renderSavedBookmarks();
 }
 
@@ -645,6 +691,7 @@ function showSettings() {
   if (paris) paris.style.display = "none";
   var drop = document.getElementById("dropdown-menu");
   if (drop) drop.style.display = "none";
+  setActiveNav('sc');
 }
 
 function showArchived() {
@@ -660,6 +707,7 @@ function showArchived() {
       clearArchive();
     };
   }
+  setActiveNav('archived');
   render_deleted();
   var drop = document.getElementById("dropdown-menu");
   if (drop) drop.style.display = "none";

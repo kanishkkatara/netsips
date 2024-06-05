@@ -1,1329 +1,917 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="images/extension_images/icon_128.png"/>
-	<title>Netsips | Dashboard</title>
-<style>
-::-webkit-scrollbar {
-    display: none;
-}
-html{
-  overflow-y:auto;
-  height: 100%;
-}
-@font-face {
- font-family: 'Raleway';
- src: url('fonts/Raleway-Regular.ttf'); 
-}
-@font-face {
- font-family: 'worksans';
- src: url('fonts/WorkSans-VariableFont_wght.ttf'); 
-}
-@font-face {
- font-family: 'Manrove-cards';
- font-weight:400rem;
- src: url('fonts/Manrope-VariableFont_wght.ttf'); 
-}
-
-@font-face {
- font-family: 'Manrove-tabs';
- font-weight:350px;
- src: url('fonts/Manrope-VariableFont_wght.ttf'); 
-}
-
-@font-face {
- font-family: 'Manrove-label';
- font-weight:200px;
- src: url('fonts/Manrope-VariableFont_wght.ttf'); 
-}
-
-@font-face {
- font-family: 'Manrove-tags';
- font-weight:200px;
- src: url('fonts/Manrope-VariableFont_wght.ttf'); 
-}
-
-
-* {
-   
-  margin: 0;
-  padding: 0;
- 
-}
-* {box-sizing: border-box}
-
-
-/* Style the tab */
-
-
-/* Style the buttons inside the tab */
-
-/* Change background color of buttons on hover 
-.tablinks:hover {
-  background-color: #242424;
-}
-*/
-/* Create an active/current "tab button" class 
-
-/*Dark tablink*/
-
-.darktablinks {
-  display: block;
-  background-color: #242424;
-  color: rgba(255, 255, 255, 0.7);
-  padding: 8px;
-  width: 100%;
-  border: none;
-  outline: none;
-  text-align: center;
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 22px;
- font-family: 'Manrove-tabs';
-}
-
-/* Change background color of buttons on hover */
-.darktablinks:hover {
-  background-color:#171717;
-}
-
-
-
-/* Style the tab content */
-.tabcontent {
-  float: left;
-background:#f2f2f2;
-
- overflow-y:auto;
-  height: 100%;
- /* width: 83%;*/
- width:100%;
-  padding-top:20px
- 
-}
-
-.tab{
-  float: left;  
-  width: 17%;
-   overflow-x:hidden;
-background-color: #f1f1f1;
- height:100%;
-    overflow-y:auto;
-margin:0;
- transition: 0.3s;
- padding:0 10px 0 10px;
- display:none
-
-
-}
-/*My CSS*/
-
-
-#Netsips{
-  text-align: left;
-font-size:60px;
-  color:#4c4e4d;
-  margin-bottom: 0px;
-  height:100px;
-  -webkit-user-select: none;      
--moz-user-select: none; 
--ms-user-select: none; 
-user-select: none; 
-font-weight:lighter;
-
-}
-#Netsips div{
-  margin-left: 30px;
-  padding-bottom:20px;
- 
-}
-
-#Netsips-img{
- 
-  height:50px;
-  color:#4c4e4d;
-  padding-bottom:5px;
-  
-}
-
-#Netsips-img-round{
-  height:50px;
-
-}
-
-
-
-#main-heading{
-  padding-top:0px;
-  text-align: left;
-  font-size:30px;
-  font-weight: lighter;
-   background-color: white;
-  color:black;
-  height:70px;
-  justify-content:center;
-  align-items:center;
-   position: -webkit-sticky;
-  position: sticky;
-   top: 0; 
-   z-index:97;
-    -webkit-box-shadow: 0px 5px 5px -5px rgba(0,0,0,0.75);
--moz-box-shadow: 0px 5px 5px -5px rgba(0,0,0,0.75);
-box-shadow: 0px 5px 5px -5px rgba(0,0,0,0.75);
-
- 
-}
-#searchBar {
-  background-position: 10px 12px;
-  background-repeat: no-repeat;
-  width: 100%;
-  font-size: 16px;
-  padding: 12px 20px 12px 45px;
-  border: 1px solid #ddd;
- margin-top: 12.5px;
-  margin-left:260px;
-  width:37%;
-   border-radius:25px;
-   display:inline-block;
-   background:#f1f1f1
-}
-#searchIcon{
-  position:absolute;
-    height:20px;
-     margin-top:3px; 
-     top:22px;
-     left:275px;
-}
-.tablinks {
-  height:50px;
-  width:50px;
-  display: inline-block;
-  color: black;
-  margin-top:-3px;
-  margin-left:7px;
-  padding:0;
-  border: none;
-  outline: none;
-  text-align: center;
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 22px;
- font-family: 'Manrove-tabs';
- background-color: #303030;
- display:none
-}
-#Netsips-logo-container{
- height:37px;
- width:37px;
- padding:0;
- top:13px;
- left:25px;
- position:absolute 
-}
-#dashboard{
-  top:14px; /*18px*/
-  left:70px;
-  position:absolute;
-  font-size:30px;
-  font-family: 'worksans';
-}
-.menu_icons{
-  width:40px
-}
-
-
-#toggle-container{
-  float:right;
-   margin-top: 16px;
-  margin-right:30px
-}
-
-
-
-#tagSearch{
-
-border: 0;
-border-bottom: 2px solid #303030;
-  outline: 0;
-width: 15%; /*100%
-top:80px;
-right:20px;
-position:absolute;*/ 
-margin:8px 20px 10px 0px;
-padding: 8px;
-background-repeat: no-repeat;
- border-radius:2px;
-    display:inline-block;
-    font-size: 16px;
-    background:#f1f1f1
-
-}
-
-.tags{
-  height:30px;
-width: 100%;
-padding:5px 5px 5px 7px;
-border-bottom: 1px solid #ddd;
- font-size: 16px;
- cursor:pointer;
- opacity:0.9;
- transition:0.1s;
-}
-
-.tags:hover{
-  opacity:1
-}
-
-
-
-
-#submit-settings{
-  margin-left:30px;
-  font-size: 35px;
-  font-weight: 100;
-}
-#days-menu{
-  font-size: 20px;
-  margin-left: 10px;
-}
- .radio-button { 
-            display: block; 
-            
-            cursor: pointer; 
-   
-        } 
-input[type=radio] { 
-            visibility: hidden; 
-        } 
-input[type=checkbox] { 
-            visibility: hidden; 
-        } 
-.radio-mark { 
-            position: absolute; 
-            margin-top: 17px;
-            margin-left:-20px;
-           
-            height: 25px; 
-            width: 25px; 
-          background-color: #ddd; 
-        } 
-.label-text{
-  padding: 20px;
-  font-size:25px;
-  font-family: "Manrove-label"
-  
-}
-.radio-button:hover input ~ .radio-mark {
-  background-color: #bbb;
-}
-.radio-button input:checked ~ .radio-mark {
-  background-color: #ccc;
-  color:white;
-}
-.radio-mark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-.radio-button input:checked ~ .radio-mark:after {
-  display: block;
-}
-.radio-button .radio-mark:after {
-  left: 9px;
-  top: 5px;
-  width: 5px;
-  height: 10px;
-  border: solid #371777;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
-#question{
-  margin-left:30px;
-  font-size: 28px;
-  font-family: 'Manrove-tabs'
-}
-#submit-button{
-        text-align:center;
-        border-radius: 5px;
-        width: 200px;
-        height:38px;
-        margin-top: 30px;
-        background: white;
-        transition: 0.3s;
-        font-size: 20px;
-        font-weight: 100;
-        cursor:pointer;             
-}
-
-
-
-/* Float four columns side by side */
-.column {
- float: left;
-  width: 20%;
-  padding: 0 ;
-  margin-right:60px;
-  margin-bottom:0px;
-  margin-top:0px;
-  
-
-}
-
-/* Remove extra left and right margins, due to padding */
-.row {margin: 0 0 0 0;
-
-
-
-}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Responsive columns */
-@media screen and (max-width: 600px) {
-  .column {
-    width: 100%;
-/*    height:20%;CHANGE*/
-    display: block;
-    margin-bottom: 20px;
-    
-  }
-}
-
-/* Style the cards */
-.card {
-  font-size: 16px;
-   font-family: 'Manrove-cards'; 
- box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
-  
-  margin-top:30px;
-  width: 280px; /*250px*/
-  height:360px;/*CHANGE*/
-  background:#fff;
-  overflow:hidden;
-  position:relative;
-  border-radius:5px;
-  transition:0.2s;
-  
-}
-.card:  hover {
--webkit-box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.8);
--moz-box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.8);
-box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.8);
-}
-.img-container{
-
-  justify-content:center;
- text-align:center;
- margin-bottom:10px;
-
-}
-.card:hover .edit{
-  visibility:visible;
-  
-}
-.card:hover .topcorner{
-    visibility:visible;
-
- 
-}
-.card:hover .card_tags{
-  color:rgb(0,0,0);
-  border-bottom:1px solid #C8C8C8;
-}
-
-.card:hover .edit1{
-  visibility:visible;
-
-}
-
-.card:hover .img-container-tag{
-opacity:0.72
-}
-
-
-.card:hover .topcorner1{
-   visibility:visible;
- 
-}
-
-
-
-.img-container-tag{
-  min-width: 100%;
-min-height: 100%;
-width: auto;
-height: auto;
-  
-  display:inline-block;
- 
-   margin-top:0;
-  max-width:1000%;
-max-height: 100%;
-transition:0.2s;
-   position:relative; /**/
-   z-index:1;
-   margin-top:-30px;
-  
-
-
-  
-}
-
-
-.topcorner{
-  float:right;
-   border-radius: 20%;
-   text-align:center;
- position:relative;
-   z-index:2;
-   top:9px;
-   right:5px;
-   height:25px;
-   cursor:pointer;
-   visibility:hidden;
-   
-       }
-
-.topcorner1{
-  float:right;
-   border-radius: 20%;
-   text-align:center;
- position:relative;
-   z-index:2;
-   top:9px;
-   right:5px;
-   height:25px;
-   cursor:pointer;
-   visibility:hidden
-       }
-
-
-.card-info-container{
-  padding:5px 9px 9px 9px;
-}
-
-.card_title{
-     font-family: 'arial'; 
-  margin-top:14px!important;
-  color:rgb(0,0,0,0.8);
-  overflow:hidden;
-  text-overflow:ellipsis;
-  padding:7px 0 6px 0;
-  font-weight:400!important;
-}
-
-
-.card_site{
-  color:#6534ac;
-  margin-left:2px;
-  padding: 0 0 15px 0px;
-  font-size:14px;
-  font-weight: 600!important;
-}
-.card_favicon{
-  margin:7px 0 0 0;
-}
-
-
-.card_date{
-  padding:2.75px 0 0 0;
-  float:right;
- font-family: 'Manrove-cards';
- font-size:14px
-
-}
-
-
-.card_tags{
-  font-size:14px;
-   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: clip;
-  height:20px;
-  width:260px; /*230*/
-  float:left;
-  top:320px;
-  /*right:200px;*/
-  position:absolute;
-  color:rgb(0,0,0,0.7);
-  bottom:5px;
-
-}
-
-
-
-.edit{
-  height:20px;
-  width:20px;
-  float:right;
-   border-radius: 20%;
-  transition:0s;
-  cursor:pointer;
-   top:318px;
-  left:250px;
-  position:absolute;
-  visibility:hidden;
-  transition:0.2s
-  
-   
-}
-.edit:hover{
-  opacity:100%;
-  
-}
-
-#Tag_search_button_del{
-   margin-left:72px;
-     transition: 0.2s;
-  border: 0.6px solid #D3D3D3;
-   color:#4c4e4d;
-  padding: 8px 22px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-   font-weight: lighter;
-   border-radius:5px;
-
-
-}
-#Tag_search_button_del:hover{
-    background-color: #DC143C;
-    color:white;
-}
-#Tag_search_button_del:focus{
-  outline:none;
-}
-
-
-.filter_tags{
-  border:0.6px solid #D3D3D3;
-  user-select:none;
-  min-width: 150px;
-padding: 10px 10px 10px 10px;
-border-radius: 3px;
- cursor: pointer;
- transition:0.1s
-}
-
-.filter_tags:hover{
-  border:0.6px solid 	#A9A9A9;
-}
-
-#Paris .row{
- margin-left:55px;
- 
-}
-
-#Rome .row{
-margin-left:70px;
-}
-a { color: inherit; text-decoration:none } 
-input:focus {
-    outline:none;
-}
- 
-
-
-
-
-.edit1:hover{
- border-radius: 20%;
- 
-  }
- .edit1{
-   height:25px;
-  width:25px;
-  float:right;
-  transition:0s;
-   border-radius: 20%;
-   top:310px;
-  right:7px;
-  position:absolute;
-  cursor:pointer;
-  visibility:hidden;
-  transition:0.2s
-  
-
- }
-
-
-  .saved_article_titles{
-    margin-top:22px;
-    margin-right:10px;
-    opacity:1
-  }
-.card_date .card_logo{
-  display:inline-block
-}
-.card_logo{
-  margin-left:-115px
-}
-
-#news-content{
-  padding-bottom:50px;
-
-}
-#deleted-content{
-  padding-bottom:50px;
-}
-dialog{
-  margin-left:700px;
- 
-}
-
-
-.myModal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 98; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */;
-}
-
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px 20px 3% 20px;
-  width: 30%;
-  height:35%;
-  border-radius:10px;
-  text-align:center;
- 
-}
-
-/* The Close Button */
-#close_modal {
-  color: #aaaaaa;
-  float: right;
-  font-size: 22px;
-  margin: -20px -10px 0px -10px ;
-  top:0;
-  right:0;
- 
-}
-#close_modal_wa{
-    color: #aaaaaa;
-  float: right;
-  font-size: 22px;
-  margin: -10px 0px 0px -10px ;
-  top:0;
-  right:0;
- 
-}
-
-#close_modal:hover,
-#close_modal:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-#close_modal_wa:hover,
-#close_modal_wa:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-
-.filter_tags :focus{
-  background-color:yellow
-}
-
-#tag_input{
-margin-top:5px;  
-padding: 6px 15px 6px 10px;
- border-radius:10px;
-  border: 1px solid #ddd;
-  width: 350px;
- font-size:15px;
-  border-style: solid
-}
-
-#make_changes_input{
-  margin-top:6px;
-  background-color: #6534ac;
-    border-radius:10px;
-     transition: 0.2s;
-  border: none;
-   color:#fff;
-  padding: 10px 22px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-   font-weight: lighter;
-   width: 200px;
-   cursor:pointer;
-}
-
-#make_changes_input:hover{
-    background-color: #371777;
-}
-#make_changes_input:focus{
-  outline:none;
-}
-
-/*SWITCH CSS*/
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-  
-}
-
-.switch input { 
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #371777;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #371777;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-#dark_mode_switch{   
-}
-.wa-radio-mark { 
-            position: absolute; 
-            margin-top: 17px;
-            margin-left:-20px;
-           
-            height: 25px; 
-            width: 25px; 
-          background-color: #ddd; 
-        } 
-#whatsapp-input{
-  margin:10px 0 0 0;
-  font-size:16px;
-  border-radius:2px;
-  padding:10px;
-  border:1px solid #303030
-}
-#otp{
-  font-size:16px;
-  padding:7px;
-  cursor:pointer;
-  margin-top:20px
-}
-
-#recaptcha{
-   margin-left:26px;
-}
-#span_container{
-  font-family: 'Raleway';
-  /*CHANGE
-  top:100px;
-  left:100px;
-position:absolute;*/
-
-
-   
-  
-}
-
-#span_container_2{
-   font-family: 'Raleway';
-}
-.profile-picture{
-  cursor:pointer;
-  height:40px;
-  width:40px;
-  float:right;
-  margin: 2px 20px 0px 10px;
-  border-radius: 50%
-}
-
-/*OTP*/
-.otpModal {
-display:none;
- /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 99; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.6); /* Black w/ opacity */;
-}
-.otpModalContent {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 5px;
-  width: 25%;
-  height:200px;
-  border-radius:10px;
-  text-align:center;
- 
-}
-#otpText{
-  margin-top:30px;
-}
-#otpinput{
-  font-size:16px;
-  margin:25px 0 0 0;
-  padding:5px
-}
-#Verify{
-  margin:20px 0 0 0;
-  font-size: 15px;
-  padding:8px;
-  border:none;
-  cursor:pointer
-}
-
-#whatsapp-input-div{
-  margin-top:30px;
-}
-/*SIGNUP MODAL*/
-.signModal {
-  display:none;
- /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 99; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.6); /* Black w/ opacity */;
-}
-.signModalContent {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  width: 30%;
-  height:270px;
-  border-radius:10px;
-  text-align:center;
- 
-}
-#signin{
-   width:220px
-}
-#signInText{
-  margin-top:30px
-}
-#signinbtn{
-  background:white;
-border: none;
-border-radius:10px;
-	padding: 0px;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
-  margin-top:40px;
-   background-image:url(images/extension_images/signin_light.png);
-   height:60px;
-   width:249px;
-  background-size: cover;
-  display:inline-block;
-  transition:0.4s;
-}
-
-#isWhatsApp{
-  margin-left:11px;
-  display:inline-block
-  
-}
-#whatsapp_text{
-     margin-top:13px;
-   margin-left:20px;
-    display:inline-block
-}
-#number_holder{
-    margin:10px 0 0 52px;
-    background-position: 10px 12px;
-  background-repeat: no-repeat;
-  font-size: 16px;
-  padding: 8px 10px 8px 10px;
-  border: 1px solid #ddd;
-
-  width:13%;
-   border-radius:5px;
-   display:inline-block;
-   background:#f1f1f1
-}
-#change_number{
-     margin-left:25px;
-     transition: 0.2s;
-  border: none;
-   color:#4c4e4d;
-  padding: 8px 22px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-   font-weight: lighter;
-   border-radius:5px;
-   cursor:pointer
-}
-#change_number:hover{
-   background:#ccc
-}
-
-#dropdown-menu{
-  display:none;
-  border-radius:3px;
-  margin:8px 90px 0 -28px;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-height: 240px;
-  min-width: 230px;
-  overflow: auto;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-.dropdown-option-area{
-  color: rgb(0,0,0,0.7);
-}
-#dropdown-menu a{
-  text-align:left;
-  font-size:23px;
-  
-  padding: 13px 20px 15px 20px;
-  text-decoration: none;
-  display: block;
-  cursor:pointer;
-  transition:0.2s
-
-}
-#dropdown-menu a:hover {
-   background:#b19cd9;
-  color:rgb(0,0,0);
-  padding-left:25px
-  
-  }
-#dropdown-menu a:hover .dropdown-option-area{   
-}
-
-
-#dropdown-menu img{
-  height:18px;
-  margin: 10px 5px 0 0;
-  padding-top: 2px
-}
-/*
-.profile-picture:hover #dropdown-menu{
-  display:block
-}
-My CSS ends*/
-
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="images/extension_images/icon_128.png"/>
+  <title>Netsips | Library & Settings</title>
+  <style>
+    @font-face {
+      font-family: 'Manrope';
+      font-weight: 400 800;
+      src: url('fonts/Manrope-VariableFont_wght.ttf') format('truetype');
+      font-display: swap;
+    }
+
+    :root {
+      --bg-page: #0b0f19;
+      --bg-header: rgba(15, 23, 42, 0.85);
+      --bg-card: rgba(22, 30, 49, 0.7);
+      --bg-card-hover: rgba(30, 41, 66, 0.9);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-border-hover: rgba(16, 185, 129, 0.4);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #10b981;
+      --accent-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      --accent-hover: linear-gradient(135deg, #059669 0%, #047857 100%);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100vh;
+      font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: radial-gradient(circle at 50% 0%, #1e293b 0%, #090d16 100%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Sticky Header */
+    #main-heading {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-header);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      height: 70px;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-logo-img {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+    }
+
+    .brand-title-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      line-height: 1.1;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Header Search */
+    .header-search {
+      flex: 1;
+      max-width: 440px;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .header-search-icon {
+      position: absolute;
+      left: 14px;
+      width: 16px;
+      height: 16px;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    #searchBar {
+      width: 100%;
+      height: 42px;
+      padding: 0 16px 0 42px;
+      font-family: inherit;
+      font-size: 14px;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    #searchBar:focus {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18);
+    }
+
+    #searchBar::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* Segmented Navigation */
+    .nav-tabs {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-lg);
+      padding: 4px;
+      gap: 2px;
+    }
+
+    .tablinks {
+      background: transparent;
+      border: none;
+      border-radius: 16px;
+      color: var(--text-muted);
+      padding: 8px 16px;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .tablinks:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .tablinks.active {
+      background: var(--accent-gradient);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.35);
+    }
+
+    .tablinks img {
+      width: 16px;
+      height: 16px;
+      opacity: 0.85;
+    }
+
+    .tablinks.active img {
+      opacity: 1;
+      filter: brightness(0) invert(1);
+    }
+
+    .btn-signout {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-signout:hover {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #f87171;
+    }
+
+    .btn-signout img {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* Main Container */
+    .app-main {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 32px 24px 60px 24px;
+    }
+
+    /* View Header */
+    .view-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .view-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge-count {
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 2px 9px;
+      border-radius: 12px;
+    }
+
+    /* Filter Tags */
+    .tag-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+      align-items: center;
+    }
+
+    .filter_tags {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 5px 12px;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      user-select: none;
+    }
+
+    .filter_tags:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .filter_tags.active-tag {
+      background: var(--accent-gradient);
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.35);
+    }
+
+    /* Grid Layout */
+    .bookmarks-grid, .row {
+      display: grid !important;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+      gap: 24px !important;
+      float: none !important;
+      margin: 0 !important;
+    }
+
+    .column {
+      float: none !important;
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    /* Bookmark Cards */
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      width: 100% !important;
+      height: 330px !important;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      background: var(--bg-card-hover);
+      border-color: var(--card-border-hover);
+      box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.5);
+    }
+
+    .img-container {
+      width: 100% !important;
+      height: 150px !important;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .img-container a {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .img-container-tag {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      margin: 0 !important;
+      transition: transform 0.35s ease;
+    }
+
+    .card:hover .img-container-tag {
+      transform: scale(1.04);
+    }
+
+    /* Card Actions (Hover) */
+    .topcorner, .topcorner1 {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 28px;
+      height: 28px;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease;
+      z-index: 10;
+      visibility: visible !important;
+    }
+
+    .card:hover .topcorner, .card:hover .topcorner1 {
+      opacity: 1;
+    }
+
+    .topcorner:hover {
+      background: rgba(16, 185, 129, 0.85);
+      transform: scale(1.1);
+    }
+
+    .topcorner1:hover {
+      background: rgba(239, 68, 68, 0.85);
+      transform: scale(1.1);
+    }
+
+    .topcorner img, .topcorner1 img {
+      width: 14px;
+      height: 14px;
+      filter: brightness(0) invert(1);
+    }
+
+    .card-info-container {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    .card_favicon img {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      display: block;
+    }
+
+    .card_site {
+      font-weight: 500;
+      color: #cbd5e1;
+      max-width: 130px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card_date {
+      margin-left: auto;
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .card_title {
+      font-size: 14.5px;
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 12px;
+      flex: 1;
+    }
+
+    .card_title a {
+      color: var(--text-main);
+      text-decoration: none;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      transition: color 0.15s ease;
+    }
+
+    .card_title a:hover {
+      color: #34d399;
+    }
+
+    .card-bottom-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .card_tags {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 2px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 180px;
+      display: inline-block;
+    }
+
+    .edit, .edit1 {
+      cursor: pointer;
+      opacity: 0.65;
+      transition: opacity 0.15s ease, transform 0.15s ease;
+      width: 16px;
+      height: 16px;
+      visibility: visible !important;
+    }
+
+    .edit:hover, .edit1:hover {
+      opacity: 1;
+      transform: scale(1.15);
+    }
+
+    /* Settings View Styling (#London) */
+    .settings-view-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 24px 28px;
+      margin-bottom: 24px;
+    }
+
+    .settings-section-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .settings-section-desc {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .schedule-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .radio-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .radio-card:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .radio-card input {
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .days-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0 20px 0;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-sm);
+    }
+
+    .day-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .day-pill input {
+      accent-color: var(--accent);
+    }
+
+    .btn-submit-primary {
+      background: var(--accent-gradient);
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 10px 24px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+      transition: all 0.2s ease;
+    }
+
+    .btn-submit-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-action-del {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: var(--radius-sm);
+      padding: 8px 16px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-action-del:hover {
+      background: rgba(239, 68, 68, 0.25);
+      border-color: rgba(239, 68, 68, 0.5);
+    }
+
+    /* Toggle Switch */
+    .switch-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 26px;
+      flex-shrink: 0;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background-color: rgba(255, 255, 255, 0.15);
+      transition: .3s;
+      border-radius: 26px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background: var(--accent-gradient);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+
+    /* Modal Styling */
+    .myModal, .signModal {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content, .signModalContent {
+      background: #141b2d;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-md);
+      padding: 28px;
+      width: 90%;
+      max-width: 440px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      position: relative;
+      color: #ffffff;
+    }
+
+    #close_modal {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      font-size: 24px;
+      color: var(--text-muted);
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    #close_modal:hover {
+      color: #ffffff;
+    }
+
+    .modal-field {
+      margin-top: 16px;
+    }
+
+    .modal-field input[type="text"] {
+      width: 100%;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-sm);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .modal-field input[type="text"]:focus {
+      border-color: var(--accent);
+    }
+
+    .btn-modal-submit {
+      width: 100%;
+      margin-top: 20px;
+      padding: 11px;
+      background: var(--accent-gradient);
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
 </head>
-<body id="settings-body" style='display:table; height:100%;width:100%;'>
-<center id="main-heading">
+<body>
 
- <span id='logo_heading'>
- <span><img src='images/extension_images/icon_128.png' id="Netsips-logo-container"></span>
- 
- <span id='dashboard'>netsips </span>
- </span>
+  <!-- Sticky Header -->
+  <header id="main-heading">
+    <!-- Brand -->
+    <a href="new.html" class="brand-section">
+      <img src="images/extension_images/icon_128.png" class="brand-logo-img" alt="Netsips">
+      <div class="brand-title-wrap">
+        <span class="brand-title">netsips</span>
+        <span class="brand-sub">Library & Reader</span>
+      </div>
+    </a>
 
- <span><img src='images/extension_images/search.png' id='searchIcon'> <input type="text" id="searchBar" placeholder="Search for bookmarks by title" title=""></span>
- <span id='toggle-container'>
-<span id='user-name'></span>
-<span>
-<img class='profile-picture'>
-<div id='dropdown-menu'>
-<div class='dropdown-option-area'><a id='dropdown-saved-btn' style='font-weight:50px;'><img src='images/extension_images/bookmark.svg'> bookmarks</a></div>
-<div class='dropdown-option-area'><a id='dropdown-archived'><img src='images/extension_images/archived.svg'> archive</a></div>
-<div class='dropdown-option-area'><a id='dropdown-sc'><img src='images/extension_images/settings.svg'> settings</a></div>
-<div class='dropdown-option-area'><a id="dropdown-SignOut"><img src='images/extension_images/exit-w.svg'> signout</a></div>
-</div>
+    <!-- Live Search -->
+    <div class="header-search">
+      <img src="images/extension_images/search.png" class="header-search-icon" alt="">
+      <input type="text" id="searchBar" placeholder="Search your library..." autocomplete="off">
+    </div>
 
+    <!-- Segmented Nav -->
+    <nav class="nav-tabs">
+      <button class="tablinks active" id="saved-btn" value="Paris">
+        <img src="images/extension_images/bookmark-w.svg" alt="">
+        <span>Library</span>
+      </button>
+      <button class="tablinks" id="archived" value="Rome">
+        <img src="images/extension_images/archived-w.svg" alt="">
+        <span>Archive</span>
+      </button>
+      <button class="tablinks" id="sc" value="London">
+        <img src="images/extension_images/settings-w.svg" alt="">
+        <span>Settings</span>
+      </button>
+      <button class="btn-signout" id="SignOut" title="Sign Out">
+        <img src="images/extension_images/exit-w.svg" alt="">
+        <span>Sign Out</span>
+      </button>
+    </nav>
+  </header>
 
+  <!-- Main View Container -->
+  <main class="app-main">
 
-</span>
+    <!-- Active Bookmarks View (#Paris) -->
+    <section id="Paris" class="tabcontent" style="display: block;">
+      <div class="view-header">
+        <h1 class="view-title">
+          <span>Saved Bookmarks</span>
+          <span class="badge-count" id="library-count">Offline-First</span>
+        </h1>
+      </div>
 
+      <!-- Tag Filters -->
+      <div class="tag-filter-bar">
+        <input type="text" id="tagSearch" style="display: none;">
+        <span id="span_container"></span>
+      </div>
 
-<span> <button class="tablinks" value = "Paris" id="saved-btn"><img src='images/extension_images/bookmark-w.svg' class='menu_icons' aria-label="Bookmarks"></button></span>
- <span> <button class="tablinks" value="London" id='sc'><img src='images/extension_images/settings-w.svg' class='menu_icons' aria-label="Settings"></button></span>
- <span>  <button class="tablinks" value="Rome" id='archived'><img src='images/extension_images/archived-w.svg' class='menu_icons' aria-label="Archive"></button></span>
- <span><button class="tablinks" id="SignOut"><img src='images/extension_images/exit-w.svg' class='menu_icons' aria-label="Sign out"></button></span> 
- 
- </span>
-  </center> 
-<div class="tab" >
-<!--
-<input type='text' id='tagSearch' placeholder='Filter using tags'>
-<div id='tagContainer'>
-</div>-->
+      <!-- Cards Grid -->
+      <div class="bookmarks-grid" id="news-content">
+        <div style="text-align:center; padding: 40px; color: var(--text-muted);">
+          <img src="images/extension_images/load.gif" alt="Loading...">
+        </div>
+      </div>
+    </section>
 
-</div>
+    <!-- Archived Bookmarks View (#Rome) -->
+    <section id="Rome" class="tabcontent" style="display: none;">
+      <div class="view-header">
+        <h1 class="view-title">Archived Bookmarks</h1>
+        <button id="Tag_search_button_del" class="btn-action-del">Clear Archive</button>
+      </div>
 
+      <div class="bookmarks-grid" id="deleted-content">
+        <div style="text-align:center; padding: 40px; color: var(--text-muted);">
+          <img src="images/extension_images/load.gif" alt="Loading...">
+        </div>
+      </div>
+    </section>
 
-<div  class="tabcontent" style="display: block;">
-<div  id="Rome" style="display:none">
-   <button id="Tag_search_button_del" style='cursor:pointer'>Clear archive</button>
+    <!-- Settings View (#London) -->
+    <section id="London" class="tabcontent" style="display: none;">
+      <div class="view-header">
+        <h1 class="view-title">Extension Settings</h1>
+      </div>
 
-<div class="row" id="deleted-content">
-<center style="margin:40px 40px 40px 0px;font-family: 'Manrove-tabs';font-size:20px;color:#202020"><img src='images/extension_images/load.gif'></center>
-</div>
-</div>
+      <!-- Newsletter Schedule -->
+      <div class="settings-view-card">
+        <h2 class="settings-section-title">Newsletter Digest Frequency</h2>
+        <p class="settings-section-desc">Choose when your curated digest compilation should be formatted and prepared.</p>
 
-<div  id="Paris" style='display:block'>  
-<p style="line-height:3;margin-left:55px;margin-right:30px;"><input type='text'id='tagSearch' placeholder='Filter using tags' style='display:none'/><span id="span_container" style="margin-left:0px"></span>
-</p>
-<div style='margin:22px 0 8px 55px;font-weight:lighter; font-size:25px;'>Your bookmarks</div>
-<div class="row" id="news-content">
-<center style="margin:40px 40px 40px 0px;font-family: 'Manrove-tabs';font-size:20px;color:#202020;">
-<img src='images/extension_images/load.gif'>
-</center>
-</div>
- 
- 
+        <form id="submit-settings">
+          <div class="schedule-options">
+            <label class="radio-card">
+              <input type="radio" name="option" value="0 1 2 3 4 5 6" id="daily" required>
+              <span>Daily (Every morning)</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="option" value="6" id="weekly">
+              <span>Weekly (Sundays)</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="option" value="cus" id="custom">
+              <span>Custom Days</span>
+            </label>
+          </div>
 
+          <div id="days-menu" class="days-grid" style="display: none;">
+            <label class="day-pill"><input type="checkbox" name="dow" value="0"> Mon</label>
+            <label class="day-pill"><input type="checkbox" name="dow" value="1"> Tue</label>
+            <label class="day-pill"><input type="checkbox" name="dow" value="2"> Wed</label>
+            <label class="day-pill"><input type="checkbox" name="dow" value="3"> Thu</label>
+            <label class="day-pill"><input type="checkbox" name="dow" value="4"> Fri</label>
+            <label class="day-pill"><input type="checkbox" name="dow" value="5"> Sat</label>
+            <label class="day-pill"><input type="checkbox" name="dow" value="6"> Sun</label>
+          </div>
 
-<div class='signModal'>
-<div class='signModalContent'>
-<div id='signInText'>
-<span><img src="images/extension_images/grey_netsips.svg" id="Netsips-img"></span>
-<p style="font-family: 'Manrove-tabs';font-size:20px;color:#202020">
-For a new web browsing experience
-</p>
-</div>
-<center>
-<button id='signinbtn'>	</button>
-<br>
-<button id='guestbtn' style="margin-top:15px;background:#f5f5f5;border:1px solid #ccc;border-radius:6px;padding:9px 24px;font-size:15px;font-family:'Manrove-tabs',sans-serif;color:#333;cursor:pointer;">Continue as Guest / Offline Mode</button>
-</center>
-</div>
-</div>
+          <button type="submit" id="submit-button" class="btn-submit-primary">Save Schedule</button>
+        </form>
+      </div>
 
+      <!-- Homepage Switch -->
+      <div class="settings-view-card">
+        <div class="switch-row" id="home_mode_switch">
+          <div>
+            <h2 class="settings-section-title">Make Netsips Your Homepage</h2>
+            <p class="settings-section-desc" style="margin-bottom: 0;">Open your Netsips Reader whenever a new browser tab is created.</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="home_mode_checkbox">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
 
+      <!-- Local DB Portability & Backup -->
+      <div class="settings-view-card">
+        <h2 class="settings-section-title">Local-First Storage & Backup</h2>
+        <p class="settings-section-desc">All your bookmarks and settings are securely preserved in your local IndexedDB storage. You have full ownership and portability of your data.</p>
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+          <button id="export_db_btn" class="btn-submit-primary">Export Library (JSON)</button>
+          <input type="file" id="import_db_file" accept=".json" style="display: none;">
+          <button id="import_db_btn" class="btn-action-del" style="background: rgba(255,255,255,0.08); color: #fff; border-color: rgba(255,255,255,0.2);">Import Library</button>
+          <span id="import_status" style="font-size: 13px; color: #34d399;"></span>
+        </div>
+      </div>
+    </section>
 
+  </main>
 
-  <!-- Modal begins -->
- <div class="myModal">
-
-  <!-- Modal content -->
+  <!-- Tag Edit Modal -->
+  <div class="myModal">
     <div class="modal-content">
-    <span id="close_modal" title='close'>&times;</span>
-    
-    <label style="display:none">Title:</label><br>
-  <input type="text" id="title_input" style="display:none">
-  <label style="white-space:initial;color:black;font-size:16px; font-weight:600;float:left;margin-left:10px;margin-bottom:12px;overflow:hidden;text-align:left"></label><br>
-  <input type="text" id="tag_input" placeholder=""><br><br>
-   <input type="submit" id="make_changes_input" value="Update tags"><br><br>
-
+      <span id="close_modal" title="Close">&times;</span>
+      <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 8px;">Edit Bookmark Tags</h3>
+      <input type="text" id="title_input" style="display: none;">
+      <p id="modal_card_title" style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;"></p>
+      <div class="modal-field">
+        <label for="tag_input" style="font-size: 12px; font-weight: 600; color: #94a3b8; display: block; margin-bottom: 6px;">Tags (comma separated):</label>
+        <input type="text" id="tag_input" placeholder="e.g. tech, design, reading">
+      </div>
+      <button type="button" id="make_changes_input" class="btn-modal-submit">Update Tags</button>
+    </div>
   </div>
+
+  <!-- Sign In / Onboarding Modal -->
+  <div class="signModal">
+    <div class="signModalContent" style="text-align: center;">
+      <img src="images/extension_images/icon_128.png" style="width: 48px; height: 48px; margin-bottom: 12px;" alt="">
+      <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 6px;">Welcome to Netsips</h2>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Curate your web with offline-first bookmarks and personalized digests.</p>
+      <button id="guestbtn" class="btn-submit-primary" style="width: 100%; margin-bottom: 8px;">Continue as Guest (Offline Mode)</button>
+      <button id="signinbtn" style="display: none;"></button>
+    </div>
   </div>
-  </div>  
-<!-- Modal content ends-->
-<!-- Modal ends -->
-
-<div id="London" style="display:none;"> 
-
-   <div id="question">When do you want your newsletter to be delivered?</div>
-   <form id="submit-settings">
-
-  <label class="radio-button" data-toggle="tooltip" data-placement="top" title="Get your newsletter every morning"> 
-  <input type="radio" name="option" value="0 1 2 3 4 5 6" id="daily"  required> 
-  <span class="radio-mark"></span>  <span class="label-text">daily</span>
-  </label>
-
-  
-  <label class="radio-button" data-toggle="tooltip" data-placement="top" title="Get your newsletter every Sunday morning">
-  <input type="radio" name="option" value="6" id="weekly">
-  <span class="radio-mark"></span>
-  <span class="label-text"> weekly </span>
-  </label>
-
- <label  class="radio-button" > 
- <input type="radio" name="option" value="cus" id="custom">
- <span class="radio-mark"></span><span class="label-text"> 
- choose my own days </span>
- </label>
-
-  <p id="days-menu" style="display:none">
-
-  <label class="radio-button" > 
-  <input type="checkbox" name="dow" value="0"> 
-  <span class="radio-mark"><span style="margin-left:40px; position:absolute; top:-4px;  font-family: 'Manrove-label';">Monday</span></span>
-  </label>
- 
-  <label class="radio-button"> 
-  <input type="checkbox" name="dow" value="1"> 
-  <span class="radio-mark"><span style="margin-left:40px; position:absolute; top:-4px;  font-family: 'Manrove-label';">Tuesday</span></span>
-  </label>
-  
-    <label class="radio-button"> 
-  <input type="checkbox" name="dow" value="2"> 
-  <span class="radio-mark"><span style="margin-left:40px; position:absolute; top:-4px;  font-family: 'Manrove-label';">Wednesday</span></span>
-  </label>
-
-  
-    <label class="radio-button"> 
-  <input type="checkbox" name="dow" value="3"> 
-  <span class="radio-mark"><span style="margin-left:40px; position:absolute; top:-4px;  font-family: 'Manrove-label';">Thursday</span></span>
-  </label>
-
-  <label class="radio-button"> 
-  <input type="checkbox" name="dow" value="4"> 
-  <span class="radio-mark"><span style="margin-left:40px; position:absolute; top:-4px;  font-family: 'Manrove-label';">Friday</span></span>
-  </label>
-
-
-   <label class="radio-button"> 
-  <input type="checkbox" name="dow" value="5"> 
-  <span class="radio-mark"><span style="margin-left:40px; position:absolute; top:-4px;  font-family: 'Manrove-label';">Saturday</span></span>
-  </label>
-
-
-    <label class="radio-button"> 
-  <input type="checkbox" name="dow" value="6"> 
-  <span class="radio-mark"><span style="margin-left:40px; position:absolute; top:-4px;  font-family: 'Manrove-label';">Sunday</span></span>
-  </label>
-  </p>
-  
-  <input type="submit" value="Set days" id="submit-button">
-</form>
-
-
-
-
-<div >
-
-<br>
-
-<div style="font-size:25px;font-family: 'Manrove-label';padding:25px;display:none">
-  <label class="radio-button" data-toggle="tooltip" data-placement="top" title="Please enable popup for this feature"> 
-  <input type="checkbox" id='isWhatsApp' name='whatsapp_popup'> 
-  <span class="radio-mark"></span>
-
-  <span id='whatsapp_text'>Receive bookmark compilation on WhatsApp</span>
-  </label>
-  <div>
-<input type='text' id='number_holder' value = 'Your number' disabled/><button id='change_number'>Update number</button>
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div>
-<span id="home_mode_switch">
-<div style="font-size:25px;font-family: 'Manrove-label';padding:25px;margin-left:10px">Make Netsips your homepage</div>
-   <label class="switch" style='margin-left:35px'>
-  <input type="checkbox" id="home_mode_checkbox">
-  <span class="slider round"></span>
-</label>
-</span>
-</div>
-
-<!--DARK MODE SWITCH-->
-<div style='display:none'>
-<span id="dark_mode_switch">
-<div style="font-size:25px;font-family: 'Manrove-label';padding:25px;margin-left:10px">Dark Theme</div>
-   <label class="switch" style='margin-left:35px'>
-  <input type="checkbox" id="dark_mode_checkbox">
-  <span class="slider round"></span>
-</label>
-</span>
-
-<!-- LOCAL DATABASE & BACKUP -->
-<div style="margin-left:35px;margin-top:25px;margin-bottom:35px;">
-  <div style="font-size:25px;font-family: 'Manrove-label';margin-bottom:12px">Local Database & Backup</div>
-  <p style="font-family:'Manrove-tabs';color:#666;font-size:15px;margin-bottom:15px">All your bookmarks and settings are stored locally on your device with zero-dependency IndexedDB.</p>
-  <button id="export_db_btn" style="background:#5B2E91;color:#fff;border:none;border-radius:6px;padding:10px 20px;font-family:'Manrove-tabs';font-size:14px;cursor:pointer;margin-right:12px;">Export Bookmarks (JSON)</button>
-  <input type="file" id="import_db_file" accept=".json" style="display:none">
-  <button id="import_db_btn" style="background:#f0f0f0;color:#333;border:1px solid #ccc;border-radius:6px;padding:10px 20px;font-family:'Manrove-tabs';font-size:14px;cursor:pointer;">Import Bookmarks</button>
-  <span id="import_status" style="margin-left:15px;font-family:'Manrove-tabs';font-size:14px;color:#2e7d32;"></span>
-</div>
-
-</div>
-  </div> 
-  
-</div>
-
 
   <script src="db.js"></script>
-   <script src="settings.js"></script>
+  <script src="settings.js"></script>
 </body>
-</html> 
+</html>
