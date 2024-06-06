@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="images/extension_images/icon_128.png"/>
-  <title>Netsips | Library & Settings</title>
+  <title>Netsips | Modern Library & Reader</title>
   <style>
     @font-face {
       font-family: 'Manrope';
@@ -14,17 +14,19 @@
     }
 
     :root {
-      --bg-page: #0b0f19;
-      --bg-header: rgba(15, 23, 42, 0.85);
-      --bg-card: rgba(22, 30, 49, 0.7);
-      --bg-card-hover: rgba(30, 41, 66, 0.9);
+      --bg-canvas: #090d16;
+      --bg-surface: #111726;
+      --bg-card: #151d30;
+      --bg-card-hover: #1c263f;
       --card-border: rgba(255, 255, 255, 0.08);
-      --card-border-hover: rgba(16, 185, 129, 0.4);
+      --card-border-hover: rgba(16, 185, 129, 0.45);
       --text-main: #f8fafc;
-      --text-muted: #94a3b8;
+      --text-secondary: #cbd5e1;
+      --text-muted: #8292ab;
       --accent: #10b981;
       --accent-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      --accent-hover: linear-gradient(135deg, #059669 0%, #047857 100%);
+      --accent-glow: 0 4px 20px rgba(16, 185, 129, 0.35);
+      --amber-accent: #f59e0b;
       --radius-sm: 8px;
       --radius-md: 14px;
       --radius-lg: 20px;
@@ -39,10 +41,15 @@
     html, body {
       min-height: 100vh;
       font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: radial-gradient(circle at 50% 0%, #1e293b 0%, #090d16 100%);
+      background-color: var(--bg-canvas);
+      background-image: 
+        radial-gradient(ellipse at 50% 0%, rgba(16, 185, 129, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 40%);
       background-attachment: fixed;
       color: var(--text-main);
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     /* Top Sticky Header */
@@ -50,11 +57,11 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: var(--bg-header);
+      background: rgba(9, 13, 22, 0.85);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      height: 70px;
+      border-bottom: 1px solid var(--card-border);
+      height: 72px;
       padding: 0 32px;
       display: flex;
       align-items: center;
@@ -71,9 +78,10 @@
     }
 
     .brand-logo-img {
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       border-radius: var(--radius-sm);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
     .brand-title-wrap {
@@ -82,9 +90,9 @@
     }
 
     .brand-title {
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
       color: #ffffff;
       line-height: 1.1;
     }
@@ -92,13 +100,27 @@
     .brand-sub {
       font-size: 11px;
       color: var(--text-muted);
-      font-weight: 500;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      background-color: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent);
+      display: inline-block;
     }
 
     /* Header Search */
     .header-search {
       flex: 1;
-      max-width: 440px;
+      max-width: 480px;
       position: relative;
       display: flex;
       align-items: center;
@@ -106,31 +128,31 @@
 
     .header-search-icon {
       position: absolute;
-      left: 14px;
+      left: 16px;
       width: 16px;
       height: 16px;
-      opacity: 0.5;
+      opacity: 0.6;
       pointer-events: none;
     }
 
     #searchBar {
       width: 100%;
-      height: 42px;
-      padding: 0 16px 0 42px;
+      height: 44px;
+      padding: 0 42px 0 44px;
       font-family: inherit;
       font-size: 14px;
       color: #ffffff;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
       outline: none;
       transition: all 0.2s ease;
     }
 
     #searchBar:focus {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.09);
       border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
     }
 
     #searchBar::placeholder {
@@ -141,9 +163,9 @@
     .nav-tabs {
       display: flex;
       align-items: center;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
       padding: 4px;
       gap: 2px;
     }
@@ -151,9 +173,9 @@
     .tablinks {
       background: transparent;
       border: none;
-      border-radius: 16px;
+      border-radius: 20px;
       color: var(--text-muted);
-      padding: 8px 16px;
+      padding: 8px 18px;
       font-family: inherit;
       font-size: 13.5px;
       font-weight: 600;
@@ -166,18 +188,18 @@
 
     .tablinks:hover {
       color: #ffffff;
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.06);
     }
 
     .tablinks.active {
       background: var(--accent-gradient);
       color: #ffffff;
-      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.35);
+      box-shadow: var(--accent-glow);
     }
 
     .tablinks img {
-      width: 16px;
-      height: 16px;
+      width: 15px;
+      height: 15px;
       opacity: 0.85;
     }
 
@@ -186,39 +208,34 @@
       filter: brightness(0) invert(1);
     }
 
-    .btn-signout {
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: var(--radius-sm);
-      color: var(--text-muted);
-      padding: 6px 12px;
+    .btn-quick-add {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      color: #ffffff;
+      padding: 8px 16px;
       font-family: inherit;
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      margin-left: 8px;
       transition: all 0.2s ease;
+      margin-left: 8px;
     }
 
-    .btn-signout:hover {
-      background: rgba(239, 68, 68, 0.15);
-      border-color: rgba(239, 68, 68, 0.4);
-      color: #f87171;
-    }
-
-    .btn-signout img {
-      width: 14px;
-      height: 14px;
+    .btn-quick-add:hover {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: #34d399;
     }
 
     /* Main Container */
     .app-main {
-      max-width: 1240px;
+      max-width: 1280px;
       margin: 0 auto;
-      padding: 32px 24px 60px 24px;
+      padding: 36px 32px 80px 32px;
     }
 
     /* View Header */
@@ -230,53 +247,56 @@
       gap: 16px;
       margin-bottom: 24px;
       padding-bottom: 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .view-title-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
     .view-title {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
       color: #ffffff;
-      display: flex;
-      align-items: center;
-      gap: 10px;
     }
 
     .badge-count {
-      font-size: 11px;
-      font-weight: 600;
+      font-size: 11.5px;
+      font-weight: 700;
       background: rgba(16, 185, 129, 0.15);
       color: #34d399;
       border: 1px solid rgba(16, 185, 129, 0.3);
-      padding: 2px 9px;
-      border-radius: 12px;
+      padding: 3px 10px;
+      border-radius: 14px;
     }
 
-    /* Filter Tags */
+    /* Tag Filters */
     .tag-filter-bar {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
       align-items: center;
     }
 
     .filter_tags {
       font-size: 12px;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--text-muted);
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 5px 12px;
-      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      padding: 6px 14px;
+      border-radius: 18px;
       cursor: pointer;
-      transition: all 0.18s ease;
+      transition: all 0.2s ease;
       user-select: none;
     }
 
     .filter_tags:hover {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.1);
       color: #ffffff;
       border-color: rgba(255, 255, 255, 0.2);
     }
@@ -285,14 +305,14 @@
       background: var(--accent-gradient);
       color: #ffffff;
       border-color: transparent;
-      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.35);
+      box-shadow: 0 2px 10px rgba(16, 185, 129, 0.35);
     }
 
-    /* Grid Layout */
+    /* CSS Grid */
     .bookmarks-grid, .row {
       display: grid !important;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
-      gap: 24px !important;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)) !important;
+      gap: 26px !important;
       float: none !important;
       margin: 0 !important;
     }
@@ -307,8 +327,6 @@
     /* Bookmark Cards */
     .card {
       background: var(--bg-card);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
       border: 1px solid var(--card-border);
       border-radius: var(--radius-md);
       overflow: hidden;
@@ -317,19 +335,20 @@
       position: relative;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       width: 100% !important;
-      height: 330px !important;
+      height: 340px !important;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
     }
 
     .card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-5px);
       background: var(--bg-card-hover);
       border-color: var(--card-border-hover);
-      box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 18px 36px -10px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(16, 185, 129, 0.25);
     }
 
     .img-container {
       width: 100% !important;
-      height: 150px !important;
+      height: 155px !important;
       background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
       position: relative;
       overflow: hidden;
@@ -346,22 +365,22 @@
       height: 100% !important;
       object-fit: cover !important;
       margin: 0 !important;
-      transition: transform 0.35s ease;
+      transition: transform 0.4s ease;
     }
 
     .card:hover .img-container-tag {
-      transform: scale(1.04);
+      transform: scale(1.05);
     }
 
-    /* Card Actions (Hover) */
+    /* Floating Card Action Buttons */
     .topcorner, .topcorner1 {
       position: absolute;
       top: 10px;
       right: 10px;
-      width: 28px;
-      height: 28px;
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(8px);
+      width: 32px;
+      height: 32px;
+      background: rgba(9, 13, 22, 0.85);
+      backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 50%;
       display: flex !important;
@@ -369,7 +388,7 @@
       justify-content: center;
       cursor: pointer;
       opacity: 0;
-      transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease;
+      transition: all 0.2s ease;
       z-index: 10;
       visibility: visible !important;
     }
@@ -379,12 +398,14 @@
     }
 
     .topcorner:hover {
-      background: rgba(16, 185, 129, 0.85);
+      background: rgba(16, 185, 129, 0.9);
+      border-color: var(--accent);
       transform: scale(1.1);
     }
 
     .topcorner1:hover {
-      background: rgba(239, 68, 68, 0.85);
+      background: rgba(239, 68, 68, 0.9);
+      border-color: #ef4444;
       transform: scale(1.1);
     }
 
@@ -395,7 +416,7 @@
     }
 
     .card-info-container {
-      padding: 14px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
       flex: 1;
@@ -404,23 +425,23 @@
     .card-meta-row {
       display: flex;
       align-items: center;
-      gap: 6px;
-      margin-bottom: 8px;
+      gap: 8px;
+      margin-bottom: 10px;
       font-size: 11.5px;
       color: var(--text-muted);
     }
 
     .card_favicon img {
-      width: 14px;
-      height: 14px;
+      width: 15px;
+      height: 15px;
       border-radius: 3px;
       display: block;
     }
 
     .card_site {
-      font-weight: 500;
+      font-weight: 600;
       color: #cbd5e1;
-      max-width: 130px;
+      max-width: 140px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -434,7 +455,7 @@
 
     .card_title {
       font-size: 14.5px;
-      font-weight: 600;
+      font-weight: 700;
       line-height: 1.4;
       margin-bottom: 12px;
       flex: 1;
@@ -463,23 +484,24 @@
     }
 
     .card_tags {
-      font-size: 11.5px;
+      font-size: 11px;
+      font-weight: 600;
       color: var(--text-muted);
       background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 2px 8px;
-      border-radius: 4px;
+      border: 1px solid var(--card-border);
+      padding: 3px 9px;
+      border-radius: 6px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 180px;
+      max-width: 200px;
       display: inline-block;
     }
 
     .edit, .edit1 {
       cursor: pointer;
-      opacity: 0.65;
-      transition: opacity 0.15s ease, transform 0.15s ease;
+      opacity: 0.6;
+      transition: all 0.2s ease;
       width: 16px;
       height: 16px;
       visibility: visible !important;
@@ -490,19 +512,85 @@
       transform: scale(1.15);
     }
 
-    /* Settings View Styling (#London) */
-    .settings-view-card {
-      background: var(--bg-card);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-md);
-      padding: 24px 28px;
+    /* Stunning Empty State */
+    .empty-state-card {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 64px 32px;
+      background: rgba(21, 29, 48, 0.5);
+      border: 1px dashed rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-lg);
+      margin: 12px 0;
+    }
+
+    .empty-state-icon-wrap {
+      width: 64px;
+      height: 64px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      box-shadow: 0 0 24px rgba(16, 185, 129, 0.15);
+    }
+
+    .empty-state-icon-wrap img {
+      width: 28px;
+      height: 28px;
+    }
+
+    .empty-state-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .empty-state-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 460px;
+      line-height: 1.6;
       margin-bottom: 24px;
     }
 
+    .btn-sample {
+      background: var(--accent-gradient);
+      color: #ffffff;
+      border: none;
+      border-radius: 20px;
+      padding: 10px 24px;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: var(--accent-glow);
+      transition: all 0.2s ease;
+    }
+
+    .btn-sample:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(16, 185, 129, 0.45);
+    }
+
+    /* Settings View Styling (#London) */
+    .settings-view-card {
+      background: var(--bg-card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    }
+
     .settings-section-title {
-      font-size: 17px;
+      font-size: 18px;
       font-weight: 700;
       color: #ffffff;
       margin-bottom: 6px;
@@ -526,9 +614,9 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 10px 18px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 20px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
       border-radius: var(--radius-sm);
       cursor: pointer;
       user-select: none;
@@ -538,7 +626,7 @@
     }
 
     .radio-card:hover {
-      background: rgba(255, 255, 255, 0.09);
+      background: rgba(255, 255, 255, 0.08);
       border-color: rgba(255, 255, 255, 0.2);
     }
 
@@ -552,9 +640,9 @@
       flex-wrap: wrap;
       gap: 8px;
       margin: 14px 0 20px 0;
-      padding: 14px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--card-border);
       border-radius: var(--radius-sm);
     }
 
@@ -562,10 +650,10 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 14px;
+      padding: 7px 16px;
       background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
       cursor: pointer;
       font-size: 13px;
     }
@@ -579,17 +667,16 @@
       color: #ffffff;
       border: none;
       border-radius: var(--radius-sm);
-      padding: 10px 24px;
+      padding: 11px 26px;
       font-family: inherit;
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+      box-shadow: var(--accent-glow);
       transition: all 0.2s ease;
     }
 
     .btn-submit-primary:hover {
-      background: var(--accent-hover);
       transform: translateY(-1px);
     }
 
@@ -598,7 +685,7 @@
       color: #f87171;
       border: 1px solid rgba(239, 68, 68, 0.3);
       border-radius: var(--radius-sm);
-      padding: 8px 16px;
+      padding: 8px 18px;
       font-family: inherit;
       font-size: 13px;
       font-weight: 600;
@@ -608,10 +695,9 @@
 
     .btn-action-del:hover {
       background: rgba(239, 68, 68, 0.25);
-      border-color: rgba(239, 68, 68, 0.5);
     }
 
-    /* Toggle Switch */
+    /* Switch */
     .switch-row {
       display: flex;
       align-items: center;
@@ -622,8 +708,8 @@
     .switch {
       position: relative;
       display: inline-block;
-      width: 48px;
-      height: 26px;
+      width: 50px;
+      height: 28px;
       flex-shrink: 0;
     }
 
@@ -639,14 +725,14 @@
       inset: 0;
       background-color: rgba(255, 255, 255, 0.15);
       transition: .3s;
-      border-radius: 26px;
+      border-radius: 28px;
     }
 
     .slider:before {
       position: absolute;
       content: "";
-      height: 20px;
-      width: 20px;
+      height: 22px;
+      width: 22px;
       left: 3px;
       bottom: 3px;
       background-color: white;
@@ -662,26 +748,26 @@
       transform: translateX(22px);
     }
 
-    /* Modal Styling */
+    /* Modals */
     .myModal, .signModal {
       position: fixed;
       inset: 0;
       z-index: 200;
-      background: rgba(0, 0, 0, 0.65);
-      backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(12px);
       display: none;
       align-items: center;
       justify-content: center;
     }
 
     .modal-content, .signModalContent {
-      background: #141b2d;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: #141c2e;
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: var(--radius-md);
-      padding: 28px;
+      padding: 30px;
       width: 90%;
       max-width: 440px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.7);
       position: relative;
       color: #ffffff;
     }
@@ -693,27 +779,23 @@
       font-size: 24px;
       color: var(--text-muted);
       cursor: pointer;
-      line-height: 1;
     }
 
     #close_modal:hover {
       color: #ffffff;
     }
 
-    .modal-field {
-      margin-top: 16px;
-    }
-
     .modal-field input[type="text"] {
       width: 100%;
-      padding: 10px 14px;
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
       border-radius: var(--radius-sm);
       color: #ffffff;
       font-family: inherit;
       font-size: 14px;
       outline: none;
+      margin-top: 8px;
     }
 
     .modal-field input[type="text"]:focus {
@@ -723,7 +805,7 @@
     .btn-modal-submit {
       width: 100%;
       margin-top: 20px;
-      padding: 11px;
+      padding: 12px;
       background: var(--accent-gradient);
       color: #ffffff;
       border: none;
@@ -737,24 +819,24 @@
 </head>
 <body>
 
-  <!-- Sticky Header -->
+  <!-- Top Navigation Header -->
   <header id="main-heading">
     <!-- Brand -->
     <a href="new.html" class="brand-section">
       <img src="images/extension_images/icon_128.png" class="brand-logo-img" alt="Netsips">
       <div class="brand-title-wrap">
         <span class="brand-title">netsips</span>
-        <span class="brand-sub">Library & Reader</span>
+        <span class="brand-sub"><span class="status-dot"></span> Local-First Reader</span>
       </div>
     </a>
 
     <!-- Live Search -->
     <div class="header-search">
       <img src="images/extension_images/search.png" class="header-search-icon" alt="">
-      <input type="text" id="searchBar" placeholder="Search your library..." autocomplete="off">
+      <input type="text" id="searchBar" placeholder="Search saved articles, tags, domains..." autocomplete="off">
     </div>
 
-    <!-- Segmented Nav -->
+    <!-- Navigation Tabs -->
     <nav class="nav-tabs">
       <button class="tablinks active" id="saved-btn" value="Paris">
         <img src="images/extension_images/bookmark-w.svg" alt="">
@@ -768,23 +850,24 @@
         <img src="images/extension_images/settings-w.svg" alt="">
         <span>Settings</span>
       </button>
-      <button class="btn-signout" id="SignOut" title="Sign Out">
-        <img src="images/extension_images/exit-w.svg" alt="">
-        <span>Sign Out</span>
-      </button>
     </nav>
+
+    <!-- Quick Add Sample Button -->
+    <button class="btn-quick-add" id="btn-add-sample" title="Add a sample reading item">
+      <span>+ Add Sample</span>
+    </button>
   </header>
 
-  <!-- Main View Container -->
+  <!-- Main View Area -->
   <main class="app-main">
 
-    <!-- Active Bookmarks View (#Paris) -->
+    <!-- Active Library View (#Paris) -->
     <section id="Paris" class="tabcontent" style="display: block;">
       <div class="view-header">
-        <h1 class="view-title">
-          <span>Saved Bookmarks</span>
-          <span class="badge-count" id="library-count">Offline-First</span>
-        </h1>
+        <div class="view-title-group">
+          <h1 class="view-title">Reading Library</h1>
+          <span class="badge-count" id="library-count">0 items</span>
+        </div>
       </div>
 
       <!-- Tag Filters -->
@@ -793,35 +876,42 @@
         <span id="span_container"></span>
       </div>
 
-      <!-- Cards Grid -->
+      <!-- Bookmarks Grid (Instant pristine empty state by default) -->
       <div class="bookmarks-grid" id="news-content">
-        <div style="text-align:center; padding: 40px; color: var(--text-muted);">
-          <img src="images/extension_images/load.gif" alt="Loading...">
+        <div class="empty-state-card" id="library-empty-state">
+          <div class="empty-state-icon-wrap">
+            <img src="images/extension_images/bookmark.svg" alt="">
+          </div>
+          <h3 class="empty-state-title">Your Reading Library is Empty</h3>
+          <p class="empty-state-desc">
+            Click the Netsips icon in your browser toolbar to save any webpage, article, or video with a single click. Everything is saved locally on your device.
+          </p>
+          <button class="btn-sample" id="empty-state-sample-btn">+ Load Sample Articles</button>
         </div>
       </div>
     </section>
 
-    <!-- Archived Bookmarks View (#Rome) -->
+    <!-- Archive View (#Rome) -->
     <section id="Rome" class="tabcontent" style="display: none;">
       <div class="view-header">
-        <h1 class="view-title">Archived Bookmarks</h1>
+        <div class="view-title-group">
+          <h1 class="view-title">Archived Items</h1>
+        </div>
         <button id="Tag_search_button_del" class="btn-action-del">Clear Archive</button>
       </div>
 
       <div class="bookmarks-grid" id="deleted-content">
-        <div style="text-align:center; padding: 40px; color: var(--text-muted);">
-          <img src="images/extension_images/load.gif" alt="Loading...">
-        </div>
+        <!-- Rendered dynamically by settings.js -->
       </div>
     </section>
 
     <!-- Settings View (#London) -->
     <section id="London" class="tabcontent" style="display: none;">
       <div class="view-header">
-        <h1 class="view-title">Extension Settings</h1>
+        <h1 class="view-title">Preferences & Digest Sync</h1>
       </div>
 
-      <!-- Newsletter Schedule -->
+      <!-- Newsletter Digest Schedule -->
       <div class="settings-view-card">
         <h2 class="settings-section-title">Newsletter Digest Frequency</h2>
         <p class="settings-section-desc">Choose when your curated digest compilation should be formatted and prepared.</p>
@@ -872,12 +962,12 @@
 
       <!-- Local DB Portability & Backup -->
       <div class="settings-view-card">
-        <h2 class="settings-section-title">Local-First Storage & Backup</h2>
-        <p class="settings-section-desc">All your bookmarks and settings are securely preserved in your local IndexedDB storage. You have full ownership and portability of your data.</p>
+        <h2 class="settings-section-title">Local-First Storage & Portability</h2>
+        <p class="settings-section-desc">Your bookmarks and settings are securely preserved in your local IndexedDB storage. You have full offline ownership and portability of your data.</p>
         <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
           <button id="export_db_btn" class="btn-submit-primary">Export Library (JSON)</button>
           <input type="file" id="import_db_file" accept=".json" style="display: none;">
-          <button id="import_db_btn" class="btn-action-del" style="background: rgba(255,255,255,0.08); color: #fff; border-color: rgba(255,255,255,0.2);">Import Library</button>
+          <button id="import_db_btn" class="btn-action-del" style="background: rgba(255,255,255,0.08); color: #fff; border-color: var(--card-border);">Import Library</button>
           <span id="import_status" style="font-size: 13px; color: #34d399;"></span>
         </div>
       </div>
@@ -893,20 +983,20 @@
       <input type="text" id="title_input" style="display: none;">
       <p id="modal_card_title" style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;"></p>
       <div class="modal-field">
-        <label for="tag_input" style="font-size: 12px; font-weight: 600; color: #94a3b8; display: block; margin-bottom: 6px;">Tags (comma separated):</label>
+        <label for="tag_input" style="font-size: 12px; font-weight: 600; color: #94a3b8; display: block;">Tags (comma separated):</label>
         <input type="text" id="tag_input" placeholder="e.g. tech, design, reading">
       </div>
       <button type="button" id="make_changes_input" class="btn-modal-submit">Update Tags</button>
     </div>
   </div>
 
-  <!-- Sign In / Onboarding Modal -->
+  <!-- Sign In / Onboarding Modal (Hidden by default in Local-First) -->
   <div class="signModal">
     <div class="signModalContent" style="text-align: center;">
       <img src="images/extension_images/icon_128.png" style="width: 48px; height: 48px; margin-bottom: 12px;" alt="">
       <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 6px;">Welcome to Netsips</h2>
       <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Curate your web with offline-first bookmarks and personalized digests.</p>
-      <button id="guestbtn" class="btn-submit-primary" style="width: 100%; margin-bottom: 8px;">Continue as Guest (Offline Mode)</button>
+      <button id="guestbtn" class="btn-submit-primary" style="width: 100%;">Continue</button>
       <button id="signinbtn" style="display: none;"></button>
     </div>
   </div>

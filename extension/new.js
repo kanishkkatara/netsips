@@ -80,7 +80,16 @@ document.getElementById('sc').addEventListener('click', function(){
         items = items || [];
         if (items.length === 0) {
           if (recentsEl) recentsEl.style.display = 'none';
-          newsContent.innerHTML = '<div class="empty-state">No saved bookmarks yet. Clip any webpage using the Netsips extension to see them here!</div>';
+          newsContent.innerHTML = `
+            <div class="empty-state">
+              <p style="margin-bottom:14px;">No saved bookmarks yet. Clip any webpage using the Netsips extension to see them here!</p>
+              <button id="newtab-sample-btn" style="background:var(--accent-gradient);color:#fff;border:none;border-radius:18px;padding:8px 22px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 14px rgba(16,185,129,0.35);">+ Load Sample Articles</button>
+            </div>
+          `;
+          var sampleBtn = document.getElementById('newtab-sample-btn');
+          if (sampleBtn) {
+            sampleBtn.addEventListener('click', addSampleBookmarksNewTab);
+          }
           return;
         }
 
@@ -160,6 +169,52 @@ document.getElementById('sc').addEventListener('click', function(){
           } else {
             delete_this_card(key);
           }
+        }
+      }
+
+      function addSampleBookmarksNewTab() {
+        var samples = [
+          {
+            title: "How to Do Great Work — Paul Graham",
+            articleURL: "https://paulgraham.com/greatwork.html",
+            imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&auto=format&fit=crop&q=80",
+            mainSite: "paulgraham.com",
+            tags: "essays, philosophy",
+            dateAdded: Date.now() - 3600000 * 2,
+            status: 100
+          },
+          {
+            title: "Building Resilient Distributed Systems",
+            articleURL: "https://github.blog/engineering/distributed-systems",
+            imageUrl: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&auto=format&fit=crop&q=80",
+            mainSite: "github.blog",
+            tags: "engineering, dev",
+            dateAdded: Date.now() - 3600000 * 8,
+            status: 100
+          },
+          {
+            title: "Design Systems in 2026: The Rise of Generative UI",
+            articleURL: "https://figma.com/blog/generative-ui-design",
+            imageUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&auto=format&fit=crop&q=80",
+            mainSite: "figma.com",
+            tags: "design, ui",
+            dateAdded: Date.now() - 3600000 * 24,
+            status: 100
+          }
+        ];
+
+        if (typeof LocalDB !== 'undefined' && LocalDB.bookmarks) {
+          Promise.all(samples.map(function(s) { return LocalDB.bookmarks.add(s); })).then(function() {
+            renderNewTabBookmarks();
+          });
+        } else {
+          chrome.storage.local.get({ list: [] }, function(data) {
+            var list = data.list || [];
+            samples.forEach(function(s) { list.push(s); });
+            chrome.storage.local.set({ list: list }, function() {
+              renderNewTabBookmarks();
+            });
+          });
         }
       }
 

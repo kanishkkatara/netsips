@@ -10,51 +10,75 @@ var main_site = '';
 function extractDomain(url) {
   try {
     var parsed = new URL(url);
+    if (parsed.protocol === 'chrome:' || parsed.protocol === 'chrome-extension:') {
+      return parsed.hostname || 'Chrome';
+    }
     return parsed.hostname.replace(/^www\./, '');
   } catch (e) {
-    return 'web page';
+    return 'Webpage';
   }
 }
 
-function title_trimmer(website_title, maxLen) {
-  if (!website_title) return '';
-  maxLen = maxLen || 55;
-  if (website_title.length >= maxLen) {
-    return website_title.substring(0, maxLen) + '...';
+function title_trimmer(title, maxLen) {
+  if (!title) return '';
+  maxLen = maxLen || 50;
+  if (title.length >= maxLen) {
+    return title.substring(0, maxLen) + '...';
   }
-  return website_title;
+  return title;
+}
+
+// Generate aesthetic domain gradient fallback
+function getDomainGradient(domain) {
+  var d = (domain || '').toLowerCase();
+  if (d.includes('github') || d.includes('dev')) {
+    return 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%)';
+  } else if (d.includes('news') || d.includes('medium') || d.includes('post')) {
+    return 'linear-gradient(135deg, #18181b 0%, #27272a 50%, #064e3b 100%)';
+  } else if (d.includes('youtube') || d.includes('video')) {
+    return 'linear-gradient(135deg, #1c1917 0%, #450a0a 50%, #7f1d1d 100%)';
+  } else if (d.includes('figma') || d.includes('design')) {
+    return 'linear-gradient(135deg, #090d16 0%, #3b0764 50%, #6b21a8 100%)';
+  }
+  return 'linear-gradient(135deg, #090d16 0%, #131b2e 50%, #064e3b 100%)';
+}
+
+function updateActiveTabInfo(tab) {
+  if (!tab) return;
+  var title = tab.title || '';
+  var url = tab.url || '';
+  website_url = url;
+
+  var titleEl = document.getElementById("website-title");
+  if (titleEl) {
+    titleEl.innerText = title || url || 'Current Webpage';
+  }
+
+  var domain = extractDomain(url);
+  var domainEl = document.getElementById("page-domain");
+  if (domainEl) {
+    domainEl.innerText = domain;
+  }
+
+  var faviconEl = document.getElementById("page-favicon");
+  if (faviconEl) {
+    var fav = tab.favIconUrl;
+    if (!fav && url.startsWith('http')) {
+      fav = "https://s2.googleusercontent.com/s2/favicons?domain_url=" + encodeURIComponent(url);
+    }
+    if (fav) faviconEl.src = fav;
+  }
+
+  var bannerEl = document.getElementById("hero-banner");
+  if (bannerEl) {
+    bannerEl.style.background = getDomainGradient(domain);
+  }
 }
 
 // Populate active tab details immediately
 chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
   if (tabs && tabs[0]) {
-    var tab = tabs[0];
-    var title = tab.title || '';
-    var url = tab.url || '';
-    website_url = url;
-
-    var titleEl = document.getElementById("website-title");
-    if (titleEl) {
-      titleEl.innerText = title || url || 'Untitled Page';
-    }
-
-    var domainEl = document.getElementById("page-domain");
-    if (domainEl && url) {
-      domainEl.innerText = extractDomain(url);
-    }
-
-    var faviconEl = document.getElementById("page-favicon");
-    if (faviconEl && url) {
-      var fav = tab.favIconUrl || ("https://s2.googleusercontent.com/s2/favicons?domain_url=" + encodeURIComponent(url));
-      faviconEl.src = fav;
-    }
-
-    var bannerEl = document.getElementById("hero-banner");
-    if (bannerEl && tab.favIconUrl) {
-      // Dynamic fallback background gradient based on URL
-      var domain = extractDomain(url);
-      bannerEl.style.background = "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)";
-    }
+    updateActiveTabInfo(tabs[0]);
   }
 });
 
@@ -63,12 +87,12 @@ var recentContainer = document.getElementById('recent-container');
 // Render recents from Local-First Database
 function renderRecents() {
   if (!recentContainer) return;
-  var icon_link = "https://s2.googleusercontent.com/s2/favicons?domain_url=";
+  var iconApi = "https://s2.googleusercontent.com/s2/favicons?domain_url=";
 
   function renderList(items) {
     recentContainer.innerHTML = '';
     if (!items || items.length === 0) {
-      recentContainer.innerHTML = '<div class="recent-empty">No saves yet. Saved pages will appear here.</div>';
+      recentContainer.innerHTML = '<div class="recent-empty">No recent saves. Items saved will appear here.</div>';
       return;
     }
 
@@ -76,7 +100,7 @@ function renderRecents() {
       var url = item.articleURL || item.URL || '';
       var title = title_trimmer(item.title || item.Title || url, 40);
       var domain = extractDomain(url);
-      var fav = item.Icon || (icon_link + encodeURIComponent(url));
+      var fav = item.Icon || (iconApi + encodeURIComponent(url));
 
       var card = document.createElement('a');
       card.className = 'recent-item';
@@ -147,16 +171,13 @@ function toggleRecents() {
   }
 }
 
-window.addEventListener('load', function() {
+function initPopup() {
   chrome.storage.local.get(['recentisOpen'], function(result) {
     var rec = document.getElementById('recent-container');
     var upIcon = document.getElementById('up-icon');
     if (result && result.recentisOpen) {
       if (rec) rec.style.display = 'flex';
       if (upIcon) upIcon.classList.add('open');
-    } else {
-      if (rec) rec.style.display = 'none';
-      if (upIcon) upIcon.classList.remove('open');
     }
   });
 
@@ -169,10 +190,15 @@ window.addEventListener('load', function() {
       if (!tagsInput || !tagVal) return;
       var current = tagsInput.value.trim();
       var tags = current ? current.split(',').map(function(t) { return t.trim(); }) : [];
-      if (tags.indexOf(tagVal) === -1) {
+      var idx = tags.indexOf(tagVal);
+      if (idx === -1) {
         tags.push(tagVal);
-        tagsInput.value = tags.join(', ');
+        chip.classList.add('selected');
+      } else {
+        tags.splice(idx, 1);
+        chip.classList.remove('selected');
       }
+      tagsInput.value = tags.join(', ');
       tagsInput.focus();
     });
   });
@@ -188,10 +214,45 @@ window.addEventListener('load', function() {
   var dashboardIcon = document.getElementById('dashboard-icon');
   if (dashboardIcon) {
     dashboardIcon.addEventListener('click', function() {
-      chrome.tabs.create({ url: chrome.runtime.getURL('new.html') });
+      chrome.tabs.create({ url: chrome.runtime.getURL('settings.html') });
     });
   }
-});
+
+  var addBookmarkForm = document.getElementById('addbookmark');
+  if (addBookmarkForm) {
+    addBookmarkForm.addEventListener('submit', addBookmark);
+  }
+
+  // Inject content script to fetch active tab details
+  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+    if (tabs && tabs[0]) {
+      updateActiveTabInfo(tabs[0]);
+      var tabId = tabs[0].id;
+      var tabUrl = tabs[0].url || '';
+      var isRestricted = tabUrl.startsWith('chrome://') || 
+                         tabUrl.startsWith('chrome-extension://') || 
+                         tabUrl.startsWith('edge://') || 
+                         tabUrl.startsWith('about:') ||
+                         tabUrl.indexOf('chrome.google.com/webstore') !== -1 ||
+                         tabUrl.indexOf('chromewebstore.google.com') !== -1;
+
+      if (!isRestricted) {
+        if (chrome.scripting && chrome.scripting.executeScript) {
+          chrome.scripting.executeScript({
+            target: { tabId: tabId },
+            files: ['content.js']
+          }).catch(function() {});
+        } else if (chrome.tabs.executeScript) {
+          chrome.tabs.executeScript(tabId, { file: 'content.js' });
+        }
+      }
+    }
+  });
+
+  chrome.runtime.onMessage.addListener(function(message) {
+    onPageDetailsReceived(message);
+  });
+}
 
 // Delivery from content script
 function onPageDetailsReceived(pageDetails) {
@@ -217,7 +278,7 @@ function onPageDetailsReceived(pageDetails) {
     if (statTime) statTime.style.display = 'inline-flex';
   }
 
-  if (pageDetails.img_url) {
+  if (pageDetails.img_url && pageDetails.img_url.indexOf('placeholder.png') === -1) {
     image = pageDetails.img_url;
     var bannerEl = document.getElementById('hero-banner');
     if (bannerEl) {
@@ -225,10 +286,15 @@ function onPageDetailsReceived(pageDetails) {
     }
   }
 
+  if (pageDetails.title) {
+    var titleEl = document.getElementById("website-title");
+    if (titleEl) titleEl.innerText = pageDetails.title;
+  }
+
   main_site = pageDetails.main_site || '';
 }
 
-// Add Bookmark submit handler (Local-First)
+// Save Bookmark Action
 var addBookmark = function(e) {
   if (e && e.preventDefault) {
     e.preventDefault();
@@ -251,7 +317,7 @@ var addBookmark = function(e) {
     Icon: fav_icon,
     Tags: tags,
     tags: tags,
-    mainSite: main_site,
+    mainSite: main_site || extractDomain(website_url),
     status: 100
   };
 
@@ -264,18 +330,17 @@ var addBookmark = function(e) {
   function handleSaveSuccess() {
     if (saveBtn) {
       saveBtn.classList.add('success');
-      saveBtn.innerHTML = '<span>✓ Saved to Netsips</span>';
+      saveBtn.innerHTML = '<span>✓ Saved to Library</span>';
     }
     setTimeout(function() {
       window.close();
-    }, 600);
+    }, 550);
   }
 
   if (typeof LocalDB !== 'undefined' && LocalDB.bookmarks) {
     LocalDB.bookmarks.add(bookmarkDoc).then(function() {
       handleSaveSuccess();
     }).catch(function(err) {
-      console.warn("LocalDB save fallback:", err);
       chrome.storage.local.get({ list: [] }, function(data) {
         var list = data.list || [];
         list.push(bookmarkDoc);
@@ -295,41 +360,9 @@ var addBookmark = function(e) {
   }
 };
 
-// Listeners on startup
-window.addEventListener('load', function() {
-  var addBookmarkForm = document.getElementById('addbookmark');
-  if (addBookmarkForm) {
-    addBookmarkForm.addEventListener('submit', addBookmark);
-  }
-
-  // Inject content script to fetch active tab details
-  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-    if (tabs && tabs[0]) {
-      var tabId = tabs[0].id;
-      var tabUrl = tabs[0].url || '';
-      var isRestricted = tabUrl.startsWith('chrome://') || 
-                         tabUrl.startsWith('chrome-extension://') || 
-                         tabUrl.startsWith('edge://') || 
-                         tabUrl.startsWith('about:') ||
-                         tabUrl.indexOf('chrome.google.com/webstore') !== -1 ||
-                         tabUrl.indexOf('chromewebstore.google.com') !== -1;
-
-      if (!isRestricted) {
-        if (chrome.scripting && chrome.scripting.executeScript) {
-          chrome.scripting.executeScript({
-            target: { tabId: tabId },
-            files: ['content.js']
-          }).catch(function(err) {
-            console.warn('Scripting inject catch:', err);
-          });
-        } else if (chrome.tabs.executeScript) {
-          chrome.tabs.executeScript(tabId, { file: 'content.js' });
-        }
-      }
-    }
-  });
-
-  chrome.runtime.onMessage.addListener(function(message) {
-    onPageDetailsReceived(message);
-  });
-});
+// Immediate fail-safe execution
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initPopup);
+} else {
+  initPopup();
+}
