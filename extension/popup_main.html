@@ -4,28 +4,24 @@
   <meta charset="utf-8">
   <title>Netsips Web Clipper</title>
   <style>
-    @font-face {
-      font-family: 'Manrope';
-      font-weight: 400 800;
-      src: url('fonts/Manrope-VariableFont_wght.ttf') format('truetype');
-      font-display: swap;
-    }
-
     :root {
-      --bg-popup: #090d16;
-      --bg-surface: #131b2e;
-      --bg-surface-hover: #1c2742;
-      --border-card: rgba(255, 255, 255, 0.08);
-      --border-focus: #10b981;
-      --text-main: #f8fafc;
-      --text-secondary: #cbd5e1;
-      --text-muted: #8292ab;
-      --accent-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      --accent-hover: linear-gradient(135deg, #059669 0%, #047857 100%);
-      --accent-glow: 0 4px 16px rgba(16, 185, 129, 0.4);
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
+      --google-blue: #1a73e8;
+      --google-blue-hover: #1557b0;
+      --google-blue-active: #174ea6;
+      --google-blue-surface: #e8f0fe;
+      --google-blue-border: #d2e3fc;
+      --google-surface: #ffffff;
+      --google-bg: #f8f9fa;
+      --google-border: #dadce0;
+      --google-border-hover: #bdc1c6;
+      --google-text-primary: #202124;
+      --google-text-secondary: #5f6368;
+      --google-text-meta: #70757a;
+      --google-success: #1e8e3e;
+      --google-success-surface: #e6f4ea;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-pill: 20px;
     }
 
     * {
@@ -35,57 +31,55 @@
     }
 
     body {
-      font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--bg-popup);
-      background-image: radial-gradient(ellipse at 50% 0%, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
-      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--google-surface);
+      color: var(--google-text-primary);
       width: 360px;
       padding: 16px;
       margin: 0;
       font-size: 13px;
-      line-height: 1.5;
+      line-height: 1.45;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Header Bar */
+    /* Google Header */
     .app-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--border-card);
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--google-border);
       margin-bottom: 14px;
     }
 
     .brand-wrap {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .brand-logo {
-      width: 26px;
-      height: 26px;
+      width: 22px;
+      height: 22px;
       border-radius: var(--radius-sm);
+      display: block;
     }
 
     .brand-title {
-      font-size: 16px;
-      font-weight: 800;
-      color: #ffffff;
-      letter-spacing: -0.02em;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--google-text-primary);
+      letter-spacing: -0.01em;
     }
 
     .brand-badge {
-      font-size: 10px;
-      font-weight: 700;
-      background: rgba(16, 185, 129, 0.15);
-      color: #34d399;
-      padding: 2px 7px;
+      font-size: 11px;
+      font-weight: 500;
+      background: var(--google-blue-surface);
+      color: var(--google-blue);
+      padding: 1px 7px;
       border-radius: 10px;
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+      border: 1px solid var(--google-blue-border);
     }
 
     .header-actions {
@@ -95,93 +89,85 @@
     }
 
     .icon-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border-card);
+      background: transparent;
+      border: none;
       cursor: pointer;
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      border-radius: var(--radius-sm);
-      transition: all 0.2s ease;
-      color: var(--text-secondary);
+      border-radius: 50%;
+      transition: background-color 0.15s ease;
+      color: var(--google-text-secondary);
     }
 
     .icon-btn:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.2);
-      transform: translateY(-1px);
+      background-color: rgba(60, 64, 67, 0.08);
+      color: var(--google-text-primary);
     }
 
-    .icon-btn img {
-      width: 15px;
-      height: 15px;
-      opacity: 0.85;
-      filter: brightness(0) invert(1);
+    .icon-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
     }
 
-    /* Hero Article Card */
+    /* Active Tab Preview (Google Keep Card style) */
     .card-preview {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-card);
+      background: var(--google-surface);
+      border: 1px solid var(--google-border);
       border-radius: var(--radius-md);
       overflow: hidden;
       margin-bottom: 14px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-      transition: all 0.2s ease;
+      box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.1);
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .card-preview:hover {
+      border-color: var(--google-border-hover);
+      box-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.2);
     }
 
     .card-banner {
       width: 100%;
-      height: 100px;
-      background: linear-gradient(135deg, #111827 0%, #1f2937 40%, #064e3b 100%);
+      height: 90px;
+      background-color: #f1f3f4;
       background-size: cover;
       background-position: center;
-      position: relative;
-      display: flex;
-      align-items: flex-end;
-      padding: 10px 12px;
-      box-sizing: border-box;
-      transition: background-image 0.3s ease;
-    }
-
-    .card-banner::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(9, 13, 22, 0.8) 100%);
-      pointer-events: none;
-    }
-
-    .banner-meta {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      font-weight: 600;
-      color: #e2e8f0;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.6);
-    }
-
-    .banner-favicon {
-      width: 15px;
-      height: 15px;
-      border-radius: 3px;
-      background: #ffffff;
-      padding: 1px;
+      display: none;
+      border-bottom: 1px solid var(--google-border);
     }
 
     .card-body {
-      padding: 12px;
+      padding: 12px 14px;
+    }
+
+    .banner-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+      font-size: 11.5px;
+      color: var(--google-text-secondary);
+    }
+
+    .banner-favicon {
+      width: 14px;
+      height: 14px;
+      border-radius: 2px;
+      display: block;
+    }
+
+    #page-domain {
+      font-weight: 500;
+      color: var(--google-text-secondary);
     }
 
     .article-title {
       font-size: 14px;
-      font-weight: 700;
-      color: #ffffff;
+      font-weight: 500;
+      color: var(--google-text-primary);
       line-height: 1.4;
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -194,7 +180,7 @@
     .article-stats {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       font-size: 11px;
     }
 
@@ -202,17 +188,26 @@
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--text-secondary);
-      border: 1px solid var(--border-card);
-      padding: 2px 8px;
+      background: #f1f3f4;
+      color: var(--google-text-secondary);
+      padding: 2px 7px;
       border-radius: 10px;
-      font-weight: 600;
+      font-weight: 500;
     }
 
     /* Tag Section */
     .form-group {
       margin-bottom: 14px;
+    }
+
+    .tag-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--google-text-secondary);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .tag-input-wrap {
@@ -221,36 +216,26 @@
       align-items: center;
     }
 
-    .tag-prefix {
-      position: absolute;
-      left: 12px;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text-muted);
-      pointer-events: none;
-    }
-
     .tag-input {
       width: 100%;
-      padding: 10px 12px 10px 30px;
+      padding: 9px 12px;
       font-family: inherit;
       font-size: 13px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--border-card);
-      border-radius: var(--radius-md);
-      color: #ffffff;
+      background: #ffffff;
+      border: 1px solid var(--google-border);
+      border-radius: var(--radius-sm);
+      color: var(--google-text-primary);
       outline: none;
-      transition: all 0.2s ease;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
     }
 
     .tag-input:focus {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: var(--accent-gradient);
-      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+      border-color: var(--google-blue);
+      box-shadow: 0 0 0 1px var(--google-blue);
     }
 
     .tag-input::placeholder {
-      color: rgba(255, 255, 255, 0.35);
+      color: #9aa0a6;
     }
 
     .quick-tags {
@@ -261,76 +246,80 @@
     }
 
     .quick-chip {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--text-muted);
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--border-card);
-      padding: 3px 9px;
-      border-radius: 12px;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--google-text-secondary);
+      background: #f1f3f4;
+      border: 1px solid transparent;
+      padding: 3px 10px;
+      border-radius: 14px;
       cursor: pointer;
       user-select: none;
       transition: all 0.15s ease;
     }
 
     .quick-chip:hover {
-      background: rgba(16, 185, 129, 0.15);
-      color: #34d399;
-      border-color: rgba(16, 185, 129, 0.35);
+      background: #e8eaed;
+      color: var(--google-text-primary);
     }
 
     .quick-chip.selected {
-      background: var(--accent-gradient);
-      color: #ffffff;
-      border-color: transparent;
+      background: var(--google-blue-surface);
+      color: var(--google-blue);
+      border-color: var(--google-blue-border);
     }
 
-    /* Primary Save Button */
+    /* Save Button */
     .btn-save {
       width: 100%;
-      height: 44px;
+      height: 38px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
       font-family: inherit;
-      font-size: 14px;
-      font-weight: 700;
+      font-size: 13.5px;
+      font-weight: 500;
       color: #ffffff;
-      background: var(--accent-gradient);
+      background: var(--google-blue);
       border: none;
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-pill);
       cursor: pointer;
-      box-shadow: var(--accent-glow);
-      transition: all 0.2s ease;
+      transition: background-color 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3);
+    }
+
+    .btn-save svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
     }
 
     .btn-save:hover {
-      background: var(--accent-hover);
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+      background: var(--google-blue-hover);
+      box-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.3), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
     }
 
     .btn-save:active {
-      transform: translateY(1px);
+      background: var(--google-blue-active);
     }
 
     .btn-save:disabled {
-      opacity: 0.7;
+      opacity: 0.65;
       cursor: not-allowed;
-      transform: none;
+      box-shadow: none;
     }
 
     .btn-save.success {
-      background: #059669;
-      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4);
+      background: var(--google-success);
+      box-shadow: 0 1px 2px rgba(30, 142, 62, 0.3);
     }
 
-    /* Recents Section */
+    /* Recents Drawer (Google Keep Notes List style) */
     .recents-wrapper {
       margin-top: 14px;
-      border-top: 1px solid var(--border-card);
-      padding-top: 12px;
+      border-top: 1px solid var(--google-border);
+      padding-top: 10px;
     }
 
     .recents-header {
@@ -338,24 +327,23 @@
       align-items: center;
       justify-content: space-between;
       cursor: pointer;
-      padding: 4px 2px;
+      padding: 4px 0;
       user-select: none;
     }
 
     .recents-title {
       font-size: 11px;
-      font-weight: 700;
-      color: var(--text-muted);
+      font-weight: 500;
+      color: var(--google-text-secondary);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
     }
 
     .recents-arrow {
-      width: 14px;
-      height: 14px;
-      transition: transform 0.25s ease;
-      opacity: 0.6;
-      filter: brightness(0) invert(1);
+      width: 16px;
+      height: 16px;
+      fill: var(--google-text-secondary);
+      transition: transform 0.2s ease;
     }
 
     .recents-arrow.open {
@@ -365,7 +353,7 @@
     .recent-list {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 4px;
       margin-top: 8px;
     }
 
@@ -373,26 +361,23 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 8px 10px;
-      background: var(--bg-surface);
-      border: 1px solid var(--border-card);
+      padding: 7px 10px;
+      background: transparent;
       border-radius: var(--radius-sm);
       text-decoration: none;
-      color: var(--text-main);
-      transition: all 0.15s ease;
+      color: var(--google-text-primary);
+      transition: background-color 0.15s ease;
       cursor: pointer;
     }
 
     .recent-item:hover {
-      background: var(--bg-surface-hover);
-      border-color: rgba(255, 255, 255, 0.18);
-      transform: translateX(2px);
+      background: #f1f3f4;
     }
 
     .recent-favicon {
-      width: 15px;
-      height: 15px;
-      border-radius: 3px;
+      width: 14px;
+      height: 14px;
+      border-radius: 2px;
       flex-shrink: 0;
     }
 
@@ -404,27 +389,27 @@
     }
 
     .recent-name {
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 12.5px;
+      font-weight: 500;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      color: #ffffff;
+      color: var(--google-text-primary);
     }
 
     .recent-domain {
-      font-size: 10.5px;
-      color: var(--text-muted);
+      font-size: 11px;
+      color: var(--google-text-secondary);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
     .recent-empty {
-      font-size: 11.5px;
-      color: var(--text-muted);
+      font-size: 12px;
+      color: var(--google-text-secondary);
       text-align: center;
-      padding: 10px 0;
+      padding: 12px 0;
     }
   </style>
 </head>
@@ -439,23 +424,22 @@
     </div>
     <div class="header-actions">
       <button class="icon-btn" id="dashboard-icon" title="Open Reading Library">
-        <img src="images/extension_images/bookmark-w.svg" alt="Library">
+        <svg viewBox="0 0 24 24"><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>
       </button>
-      <button class="icon-btn" id="settings-icon" title="Preferences">
-        <img src="images/extension_images/settings.svg" alt="Settings">
+      <button class="icon-btn" id="settings-icon" title="Settings">
+        <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
       </button>
     </div>
   </header>
 
-  <!-- Hero Article Preview Card -->
+  <!-- Article Preview Card -->
   <section class="card-preview">
-    <div id="hero-banner" class="card-banner">
+    <div id="hero-banner" class="card-banner"></div>
+    <div class="card-body">
       <div class="banner-meta">
         <img id="page-favicon" class="banner-favicon" src="images/extension_images/icon_128.png" alt="">
         <span id="page-domain">Active Tab</span>
       </div>
-    </div>
-    <div class="card-body">
       <div id="modal-content">
         <h2 id="website-title" class="article-title">Current Webpage</h2>
       </div>
@@ -464,7 +448,7 @@
           <span id="word_count">0</span> words
         </span>
         <span id="stat-time" class="stat-pill" style="display: none;">
-          ⏱ <span id="est_time">1 min</span>
+          ⏱ <span id="est_time">1 min read</span>
         </span>
       </div>
     </div>
@@ -477,9 +461,9 @@
     <input id="url" name="url" value="" type="hidden"/>
 
     <div class="form-group">
+      <label class="tag-label" for="popup_tags">Tags</label>
       <div class="tag-input-wrap">
-        <span class="tag-prefix">#</span>
-        <input type="text" id="popup_tags" class="tag-input" placeholder="Add tags (comma separated)..." autocomplete="off" />
+        <input type="text" id="popup_tags" class="tag-input" placeholder="Add tags (e.g. read later, dev)..." autocomplete="off" />
       </div>
       <div class="quick-tags" id="quick-tags">
         <span class="quick-chip" data-tag="read-later">+ read later</span>
@@ -490,6 +474,7 @@
     </div>
 
     <button id="save" type="submit" class="btn-save">
+      <svg viewBox="0 0 24 24"><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>
       <span>Save to Library</span>
     </button>
   </form>
@@ -498,7 +483,7 @@
   <section class="recents-wrapper">
     <div class="recents-header" id="drop-menu">
       <span class="recents-title">Recent Saves</span>
-      <img src="images/extension_images/arrow-down.svg" class="recents-arrow" id="up-icon" alt="">
+      <svg class="recents-arrow" id="up-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
     </div>
     <div id="recent-container" class="recent-list" style="display: none;"></div>
   </section>

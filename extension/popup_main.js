@@ -28,21 +28,6 @@ function title_trimmer(title, maxLen) {
   return title;
 }
 
-// Generate aesthetic domain gradient fallback
-function getDomainGradient(domain) {
-  var d = (domain || '').toLowerCase();
-  if (d.includes('github') || d.includes('dev')) {
-    return 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%)';
-  } else if (d.includes('news') || d.includes('medium') || d.includes('post')) {
-    return 'linear-gradient(135deg, #18181b 0%, #27272a 50%, #064e3b 100%)';
-  } else if (d.includes('youtube') || d.includes('video')) {
-    return 'linear-gradient(135deg, #1c1917 0%, #450a0a 50%, #7f1d1d 100%)';
-  } else if (d.includes('figma') || d.includes('design')) {
-    return 'linear-gradient(135deg, #090d16 0%, #3b0764 50%, #6b21a8 100%)';
-  }
-  return 'linear-gradient(135deg, #090d16 0%, #131b2e 50%, #064e3b 100%)';
-}
-
 function updateActiveTabInfo(tab) {
   if (!tab) return;
   var title = tab.title || '';
@@ -67,11 +52,6 @@ function updateActiveTabInfo(tab) {
       fav = "https://s2.googleusercontent.com/s2/favicons?domain_url=" + encodeURIComponent(url);
     }
     if (fav) faviconEl.src = fav;
-  }
-
-  var bannerEl = document.getElementById("hero-banner");
-  if (bannerEl) {
-    bannerEl.style.background = getDomainGradient(domain);
   }
 }
 
@@ -282,6 +262,7 @@ function onPageDetailsReceived(pageDetails) {
     image = pageDetails.img_url;
     var bannerEl = document.getElementById('hero-banner');
     if (bannerEl) {
+      bannerEl.style.display = 'block';
       bannerEl.style.backgroundImage = 'url(' + pageDetails.img_url + ')';
     }
   }
@@ -330,11 +311,11 @@ var addBookmark = function(e) {
   function handleSaveSuccess() {
     if (saveBtn) {
       saveBtn.classList.add('success');
-      saveBtn.innerHTML = '<span>✓ Saved to Library</span>';
+      saveBtn.innerHTML = '<svg style="width:16px;height:16px;fill:currentColor;" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg><span>Saved to Library</span>';
     }
     setTimeout(function() {
       window.close();
-    }, 550);
+    }, 600);
   }
 
   if (typeof LocalDB !== 'undefined' && LocalDB.bookmarks) {

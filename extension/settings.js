@@ -1,9 +1,17 @@
 /**
  * Netsips Library & Settings Controller
- * Modern, offline-first dashboard for curating and managing saved web bookmarks.
+ * Material Design 3 Google-inspired clean reading list interface.
  */
 
 var faviconApi = "https://s2.googleusercontent.com/s2/favicons?domain_url=";
+
+var ICONS = {
+  archive: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M20.54 5.23l-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zM12 17.5L6.5 12H10v-2h4v2h3.5L12 17.5zM5.12 5l.81-1h12l.94 1H5.12z"/></svg>',
+  edit: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>',
+  delete: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z"/></svg>',
+  restore: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6a7 7 0 1 1 2.05 4.95l-1.42 1.42A9 9 0 1 0 13 3zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>',
+  bookmark: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>'
+};
 
 function title_trimmer(title, maxLen) {
   if (!title) return '';
@@ -67,13 +75,13 @@ function displayCards(items) {
 
   if (items.length === 0) {
     newsContent.innerHTML = `
-      <div class="empty-state-card">
+      <div class="empty-state-card" id="library-empty-state">
         <div class="empty-state-icon-wrap">
-          <img src="images/extension_images/bookmark.svg" alt="">
+          ${ICONS.bookmark}
         </div>
-        <h3 class="empty-state-title">Your Reading Library is Empty</h3>
+        <h3 class="empty-state-title">Your reading list is empty</h3>
         <p class="empty-state-desc">
-          Click the Netsips icon in your browser toolbar to save any webpage, article, or video with a single click. Everything is saved locally on your device.
+          Save articles, stories, and pages using the Netsips icon in Chrome. Everything is stored locally on your computer.
         </p>
         <button class="btn-sample" id="empty-state-sample-btn">+ Load Sample Articles</button>
       </div>
@@ -110,8 +118,8 @@ function displayCards(items) {
       <div class="column">
         <div class="card">
           <div class="img-container">
-            <span class="topcorner" title="Archive bookmark">
-              <img src="images/extension_images/archive-grey.svg" alt="Archive">
+            <span class="topcorner" title="Archive">
+              ${ICONS.archive}
             </span>
             <a href="${url}" target="_blank" rel="noopener noreferrer">
               <img class="img-container-tag" src="${img}" alt="" onerror="this.src='images/extension_images/placeholder.png'">
@@ -128,7 +136,7 @@ function displayCards(items) {
             </h3>
             <div class="card-bottom-row">
               <span class="card_tags" data-raw-tags="${rawTags}" title="${rawTags}">${tagPills || '#reading'}</span>
-              <span><img src="images/extension_images/edit.png" class="edit" title="Edit tags" alt="Edit"></span>
+              <span class="edit" title="Edit tags">${ICONS.edit}</span>
             </div>
           </div>
           <div class="key" style="display:none">${key}</div>
@@ -169,7 +177,7 @@ function displayCards(items) {
 }
 
 // -------------------------------------------------------------
-// SAMPLE DATA GENERATOR (For instant testing & beautiful preview)
+// SAMPLE DATA GENERATOR
 // -------------------------------------------------------------
 function addSampleBookmarks() {
   var samples = [
@@ -178,25 +186,25 @@ function addSampleBookmarks() {
       articleURL: "https://paulgraham.com/greatwork.html",
       imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&auto=format&fit=crop&q=80",
       mainSite: "paulgraham.com",
-      tags: "essays, philosophy, thinking",
+      tags: "essays, philosophy",
       dateAdded: Date.now() - 3600000 * 2,
       status: 100
     },
     {
-      title: "Building Resilient Distributed Systems",
+      title: "Building Resilient Distributed Systems at Scale",
       articleURL: "https://github.blog/engineering/distributed-systems",
       imageUrl: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&auto=format&fit=crop&q=80",
       mainSite: "github.blog",
-      tags: "engineering, dev, architecture",
+      tags: "engineering, architecture",
       dateAdded: Date.now() - 3600000 * 8,
       status: 100
     },
     {
-      title: "Design Systems in 2026: The Rise of Generative UI",
+      title: "Design Systems in 2026: Generative Tokens",
       articleURL: "https://figma.com/blog/generative-ui-design",
       imageUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&auto=format&fit=crop&q=80",
       mainSite: "figma.com",
-      tags: "design, ui, inspiration",
+      tags: "design, ui",
       dateAdded: Date.now() - 3600000 * 24,
       status: 100
     }
@@ -278,12 +286,12 @@ function saveTagChanges(key) {
   if (typeof LocalDB !== 'undefined' && LocalDB.bookmarks) {
     LocalDB.bookmarks.update(key, { tags: newTags }).then(function() {
       if (modal) modal.style.display = "none";
-      if (submitBtn) submitBtn.innerText = "Update Tags";
+      if (submitBtn) submitBtn.innerText = "Save";
       renderSavedBookmarks();
     }).catch(function(err) {
       console.error("Tag update failed:", err);
       if (modal) modal.style.display = "none";
-      if (submitBtn) submitBtn.innerText = "Update Tags";
+      if (submitBtn) submitBtn.innerText = "Save";
     });
   } else {
     chrome.storage.local.get({ list: [] }, function(data) {
@@ -294,7 +302,7 @@ function saveTagChanges(key) {
         items[idx].Tags = newTags;
         chrome.storage.local.set({ list: items }, function() {
           if (modal) modal.style.display = "none";
-          if (submitBtn) submitBtn.innerText = "Update Tags";
+          if (submitBtn) submitBtn.innerText = "Save";
           renderSavedBookmarks();
         });
       }
@@ -334,8 +342,8 @@ function render_deleted() {
         <div class="column">
           <div class="card">
             <div class="img-container">
-              <span class="topcorner1" title="Permanently delete bookmark">
-                <img src="images/extension_images/delete.svg" alt="Delete">
+              <span class="topcorner1" title="Delete forever">
+                ${ICONS.delete}
               </span>
               <a href="${url}" target="_blank" rel="noopener noreferrer">
                 <img class="img-container-tag" src="${img}" alt="" onerror="this.src='images/extension_images/placeholder.png'">
@@ -350,7 +358,7 @@ function render_deleted() {
               <h3 class="card_title"><a href="${url}" target="_blank" rel="noopener noreferrer">${title}</a></h3>
               <div class="card-bottom-row">
                 <span class="card_tags">Archived</span>
-                <span><img src="images/extension_images/restore.svg" class="edit1" title="Restore bookmark" alt="Restore"></span>
+                <span class="edit1" title="Restore bookmark">${ICONS.restore}</span>
               </div>
             </div>
             <div class="key" style="display:none">${key}</div>
@@ -643,7 +651,7 @@ function initApp() {
       e.preventDefault();
       var submitBtn = document.getElementById('submit-button');
       if (submitBtn) {
-        submitBtn.value = "Saved!";
+        submitBtn.value = "Saved";
         setTimeout(function() { submitBtn.value = "Save Schedule"; }, 1500);
       }
     });

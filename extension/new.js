@@ -79,11 +79,14 @@ document.getElementById('sc').addEventListener('click', function(){
 
         items = items || [];
         if (items.length === 0) {
-          if (recentsEl) recentsEl.style.display = 'none';
           newsContent.innerHTML = `
             <div class="empty-state">
-              <p style="margin-bottom:14px;">No saved bookmarks yet. Clip any webpage using the Netsips extension to see them here!</p>
-              <button id="newtab-sample-btn" style="background:var(--accent-gradient);color:#fff;border:none;border-radius:18px;padding:8px 22px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 14px rgba(16,185,129,0.35);">+ Load Sample Articles</button>
+              <div class="empty-icon-wrap">
+                <svg viewBox="0 0 24 24"><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>
+              </div>
+              <h3 class="empty-title">Your reading list is empty</h3>
+              <p class="empty-desc">Clip any webpage using the Netsips extension icon to save it here for reading later.</p>
+              <button id="newtab-sample-btn" class="btn-sample-google">+ Load Sample Articles</button>
             </div>
           `;
           var sampleBtn = document.getElementById('newtab-sample-btn');
@@ -118,7 +121,7 @@ document.getElementById('sc').addEventListener('click', function(){
             <div class="card">
               <div class="card-thumb-wrap">
                 <span class="topcorner" title="Archive / Hide">
-                  <img src="images/extension_images/visibility_off-grey.svg" alt="Hide">
+                  <svg viewBox="0 0 24 24"><path d="M20.54 5.23l-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zM12 17.5L6.5 12H10v-2h4v2h3.5L12 17.5zM5.12 5l.81-1h12l.94 1H5.12z"/></svg>
                 </span>
                 <a href="${url}" target="_blank" rel="noopener noreferrer">
                   <img class="card-thumb" src="${img}" alt="" onerror="this.src='images/extension_images/placeholder.png'">
