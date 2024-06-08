@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/png" href="images/extension_images/icon_128.png"/>
+  <link rel="icon" type="image/png" href="new_icon.png"/>
   <title>New Tab</title>
   <style>
     :root {
-      --google-blue: #1a73e8;
-      --google-blue-hover: #1557b0;
-      --google-blue-surface: #e8f0fe;
-      --google-blue-border: #d2e3fc;
+      --brand-purple: #5a2cb6;
+      --brand-purple-hover: #4a2399;
+      --brand-purple-surface: #f3e8ff;
+      --brand-purple-border: #e9d5ff;
       --google-surface: #ffffff;
       --google-bg: #ffffff;
       --google-border: #dadce0;
@@ -102,9 +102,9 @@
     }
 
     .btn-nav:hover {
-      background: rgba(60, 64, 67, 0.04);
-      color: var(--google-text-primary);
-      border-color: var(--google-border-hover);
+      background: var(--brand-purple-surface);
+      color: var(--brand-purple);
+      border-color: var(--brand-purple-border);
     }
 
     .btn-nav svg {
@@ -132,9 +132,10 @@
     }
 
     .hero-logo-img {
-      width: 48px;
-      height: 48px;
-      border-radius: 8px;
+      width: 52px;
+      height: 52px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(90, 44, 182, 0.2);
     }
 
     .hero-title {
@@ -182,7 +183,7 @@
 
     .search-input:focus {
       border-color: transparent;
-      box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+      box-shadow: 0 1px 6px 0 rgba(90, 44, 182, 0.25);
     }
 
     .search-input::placeholder {
@@ -202,12 +203,12 @@
       justify-content: center;
       cursor: pointer;
       color: var(--google-text-secondary);
-      transition: background-color 0.15s ease;
+      transition: background-color 0.15s ease, color 0.15s ease;
     }
 
     .search-btn:hover {
-      background-color: rgba(60, 64, 67, 0.08);
-      color: var(--google-blue);
+      background-color: var(--brand-purple-surface);
+      color: var(--brand-purple);
     }
 
     .search-btn svg {
@@ -250,11 +251,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background-color 0.15s ease;
+      transition: background-color 0.15s ease, color 0.15s ease;
     }
 
     .shortcut-item:hover .shortcut-circle {
-      background: var(--google-blue-surface);
+      background: var(--brand-purple-surface);
+      color: var(--brand-purple);
     }
 
     .shortcut-icon {
@@ -300,17 +302,17 @@
     .section-badge {
       font-size: 11px;
       font-weight: 500;
-      background: var(--google-blue-surface);
-      color: var(--google-blue);
+      background: var(--brand-purple-surface);
+      color: var(--brand-purple);
       padding: 2px 8px;
       border-radius: 10px;
-      border: 1px solid var(--google-blue-border);
+      border: 1px solid var(--brand-purple-border);
     }
 
     .view-all-link {
       font-size: 13px;
       font-weight: 500;
-      color: var(--google-blue);
+      color: var(--brand-purple);
       text-decoration: none;
       display: inline-flex;
       align-items: center;
@@ -319,6 +321,7 @@
 
     .view-all-link:hover {
       text-decoration: underline;
+      color: var(--brand-purple-hover);
     }
 
     /* Bookmarks Grid (Google Product Cards) */
@@ -458,7 +461,7 @@
     }
 
     .card_title a:hover {
-      color: var(--google-blue);
+      color: var(--brand-purple);
     }
 
     .card-tags-row {
@@ -493,7 +496,7 @@
     .empty-icon-wrap {
       width: 52px;
       height: 52px;
-      background: var(--google-blue-surface);
+      background: var(--brand-purple-surface);
       border-radius: 50%;
       display: inline-flex;
       align-items: center;
@@ -504,7 +507,7 @@
     .empty-icon-wrap svg {
       width: 26px;
       height: 26px;
-      fill: var(--google-blue);
+      fill: var(--brand-purple);
     }
 
     .empty-title {
@@ -523,7 +526,7 @@
     }
 
     .btn-sample-google {
-      background: var(--google-blue);
+      background: var(--brand-purple);
       color: #ffffff;
       border: none;
       border-radius: var(--radius-sm);
@@ -532,11 +535,12 @@
       font-size: 13px;
       font-weight: 500;
       cursor: pointer;
-      transition: background-color 0.15s ease;
+      transition: background-color 0.15s ease, box-shadow 0.15s ease;
     }
 
     .btn-sample-google:hover {
-      background: var(--google-blue-hover);
+      background: var(--brand-purple-hover);
+      box-shadow: 0 1px 2px 0 rgba(90, 44, 182, 0.3);
     }
   </style>
 </head>
@@ -546,7 +550,7 @@
     <!-- Top Navigation -->
     <header class="top-nav">
       <a href="new.html" class="brand-group">
-        <img src="images/extension_images/icon_128.png" alt="Netsips">
+        <img src="new_icon.png" alt="Netsips">
         <span class="brand-name">Netsips</span>
       </a>
 
@@ -562,7 +566,7 @@
     <!-- Center Google Search Hero -->
     <div class="search-hero">
       <div class="hero-logo-wrap">
-        <img class="hero-logo-img" src="images/extension_images/icon_128.png" alt="Netsips">
+        <img class="hero-logo-img" src="new_icon.png" alt="Netsips">
         <h1 class="hero-title">Netsips</h1>
       </div>
 
@@ -610,7 +614,7 @@
       </a>
       <a href="settings.html" class="shortcut-item">
         <div class="shortcut-circle">
-          <svg style="width:20px;height:20px;fill:var(--google-blue);" viewBox="0 0 24 24"><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>
+          <svg style="width:20px;height:20px;fill:var(--brand-purple);" viewBox="0 0 24 24"><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>
         </div>
         <span class="shortcut-label">Library</span>
       </a>

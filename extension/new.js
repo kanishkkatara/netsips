@@ -129,7 +129,7 @@ document.getElementById('sc').addEventListener('click', function(){
               </div>
               <div class="card-body">
                 <div class="card-meta">
-                  <span class="card_favicon"><img src="${icon}" alt="" onerror="this.src='images/extension_images/icon_128.png'"></span>
+                  <span class="card_favicon"><img src="${icon}" alt="" onerror="this.src='new_icon.png'"></span>
                   <span class="card_site">${main_site_name || 'web'}</span>
                   <span class="card_date">${time}</span>
                 </div>
@@ -403,14 +403,14 @@ document.getElementById('sc').addEventListener('click', function(){
       }
       
           
-      // THE METHOD WHICH MAKES RENDERED TAGS YELLOW ON CLICK
+      // THE METHOD WHICH MAKES RENDERED TAGS PURPLE ON CLICK
       function activeTag(){
         let x = this  
         chrome.storage.local.get(['isDark'], function(result) {
           if(result.isDark){
             if(x.style.backgroundColor == "rgb(76, 78, 77)"){
-              x.style.backgroundColor = "rgb(255, 255, 0)" 
-              x.style.color = "rgb(0, 0, 0)" // the rgb value string is sensitive to spaces
+              x.style.backgroundColor = "rgb(90, 44, 182)" 
+              x.style.color = "rgb(255, 255, 255)"
               filter_tag_collector()
             }
             else{
@@ -420,11 +420,13 @@ document.getElementById('sc').addEventListener('click', function(){
             }
           }else{
             if(x.style.backgroundColor == "rgb(241, 241, 241)"){
-              x.style.backgroundColor = "rgb(255, 255, 0)" // the rgb value string is sensitive to spaces
+              x.style.backgroundColor = "rgb(90, 44, 182)"
+              x.style.color = "rgb(255, 255, 255)"
               filter_tag_collector()
             }
             else{
               x.style.backgroundColor = "rgb(241,241,241)"
+              x.style.color = "rgb(32, 33, 36)"
               filter_tag_collector()
             }
           }
@@ -439,7 +441,7 @@ document.getElementById('sc').addEventListener('click', function(){
         var tag_spans = document.getElementsByClassName("filter_tags")
         var filter_tags = []
         for(var i=0;i<tag_spans.length;i++){
-         if(tag_spans[i].style.backgroundColor=="rgb(255, 255, 0)"){
+         if(tag_spans[i].style.backgroundColor=="rgb(90, 44, 182)"){
               filter_tags.push(tag_spans[i].innerText)
          }
         }

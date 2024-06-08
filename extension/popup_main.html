@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="new_icon.png"/>
   <title>Netsips Web Clipper</title>
   <style>
     :root {
-      --google-blue: #1a73e8;
-      --google-blue-hover: #1557b0;
-      --google-blue-active: #174ea6;
-      --google-blue-surface: #e8f0fe;
-      --google-blue-border: #d2e3fc;
+      --brand-purple: #5a2cb6;
+      --brand-purple-hover: #4a2399;
+      --brand-purple-active: #3c1b7d;
+      --brand-purple-surface: #f3e8ff;
+      --brand-purple-border: #e9d5ff;
       --google-surface: #ffffff;
       --google-bg: #f8f9fa;
       --google-border: #dadce0;
@@ -59,8 +60,8 @@
     }
 
     .brand-logo {
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
       border-radius: var(--radius-sm);
       display: block;
     }
@@ -75,11 +76,11 @@
     .brand-badge {
       font-size: 11px;
       font-weight: 500;
-      background: var(--google-blue-surface);
-      color: var(--google-blue);
+      background: var(--brand-purple-surface);
+      color: var(--brand-purple);
       padding: 1px 7px;
       border-radius: 10px;
-      border: 1px solid var(--google-blue-border);
+      border: 1px solid var(--brand-purple-border);
     }
 
     .header-actions {
@@ -98,13 +99,13 @@
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      transition: background-color 0.15s ease;
+      transition: background-color 0.15s ease, color 0.15s ease;
       color: var(--google-text-secondary);
     }
 
     .icon-btn:hover {
-      background-color: rgba(60, 64, 67, 0.08);
-      color: var(--google-text-primary);
+      background-color: var(--brand-purple-surface);
+      color: var(--brand-purple);
     }
 
     .icon-btn svg {
@@ -230,8 +231,8 @@
     }
 
     .tag-input:focus {
-      border-color: var(--google-blue);
-      box-shadow: 0 0 0 1px var(--google-blue);
+      border-color: var(--brand-purple);
+      box-shadow: 0 0 0 1px var(--brand-purple);
     }
 
     .tag-input::placeholder {
@@ -259,14 +260,14 @@
     }
 
     .quick-chip:hover {
-      background: #e8eaed;
-      color: var(--google-text-primary);
+      background: var(--brand-purple-surface);
+      color: var(--brand-purple);
     }
 
     .quick-chip.selected {
-      background: var(--google-blue-surface);
-      color: var(--google-blue);
-      border-color: var(--google-blue-border);
+      background: var(--brand-purple-surface);
+      color: var(--brand-purple);
+      border-color: var(--brand-purple-border);
     }
 
     /* Save Button */
@@ -281,12 +282,12 @@
       font-size: 13.5px;
       font-weight: 500;
       color: #ffffff;
-      background: var(--google-blue);
+      background: var(--brand-purple);
       border: none;
       border-radius: var(--radius-pill);
       cursor: pointer;
       transition: background-color 0.15s ease, box-shadow 0.15s ease;
-      box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3);
+      box-shadow: 0 1px 2px 0 rgba(90, 44, 182, 0.3);
     }
 
     .btn-save svg {
@@ -296,12 +297,12 @@
     }
 
     .btn-save:hover {
-      background: var(--google-blue-hover);
-      box-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.3), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
+      background: var(--brand-purple-hover);
+      box-shadow: 0 1px 3px 0 rgba(90, 44, 182, 0.3), 0 2px 6px 2px rgba(90, 44, 182, 0.2);
     }
 
     .btn-save:active {
-      background: var(--google-blue-active);
+      background: var(--brand-purple-active);
     }
 
     .btn-save:disabled {
@@ -418,7 +419,7 @@
   <!-- Top Header -->
   <header class="app-header">
     <div class="brand-wrap">
-      <img class="brand-logo" src="images/extension_images/icon_128.png" alt="Netsips">
+      <img class="brand-logo" src="new_icon.png" alt="Netsips">
       <span class="brand-title">Netsips</span>
       <span class="brand-badge">Clipper</span>
     </div>
@@ -437,7 +438,7 @@
     <div id="hero-banner" class="card-banner"></div>
     <div class="card-body">
       <div class="banner-meta">
-        <img id="page-favicon" class="banner-favicon" src="images/extension_images/icon_128.png" alt="">
+        <img id="page-favicon" class="banner-favicon" src="new_icon.png" alt="">
         <span id="page-domain">Active Tab</span>
       </div>
       <div id="modal-content">

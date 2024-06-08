@@ -35,7 +35,9 @@ def generate_pdf(urls, output_path="netsips.pdf"):
     pdf.set_margins(left=30, top=20, right=30)
     pdf.add_page()
 
-    icon_path = os.path.join(ASSET_DIR, 'icon_128.png')
+    icon_path = os.path.join(ASSET_DIR, 'new_icon.png')
+    if not os.path.exists(icon_path):
+        icon_path = os.path.join(ASSET_DIR, 'icon_128.png')
     if os.path.exists(icon_path):
         image1 = pdf.add_link()
         pdf.set_link(image1, icon_path)

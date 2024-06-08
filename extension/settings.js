@@ -127,7 +127,7 @@ function displayCards(items) {
           </div>
           <div class="card-info-container">
             <div class="card-meta-row">
-              <span class="card_favicon"><img src="${icon}" alt="" onerror="this.src='images/extension_images/icon_128.png'"></span>
+              <span class="card_favicon"><img src="${icon}" alt="" onerror="this.src='new_icon.png'"></span>
               <span class="card_site">${domain}</span>
               <span class="card_date">${time}</span>
             </div>
@@ -351,7 +351,7 @@ function render_deleted() {
             </div>
             <div class="card-info-container">
               <div class="card-meta-row">
-                <span class="card_favicon"><img src="${icon}" alt="" onerror="this.src='images/extension_images/icon_128.png'"></span>
+                <span class="card_favicon"><img src="${icon}" alt="" onerror="this.src='new_icon.png'"></span>
                 <span class="card_site">${domain}</span>
                 <span class="card_date">${time}</span>
               </div>

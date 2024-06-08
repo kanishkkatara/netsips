@@ -88,7 +88,7 @@ function renderRecents() {
       card.target = '_blank';
       card.rel = 'noopener noreferrer';
       card.innerHTML = `
-        <img class="recent-favicon" src="${fav}" alt="" onerror="this.src='images/extension_images/icon_128.png'">
+        <img class="recent-favicon" src="${fav}" alt="" onerror="this.src='new_icon.png'">
         <div class="recent-details">
           <span class="recent-name">${title}</span>
           <span class="recent-domain">${domain}</span>
