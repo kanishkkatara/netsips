@@ -1,6 +1,6 @@
 # Netsips Backend
 
-The backend engine for **Netsips**, responsible for transforming saved bookmark collections into beautiful, curated digest newsletters (both responsive HTML and downloadable PDF formats) and dispatching them via SMTP.
+The backend engine for **Netsips**, responsible for transforming saved bookmark collections into beautiful, curated digest newsletters (both responsive HTML and downloadable PDF formats), serving a local HTTP webhook daemon, and dispatching digests via SMTP.
 
 ## Architecture
 
@@ -9,24 +9,30 @@ backend/
 ├── __init__.py           # Package marker
 ├── cli.py                # Command-line interface and workflow orchestrator
 ├── config.py             # Environment-based configuration dataclass
+├── daemon.py             # Local HTTP webhook server and background scheduler
 ├── main.py               # Package execution entrypoint (`python -m backend.main`)
 ├── netsips_v4/           # Core digest processing pipeline
 │   ├── netsips_html.py   # Responsive HTML newsletter generator & web scraper
 │   ├── netsips_pdf.py    # Multi-page PDF generation engine (FPDF)
-│   ├── netsips_mail.py   # Secure SMTP email sender with MIME multipart support
-│   └── netsips_v4_main.py # Legacy cloud database worker
+│   └── netsips_mail.py   # Secure SMTP email sender with MIME multipart support
 └── requirements.txt      # Python dependencies
 ```
 
 ## Features
 
 1. **Local-First & Offline Compatible**: Direct ingestion of exported JSON bookmarks from the Chrome extension (`LocalDB.exportData()` or browser bookmarks export).
-2. **Dual-Format Generation**:
+2. **Local HTTP Webhook / Daemon (`--daemon`)**:
+   - Zero-dependency `ThreadingHTTPServer` running locally on `http://127.0.0.1:8765`.
+   - Listens for triggers from the Chrome extension to build and send digests immediately (`POST /digest`).
+   - Syncs active bookmarks directly from the browser (`POST /sync`).
+   - Live browser preview endpoint (`GET /preview`).
+   - Integrated background thread scheduler that checks scheduled delivery days and hours automatically.
+3. **Dual-Format Generation**:
    - **HTML Digest**: Clean, responsive email layout with typography, source badges, read times, and article excerpts.
    - **PDF Newsletter**: Formatted multi-page document with cover page, table of contents, and internal page links.
-3. **Environment Security**: No hardcoded credentials; fully configurable via environment variables or `.env` files.
-4. **Dry-Run Mode**: Allows testing digest generation and parsing without sending real emails.
-5. **Graceful Degradation**: Missing optional dependencies (e.g. `fpdf`) or missing Firebase credentials do not crash the pipeline.
+4. **Environment Security**: No hardcoded credentials; fully configurable via environment variables or `.env` files.
+5. **Dry-Run Mode**: Allows testing digest generation and parsing without sending real emails.
+6. **Graceful Degradation**: Missing optional dependencies (e.g. `fpdf`) do not crash the pipeline.
 
 ## Installation
 
@@ -53,8 +59,32 @@ Copy `backend/.env.example` to `.env` or set environment variables in your shell
 | `RECIPIENT_EMAIL`| `""` | Destination email address for digest |
 | `DIGEST_OUTPUT_DIR`| `./dist` | Destination folder for generated HTML & PDF files |
 | `MAX_DIGEST_ARTICLES`| `15` | Maximum number of articles per newsletter issue |
-| `FIREBASE_DATABASE_URL`| `""` | Optional Firebase database URL (legacy sync) |
-| `FIREBASE_CREDENTIALS_PATH`| `./firebase-sdk.json` | Optional Firebase service account key |
+| `DAEMON_PORT` | `8765` | Local webhook daemon HTTP port |
+| `DAEMON_HOST` | `127.0.0.1` | Local webhook daemon bind address |
+| `SCHEDULE_DAYS` | `everyday` | Scheduled delivery days (`everyday`, `weekdays`, or `monday,friday`) |
+| `SCHEDULE_HOUR` | `8` | Hour of day (0-23) to trigger scheduled digest |
+
+## Running the Webhook Daemon
+
+To run the local background service listening for triggers from the Chrome extension and evaluating the delivery schedule:
+
+```bash
+python3 -m backend.main --daemon
+```
+
+Custom port and host:
+```bash
+python3 -m backend.main --daemon --port 8765 --host 127.0.0.1
+```
+
+### Daemon HTTP Endpoints
+
+| Endpoint | Method | Description |
+|---|---|---|
+| `/health` or `/status` | `GET` | Health check returning daemon uptime, configuration, and scheduler status |
+| `/preview` | `GET` | Renders the latest generated HTML digest newsletter directly in the browser |
+| `/digest` | `POST` | Compiles a digest from received `{ bookmarks: [...] }` or synced cache and dispatches email |
+| `/sync` | `POST` | Receives active bookmarks from extension and saves to local storage |
 
 ## CLI Usage
 

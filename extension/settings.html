@@ -894,6 +894,31 @@
         </form>
       </div>
 
+      <!-- Local Daemon & Webhook -->
+      <div class="settings-view-card">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px;">
+          <div>
+            <h2 class="settings-section-title">Local Digest Daemon & Webhook</h2>
+            <p class="settings-section-desc" style="margin-bottom: 0;">Run <code>python3 -m backend.main --daemon</code> on your computer to automatically compile digests on schedule and receive triggers.</p>
+          </div>
+          <span id="daemon_status_pill" style="font-size: 11.5px; font-weight: 500; padding: 3px 10px; border-radius: 12px; background: #f1f3f4; color: #5f6368; white-space: nowrap;">
+            Checking...
+          </span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 16px;">
+          <button id="trigger_daemon_btn" class="btn-submit-primary">
+            <span>⚡ Send Digest Now via Daemon</span>
+          </button>
+          <button id="sync_daemon_btn" class="btn-action-del" style="color: var(--brand-purple); border-color: var(--brand-purple-border);">
+            <span>Sync Bookmarks to Daemon</span>
+          </button>
+          <a id="preview_daemon_link" href="http://127.0.0.1:8765/preview" target="_blank" rel="noopener noreferrer" class="btn-action-del" style="display: none; text-decoration: none; color: var(--google-text-primary);">
+            <span>Preview HTML Digest ↗</span>
+          </a>
+          <span id="daemon_trigger_status" style="font-size: 12.5px; font-weight: 500; color: #1e8e3e; margin-left: 4px;"></span>
+        </div>
+      </div>
+
       <!-- Homepage Switch -->
       <div class="settings-view-card">
         <div class="switch-row" id="home_mode_switch">

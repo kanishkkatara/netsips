@@ -10,6 +10,3 @@ python-dotenv>=1.0.0
 
 # Testing & Development
 pytest>=7.0.0
-
-# Optional Legacy Firebase Support
-firebase-admin>=5.0.0

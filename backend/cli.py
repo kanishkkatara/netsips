@@ -132,6 +132,22 @@ def main():
         help="Send compiled digest to recipient via SMTP"
     )
     parser.add_argument(
+        "--daemon",
+        action="store_true",
+        help="Run local HTTP webhook and scheduler daemon (default: http://127.0.0.1:8765)"
+    )
+    parser.add_argument(
+        "--port",
+        type=int,
+        default=None,
+        help="Port for local webhook daemon (default: 8765)"
+    )
+    parser.add_argument(
+        "--host",
+        default=None,
+        help="Host address for local webhook daemon (default: 127.0.0.1)"
+    )
+    parser.add_argument(
         "-v", "--verbose",
         action="store_true",
         help="Enable verbose debugging logs"
@@ -141,6 +157,14 @@ def main():
 
     if args.verbose:
         logger.setLevel(logging.DEBUG)
+
+    if args.daemon:
+        from backend.daemon import run_daemon
+        cfg = Config.from_env()
+        host = args.host or cfg.daemon_host
+        port = args.port or cfg.daemon_port
+        run_daemon(host=host, port=port, config=cfg)
+        return
 
     urls = list(args.urls)
     if args.input:

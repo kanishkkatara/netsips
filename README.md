@@ -24,6 +24,7 @@ netsips/
 │   ├── main.py                # Main CLI entrypoint
 │   ├── cli.py                 # Argument parser & digest execution pipeline
 │   ├── config.py              # Environment configuration loader
+│   ├── daemon.py              # Local HTTP webhook daemon & background scheduler
 │   ├── requirements.txt       # Production dependencies
 │   ├── .env.example           # Environment variables template
 │   └── netsips_v4/            # Active production digest modules (PDF, HTML, SMTP)
@@ -44,7 +45,7 @@ netsips/
 3. Click **Load unpacked** and select the [`extension/`](./extension) directory.
 4. The Netsips icon will appear in your toolbar. All bookmarks are saved locally into your browser's private **IndexedDB** database.
 
-### 2. Backend Digest Engine (`backend/`)
+### 2. Backend Digest Engine & Webhook Daemon (`backend/`)
 
 #### Setup Environment:
 ```bash
@@ -53,6 +54,13 @@ source venv/bin/activate
 pip install -r backend/requirements.txt
 cp .env.example .env
 ```
+
+#### Run Local Webhook Daemon:
+Run the background service listening for triggers from the Chrome extension and checking automated delivery schedules:
+```bash
+python3 -m backend.main --daemon
+```
+The daemon runs on `http://127.0.0.1:8765`, enabling the Chrome extension Settings UI to test connections, sync active bookmarks, render live HTML previews, and trigger instant digest generation.
 
 #### Run CLI Digest Pipeline:
 
@@ -76,7 +84,7 @@ python3 -m backend.main --input exported_bookmarks.json --recipient user@example
 ## 🧪 Running Automated Tests
 
 ### Backend Test Suite (Python)
-Run all 8 automated unit tests covering configuration, CLI JSON parsing, HTML templating, and mock SMTP:
+Run all automated unit tests covering configuration, daemon endpoints, scheduler, CLI JSON parsing, HTML templating, and mock SMTP:
 ```bash
 python3 -m unittest discover -s tests -v
 ```
@@ -108,6 +116,10 @@ Configuration settings are loaded from `.env` or the system environment:
 | `RECIPIENT_EMAIL` | `user@example.com` | Default recipient email address |
 | `DIGEST_OUTPUT_DIR` | `./dist` | Output path for PDF and HTML digests |
 | `MAX_DIGEST_ARTICLES` | `15` | Maximum number of articles per digest |
+| `DAEMON_PORT` | `8765` | Local webhook daemon HTTP port |
+| `DAEMON_HOST` | `127.0.0.1` | Local webhook daemon bind address |
+| `SCHEDULE_DAYS` | `everyday` | Scheduled delivery days (`everyday`, `weekdays`, or `monday,friday`) |
+| `SCHEDULE_HOUR` | `8` | Hour of day (0-23) to trigger scheduled digest |
 
 ---
 

@@ -30,9 +30,11 @@ class Config:
     max_articles_per_digest: int = 15
     default_delivery_day: int = 6
 
-    # Legacy Firebase Settings (Optional)
-    firebase_db_url: str = ""
-    firebase_credentials_path: Optional[str] = "./firebase-sdk.json"
+    # Daemon & Webhook Settings
+    daemon_host: str = "127.0.0.1"
+    daemon_port: int = 8765
+    daemon_schedule_days: str = "0 1 2 3 4 5 6"
+    daemon_schedule_hour: int = 8
 
     @classmethod
     def from_env(cls) -> "Config":
@@ -47,6 +49,8 @@ class Config:
             digest_output_dir=os.environ.get("DIGEST_OUTPUT_DIR", "./dist"),
             max_articles_per_digest=int(os.environ.get("MAX_DIGEST_ARTICLES", 15)),
             default_delivery_day=int(os.environ.get("DEFAULT_DELIVERY_DAY", 6)),
-            firebase_db_url=os.environ.get("FIREBASE_DATABASE_URL", ""),
-            firebase_credentials_path=os.environ.get("FIREBASE_CREDENTIALS_PATH", "./firebase-sdk.json"),
+            daemon_host=os.environ.get("DAEMON_HOST", "127.0.0.1"),
+            daemon_port=int(os.environ.get("DAEMON_PORT", 8765)),
+            daemon_schedule_days=os.environ.get("DAEMON_SCHEDULE_DAYS", "0 1 2 3 4 5 6"),
+            daemon_schedule_hour=int(os.environ.get("DAEMON_SCHEDULE_HOUR", 8)),
         )

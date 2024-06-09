@@ -671,8 +671,174 @@ function initApp() {
     });
   }
 
+  // Initialize Local Digest Daemon & Webhook controls
+  initDaemonControls();
+  checkDaemonStatus();
+
   // Render bookmarks immediately
   renderSavedBookmarks();
+}
+
+// -------------------------------------------------------------
+// LOCAL DIGEST DAEMON & WEBHOOK INTEGRATION
+// -------------------------------------------------------------
+var DAEMON_URL = 'http://127.0.0.1:8765';
+
+function checkDaemonStatus() {
+  var pill = document.getElementById('daemon_status_pill');
+  var previewLink = document.getElementById('preview_daemon_link');
+  if (!pill) return;
+
+  var controller = new AbortController();
+  var timeoutId = setTimeout(function() { controller.abort(); }, 2500);
+
+  fetch(DAEMON_URL + '/health', { method: 'GET', signal: controller.signal })
+    .then(function(res) {
+      clearTimeout(timeoutId);
+      if (res.ok) return res.json();
+      throw new Error('HTTP ' + res.status);
+    })
+    .then(function(data) {
+      pill.style.background = '#e6f4ea';
+      pill.style.color = '#137333';
+      pill.innerText = '● Daemon Online (Port 8765)';
+      pill.title = 'Uptime: ' + Math.round(data.uptime_seconds || 0) + 's | Cached: ' + (data.bookmarks_cached || 0);
+      if (previewLink) previewLink.style.display = 'inline-flex';
+    })
+    .catch(function() {
+      pill.style.background = '#f1f3f4';
+      pill.style.color = '#5f6368';
+      pill.innerText = '○ Daemon Offline';
+      pill.title = 'Start service with: python3 -m backend.main --daemon';
+      if (previewLink) previewLink.style.display = 'none';
+    });
+}
+
+function initDaemonControls() {
+  var triggerBtn = document.getElementById('trigger_daemon_btn');
+  var syncBtn = document.getElementById('sync_daemon_btn');
+  var statusSpan = document.getElementById('daemon_trigger_status');
+  var pill = document.getElementById('daemon_status_pill');
+
+  if (pill) {
+    pill.style.cursor = 'pointer';
+    pill.addEventListener('click', function() {
+      if (statusSpan) {
+        statusSpan.style.color = '#5f6368';
+        statusSpan.innerText = 'Checking daemon status...';
+      }
+      checkDaemonStatus();
+      setTimeout(function() {
+        if (statusSpan && statusSpan.innerText === 'Checking daemon status...') {
+          statusSpan.innerText = '';
+        }
+      }, 1500);
+    });
+  }
+
+  function getActiveBookmarks() {
+    if (typeof LocalDB !== 'undefined' && LocalDB.bookmarks) {
+      return LocalDB.bookmarks.getAll({ status: 100 });
+    }
+    return new Promise(function(resolve) {
+      chrome.storage.local.get({ list: [] }, function(data) {
+        resolve(data.list || []);
+      });
+    });
+  }
+
+  if (syncBtn) {
+    syncBtn.addEventListener('click', function() {
+      syncBtn.disabled = true;
+      if (statusSpan) {
+        statusSpan.style.color = '#5f6368';
+        statusSpan.innerText = 'Syncing bookmarks...';
+      }
+
+      getActiveBookmarks().then(function(bookmarks) {
+        return fetch(DAEMON_URL + '/sync', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ bookmarks: bookmarks })
+        });
+      })
+      .then(function(res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function(data) {
+        syncBtn.disabled = false;
+        if (statusSpan) {
+          statusSpan.style.color = '#137333';
+          statusSpan.innerText = '✓ Synced ' + (data.count || 0) + ' bookmarks!';
+          setTimeout(function() { statusSpan.innerText = ''; }, 3500);
+        }
+        checkDaemonStatus();
+      })
+      .catch(function() {
+        syncBtn.disabled = false;
+        if (statusSpan) {
+          statusSpan.style.color = '#d93025';
+          statusSpan.innerText = 'Sync failed. Is daemon running?';
+          setTimeout(function() { statusSpan.innerText = ''; }, 4000);
+        }
+        checkDaemonStatus();
+      });
+    });
+  }
+
+  if (triggerBtn) {
+    triggerBtn.addEventListener('click', function() {
+      triggerBtn.disabled = true;
+      var originalHtml = triggerBtn.innerHTML;
+      triggerBtn.innerHTML = '<span>⏳ Processing Digest...</span>';
+      if (statusSpan) {
+        statusSpan.style.color = '#5f6368';
+        statusSpan.innerText = 'Daemon compiling newsletter...';
+      }
+
+      getActiveBookmarks().then(function(bookmarks) {
+        return fetch(DAEMON_URL + '/digest', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            bookmarks: bookmarks,
+            send_email: true
+          })
+        });
+      })
+      .then(function(res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function(data) {
+        triggerBtn.disabled = false;
+        triggerBtn.innerHTML = originalHtml;
+        if (statusSpan) {
+          statusSpan.style.color = '#137333';
+          var count = data.articles_processed || 0;
+          var msg = '✓ Digest created (' + count + ' articles)';
+          if (data.email_sent) msg += ' & sent to inbox!';
+          else msg += '!';
+          statusSpan.innerText = msg;
+          setTimeout(function() { statusSpan.innerText = ''; }, 5000);
+        }
+        var previewLink = document.getElementById('preview_daemon_link');
+        if (previewLink) previewLink.style.display = 'inline-flex';
+        checkDaemonStatus();
+      })
+      .catch(function() {
+        triggerBtn.disabled = false;
+        triggerBtn.innerHTML = originalHtml;
+        if (statusSpan) {
+          statusSpan.style.color = '#d93025';
+          statusSpan.innerText = 'Daemon trigger failed. Is daemon running?';
+          setTimeout(function() { statusSpan.innerText = ''; }, 4500);
+        }
+        checkDaemonStatus();
+      });
+    });
+  }
 }
 
 // Fail-safe immediate load
@@ -681,3 +847,4 @@ if (document.readyState === 'loading') {
 } else {
   initApp();
 }
+
